@@ -40,6 +40,7 @@
         float _EdgeWidth;
         float4 _EdgeColor;
         float _EdgeColorIntensity;
+        float _DissolveClipOn;
     #endif
 
     #if defined(OFFSET_ON)
@@ -149,7 +150,9 @@
             cutoff = lerp(-0.1,1.01,cutoff);
 
             half a = gray - cutoff;
-            clip(a);
+
+            if(_DissolveClipOn)
+                clip(a);
 
             #if defined(DISSOLVE_EDGE_ON)
                 half edgeWidth = _DissolveEdgeWidthBy_Custom1 > 0? edgeWidthCDATA : _EdgeWidth;

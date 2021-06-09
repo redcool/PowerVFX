@@ -44,6 +44,7 @@ Shader "ZX/FX/PowerVFXShader"
 		_DissolveTex("Dissolve Tex",2d)=""{}
 		[Toggle]_DissolveTexOffsetStop("_DissolveTexOffsetStop ?",int) = 0
 		[Toggle]_DissolveTexUseR("_DisolveTexUse R(uncheck use A)?",int)=0
+		[Toggle]_DissolveClipOn("_DissolveClipOn",int) = 1
 		
 		[Header(DissolveType)]
 		[Toggle]_DissolveByVertexColor("Dissolve By Vertex Color ?",int)=0

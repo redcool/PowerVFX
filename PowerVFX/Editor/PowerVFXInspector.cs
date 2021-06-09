@@ -28,7 +28,7 @@ namespace PowerVFX
             new []{ "_DoubleEffectOn", "_CullMode", "_ZWriteMode"},
             new []{ "_MainTex", "_MainTexOffsetStop", "_MainTexOffsetUseCustomData_XY", "_Color","_ColorScale", "_MainTexMask","_MainTexMaskOffsetStop","_MainTexMaskUseR" ,"_MainTexUseScreenColor"},
             new []{ "_DistortionOn", "_NoiseTex","_NoiseTex2", "_DistortionMaskTex", "_DistortionMaskUseR", "_DistortionIntensity", "_DistortTile", "_DistortDir",},
-            new []{ "_DissolveOn","_DissolveRevert", "_DissolveTex","_DissolveTexOffsetStop", "_DissolveTexUseR", "_DissolveByVertexColor", "_DissolveByCustomData", "_Cutoff", "_DissolveEdgeOn","_DissolveEdgeWidthBy_Custom1", "_EdgeWidth", "_EdgeColor","_EdgeColorIntensity"},
+            new []{ "_DissolveOn","_DissolveRevert", "_DissolveTex","_DissolveTexOffsetStop", "_DissolveTexUseR", "_DissolveByVertexColor", "_DissolveByCustomData","_DissolveClipOn", "_Cutoff", "_DissolveEdgeOn","_DissolveEdgeWidthBy_Custom1", "_EdgeWidth", "_EdgeColor","_EdgeColorIntensity"},
             new []{ "_OffsetOn", "_OffsetTex", "_OffsetMaskTex", "_OffsetMaskTexUseR", "_OffsetTexColorTint", "_OffsetTexColorTint2", "_OffsetTile", "_OffsetDir", "_BlendIntensity", "_OffsetHeightMap", "_OffsetHeight"},
             new []{ "_FresnalOn", "_FresnalColor", "_FresnalPower", "_FresnalTransparentOn","_FresnalTransparent" },
             new []{ "_EnvReflectOn", "_EnvMap","_EnvMapMask", "_EnvMapMaskUseR", "_EnvIntensity" ,"_EnvOffset"},
