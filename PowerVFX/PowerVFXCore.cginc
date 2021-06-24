@@ -71,7 +71,7 @@
         half4 edgeColor = (half4)0;
 
         if(_PixelDissolveOn){
-            dissolveUV -= 0.5;
+            dissolveUV = abs( dissolveUV - 0.5);
             dissolveUV = round(dissolveUV * 10)/10;
         }
 
