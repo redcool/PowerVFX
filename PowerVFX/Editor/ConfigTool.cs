@@ -6,6 +6,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
+using System.Linq;
 
 namespace PowerVFX
 {
@@ -15,7 +16,19 @@ namespace PowerVFX
     /// </summary>
     public static class ConfigTool
     {
-        static string FindI18NPath(string configPath,string configFileName="i18n.txt",int maxFindCount=10)
+        /// <summary>
+        /// * = *
+        /// </summary>
+        static Regex kvRegex = new Regex(@"\s*=\s*");
+
+        /// <summary>
+        /// 从configPath开始找configFileName文件,一直找到Assets目录
+        /// </summary>
+        /// <param name="configPath"></param>
+        /// <param name="configFileName"></param>
+        /// <param name="maxFindCount"></param>
+        /// <returns></returns>
+        public static string FindPathRecursive(string configPath,string configFileName="i18n.txt",int maxFindCount=10)
         {
             var pathDir = Path.GetDirectoryName(configPath);
             var filePath = "";
@@ -30,9 +43,18 @@ namespace PowerVFX
             return filePath;
         }
 
-        public static Dictionary<string,string> ReadConfig(string configFilePath)
+        /// <summary>
+        /// key=value的配置文件读入到内存.
+        /// 
+        /// dict 结构为
+        /// {
+        ///     key1 = *1,*2
+        /// }
+        /// </summary>
+        /// <param name="configFilePath"></param>
+        /// <returns></returns>
+        public static Dictionary<string,string> ReadKeyValueConfig(string configFilePath)
         {
-            var splitRegex = new Regex(@"\s*=\s*");
             var dict = new Dictionary<string, string>();
             if (!string.IsNullOrEmpty(configFilePath))
             {
@@ -43,7 +65,7 @@ namespace PowerVFX
                     if (string.IsNullOrEmpty(line) || line.StartsWith("//"))
                         continue;
 
-                    var kv = splitRegex.Split(line);
+                    var kv = kvRegex.Split(line);
                     if (kv.Length > 1)
                         dict[kv[0]] = kv[1];
                 }
@@ -51,11 +73,16 @@ namespace PowerVFX
             return dict;
         }
 
-        public static Dictionary<string, string> ReadConfig(Shader shader)
+        public static string[] SplitBy(string line,char splitChar=',')
         {
-            var shaderFilePath = AssetDatabase.GetAssetPath(shader);
-            var i18nFilePath = FindI18NPath(shaderFilePath);
-            return ReadConfig(i18nFilePath);
+            var vs = line.Split(splitChar);
+            return vs.Select(v => v.Trim()).ToArray();
+        }
+
+        public static Dictionary<string, string> ReadI18NConfig(string shaderFilePath)
+        {
+            var i18nFilePath = FindPathRecursive(shaderFilePath);
+            return ReadKeyValueConfig(i18nFilePath);
         }
 
         public static Dictionary<string, MaterialProperty> CacheProperties(MaterialProperty[] properties)

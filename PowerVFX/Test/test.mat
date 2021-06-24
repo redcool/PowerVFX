@@ -4,12 +4,13 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: test
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
-  m_ShaderKeywords: _DISTORTIONMASKUSER_ON _ENVMAPMASKUSER_ON _MAINTEXMASKUSER_ON
-    _OFFSETMASKTEXUSER_ON
+  m_ShaderKeywords: DISSOLVE_EDGE_ON DISSOLVE_ON _DISSOLVETEXOFFSETSTOP_ON _DISTORTIONMASKUSER_ON
+    _ENVMAPMASKUSER_ON _MAINTEXMASKUSER_ON _OFFSETMASKTEXUSER_ON _ZWRITEMODE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -19,31 +20,11 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _DissolveTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: fb97621fd528a74428f14fc5342cc870, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortionMaskTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -56,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 22a6c73e48b5c2041a963abf70220ecc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexMask:
@@ -64,18 +45,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCapTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1de38ecbe48d87b48a8d10c48ca8ec59, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: e47c8dbaf0c7e0548bfd4fa0c8195635, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
+    - _NoiseTex2:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -84,66 +61,62 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OffsetTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 843b155472439a94c9325a26d8e75d5f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlendIntensity: 0.5
-    - _BumpScale: 1
+    - _BlendIntensity: 1.82
     - _ColorScale: 1
     - _CullMode: 0
-    - _Cutoff: 0.5
-    - _DetailNormalMapScale: 1
+    - _Cutoff: 0.614
     - _DissolveByCustomData: 0
     - _DissolveByVertexColor: 0
-    - _DissolveEdgeOn: 0
-    - _DissolveOn: 0
+    - _DissolveEdgeOn: 1
+    - _DissolveEdgeWidthBy_Custom1: 0
+    - _DissolveOn: 1
+    - _DissolveRevert: 0
+    - _DissolveTexOffsetStop: 1
     - _DissolveTexUseR: 0
-    - _DistortionIntensity: 0.5
+    - _DistortionIntensity: 2.82
     - _DistortionMaskUseR: 1
     - _DistortionOn: 0
     - _DoubleEffectOn: 0
-    - _DstBlend: 0
     - _DstMode: 10
     - _EdgeColorIntensity: 1
-    - _EdgeWidth: 0.1
+    - _EdgeWidth: 0.014
     - _EnvIntensity: 1
     - _EnvMapMaskUseR: 1
     - _EnvReflectOn: 0
     - _FresnalOn: 0
-    - _FresnalPower: 0.5
-    - _FresnalTransparent: 0
+    - _FresnalPower: 0.222
+    - _FresnalTransparent: 0.002
     - _FresnalTransparentOn: 0
-    - _Glossiness: 0.5
+    - _FresnelOn: 0
+    - _FresnelPower: 0.5
+    - _FresnelTransparent: 0
+    - _FresnelTransparentOn: 0
+    - _Language: 0
+    - _MainTexMaskOffsetStop: 0
     - _MainTexMaskUseR: 1
     - _MainTexOffsetStop: 0
     - _MainTexOffsetUseCustomData_XY: 0
     - _MainTexUseScreenColor: 0
     - _MatCapIntensity: 0
-    - _Metallic: 0
-    - _Mode: 0
-    - _OcclusionStrength: 1
     - _OffsetMaskTexUseR: 1
     - _OffsetOn: 0
-    - _Parallax: 0.02
-    - _SrcBlend: 1
+    - _PixelDissolveOn: 0
     - _SrcMode: 5
-    - _UVSec: 0
-    - _ZWrite: 1
-    - _ZWriteMode: 0
+    - _ZWriteMode: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DistortDir: {r: 0, g: 1, b: 0, a: -1}
     - _DistortTile: {r: 1, g: 1, b: 1, a: 1}
     - _EdgeColor: {r: 1, g: 0, b: 0, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EnvOffset: {r: 0, g: 0, b: 0, a: 0}
     - _FresnalColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OffsetDir: {r: 1, g: 1, b: 0, a: 0}
+    - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OffsetDir: {r: 1, g: 5, b: 0, a: 0}
     - _OffsetTexColorTint: {r: 1, g: 1, b: 1, a: 1}
     - _OffsetTexColorTint2: {r: 1, g: 1, b: 1, a: 1}
-    - _OffsetTile: {r: 1, g: 1, b: 1, a: 1}
+    - _OffsetTile: {r: 10, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

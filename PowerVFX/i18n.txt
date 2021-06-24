@@ -1,4 +1,4 @@
-// PowerVFX配置文件
+// PowerVFX 中文配置文件
 
 //Help行,约定 | 为换行字符
 Help=PowerVFX|设置主纹理的offset,将执行自动纹理滚动,勾上'禁用主纹理自动滚动'可关闭|使用customData控制|xy分量用于主纹理uv滚动|z用于流光纹理uv滚动
@@ -6,9 +6,9 @@ Settings = 设置
 ShowOriginalPage = 显示原始页面
 Main = 基础
 Distortion = 扭曲
-Dissovle = 溶解
+Dissolve = 溶解
 Offset = 流光
-Fresnal = 轮廓光
+Fresnel = 轮廓光
 EnvReflect=环境
 
 _DoubleEffectOn=开启双层效果?
@@ -16,7 +16,7 @@ _CullMode=剔除模式
 _ZWriteMode=写入深度?
 PresetBlendMode=预制混合模式
 
-_MainTex=主纹理
+_MainTex=主纹理(设置Offset将自动滚动)
 _MainTexOffsetStop=禁用主纹理自动滚动?
 _MainTexOffsetUseCustomData_XY=纹理滚动使用CustomData.xy->uv.zw
 _Color=主纹理颜色
@@ -24,7 +24,7 @@ _ColorScale=主纹理颜色倍数
 _MainTexMask=主纹理遮罩
 _MainTexMaskOffsetStop=主纹理遮罩自动滚动停止
 _MainTexMaskUseR=遮罩使用R通道?
-
+_MainTexUseScreenColor=主纹理使用屏幕颜色(需_CameraOpaqueTexture)
 
 _DistortionOn=开启扭曲
 _NoiseTex=杂点图
@@ -37,12 +37,12 @@ _DistortDir=方向(xy:1层,zw:2层)
 
 _DissolveOn=开启溶解?
 _DissolveRevert=反向溶解?
-_DissolveTex=溶解图
+_DissolveTex=溶解图(设置Offset将自动滚动)
+_DissolveTexOffsetStop=禁止溶解自动滚动
 _DissolveTexUseR=使用溶解图R通道?
 _DissolveByVertexColor=溶解使用顶点颜色(A)
 _DissolveByCustomData=溶解使用CustomData.z->uv1.x?
 _Cutoff=镂空值
-_DissolveClipOn=像素剔除?
 
 _DissolveEdgeOn=开启溶解边?
 _DissolveEdgeWidthBy_Custom1=溶解边受(CustomData.w->uv1.有)控制?
@@ -61,10 +61,11 @@ _OffsetTile=平铺(xy:1层,zw:2层)
 _OffsetDir=方向(xy:1层,zw:2层)
 _BlendIntensity=混合强度
 
-_FresnalOn=开启轮廓光
-_FresnalColor=轮廓光颜色
-_FresnalPower=轮廓宽度
-_FresnalTransparentOn=轮廓中心透明
+_FresnelOn=开启轮廓光
+_FresnelColor=轮廓光颜色
+_FresnelPower=轮廓宽度
+_FresnelTransparentOn=轮廓中心透明
+_FresnelTransparent=透明度
 
 _EnvReflectOn=开启环境反射
 _EnvMap=环境cube

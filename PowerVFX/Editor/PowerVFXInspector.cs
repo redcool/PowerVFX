@@ -28,20 +28,19 @@ namespace PowerVFX
             new []{ "_DoubleEffectOn", "_CullMode", "_ZWriteMode"},
             new []{ "_MainTex", "_MainTexOffsetStop", "_MainTexOffsetUseCustomData_XY", "_Color","_ColorScale", "_MainTexMask","_MainTexMaskOffsetStop","_MainTexMaskUseR" ,"_MainTexUseScreenColor"},
             new []{ "_DistortionOn", "_NoiseTex","_NoiseTex2", "_DistortionMaskTex", "_DistortionMaskUseR", "_DistortionIntensity", "_DistortTile", "_DistortDir",},
-            new []{ "_DissolveOn","_DissolveRevert", "_DissolveTex","_DissolveTexOffsetStop", "_DissolveTexUseR", "_DissolveByVertexColor", "_DissolveByCustomData","_DissolveClipOn", "_Cutoff", "_DissolveEdgeOn","_DissolveEdgeWidthBy_Custom1", "_EdgeWidth", "_EdgeColor","_EdgeColorIntensity"},
+            new []{ "_DissolveOn","_DissolveRevert", "_DissolveTex","_DissolveTexOffsetStop", "_DissolveTexUseR", "_DissolveByVertexColor", "_DissolveByCustomData", "_Cutoff", "_DissolveEdgeOn","_DissolveEdgeWidthBy_Custom1", "_EdgeWidth", "_EdgeColor","_EdgeColorIntensity"},
             new []{ "_OffsetOn", "_OffsetTex", "_OffsetMaskTex", "_OffsetMaskTexUseR", "_OffsetTexColorTint", "_OffsetTexColorTint2", "_OffsetTile", "_OffsetDir", "_BlendIntensity", "_OffsetHeightMap", "_OffsetHeight"},
             new []{ "_FresnalOn", "_FresnalColor", "_FresnalPower", "_FresnalTransparentOn","_FresnalTransparent" },
             new []{ "_EnvReflectOn", "_EnvMap","_EnvMapMask", "_EnvMapMaskUseR", "_EnvIntensity" ,"_EnvOffset"},
             new []{ "_MatCapTex", "_MatCapIntensity"}
         };
 
-        int selectedId;
+        int selectedTabId;
         bool showOriginalPage;
 
         const string POWERVFX_SELETECTED_ID = "PowerVFX_SeletectedId";
-        const int PRESET_BLEND_MODE_TAB_ID = 0;
+        const int SETTING_TAB_ID = 0; // preset blend mode 显示在 0 号tab页
 
-        PresetBlendMode presetBlendMode;
         Dictionary<PresetBlendMode, BlendMode[]> blendModeDict;
         Dictionary<string, MaterialProperty> propDict;
         Dictionary<string, string> propNameTextDict;
@@ -50,6 +49,11 @@ namespace PowerVFX
         string helpStr;
         string[] tabNamesInConfig;
         Shader lastShader;
+
+        MaterialEditor materialEditor;
+        MaterialProperty[] materialProperties;
+        PresetBlendMode presetBlendMode;
+        int languageId;
 
         public PowerVFXInspector()
         {
@@ -65,6 +69,9 @@ namespace PowerVFX
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
         {
+            this.materialEditor = materialEditor;
+            materialProperties = properties;
+
             var mat = materialEditor.target as Material;
             propDict = ConfigTool.CacheProperties(properties);
 
@@ -102,7 +109,7 @@ namespace PowerVFX
         /// </summary>
         private void DrawPageDetail(MaterialEditor materialEditor, Material mat)
         {
-            var propNames = propNameList[selectedId];
+            var propNames = propNameList[selectedTabId];
             foreach (var propName in propNames)
             {
                 if (!propDict.ContainsKey(propName))
@@ -112,8 +119,10 @@ namespace PowerVFX
                 materialEditor.ShaderProperty(prop, ConfigTool.Text(propNameTextDict, prop.name));
             }
 
-            if (selectedId == PRESET_BLEND_MODE_TAB_ID && IsPowerVFXShader(mat))
+            if (selectedTabId == SETTING_TAB_ID && IsPowerVFXShader(mat))
+            {
                 DrawBlendMode(mat);
+            }
         }
 
         private static bool IsPowerVFXShader(Material mat)
@@ -124,9 +133,9 @@ namespace PowerVFX
         private void DrawPageTabs()
         {
             //cache selectedId
-            selectedId = EditorPrefs.GetInt(POWERVFX_SELETECTED_ID, selectedId);
-            selectedId = GUILayout.Toolbar(selectedId, tabNamesInConfig);
-            EditorPrefs.SetInt(POWERVFX_SELETECTED_ID, selectedId);
+            selectedTabId = EditorPrefs.GetInt(POWERVFX_SELETECTED_ID, selectedTabId);
+            selectedTabId = GUILayout.Toolbar(selectedTabId, tabNamesInConfig);
+            EditorPrefs.SetInt(POWERVFX_SELETECTED_ID, selectedTabId);
         }
 
         private void OnInit(Material mat,MaterialProperty[] properties)
@@ -134,12 +143,36 @@ namespace PowerVFX
             if(IsPowerVFXShader(mat))
                 presetBlendMode = GetPresetBlendMode(mat);
 
-            propNameTextDict = ConfigTool.ReadConfig(mat.shader);
+            var shaderFilePath = AssetDatabase.GetAssetPath(mat.shader);
+            SetupLayout(shaderFilePath);
 
+            propNameTextDict = ConfigTool.ReadI18NConfig(shaderFilePath);
 
             helpStr = ConfigTool.Text(propNameTextDict,"Help").Replace('|','\n');
 
             tabNamesInConfig = tabNames.Select(item => ConfigTool.Text(propNameTextDict, item)).ToArray();
+        }
+
+        private void SetupLayout(string shaderFilePath)
+        {
+            var layoutConfigPath = ConfigTool.FindPathRecursive(shaderFilePath, "PowerVFXLayout.txt");
+            var dict = ConfigTool.ReadKeyValueConfig(layoutConfigPath);
+
+            if (!dict.TryGetValue("tabNames", out var tabNamesLine))
+                return;
+
+            // for tabNames
+            tabNames = ConfigTool.SplitBy(tabNamesLine);
+
+            // for tab contents
+            propNameList.Clear();
+            for (int i = 0; i < tabNames.Length; i++)
+            {
+                var tabName = tabNames[i];
+                var propNamesLine = dict[tabName];
+                var propNames = ConfigTool.SplitBy(propNamesLine);
+                propNameList.Add(propNames);
+            }
         }
 
         void DrawBlendMode(Material mat)
