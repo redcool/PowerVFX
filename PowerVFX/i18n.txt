@@ -43,6 +43,8 @@ _DissolveTexUseR=使用溶解图R通道?
 _DissolveByVertexColor=溶解使用顶点颜色(A)
 _DissolveByCustomData=溶解使用CustomData.z->uv1.x?
 _Cutoff=镂空值
+_PixelDissolveOn=像素化溶解?
+_PixelWidth=像素化宽
 
 _DissolveEdgeOn=开启溶解边?
 _DissolveEdgeWidthBy_Custom1=溶解边受(CustomData.w->uv1.有)控制?

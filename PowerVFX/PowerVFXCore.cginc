@@ -72,7 +72,7 @@
 
         if(_PixelDissolveOn){
             dissolveUV = abs( dissolveUV - 0.5);
-            dissolveUV = round(dissolveUV * 10)/10;
+            dissolveUV = round(dissolveUV * _PixelWidth)/_PixelWidth;
         }
 
         half4 dissolveTex = tex2D(_DissolveTex,dissolveUV.xy);

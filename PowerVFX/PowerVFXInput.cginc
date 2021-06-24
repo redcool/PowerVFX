@@ -48,6 +48,7 @@
         float _Cutoff;
 
         float _PixelDissolveOn;
+        float _PixelWidth;
 
         float _DissolveEdgeOn;
         float _DissolveEdgeWidthBy_Custom1;

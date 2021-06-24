@@ -52,6 +52,7 @@ Shader "ZX/FX/PowerVFXShader"
 
 		[Header(PixelDissolve)]
 		[Toggle]_PixelDissolveOn("_PixelDissolveOn",float) = 0
+		_PixelWidth("_PixelWidth",float) = 10
 
 		[Header(DissolveEdge)]
 		[Toggle(DISSOLVE_EDGE_ON)]_DissolveEdgeOn("Dissolve Edge On?",int)=0
