@@ -1,5 +1,5 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-Shader "ZX/FX/PowerVFXShader"
+Shader "FX/PowerVFX"
 {
 	Properties
 	{
@@ -59,7 +59,7 @@ Shader "ZX/FX/PowerVFXShader"
 		_EdgeWidth("EdgeWidth",range(0,0.3)) = 0.1
 		[Toggle]_DissolveEdgeWidthBy_Custom1("_DissolveEdgeWidthBy_Custom1.w -> uv1.y",int) = 0
 		[HDR]_EdgeColor("EdgeColor",color) = (1,0,0,1)
-		_EdgeColorIntensity("EdgeColorIntensity",range(1,10)) = 1
+		[HDR]_EdgeColor2("EdgeColor2",color) = (0,1,0,1)
 
 		[Header(Offset)]
 		[Toggle(OFFSET_ON)] _OffsetOn("Offset On?",int) = 0

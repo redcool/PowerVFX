@@ -54,7 +54,7 @@
         float _DissolveEdgeWidthBy_Custom1;
         float _EdgeWidth;
         float4 _EdgeColor;
-        float _EdgeColorIntensity;
+        float4 _EdgeColor2;
     // #endif
 
     // #if defined(OFFSET_ON)

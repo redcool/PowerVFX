@@ -22,6 +22,7 @@ namespace PowerVFX
     public class PowerVFXInspector : ShaderGUI
     {
         const string SRC_MODE = "_SrcMode", DST_MODE = "_DstMode";
+        const string POWER_VFX_SHADER = "PowerVFX";
 
         static string[] tabNames = new[] {"Settings", "Main", "Distortion", "Dissovle", "Offset", "Fresnal","EnvReflect","MatCap"};
         static List<string[]> propNameList = new List<string[]> {
@@ -127,7 +128,7 @@ namespace PowerVFX
 
         private static bool IsPowerVFXShader(Material mat)
         {
-            return mat.shader.name.Contains("PowerVFXShader");
+            return mat.shader.name.Contains(POWER_VFX_SHADER);
         }
 
         private void DrawPageTabs()

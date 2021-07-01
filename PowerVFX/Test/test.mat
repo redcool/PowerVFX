@@ -10,7 +10,8 @@ Material:
   m_Name: test
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
   m_ShaderKeywords: DISSOLVE_EDGE_ON DISSOLVE_ON _DISSOLVETEXOFFSETSTOP_ON _DISTORTIONMASKUSER_ON
-    _ENVMAPMASKUSER_ON _MAINTEXMASKUSER_ON _OFFSETMASKTEXUSER_ON _ZWRITEMODE_ON
+    _ENVMAPMASKUSER_ON _MAINTEXMASKUSER_ON _OFFSETMASKTEXUSER_ON _PIXELDISSOLVEON_ON
+    _ZWRITEMODE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -68,7 +69,7 @@ Material:
     - _BlendIntensity: 1.82
     - _ColorScale: 1
     - _CullMode: 0
-    - _Cutoff: 0.614
+    - _Cutoff: 0
     - _DissolveByCustomData: 0
     - _DissolveByVertexColor: 0
     - _DissolveEdgeOn: 1
@@ -83,7 +84,7 @@ Material:
     - _DoubleEffectOn: 0
     - _DstMode: 10
     - _EdgeColorIntensity: 1
-    - _EdgeWidth: 0.014
+    - _EdgeWidth: 0
     - _EnvIntensity: 1
     - _EnvMapMaskUseR: 1
     - _EnvReflectOn: 0
@@ -104,7 +105,8 @@ Material:
     - _MatCapIntensity: 0
     - _OffsetMaskTexUseR: 1
     - _OffsetOn: 0
-    - _PixelDissolveOn: 0
+    - _PixelDissolveOn: 1
+    - _PixelWidth: 5.22
     - _SrcMode: 5
     - _ZWriteMode: 1
     m_Colors:

@@ -68,8 +68,7 @@
     }
 
     void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float dissolveCDATA,float edgeWidthCDATA){
-        half4 edgeColor = (half4)0;
-
+        
         if(_PixelDissolveOn){
             dissolveUV = abs( dissolveUV - 0.5);
             dissolveUV = round(dissolveUV * _PixelWidth)/_PixelWidth;
@@ -77,24 +76,33 @@
 
         half4 dissolveTex = tex2D(_DissolveTex,dissolveUV.xy);
         half dissolve = lerp(dissolveTex.a,dissolveTex.r,_DissolveTexUseR);
-        half gray = _DissolveRevert > 0 ? dissolve : 1 - dissolve;
+        dissolve = _DissolveRevert > 0 ? dissolve : 1 - dissolve;
 
-        // select cutoff
+        // remap cutoff
         half cutoff = _DissolveByVertexColor > 0 ? 1 - color.a : _Cutoff; // slider or vertex color
         cutoff = _DissolveByCustomData >0 ? 1- dissolveCDATA :cutoff; // slider or particle's custom data
         cutoff = lerp(-0.1,1.01,cutoff);
 
-        half a = gray - cutoff;
+        half a = dissolve - cutoff;
         clip(a);
 
+        // transparent outer edge
+        mainColor.a *= smoothstep(0.05,0.12,a+0.05);
+
         if(_DissolveEdgeOn){
+            half4 edgeColor = (half4)0;
             half edgeWidth = _DissolveEdgeWidthBy_Custom1 > 0? edgeWidthCDATA : _EdgeWidth;
             half edgeRate = cutoff + edgeWidth;
-            half edge = step(gray,edgeRate);
-            edgeColor = edge * _EdgeColor * _EdgeColorIntensity;
+            
+            half edge = step(dissolve,edgeRate);
 
-            // edge color fadeout.
-            edgeColor.a *= cutoff < 0.6 ? 1 : exp(-cutoff);
+            // lerp edge colors 
+            half smoothEdge = smoothstep(0,edge*0.1,saturate(edgeRate - dissolve));
+            edgeColor = lerp(_EdgeColor,_EdgeColor2,saturate(1 - smoothEdge));
+
+            // edge color fadeout by cutoff.
+            edgeColor.a *= smoothstep(1,0.8,cutoff);
+
             // apply mainTex alpha
             edgeColor.a *= mainColor.a;
             mainColor = lerp(mainColor,edgeColor,edge);
