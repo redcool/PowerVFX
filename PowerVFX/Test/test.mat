@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: test
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
-  m_ShaderKeywords: DISSOLVE_EDGE_ON DISSOLVE_ON _DISSOLVETEXOFFSETSTOP_ON _DISTORTIONMASKUSER_ON
-    _ENVMAPMASKUSER_ON _MAINTEXMASKUSER_ON _OFFSETMASKTEXUSER_ON _PIXELDISSOLVEON_ON
+  m_ShaderKeywords: DISSOLVE_EDGE_ON DISTORTION_ON _DISSOLVETEXOFFSETSTOP_ON _DISSOLVETEXUSER_ON
+    _DISTORTIONMASKUSER_ON _ENVMAPMASKUSER_ON _MAINTEXMASKUSER_ON _OFFSETMASKTEXUSER_ON
     _ZWRITEMODE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -22,11 +22,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _DissolveTex:
-        m_Texture: {fileID: 2800000, guid: fb97621fd528a74428f14fc5342cc870, type: 3}
+        m_Texture: {fileID: 2800000, guid: 791e9eb5d4b954d48bd09378cbd9a879, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortionMaskTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 26071440b2db58a438ec789bcacacbec, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EnvMap:
@@ -50,7 +50,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTex:
-        m_Texture: {fileID: 2800000, guid: e47c8dbaf0c7e0548bfd4fa0c8195635, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0fb5cb510af187f4486e6a7e9cad0a79, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTex2:
@@ -62,29 +62,29 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OffsetTex:
-        m_Texture: {fileID: 2800000, guid: 843b155472439a94c9325a26d8e75d5f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3af0e016cc94e7f479b103f747ff2602, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlendIntensity: 1.82
+    - _BlendIntensity: 3.77
     - _ColorScale: 1
     - _CullMode: 0
-    - _Cutoff: 0
+    - _Cutoff: 0.39
     - _DissolveByCustomData: 0
     - _DissolveByVertexColor: 0
     - _DissolveEdgeOn: 1
     - _DissolveEdgeWidthBy_Custom1: 0
-    - _DissolveOn: 1
+    - _DissolveOn: 0
     - _DissolveRevert: 0
     - _DissolveTexOffsetStop: 1
-    - _DissolveTexUseR: 0
-    - _DistortionIntensity: 2.82
+    - _DissolveTexUseR: 1
+    - _DistortionIntensity: 0.88
     - _DistortionMaskUseR: 1
-    - _DistortionOn: 0
+    - _DistortionOn: 1
     - _DoubleEffectOn: 0
     - _DstMode: 10
-    - _EdgeColorIntensity: 1
-    - _EdgeWidth: 0
+    - _EdgeColorIntensity: 1.3
+    - _EdgeWidth: 0.166
     - _EnvIntensity: 1
     - _EnvMapMaskUseR: 1
     - _EnvReflectOn: 0
@@ -105,20 +105,21 @@ Material:
     - _MatCapIntensity: 0
     - _OffsetMaskTexUseR: 1
     - _OffsetOn: 0
-    - _PixelDissolveOn: 1
+    - _PixelDissolveOn: 0
     - _PixelWidth: 5.22
     - _SrcMode: 5
     - _ZWriteMode: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DistortDir: {r: 0, g: 1, b: 0, a: -1}
-    - _DistortTile: {r: 1, g: 1, b: 1, a: 1}
-    - _EdgeColor: {r: 1, g: 0, b: 0, a: 1}
+    - _DistortDir: {r: 0, g: -1, b: 0, a: -1}
+    - _DistortTile: {r: 1, g: 1, b: 2, a: 2}
+    - _EdgeColor: {r: 1, g: 0, b: 0, a: 0.5254902}
+    - _EdgeColor2: {r: 0, g: 1.4980392, b: 0, a: 0.36862746}
     - _EnvOffset: {r: 0, g: 0, b: 0, a: 0}
     - _FresnalColor: {r: 1, g: 1, b: 1, a: 1}
     - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OffsetDir: {r: 1, g: 5, b: 0, a: 0}
+    - _OffsetDir: {r: 0, g: 10, b: 0, a: 0}
     - _OffsetTexColorTint: {r: 1, g: 1, b: 1, a: 1}
     - _OffsetTexColorTint2: {r: 1, g: 1, b: 1, a: 1}
-    - _OffsetTile: {r: 10, g: 1, b: 1, a: 1}
+    - _OffsetTile: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

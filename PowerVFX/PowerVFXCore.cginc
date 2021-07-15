@@ -4,27 +4,19 @@
     #define POWER_VFX_CGINC
 
     #include "PowerVFXInput.cginc"
+    #include "PowerVFXData.cginc"
+    #include "NodeLib.cginc"
 
-    struct appdata
-    {
-        float4 vertex : POSITION;
-        float3 normal:NORMAL;
-        float4 color : COLOR;
-        half4 uv : TEXCOORD0; // xy:main uv,zw : particle's customData(mainTex scroll)
-        half4 uv1:TEXCOORD1; //particle's customData(x:dissolve,y:dissolveEdgeWidth)
-    };
+    void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 dirAtten){
+        float2 uv = worldPos.xz + _Time.y * _VertexWaveSpeed;
+        float noise = Unity_GradientNoise(uv,_VertexWaveIntensity);
 
-    struct v2f
-    {
-        float4 vertex : SV_POSITION;
-        float4 color : COLOR;
-        float3 reflectDir:COLOR1;
-        float2 viewNormal:COLOR2;
-
-        float4 uv : TEXCOORD0;
-        float4 fresnal_customDataZ:TEXCOORD1;// x:fresnal,y:customData.x
-        float4 grabPos:TEXCOORD2;
-    };
+        float forwardAtten = 1;
+        if(_VertexWaveAtten_ForwardAtten){
+            forwardAtten = saturate(dot(normal,dirAtten));
+        }
+        worldPos.xyz += dirAtten * noise * forwardAtten;
+    }
 
     /**
         return : float4
@@ -43,7 +35,7 @@
     }
 
     float4 SampleMainTex(float2 uv,float4 vertexColor){
-        float4 mainTex = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : tex2D(_ScreenColorTexture,uv);
+        float4 mainTex = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : tex2D(_CameraOpaqueTexture,uv);
         return mainTex * _Color * vertexColor * _ColorScale;
     }
 
@@ -56,7 +48,8 @@
 
     void ApplyDistortion(inout float4 mainColor,float4 mainUV,float4 distortUV,float4 color){
         half3 noise = (tex2D(_NoiseTex, distortUV.xy) -0.5) * 2;
-        noise += _DoubleEffectOn > 0 ? (tex2D(_NoiseTex2, distortUV.zw).rgb -0.5)*2 : 0;
+        if(_DoubleEffectOn)
+            noise += (tex2D(_NoiseTex2, distortUV.zw).rgb -0.5)*2;
         
         float2 maskUV = _MainTexUseScreenColor == 0 ? mainUV.xy : mainUV.zw;
 
@@ -71,7 +64,7 @@
         
         if(_PixelDissolveOn){
             dissolveUV = abs( dissolveUV - 0.5);
-            dissolveUV = round(dissolveUV * _PixelWidth)/_PixelWidth;
+            dissolveUV = round(dissolveUV * _PixelWidth)/max(0.0001,_PixelWidth);
         }
 
         half4 dissolveTex = tex2D(_DissolveTex,dissolveUV.xy);
@@ -97,7 +90,7 @@
             half edge = step(dissolve,edgeRate);
 
             // lerp edge colors 
-            half smoothEdge = smoothstep(0,edge*0.1,saturate(edgeRate - dissolve));
+            half smoothEdge = smoothstep(0.000001,edge*0.1,saturate(edgeRate - dissolve));
             edgeColor = lerp(_EdgeColor,_EdgeColor2,saturate(1 - smoothEdge));
 
             // edge color fadeout by cutoff.
@@ -143,76 +136,6 @@
         float4 matCapMap = tex2D(_MatCapTex,viewNormal.xy);
         matCapMap *= _MatCapIntensity;
         mainColor.rgb += matCapMap;
-    }
-
-    v2f vert(appdata v)
-    {
-        v2f o = (v2f)0;
-        o.color = v.color;
-        o.vertex = UnityObjectToClipPos(v.vertex);
-        o.uv = v.uv; // uv.xy : main uv, zw : custom data.xy
-        o.uv.xy = v.uv;
-        o.grabPos = ComputeGrabScreenPos(o.vertex);
-
-        float3 worldPos = mul(unity_ObjectToWorld,v.vertex);
-        float3 viewDir = normalize(UnityWorldSpaceViewDir(worldPos));
-        float3 worldNormal = normalize(UnityObjectToWorldNormal(v.normal));
-
-        if(_EnvReflectOn)
-            o.reflectDir = reflect(- viewDir,worldNormal + _EnvOffset.xyz);
-
-        float3 viewNormal = normalize(mul((float3x3)UNITY_MATRIX_MV,v.normal));
-        o.viewNormal = viewNormal.xy * 0.5 + 0.5;
-
-        if(_FresnelOn)
-            o.fresnal_customDataZ.x = 1 - dot(worldNormal,viewDir) ;
-
-        o.fresnal_customDataZ.y = v.uv1.x;// particle custom data (Custom1).z
-        o.fresnal_customDataZ.z = v.uv1.y; // particle custom data (Custom1).w
-        return o;
-    }
-    fixed4 frag(v2f i) : SV_Target
-    {
-        half4 mainColor = float4(0,0,0,1);
-        // setup mainUV
-        float4 mainUV = MainTexOffset(i.uv);
-        float fresnal = i.fresnal_customDataZ.x;
-        float dissolveCustomData = i.fresnal_customDataZ.y;
-        float dissolveEdgeWidth = i.fresnal_customDataZ.z;
-
-        //use _ScreenColorTexture
-        mainUV.xy = _MainTexUseScreenColor == 0 ? mainUV.xy : i.grabPos.xy/i.grabPos.w;
-
-        if(_DistortionOn){
-            float4 distortUV = mainUV.zwzw * _DistortTile + frac(_DistortDir * _Time.xxxx);
-            ApplyDistortion(mainColor,mainUV,distortUV,i.color);
-        }else{
-            mainColor = SampleMainTex(mainUV.xy,i.color);
-        }
-
-        ApplyMainTexMask(mainColor,mainUV.zw);
-
-        if(_EnvReflectOn)
-            ApplyEnvReflection(mainColor,mainUV.zw,i.reflectDir);
-
-        if(_OffsetOn){
-            float4 offsetUV = mainUV.zwzw * _OffsetTile + (_Time.xxxx * _OffsetDir); //暂时去除 frac
-            ApplyOffset(mainColor,offsetUV,mainUV.zw);
-        }
-
-        //dissolve
-        if(_DissolveOn){
-            float2 dissolveUVOffsetScale = lerp(_Time.xx,1,_DissolveTexOffsetStop);
-            float2 dissolveUV = mainUV.zw * _DissolveTex_ST.xy + _DissolveTex_ST.zw * dissolveUVOffsetScale;
-            ApplyDissolve(mainColor,dissolveUV,i.color,dissolveCustomData,dissolveEdgeWidth);
-        }
-
-        if(_FresnelOn)
-            ApplyFresnal(mainColor,fresnal);
-        
-        ApplyMatcap(mainColor,mainUV.zw,i.viewNormal);
-
-        return mainColor;
     }
 
 #endif //POWER_VFX_CGINC

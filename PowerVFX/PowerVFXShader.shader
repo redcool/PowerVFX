@@ -24,7 +24,18 @@ Shader "FX/PowerVFX"
 		[Header(CullMode)]
 		[Enum(UnityEngine.Rendering.CullMode)]_CullMode("Cull Mode",float) = 0
 		[Toggle]_ZWriteMode("ZWriteMode",int) = 0
+//// ======================================
+		[Toggle]_VertexWaveOn("_VertexWaveOn ?",int) = 0
+		_VertexWaveSpeed("_VertexWaveSpeed",float) = 1
+		_VertexWaveIntensity("_VertexWaveIntensity",float) = 1
 
+		[Header(Vertex Wava Atten)]
+		[Toggle]_VertexWaveAtten_VertexColor("_VertexWaveAtten_VertexColor",float) = 0
+		_VertexWaveDirAtten("_VertexWaveDirAtten",vector) = (1,1,1,0)
+		[Header(Forward Dir Atten)]
+		[Toggle]_VertexWaveAtten_ForwardAtten("_VertexWaveAtten_ForwardAtten",float) = 0
+		_VertexWaveForawdLength("_VertexWaveForawdLength",float) = 1
+//// ======================================
 		[Header(Distortion)]
 		[Toggle(DISTORTION_ON)]_DistortionOn("Distortion On?",int)=0
 		[noscaleoffset]_NoiseTex("Noise Texture",2D) = "white" {}
@@ -102,13 +113,11 @@ Shader "FX/PowerVFX"
 			Cull[_CullMode]
 			CGPROGRAM
             #pragma multi_compile_instancing
-			#pragma multi_compile _ ENV_REFLECT
 
 			#pragma vertex vert
 			#pragma fragment frag
-
-			#include "UnityCG.cginc"
-			#include "PowerVFXCore.cginc"
+			
+			#include "PowerVFXPass.cginc"
 
 			ENDCG
 		}

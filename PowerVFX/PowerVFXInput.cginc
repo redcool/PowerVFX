@@ -10,13 +10,13 @@
     sampler2D _DissolveTex;
     sampler2D _OffsetTex;
     sampler2D _OffsetMaskTex;
-    sampler2D _ScreenColorTexture;
+    sampler2D _CameraOpaqueTexture;
     samplerCUBE _EnvMap;
 
     sampler2D _EnvMapMask;
     sampler2D _MatCapTex;
 
-    CBUFFER_START(UnityPerMaterial)
+CBUFFER_START(UnityPerMaterial)
     fixed4 _Color;
     float _ColorScale;
     half4 _MainTex_ST;
@@ -28,7 +28,16 @@
     float _MainTexMaskOffsetStop; //
     float _MainTexMaskUseR;
     float _MainTexUseScreenColor;
-
+// ==================================================
+    float _VertexWaveOn;
+    float _VertexWaveSpeed;
+    float _VertexWaveIntensity;
+    // vertex wave attenuations
+    float3 _VertexWaveDirAtten;
+    float _VertexWaveAtten_VertexColor;
+    float _VertexWaveAtten_ForwardAtten;
+    float _VertexWaveForawdLength;
+// ==================================================
     // #if defined(DISTORTION_ON)
         float _DistortionOn;
         float _DistortionNoiseTex2On;

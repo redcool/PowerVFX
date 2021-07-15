@@ -170,6 +170,9 @@ namespace PowerVFX
             for (int i = 0; i < tabNames.Length; i++)
             {
                 var tabName = tabNames[i];
+                if (!dict.ContainsKey(tabName))
+                    continue;
+
                 var propNamesLine = dict[tabName];
                 var propNames = ConfigTool.SplitBy(propNamesLine);
                 propNameList.Add(propNames);
