@@ -1,4 +1,4 @@
-#if UNITY_EDITOR
+ï»¿#if UNITY_EDITOR
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace PowerVFX
 {
 
     /// <summary>
-    /// key=value,ÅäÖÃÎÄ¼ş²Ù×÷
+    /// key=value,é…ç½®æ–‡ä»¶æ“ä½œ
     /// </summary>
     public static class ConfigTool
     {
@@ -20,9 +20,11 @@ namespace PowerVFX
         /// * = *
         /// </summary>
         static Regex kvRegex = new Regex(@"\s*=\s*");
+        public const string I18N_PROFILE_PATH = "Profiles/i18n.txt";
+        public const string LAYOUT_PROFILE_PATH = "Profiles/Layout.txt";
 
         /// <summary>
-        /// ´ÓconfigPath¿ªÊ¼ÕÒconfigFileNameÎÄ¼ş,Ò»Ö±ÕÒµ½AssetsÄ¿Â¼
+        /// ä»configPathå¼€å§‹æ‰¾configFileNameæ–‡ä»¶,ä¸€ç›´æ‰¾åˆ°Assetsç›®å½•
         /// </summary>
         /// <param name="configPath"></param>
         /// <param name="configFileName"></param>
@@ -44,9 +46,9 @@ namespace PowerVFX
         }
 
         /// <summary>
-        /// key=valueµÄÅäÖÃÎÄ¼ş¶ÁÈëµ½ÄÚ´æ.
+        /// key=valueçš„é…ç½®æ–‡ä»¶è¯»å…¥åˆ°å†…å­˜.
         /// 
-        /// dict ½á¹¹Îª
+        /// dict ç»“æ„ä¸º
         /// {
         ///     key1 = *1,*2
         /// }
@@ -81,7 +83,7 @@ namespace PowerVFX
 
         public static Dictionary<string, string> ReadI18NConfig(string shaderFilePath)
         {
-            var i18nFilePath = FindPathRecursive(shaderFilePath);
+            var i18nFilePath = FindPathRecursive(shaderFilePath,I18N_PROFILE_PATH);
             return ReadKeyValueConfig(i18nFilePath);
         }
 

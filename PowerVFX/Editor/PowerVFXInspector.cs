@@ -156,7 +156,7 @@ namespace PowerVFX
 
         private void SetupLayout(string shaderFilePath)
         {
-            var layoutConfigPath = ConfigTool.FindPathRecursive(shaderFilePath, "PowerVFXLayout.txt");
+            var layoutConfigPath = ConfigTool.FindPathRecursive(shaderFilePath, ConfigTool.LAYOUT_PROFILE_PATH);
             var dict = ConfigTool.ReadKeyValueConfig(layoutConfigPath);
 
             if (!dict.TryGetValue("tabNames", out var tabNamesLine))
