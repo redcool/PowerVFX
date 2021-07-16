@@ -22,24 +22,15 @@ namespace PowerVFX
     public class PowerVFXInspector : ShaderGUI
     {
         const string SRC_MODE = "_SrcMode", DST_MODE = "_DstMode";
-        const string POWER_VFX_SHADER = "PowerVFX";
+        const string SHADER_NAME = "PowerVFX";
 
-        static string[] tabNames = new[] {"Settings", "Main", "Distortion", "Dissovle", "Offset", "Fresnal","EnvReflect","MatCap"};
-        static List<string[]> propNameList = new List<string[]> {
-            new []{ "_DoubleEffectOn", "_CullMode", "_ZWriteMode"},
-            new []{ "_MainTex", "_MainTexOffsetStop", "_MainTexOffsetUseCustomData_XY", "_Color","_ColorScale", "_MainTexMask","_MainTexMaskOffsetStop","_MainTexMaskUseR" ,"_MainTexUseScreenColor"},
-            new []{ "_DistortionOn", "_NoiseTex","_NoiseTex2", "_DistortionMaskTex", "_DistortionMaskUseR", "_DistortionIntensity", "_DistortTile", "_DistortDir",},
-            new []{ "_DissolveOn","_DissolveRevert", "_DissolveTex","_DissolveTexOffsetStop", "_DissolveTexUseR", "_DissolveByVertexColor", "_DissolveByCustomData", "_Cutoff", "_DissolveEdgeOn","_DissolveEdgeWidthBy_Custom1", "_EdgeWidth", "_EdgeColor","_EdgeColorIntensity"},
-            new []{ "_OffsetOn", "_OffsetTex", "_OffsetMaskTex", "_OffsetMaskTexUseR", "_OffsetTexColorTint", "_OffsetTexColorTint2", "_OffsetTile", "_OffsetDir", "_BlendIntensity", "_OffsetHeightMap", "_OffsetHeight"},
-            new []{ "_FresnalOn", "_FresnalColor", "_FresnalPower", "_FresnalTransparentOn","_FresnalTransparent" },
-            new []{ "_EnvReflectOn", "_EnvMap","_EnvMapMask", "_EnvMapMaskUseR", "_EnvIntensity" ,"_EnvOffset"},
-            new []{ "_MatCapTex", "_MatCapIntensity"}
-        };
+        static string[] tabNames;
+        static List<string[]> propNameList = new List<string[]>();
 
         int selectedTabId;
         bool showOriginalPage;
 
-        const string POWERVFX_SELETECTED_ID = "PowerVFX_SeletectedId";
+        const string POWERVFX_SELETECTED_ID = SHADER_NAME + "_SeletectedId";
         const int SETTING_TAB_ID = 0; // preset blend mode 显示在 0 号tab页
 
         Dictionary<PresetBlendMode, BlendMode[]> blendModeDict;
@@ -120,15 +111,15 @@ namespace PowerVFX
                 materialEditor.ShaderProperty(prop, ConfigTool.Text(propNameTextDict, prop.name));
             }
 
-            if (selectedTabId == SETTING_TAB_ID && IsPowerVFXShader(mat))
+            if (selectedTabId == SETTING_TAB_ID && IsTargetShader(mat))
             {
                 DrawBlendMode(mat);
             }
         }
 
-        private static bool IsPowerVFXShader(Material mat)
+        private static bool IsTargetShader(Material mat)
         {
-            return mat.shader.name.Contains(POWER_VFX_SHADER);
+            return mat.shader.name.Contains(SHADER_NAME);
         }
 
         private void DrawPageTabs()
@@ -141,7 +132,7 @@ namespace PowerVFX
 
         private void OnInit(Material mat,MaterialProperty[] properties)
         {
-            if(IsPowerVFXShader(mat))
+            if(IsTargetShader(mat))
                 presetBlendMode = GetPresetBlendMode(mat);
 
             var shaderFilePath = AssetDatabase.GetAssetPath(mat.shader);
