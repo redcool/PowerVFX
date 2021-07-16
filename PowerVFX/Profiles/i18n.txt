@@ -34,7 +34,7 @@ _VertexWaveIntensity=强度
 
 //===== vertex wave atten
 _VertexWaveDirAtten=方向衰减(xyz:dir,w:len)
-_VertexWaveAtten_VertexColor=顶点色衰减
+_VertexWaveAtten_VertexColor=顶点色衰减(rgb)
 _VertexWaveAtten_NormalAttenOn=法线参与衰减?
 
 

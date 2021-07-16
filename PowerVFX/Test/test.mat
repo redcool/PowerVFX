@@ -9,9 +9,10 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: test
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
-  m_ShaderKeywords: DISSOLVE_EDGE_ON DISSOLVE_ON DISTORTION_ON OFFSET_ON _DISSOLVETEXOFFSETSTOP_ON
-    _DISSOLVETEXUSER_ON _DISTORTIONMASKUSER_ON _MAINTEXMASKUSER_ON _VERTEXWAVEON_ON
-    _ZWRITEMODE_ON
+  m_ShaderKeywords: DISSOLVE_EDGE_ON DISSOLVE_ON OFFSET_ON _DISSOLVETEXOFFSETSTOP_ON
+    _DISSOLVETEXUSER_ON _DISTORTIONMASKUSER_ON _DoubleEffectOn _MAINTEXMASKUSER_ON
+    _VERTEXWAVEATTEN_FORWARDATTEN_ON _VERTEXWAVEATTEN_NORMALATTENON_ON _VERTEXWAVEATTEN_VERTEXCOLOR_ON
+    _VERTEXWAVEON_ON _ZWRITEMODE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -26,7 +27,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortionMaskTex:
-        m_Texture: {fileID: 2800000, guid: 26071440b2db58a438ec789bcacacbec, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EnvMap:
@@ -54,7 +55,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTex2:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6c57e4f750bba9e40a0fba84ce0df87c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OffsetMaskTex:
@@ -65,10 +66,18 @@ Material:
         m_Texture: {fileID: 2800000, guid: feaa73d4fef7c4342b0ad4c6630be9f5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _VertexWaveAtten_Map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VertgexWaveAtten_Map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BlendIntensity: 3.58
     - _ColorScale: 1
-    - _CullMode: 0
+    - _CullMode: 2
     - _Cutoff: 0.104
     - _DissolveByCustomData: 0
     - _DissolveByVertexColor: 0
@@ -82,10 +91,10 @@ Material:
     - _DissolveRevert: 0
     - _DissolveTexOffsetStop: 1
     - _DissolveTexUseR: 1
-    - _DistortionIntensity: 0.5
+    - _DistortionIntensity: 0.65
     - _DistortionMaskUseR: 1
-    - _DistortionOn: 1
-    - _DoubleEffectOn: 0
+    - _DistortionOn: 0
+    - _DoubleEffectOn: 1
     - _DstMode: 10
     - _EdgeColorIntensity: 1.3
     - _EdgeWidth: 0.12
@@ -115,20 +124,26 @@ Material:
     - _VertexDistortionIntensity: 1
     - _VertexDistortionOn: 0
     - _VertexDistortionSpeed: 1
-    - _VertexWaveAtten_ForwardAtten: 0
-    - _VertexWaveAtten_VertexColor: 0
-    - _VertexWaveForawdLength: 1.06
-    - _VertexWaveIntensity: 1
+    - _VertexWaveAtten_ForwardAtten: 1
+    - _VertexWaveAtten_MapOn: 0
+    - _VertexWaveAtten_NormalAtten: 0
+    - _VertexWaveAtten_NormalAttenOn: 1
+    - _VertexWaveAtten_NormalDirMode: 1
+    - _VertexWaveAtten_NormalLength: 1.08
+    - _VertexWaveAtten_VertexColor: 1
+    - _VertexWaveForawdLength: 0.82
+    - _VertexWaveIntensity: 9.91
     - _VertexWaveLength: 1
     - _VertexWaveOn: 1
-    - _VertexWaveSpeed: 1
+    - _VertexWaveSpeed: 2.31
     - _VertexWave_NoiseScale: 1
     - _VertexWave_NoiseSpeed: 1
+    - _VertgexWaveAtten_MapOn: 0
     - _ZTestMode: 8
     - _ZWriteMode: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DistortDir: {r: 0, g: -1, b: 0, a: -1}
+    - _DistortDir: {r: 0, g: -1, b: 0, a: 1}
     - _DistortTile: {r: 1, g: 1, b: 2, a: 2}
     - _EdgeColor: {r: 1, g: 0, b: 0, a: 0.7176471}
     - _EdgeColor2: {r: 0, g: 1.4980392, b: 0, a: 0.13333334}
@@ -140,5 +155,5 @@ Material:
     - _OffsetTexColorTint2: {r: 1, g: 1, b: 1, a: 1}
     - _OffsetTile: {r: 1, g: 1, b: 0, a: 0}
     - _VertexWaveDir: {r: 0, g: 0.77, b: 0, a: 0}
-    - _VertexWaveDirAtten: {r: 1, g: 0, b: 0, a: 0}
+    - _VertexWaveDirAtten: {r: 1, g: -3.39, b: 1, a: 1}
   m_BuildTextureStacks: []

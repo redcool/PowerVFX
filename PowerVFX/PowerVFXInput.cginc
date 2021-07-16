@@ -15,6 +15,7 @@
 
     sampler2D _EnvMapMask;
     sampler2D _MatCapTex;
+    sampler2D _VertexWaveAtten_Map;
 
 CBUFFER_START(UnityPerMaterial)
     fixed4 _Color;
@@ -36,6 +37,9 @@ CBUFFER_START(UnityPerMaterial)
     float _VertexWaveAtten_VertexColor;
     float4 _VertexWaveDirAtten;
     int _VertexWaveAtten_NormalAttenOn;
+    int _VertexWaveAtten_MapOn;
+    float4 _VertexWaveAtten_Map_ST;
+    int _VertexWaveAtten_MapOffsetStopOn;
 // ==================================================
     // #if defined(DISTORTION_ON)
         float _DistortionOn;
@@ -81,6 +85,7 @@ CBUFFER_START(UnityPerMaterial)
 
     // #if defined(FRESNAL_ON)
     float _FresnelOn;
+    int _FresnelInvertOn;
     float4 _FresnelColor;
     float _FresnelPower;
     float _FresnelTransparentOn;
@@ -94,7 +99,7 @@ CBUFFER_START(UnityPerMaterial)
     float4 _EnvOffset;
     // #endif
 
-
+    int _MatCapOn;
     float _MatCapIntensity;
 CBUFFER_END
 #endif //POWER_VFX_INPUT_CGINC

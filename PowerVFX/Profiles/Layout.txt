@@ -6,10 +6,10 @@ tabNames =  Settings, Main,VertexWave, Distortion, Dissolve, Offset, Fresnel,Env
 // Tab's contents
 Settings = _DoubleEffectOn, _CullMode, _ZWriteMode,_ZTestMode
 Main = _MainTex, _MainTexOffsetStop, _MainTexOffsetUseCustomData_XY, _Color,_ColorScale, _MainTexMask,_MainTexMaskOffsetStop,_MainTexMaskUseR ,_MainTexUseScreenColor
-VertexWave = _VertexWaveOn,_VertexWaveSpeed,_VertexWaveIntensity,_VertexWaveAtten_VertexColor,_VertexWaveDirAtten,_VertexWaveAtten_NormalAttenOn,_VertexWaveAtten_NormalDirMode,_VertexWaveAtten_NormalLength
+VertexWave = _VertexWaveOn,_VertexWaveSpeed,_VertexWaveIntensity,_VertexWaveAtten_VertexColor,_VertexWaveDirAtten,_VertexWaveAtten_NormalAttenOn,_VertexWaveAtten_MapOn,_VertexWaveAtten_Map,_VertexWaveAtten_MapOffsetStopOn
 Distortion = _DistortionOn, _NoiseTex,_NoiseTex2, _DistortionMaskTex, _DistortionMaskUseR, _DistortionIntensity, _DistortTile, _DistortDir
 Dissolve = _DissolveOn,_DissolveRevert, _DissolveTex,_DissolveTexOffsetStop, _DissolveTexUseR, _DissolveByVertexColor, _DissolveByCustomData,_DissolveFadingOn,_DissolveFading,_DissolveFadingWidth, _DissolveClipOn,_Cutoff, _PixelDissolveOn,_PixelWidth,_DissolveEdgeOn,_DissolveEdgeWidthBy_Custom1, _EdgeWidth, _EdgeColor,_EdgeColor2
 Offset = _OffsetOn, _OffsetTex, _OffsetMaskTex, _OffsetMaskTexUseR, _OffsetTexColorTint, _OffsetTexColorTint2, _OffsetTile, _OffsetDir, _BlendIntensity, _OffsetHeightMap, _OffsetHeight
-Fresnel = _FresnelOn, _FresnelColor, _FresnelPower, _FresnelTransparentOn,_FresnelTransparent
+Fresnel = _FresnelOn, _FresnelInvertOn,_FresnelColor, _FresnelPower, _FresnelTransparentOn,_FresnelTransparent
 EnvReflect = _EnvReflectOn, _EnvMap,_EnvMapMask, _EnvMapMaskUseR, _EnvIntensity ,_EnvOffset
-MatCap = _MatCapTex, _MatCapIntensity
+MatCap = _MatCapOn,_MatCapTex, _MatCapIntensity

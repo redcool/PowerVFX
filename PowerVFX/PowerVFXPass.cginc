@@ -12,7 +12,7 @@ v2f vert(appdata v)
         v2f o = (v2f)0;
         o.color = v.color;
         if(_VertexWaveOn){
-            ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color);
+            ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv);
         }
         o.vertex = UnityWorldToClipPos(worldPos);
 
@@ -39,7 +39,6 @@ v2f vert(appdata v)
         half4 mainColor = float4(0,0,0,1);
         // setup mainUV
         float4 mainUV = MainTexOffset(i.uv);
-        float fresnal = i.fresnal_customDataZ.x;
         float dissolveCustomData = i.fresnal_customDataZ.y;
         float dissolveEdgeWidth = i.fresnal_customDataZ.z;
 
@@ -70,10 +69,13 @@ v2f vert(appdata v)
             ApplyDissolve(mainColor,dissolveUV,i.color,dissolveCustomData,dissolveEdgeWidth);
         }
 
-        if(_FresnelOn)
+        if(_FresnelOn){
+            float fresnal = i.fresnal_customDataZ.x;
             ApplyFresnal(mainColor,fresnal);
+        }
         
-        ApplyMatcap(mainColor,mainUV.zw,i.viewNormal);
+        if(_MatCapOn)
+            ApplyMatcap(mainColor,mainUV.zw,i.viewNormal);
 
         return mainColor;
     }

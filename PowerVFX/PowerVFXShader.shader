@@ -31,11 +31,14 @@ Shader "FX/PowerVFX"
 		_VertexWaveIntensity("_VertexWaveIntensity",float) = 1
 
 		[Header(Vertex Wava Atten)]
-		[Toggle]_VertexWaveAtten_VertexColor("_VertexWaveAtten_VertexColor",float) = 0
+		[Toggle]_VertexWaveAtten_VertexColor("_VertexWaveAtten_VertexColor(rgb)",float) = 0
 		_VertexWaveDirAtten("_VertexWaveDirAtten(xyz:dir,w:len)",vector) = (1,1,1,1)
-
-		[Header(Normal Dot Dir Atten)]
 		[Toggle]_VertexWaveAtten_NormalAttenOn("_VertexWaveAtten_NormalAttenOn",float) = 0
+
+		[Header(Vertex Wava Atten Map)]
+		[Toggle]_VertexWaveAtten_MapOn("_VertexWaveAtten_MapOn",int) = 0
+		_VertexWaveAtten_Map("_VertexWaveAtten_Map(R)",2d) = "white"{}
+		[Toggle]_VertexWaveAtten_MapOffsetStopOn("_VertexWaveAtten_MapOffsetStopOn",int) = 0
 //// ======================================
 		[Header(Distortion)]
 		[Toggle(DISTORTION_ON)]_DistortionOn("Distortion On?",int)=0
@@ -95,6 +98,7 @@ Shader "FX/PowerVFX"
 
 		[Header(Fresnal)]
 		[Toggle(FRESNAL_ON)]_FresnelOn("_FresnelOn?",int)=0
+		[Toggle]_FresnelInvertOn("_FresnelInvertOn?",int) = 0
 		[HDR]_FresnelColor("_FresnelColor",color) = (1,1,1,1)
 		_FresnelPower("_FresnelPower",range(0,1)) = 0.5
 		[Toggle]_FresnelTransparentOn("_FresnelTransparentOn",range(0,1)) = 0
@@ -109,6 +113,7 @@ Shader "FX/PowerVFX"
 		_EnvOffset("EnvOffset",vector) = (0,0,0,0)
 
 		[Header(MatCap)]
+		[Toggle]_MatCapOn("_MatCapOn",int) = 0
 		[noscaleoffset]_MatCapTex("_MapCapTex",2d)=""{}
 		_MatCapIntensity("_MatCapIntensity",float) = 0
 	}

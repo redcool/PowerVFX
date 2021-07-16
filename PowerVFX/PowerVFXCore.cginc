@@ -7,18 +7,24 @@
     #include "PowerVFXData.cginc"
     #include "NodeLib.cginc"
 
-    void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor){
-        float2 uv = worldPos.xz + _Time.y * _VertexWaveSpeed;
-        float noise = Unity_GradientNoise(uv,_VertexWaveIntensity);
+    void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV){
+        float2 worldUV = worldPos.xz + _Time.y * _VertexWaveSpeed;
+        float noise = Unity_GradientNoise(worldUV,_VertexWaveIntensity);
 
         //1 vertex color atten
         //2 uniform dir atten
-        //3 normal direction atten
         float3 dir = normalize(_VertexWaveDirAtten.xyz) * _VertexWaveDirAtten.w;
         float3 vcAtten = _VertexWaveAtten_VertexColor? vertexColor : 1;
         float3 atten = dir * vcAtten;
+        //3 normal direction atten
         if(_VertexWaveAtten_NormalAttenOn){
             atten *= saturate(dot(dir,normal));
+        }
+        //4 atten map
+        if(_VertexWaveAtten_MapOn){
+            float offsetTime = _Time.y * !_VertexWaveAtten_MapOffsetStopOn;
+            float4 attenMapUV = float4(mainUV * _VertexWaveAtten_Map_ST.xy + _VertexWaveAtten_Map_ST.zw + offsetTime,0,0);
+            atten = tex2Dlod(_VertexWaveAtten_Map,attenMapUV).r;
         }
         worldPos.xyz +=  noise * atten;
     }
@@ -131,7 +137,8 @@
 
     void ApplyFresnal(inout float4 mainColor,float fresnal){
         float f =  saturate(smoothstep(fresnal,0,_FresnelPower));
-        float fMask  =1-f;
+        if(_FresnelInvertOn)
+            f = 1-f;
         
         float4 fresnalColor = _FresnelColor *f * _FresnelColor.a;
         mainColor.rgb =lerp(mainColor.rgb,fresnalColor.rgb,f*2);
