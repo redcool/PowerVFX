@@ -68,29 +68,37 @@
         }
 
         half4 dissolveTex = tex2D(_DissolveTex,dissolveUV.xy);
-        half dissolve = lerp(dissolveTex.a,dissolveTex.r,_DissolveTexUseR);
-        dissolve = _DissolveRevert > 0 ? dissolve : 1 - dissolve;
+        half refDissolve = lerp(dissolveTex.a,dissolveTex.r,_DissolveTexUseR);
+        refDissolve = _DissolveRevert > 0 ? refDissolve : 1 - refDissolve;
 
         // remap cutoff
-        half cutoff = _DissolveByVertexColor > 0 ? 1 - color.a : _Cutoff; // slider or vertex color
-        cutoff = _DissolveByCustomData >0 ? 1- dissolveCDATA :cutoff; // slider or particle's custom data
-        cutoff = lerp(-0.1,1.01,cutoff);
+        half cutoff = _Cutoff;
+        if(_DissolveByVertexColor)
+            cutoff =  1 - color.a; // slider or vertex color
 
-        half a = dissolve - cutoff;
-        clip(a);
+        if(_DissolveByCustomData)
+            cutoff = 1- dissolveCDATA; // slider or particle's custom data
+        
+        cutoff = lerp(-0.15,1.01,cutoff);
+
+        half dissolve = refDissolve - cutoff;
+
+        if(_DissolveClipOn)
+            clip(dissolve);
 
         // transparent outer edge
-        mainColor.a *= smoothstep(0.05,0.12,a+0.05);
+        if(_DissolveFadingOn)
+            mainColor.a *= (smoothstep(0.0,_DissolveFadingWidth,saturate(dissolve + _DissolveFading)));
 
         if(_DissolveEdgeOn){
             half4 edgeColor = (half4)0;
             half edgeWidth = _DissolveEdgeWidthBy_Custom1 > 0? edgeWidthCDATA : _EdgeWidth;
             half edgeRate = cutoff + edgeWidth;
             
-            half edge = step(dissolve,edgeRate);
+            half edge = step(refDissolve,edgeRate);
 
             // lerp edge colors 
-            half smoothEdge = smoothstep(0.000001,edge*0.1,saturate(edgeRate - dissolve));
+            half smoothEdge = smoothstep(0.000001,edge*0.1,saturate(edgeRate - refDissolve));
             edgeColor = lerp(_EdgeColor,_EdgeColor2,saturate(1 - smoothEdge));
 
             // edge color fadeout by cutoff.

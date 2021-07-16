@@ -24,6 +24,7 @@ Shader "FX/PowerVFX"
 		[Header(CullMode)]
 		[Enum(UnityEngine.Rendering.CullMode)]_CullMode("Cull Mode",float) = 0
 		[Toggle]_ZWriteMode("ZWriteMode",int) = 0
+		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 4
 //// ======================================
 		[Toggle]_VertexWaveOn("_VertexWaveOn ?",int) = 0
 		_VertexWaveSpeed("_VertexWaveSpeed",float) = 1
@@ -59,11 +60,20 @@ Shader "FX/PowerVFX"
 		[Header(DissolveType)]
 		[Toggle]_DissolveByVertexColor("Dissolve By Vertex Color ?",int)=0
 		[Toggle]_DissolveByCustomData("Dissolve By customData.z -> uv1.x ?",int)=0
+
+		[Header(DissolveFading)]
+		[Toggle]_DissolveFadingOn("_DissolveFadingOn",int) = 0
+		_DissolveFading("_DissolveFading",range(0,0.5)) = 0.01
+		_DissolveFadingWidth("_DissolveFadingWidth",range(0,0.5)) = 0.2
+
+		[Header(Dissolve Clip)]
+		[Toggle]_DissolveClipOn("_DissolveClipOn",int) = 1
 		_Cutoff ("AlphaTest cutoff", Range(0,1)) = 0.5
 
 		[Header(PixelDissolve)]
 		[Toggle]_PixelDissolveOn("_PixelDissolveOn",float) = 0
 		_PixelWidth("_PixelWidth",float) = 10
+
 
 		[Header(DissolveEdge)]
 		[Toggle(DISSOLVE_EDGE_ON)]_DissolveEdgeOn("Dissolve Edge On?",int)=0
@@ -111,6 +121,7 @@ Shader "FX/PowerVFX"
 			ZWrite[_ZWriteMode]
 			Blend [_SrcMode][_DstMode]
 			Cull[_CullMode]
+			ztest[_ZTestMode]
 			CGPROGRAM
             #pragma multi_compile_instancing
 

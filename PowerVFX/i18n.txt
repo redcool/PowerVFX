@@ -15,6 +15,7 @@ EnvReflect=环境
 _DoubleEffectOn=开启双层效果?
 _CullMode=剔除模式
 _ZWriteMode=写入深度?
+_ZTestMode=深度测试
 PresetBlendMode=预制混合模式
 
 _MainTex=主纹理(设置Offset将自动滚动)
@@ -30,6 +31,7 @@ _MainTexUseScreenColor=主纹理使用屏幕颜色(需_CameraOpaqueTexture)
 _VertexWaveOn=开启顶点摆动
 _VertexWaveSpeed=速度
 _VertexWaveIntensity=强度
+
 //===== vertex wave atten
 _VertexWaveDirAtten=方向衰减(xyz)
 _VertexWaveAtten_VertexColor=顶点色衰减
@@ -53,6 +55,10 @@ _DissolveTexOffsetStop=禁止溶解自动滚动
 _DissolveTexUseR=使用溶解图R通道?
 _DissolveByVertexColor=溶解使用顶点颜色(A)
 _DissolveByCustomData=溶解使用CustomData.z->uv1.x?
+_DissolveFadingOn = 溶解透明?
+_DissolveFading=溶解透明值
+_DissolveFadingWidth=溶解透明宽度
+_DissolveClipOn=ps剔除?
 _Cutoff=镂空值
 _PixelDissolveOn=像素化溶解?
 _PixelWidth=像素化宽

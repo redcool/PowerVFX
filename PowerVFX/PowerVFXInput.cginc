@@ -54,6 +54,7 @@ CBUFFER_START(UnityPerMaterial)
         float _DissolveTexUseR;
         float4 _DissolveTex_ST;
         float _DissolveTexOffsetStop;
+        float _DissolveClipOn;
         float _Cutoff;
 
         float _PixelDissolveOn;
@@ -64,6 +65,10 @@ CBUFFER_START(UnityPerMaterial)
         float _EdgeWidth;
         float4 _EdgeColor;
         float4 _EdgeColor2;
+
+        float _DissolveFadingOn;
+        float _DissolveFading;
+        float _DissolveFadingWidth;
     // #endif
 
     // #if defined(OFFSET_ON)
