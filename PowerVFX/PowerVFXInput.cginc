@@ -33,10 +33,9 @@ CBUFFER_START(UnityPerMaterial)
     float _VertexWaveSpeed;
     float _VertexWaveIntensity;
     // vertex wave attenuations
-    float3 _VertexWaveDirAtten;
     float _VertexWaveAtten_VertexColor;
-    float _VertexWaveAtten_ForwardAtten;
-    float _VertexWaveForawdLength;
+    float4 _VertexWaveDirAtten;
+    int _VertexWaveAtten_NormalAttenOn;
 // ==================================================
     // #if defined(DISTORTION_ON)
         float _DistortionOn;

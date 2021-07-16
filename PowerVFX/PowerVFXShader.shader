@@ -32,10 +32,10 @@ Shader "FX/PowerVFX"
 
 		[Header(Vertex Wava Atten)]
 		[Toggle]_VertexWaveAtten_VertexColor("_VertexWaveAtten_VertexColor",float) = 0
-		_VertexWaveDirAtten("_VertexWaveDirAtten",vector) = (1,1,1,0)
-		[Header(Forward Dir Atten)]
-		[Toggle]_VertexWaveAtten_ForwardAtten("_VertexWaveAtten_ForwardAtten",float) = 0
-		_VertexWaveForawdLength("_VertexWaveForawdLength",float) = 1
+		_VertexWaveDirAtten("_VertexWaveDirAtten(xyz:dir,w:len)",vector) = (1,1,1,1)
+
+		[Header(Normal Dot Dir Atten)]
+		[Toggle]_VertexWaveAtten_NormalAttenOn("_VertexWaveAtten_NormalAttenOn",float) = 0
 //// ======================================
 		[Header(Distortion)]
 		[Toggle(DISTORTION_ON)]_DistortionOn("Distortion On?",int)=0

@@ -7,16 +7,23 @@
     #include "PowerVFXData.cginc"
     #include "NodeLib.cginc"
 
-    void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 dirAtten){
+    void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor){
         float2 uv = worldPos.xz + _Time.y * _VertexWaveSpeed;
         float noise = Unity_GradientNoise(uv,_VertexWaveIntensity);
 
-        float forwardAtten = 1;
-        if(_VertexWaveAtten_ForwardAtten){
-            forwardAtten = saturate(dot(normal,dirAtten));
+        //1 vertex color atten
+        //2 uniform dir atten
+        //3 normal direction atten
+        float3 dir = normalize(_VertexWaveDirAtten.xyz) * _VertexWaveDirAtten.w;
+        float3 vcAtten = _VertexWaveAtten_VertexColor? vertexColor : 1;
+        float3 atten = dir * vcAtten;
+        if(_VertexWaveAtten_NormalAttenOn){
+            atten *= saturate(dot(dir,normal));
         }
-        worldPos.xyz += dirAtten * noise * forwardAtten;
+        worldPos.xyz +=  noise * atten;
     }
+
+
 
     /**
         return : float4

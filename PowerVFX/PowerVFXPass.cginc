@@ -12,9 +12,7 @@ v2f vert(appdata v)
         v2f o = (v2f)0;
         o.color = v.color;
         if(_VertexWaveOn){
-            float colorAtten = _VertexWaveAtten_VertexColor? v.color.x : 1;
-            float3 dir = _VertexWaveAtten_ForwardAtten ? -unity_ObjectToWorld._13_23_33 * _VertexWaveForawdLength :  _VertexWaveDirAtten;
-            ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,dir * colorAtten);
+            ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color);
         }
         o.vertex = UnityWorldToClipPos(worldPos);
 
