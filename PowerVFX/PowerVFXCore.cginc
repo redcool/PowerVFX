@@ -13,7 +13,10 @@
 
         //1 vertex color atten
         //2 uniform dir atten
-        float3 dir = normalize(_VertexWaveDirAtten.xyz) * _VertexWaveDirAtten.w;
+        float3 dir = normalize(_VertexWaveDirAtten.xyz+0.0001) * _VertexWaveDirAtten.w;
+        if(_VertexWaveDirAtten_LocalSpaceOn)
+            dir = mul(unity_ObjectToWorld,dir);
+
         float3 vcAtten = _VertexWaveAtten_VertexColor? vertexColor : 1;
         float3 atten = dir * vcAtten;
         //3 normal direction atten
@@ -21,10 +24,10 @@
             atten *= saturate(dot(dir,normal));
         }
         //4 atten map
-        if(_VertexWaveAtten_MapOn){
-            float offsetTime = _Time.y * !_VertexWaveAtten_MapOffsetStopOn;
-            float4 attenMapUV = float4(mainUV * _VertexWaveAtten_Map_ST.xy + _VertexWaveAtten_Map_ST.zw + offsetTime,0,0);
-            atten *= tex2Dlod(_VertexWaveAtten_Map,attenMapUV).r;
+        if(_VertexWaveAtten_MaskMapOn){
+            float offsetTime = _Time.y * !_VertexWaveAtten_MaskMapOffsetStopOn;
+            float4 attenMapUV = float4(mainUV * _VertexWaveAtten_MaskMap_ST.xy + _VertexWaveAtten_MaskMap_ST.zw + offsetTime,0,0);
+            atten *= tex2Dlod(_VertexWaveAtten_MaskMap,attenMapUV)[_VertexWaveAtten_MaskMapChannel];
         }
         worldPos.xyz +=  noise * atten;
     }
@@ -55,21 +58,19 @@
     void ApplyMainTexMask(inout float4 mainColor,float2 uv){
         float2 maskTexOffset = _MainTexMaskOffsetStop ? _MainTexMask_ST.zw : _MainTexMask_ST.zw * _Time.xx;
         float4 maskTex = tex2D(_MainTexMask,uv*_MainTexMask_ST.xy + maskTexOffset);// fp opearate mask uv.
-        float mask = _MainTexMaskUseR > 0 ? maskTex.r : maskTex.a;
-        mainColor.a *= mask;
+        mainColor.a *= maskTex[_MainTexMaskChannel];
     }
 
     void ApplyDistortion(inout float4 mainColor,float4 mainUV,float4 distortUV,float4 color){
-        half3 noise = (tex2D(_NoiseTex, distortUV.xy) -0.5) * 2;
+        half2 noise = (tex2D(_DistortionNoiseTex, distortUV.xy).xy -0.5) * 2;
         if(_DoubleEffectOn)
-            noise += (tex2D(_NoiseTex2, distortUV.zw).rgb -0.5)*2;
+            noise += (tex2D(_DistortionNoiseTex, distortUV.zw).zw -0.5)*2;
         
         float2 maskUV = _MainTexUseScreenColor == 0 ? mainUV.xy : mainUV.zw;
 
         float4 maskTex = tex2D(_DistortionMaskTex,maskUV);
-        float mask = _DistortionMaskUseR > 0? maskTex.r : maskTex.a;
 
-        half2 uv = mainUV.xy + noise * 0.2  * _DistortionIntensity * mask;
+        half2 uv = mainUV.xy + noise * 0.2  * _DistortionIntensity * maskTex[_DistortionMaskChannel];
         mainColor = SampleMainTex(uv,color);
     }
 
@@ -81,7 +82,7 @@
         }
 
         half4 dissolveTex = tex2D(_DissolveTex,dissolveUV.xy);
-        half refDissolve = lerp(dissolveTex.a,dissolveTex.r,_DissolveTexUseR);
+        half refDissolve = dissolveTex[_DissolveTexChannel];
         refDissolve = _DissolveRevert > 0 ? refDissolve : 1 - refDissolve;
 
         // remap cutoff

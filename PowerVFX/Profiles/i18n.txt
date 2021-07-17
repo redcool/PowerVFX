@@ -34,15 +34,19 @@ _VertexWaveIntensity=强度
 
 //===== vertex wave atten
 _VertexWaveDirAtten=方向衰减(xyz:dir,w:len)
+_VertexWaveDirAtten_LocalSpaceOn=本地空间方向?
 _VertexWaveAtten_VertexColor=顶点色衰减(rgb)
 _VertexWaveAtten_NormalAttenOn=法线参与衰减?
 
+_VertexWaveAtten_MaskMapOn=衰减图
+_VertexWaveAtten_MaskMap=衰减maskmap(r)
+_VertexWaveAtten_MaskMapOffsetStopOn=停止衰减uv自动滚动
+
 
 _DistortionOn=开启扭曲
-_NoiseTex=杂点图
-_NoiseTex2=杂点图2(用于第二层)
+_DistortionNoiseTex=杂点图(xy:layer1,zw:layer2)
 _DistortionMaskTex=效果遮罩
-_DistortionMaskUseR=遮罩使用R通道?
+_DistortionMaskChannel=遮罩使用R通道?
 _DistortionIntensity=强度
 _DistortTile=平铺(xy:1层,zw:2层)
 _DistortDir=方向(xy:1层,zw:2层)
@@ -51,7 +55,7 @@ _DissolveOn=开启溶解?
 _DissolveRevert=反向溶解?
 _DissolveTex=溶解图(设置Offset将自动滚动)
 _DissolveTexOffsetStop=禁止溶解自动滚动
-_DissolveTexUseR=使用溶解图R通道?
+_DissolveTexChannel=溶解图通道
 _DissolveByVertexColor=溶解使用顶点颜色(A)
 _DissolveByCustomData=溶解使用CustomData.z->uv1.x?
 _DissolveFadingOn = 溶解透明?
