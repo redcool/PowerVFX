@@ -24,7 +24,7 @@
         if(_VertexWaveAtten_MapOn){
             float offsetTime = _Time.y * !_VertexWaveAtten_MapOffsetStopOn;
             float4 attenMapUV = float4(mainUV * _VertexWaveAtten_Map_ST.xy + _VertexWaveAtten_Map_ST.zw + offsetTime,0,0);
-            atten = tex2Dlod(_VertexWaveAtten_Map,attenMapUV).r;
+            atten *= tex2Dlod(_VertexWaveAtten_Map,attenMapUV).r;
         }
         worldPos.xyz +=  noise * atten;
     }
