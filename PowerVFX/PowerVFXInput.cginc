@@ -72,10 +72,10 @@ CBUFFER_START(UnityPerMaterial)
     float _DissolveFadingWidth;
 // ==================================================
     float _OffsetOn;
-    float _OffsetMaskTexUseR;
+    float _OffsetMaskChannel;
     float4 _OffsetTexColorTint,_OffsetTexColorTint2;
     float4 _OffsetTile,_OffsetDir;
-    float _BlendIntensity;
+    float _OffsetBlendIntensity;
 // ==================================================
     float _FresnelOn;
     int _FresnelInvertOn;
@@ -85,9 +85,14 @@ CBUFFER_START(UnityPerMaterial)
     float _FresnelTransparent;
 // ==================================================
     float _EnvReflectOn;
-    float _EnvMapMaskUseR;
+    float4 _EnvReflectionColor;
+    float _EnvMapMaskChannel;
     float _EnvIntensity;
     float4 _EnvOffset;
+
+    int _EnvRefractionOn;
+    float _EnvRefractionIOR;
+    float4 _EnvRefractionColor;
 // ==================================================
     int _MatCapOn;
     float _MatCapIntensity;

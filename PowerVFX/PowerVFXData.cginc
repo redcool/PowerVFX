@@ -16,6 +16,7 @@
         float4 color : COLOR;
         float3 reflectDir:COLOR1;
         float2 viewNormal:COLOR2;
+        float3 refractDir:COLOR3;
 
         float4 uv : TEXCOORD0;
         float4 fresnal_customDataZ:TEXCOORD1;// x:fresnal,y:customData.x

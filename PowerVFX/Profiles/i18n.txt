@@ -81,7 +81,7 @@ _OffsetTexColorTint=层1 颜色
 _OffsetTexColorTint2=层2 颜色
 _OffsetTile=平铺(xy:1层,zw:2层)
 _OffsetDir=方向(xy:1层,zw:2层)
-_BlendIntensity=混合强度
+_OffsetBlendIntensity=混合强度
 
 _FresnelOn=开启轮廓光
 _FresnelColor=轮廓光颜色
@@ -89,10 +89,14 @@ _FresnelPower=轮廓宽度
 _FresnelTransparentOn=轮廓中心透明
 _FresnelTransparent=透明度
 
-_EnvReflectOn=开启环境反射
+_EnvReflectOn=环境反射
+_EnvReflectionColor=反射调色
+_EnvRefractionOn=环境折射
+_EnvRefractionIOR=折射率
+_EnvRefractionColor=折射调色
 _EnvMap=环境cube
 _EnvMapMask=环境遮罩
-_EnvMapMaskUseR=环境遮罩使用R通道?
+_EnvMapMaskChannel=环境遮罩通道
 _EnvIntensity=环境强度
 _EnvOffset=视线偏移
 

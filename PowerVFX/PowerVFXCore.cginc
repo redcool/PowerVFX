@@ -126,14 +126,13 @@
     }
 
     void ApplyOffset(inout float4 color,float4 offsetUV,float2 mainUV){
-        half4 offsetColor = tex2D(_OffsetTex,offsetUV.xy) * _OffsetTexColorTint;
+        half3 offsetColor = tex2D(_OffsetTex,offsetUV.xy) * _OffsetTexColorTint;
         offsetColor += _DoubleEffectOn > 0 ? tex2D(_OffsetTex,offsetUV.zw) * _OffsetTexColorTint2 : 0;
 
-        half4 offsetMask = tex2D(_OffsetMaskTex,mainUV);
-        float mask = _OffsetMaskTexUseR > 0? offsetMask.r : offsetMask.a;
+        half mask = tex2D(_OffsetMaskTex,mainUV)[_OffsetMaskChannel];
 
-        offsetColor = offsetColor * _BlendIntensity * mask;
-        color.rgb *= lerp(1,offsetColor,mask);
+        offsetColor = color.rgb * offsetColor * _OffsetBlendIntensity * unity_ColorSpaceDouble;
+        color.rgb += lerp(0,offsetColor,mask);
     }
 
     void ApplyFresnal(inout float4 mainColor,float fresnal){
@@ -146,13 +145,17 @@
         mainColor.a = saturate( lerp((_FresnelTransparent + f*2) ,mainColor.a,step(_FresnelTransparentOn,0)));
     }
 
-    void ApplyEnvReflection(inout float4 mainColor,float2 mainUV,float3 reflectDir){
-        float4 maskMap = tex2D(_EnvMapMask,mainUV);
-        float mask = _EnvMapMaskUseR > 0?maskMap.r:maskMap.a;
+    void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refractDir){
+        float mask = tex2D(_EnvMapMask,mainUV)[_EnvMapMaskChannel];
 
-        float4 envMap = texCUBE(_EnvMap,reflectDir);
-        envMap *= _EnvIntensity * mask;
-        mainColor.rgb += envMap.rgb;
+        float4 envColor = (half4)0;
+        if(_EnvReflectOn)
+            envColor += texCUBE(_EnvMap,reflectDir) * _EnvReflectionColor;
+        if(_EnvRefractionOn)
+            envColor += texCUBE(_EnvMap,refractDir) * _EnvRefractionColor;
+        
+        envColor *= _EnvIntensity * mask;
+        mainColor.rgb += envColor.rgb;
     }
 
     void ApplyMatcap(inout float4 mainColor,float2 mainUV,float2 viewNormal){

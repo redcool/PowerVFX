@@ -21,8 +21,11 @@ v2f vert(appdata v)
         o.grabPos = ComputeGrabScreenPos(o.vertex);
 
 
+        float3 normalDistorted = normalize(worldNormal + _EnvOffset.xyz);
         if(_EnvReflectOn)
-            o.reflectDir = reflect(- viewDir,worldNormal + _EnvOffset.xyz);
+            o.reflectDir = reflect(- viewDir,normalDistorted);
+        if(_EnvRefractionOn)
+            o.refractDir = refract(-viewDir,normalDistorted,1/_EnvRefractionIOR);
 
         float3 viewNormal = normalize(mul((float3x3)UNITY_MATRIX_MV,v.normal));
         o.viewNormal = viewNormal.xy * 0.5 + 0.5;
@@ -54,8 +57,8 @@ v2f vert(appdata v)
 
         ApplyMainTexMask(mainColor,mainUV.zw);
 
-        if(_EnvReflectOn)
-            ApplyEnvReflection(mainColor,mainUV.zw,i.reflectDir);
+        if(_EnvReflectOn || _EnvRefractionOn)
+            ApplyEnv(mainColor,mainUV.zw,i.reflectDir,i.refractDir);
 
         if(_OffsetOn){
             float4 offsetUV = mainUV.zwzw * _OffsetTile + (_Time.xxxx * _OffsetDir); //暂时去除 frac

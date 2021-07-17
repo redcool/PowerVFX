@@ -93,12 +93,12 @@ Shader "FX/PowerVFX"
 		[Toggle(OFFSET_ON)] _OffsetOn("Offset On?",int) = 0
 		[NoScaleOffset]_OffsetTex("Offset Tex",2d) = ""{}
 		[NoScaleOffset]_OffsetMaskTex("Offset Mask (R)",2d) = "white"{}
-		[Toggle]_OffsetMaskTexUseR("_OffsetMaskTexUseR",int) = 1
+		[Enum(R,0,G,1,B,2,A,3)]_OffsetMaskChannel("_OffsetMaskChannel",int) = 1
 		[HDR]_OffsetTexColorTint("OffsetTex Color",color) = (1,1,1,1)
 		[HDR]_OffsetTexColorTint2("OffsetTex Color 2",color) = (1,1,1,1)
 		_OffsetTile("Offset Tile",vector) = (1,1,1,1)
 		_OffsetDir("Offset Dir",vector) = (1,1,0,0)
-		_BlendIntensity("Blend Intensity",range(0,10)) = 0.5
+		_OffsetBlendIntensity("Blend Intensity",range(0,10)) = 0.5
 // ==================================================
 		[Header(Fresnal)]
 		[Toggle(FRESNAL_ON)]_FresnelOn("_FresnelOn?",int)=0
@@ -109,12 +109,21 @@ Shader "FX/PowerVFX"
 		_FresnelTransparent("_FresnelTransparent",range(0,1)) = 0
 // ==================================================		
 		[Header(EnvReflection)]
-		[Toggle(ENV_REFLECT)]_EnvReflectOn("EnvReflect On?",int)=0
+		[Toggle]_EnvReflectOn("EnvReflect On?",int)=0
+		_EnvReflectionColor("_EnvReflectionColor",color) = (.5,.5,.5,.5)
+
+		[Header(EnvRefraction)]
+		[Toggle]_EnvRefractionOn("_EnvRefractionOn",int) = 0
+		_EnvRefractionIOR("_EnvRefractionIOR",range(1,3)) = 1.33
+		_EnvRefractionColor("_EnvRefractionColor",color) = (.5,.5,.5,.5)
+
+		[Header(Env Params)]
 		[NoScaleOffset]_EnvMap("Env Map",Cube) = ""{}
 		[NoScaleOffset]_EnvMapMask("Env Map Mask",2d) = ""{}
-		[Toggle]_EnvMapMaskUseR("EnvMapMaskUseR",int)=1
+		[Enum(R,0,G,1,B,2,A,3)]_EnvMapMaskChannel("_EnvMapMaskChannel",int)=0
 		_EnvIntensity("Env intensity",float) = 1
 		_EnvOffset("EnvOffset",vector) = (0,0,0,0)
+
 // ==================================================
 		[Header(MatCap)]
 		[Toggle]_MatCapOn("_MatCapOn",int) = 0
