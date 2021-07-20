@@ -5,7 +5,7 @@ tabNames =  Settings, Main,VertexWave, Distortion, Dissolve, Offset, Fresnel,Env
 
 // Tab's contents
 Settings = _DoubleEffectOn, _CullMode, _ZWriteMode,_ZTestMode
-Main = _MainTex, _MainTexOffsetStop, _MainTexOffsetUseCustomData_XY, _Color,_ColorScale, _MainTexMask,_MainTexMaskOffsetStop,_MainTexMaskChannel ,_MainTexUseScreenColor
+Main = _MainTex, _MainTexOffsetStop, _MainTexOffsetUseCustomData_XY, _Color,_MainTexMultiAlpha, _MainTexMask,_MainTexMaskOffsetStop,_MainTexMaskChannel ,_MainTexUseScreenColor
 VertexWave = _VertexWaveOn,_VertexWaveSpeed,_VertexWaveIntensity,_VertexWaveAtten_VertexColor,_VertexWaveDirAtten,_VertexWaveDirAtten_LocalSpaceOn,_VertexWaveAtten_NormalAttenOn,_VertexWaveAtten_MaskMapOn,_VertexWaveAtten_MaskMap,_VertexWaveAtten_MaskMapOffsetStopOn,_VertexWaveAtten_MaskMapChannel
 Distortion = _DistortionOn, _DistortionNoiseTex, _DistortionMaskTex, _DistortionMaskChannel, _DistortionIntensity, _DistortTile, _DistortDir
 Dissolve = _DissolveOn,_DissolveRevert, _DissolveTex,_DissolveTexOffsetStop, _DissolveTexChannel, _DissolveByVertexColor, _DissolveByCustomData,_DissolveFadingOn,_DissolveFading,_DissolveFadingWidth, _DissolveClipOn,_Cutoff, _PixelDissolveOn,_PixelWidth,_DissolveEdgeOn,_DissolveEdgeWidthBy_Custom1, _EdgeWidth, _EdgeColor,_EdgeColor2

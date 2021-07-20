@@ -52,7 +52,8 @@
 
     float4 SampleMainTex(float2 uv,float4 vertexColor){
         float4 mainTex = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : tex2D(_CameraOpaqueTexture,uv);
-        return mainTex * _Color * vertexColor * _ColorScale;
+        mainTex.xyz *= lerp(1,mainTex.a,_MainTexMultiAlpha);
+        return mainTex * _Color * vertexColor;
     }
 
     void ApplyMainTexMask(inout float4 mainColor,float2 uv){

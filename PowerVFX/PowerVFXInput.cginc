@@ -18,7 +18,7 @@
 
 CBUFFER_START(UnityPerMaterial)
     fixed4 _Color;
-    float _ColorScale;
+    int _MainTexMultiAlpha;
     half4 _MainTex_ST;
     float _MainTexOffsetStop;
     float _MainTexOffsetUseCustomData_XY;
