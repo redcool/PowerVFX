@@ -23,8 +23,8 @@ public class BlitFrameBufferToTexture : MonoBehaviour
     Camera cam;
     CommandBuffer blitColorBuf, blitDepthBuf;
 
-    public readonly int screenColorTextureId = Shader.PropertyToID("_ScreenColorTexture");
-    public readonly int screenDepthTextureId = Shader.PropertyToID("_ScreenDepthTexture");
+    public readonly int screenColorTextureId = Shader.PropertyToID("_CameraOpaqueTexture");
+    public readonly int screenDepthTextureId = Shader.PropertyToID("_CameraDepthTexture");
     // Start is called before the first frame update
     void Start()
     {
