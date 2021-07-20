@@ -6,6 +6,7 @@
     #include "PowerVFXInput.cginc"
     #include "PowerVFXData.cginc"
     #include "NodeLib.cginc"
+    #include "UtilLib.cginc"
 
     void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV){
         float2 worldUV = worldPos.xz + _Time.y * _VertexWaveSpeed;
@@ -13,7 +14,7 @@
 
         //1 vertex color atten
         //2 uniform dir atten
-        float3 dir = normalize(_VertexWaveDirAtten.xyz+0.0001) * _VertexWaveDirAtten.w;
+        float3 dir = SafeNormalize(_VertexWaveDirAtten.xyz) * _VertexWaveDirAtten.w;
         if(_VertexWaveDirAtten_LocalSpaceOn)
             dir = mul(unity_ObjectToWorld,dir);
 
@@ -25,8 +26,8 @@
         }
         //4 atten map
         if(_VertexWaveAtten_MaskMapOn){
-            float offsetTime = _Time.y * !_VertexWaveAtten_MaskMapOffsetStopOn;
-            float4 attenMapUV = float4(mainUV * _VertexWaveAtten_MaskMap_ST.xy + _VertexWaveAtten_MaskMap_ST.zw + offsetTime,0,0);
+            float offsetScale = _Time.y * !_VertexWaveAtten_MaskMapOffsetStopOn;
+            float4 attenMapUV = float4(mainUV * _VertexWaveAtten_MaskMap_ST.xy + _VertexWaveAtten_MaskMap_ST.zw * offsetScale,0,0);
             atten *= tex2Dlod(_VertexWaveAtten_MaskMap,attenMapUV)[_VertexWaveAtten_MaskMapChannel];
         }
         worldPos.xyz +=  noise * atten;
