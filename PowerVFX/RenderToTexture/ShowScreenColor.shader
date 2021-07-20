@@ -35,7 +35,8 @@
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            sampler2D _ScreenColorTexture;
+            sampler2D _CameraOpaqueTexture;
+            sampler2D _CameraDepthTexture;
 
             v2f vert (appdata v)
             {
@@ -51,7 +52,7 @@
             {
                 float2 grabPos = i.grabPos.xy/i.grabPos.w;
                 // sample the texture
-                fixed4 col = tex2D(_ScreenColorTexture, grabPos)*0.2;
+                fixed4 col = tex2D(_CameraDepthTexture, grabPos)*0.2;
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;

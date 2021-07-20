@@ -15,6 +15,7 @@
     
     sampler2D _MatCapTex;
     sampler2D _VertexWaveAtten_MaskMap;//r
+    UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 
 CBUFFER_START(UnityPerMaterial)
     fixed4 _Color;
@@ -96,5 +97,8 @@ CBUFFER_START(UnityPerMaterial)
 // ==================================================
     int _MatCapOn;
     float _MatCapIntensity;
+// ==================================================    
+    int _DepthFadingOn;
+    float _DepthFadingWidth;
 CBUFFER_END
 #endif //POWER_VFX_INPUT_CGINC

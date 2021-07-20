@@ -19,9 +19,9 @@ v2f vert(appdata v)
         o.uv = v.uv; // uv.xy : main uv, zw : custom data.xy
         o.uv.xy = v.uv;
         o.grabPos = ComputeGrabScreenPos(o.vertex);
+        o.grabPos.z = COMPUTE_EYEDEPTH(o.grabPos.z);
 
-
-        float3 normalDistorted = normalize(worldNormal + _EnvOffset.xyz);
+        float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
         if(_EnvReflectOn)
             o.reflectDir = reflect(- viewDir,normalDistorted);
         if(_EnvRefractionOn)
@@ -44,6 +44,9 @@ v2f vert(appdata v)
         float4 mainUV = MainTexOffset(i.uv);
         float dissolveCustomData = i.fresnal_customDataZ.y;
         float dissolveEdgeWidth = i.fresnal_customDataZ.z;
+
+        if(_DepthFadingOn)
+            ApplySoftParticle(i.color/**/,i.grabPos); // change vertex color
 
         //use _CameraOpaqueTexture
         mainUV.xy = _MainTexUseScreenColor == 0 ? mainUV.xy : i.grabPos.xy/i.grabPos.w;

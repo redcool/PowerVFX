@@ -9,10 +9,10 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: test
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
-  m_ShaderKeywords: DISSOLVE_EDGE_ON DISSOLVE_ON OFFSET_ON _DISSOLVETEXOFFSETSTOP_ON
-    _DISSOLVETEXUSER_ON _DISTORTIONMASKUSER_ON _DoubleEffectOn _MAINTEXMASKUSER_ON
-    _VERTEXWAVEATTEN_FORWARDATTEN_ON _VERTEXWAVEATTEN_NORMALATTENON_ON _VERTEXWAVEATTEN_VERTEXCOLOR_ON
-    _VERTEXWAVEON_ON _ZWRITEMODE_ON
+  m_ShaderKeywords: DISSOLVE_EDGE_ON _DISSOLVETEXOFFSETSTOP_ON _DISSOLVETEXUSER_ON
+    _DISTORTIONMASKUSER_ON _MAINTEXMASKUSER_ON _SOFTPARTICLEON_ON _VERTEXWAVEATTEN_FORWARDATTEN_ON
+    _VERTEXWAVEATTEN_MASKMAPON_ON _VERTEXWAVEATTEN_NORMALATTENON_ON _VERTEXWAVEATTEN_VERTEXCOLOR_ON
+    _ZWRITEMODE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -27,6 +27,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortionMaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionNoiseTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -70,6 +74,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _VertexWaveAtten_MaskMap:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _VertgexWaveAtten_Map:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -87,59 +95,77 @@ Material:
     - _DissolveFading: 0
     - _DissolveFadingOn: 0
     - _DissolveFadingWidth: 0.149
-    - _DissolveOn: 1
+    - _DissolveOn: 0
     - _DissolveRevert: 0
+    - _DissolveTexChannel: 3
     - _DissolveTexOffsetStop: 1
     - _DissolveTexUseR: 1
     - _DistortionIntensity: 0.65
+    - _DistortionMaskChannel: 3
     - _DistortionMaskUseR: 1
     - _DistortionOn: 0
-    - _DoubleEffectOn: 1
+    - _DoubleEffectOn: 0
     - _DstMode: 10
     - _EdgeColorIntensity: 1.3
     - _EdgeWidth: 0.12
-    - _EnvIntensity: 6.38
+    - _EnvIntensity: 24.9
+    - _EnvMapMaskChannel: 3
     - _EnvMapMaskUseR: 0
     - _EnvReflectOn: 0
+    - _EnvRefractionIOR: 1.33
+    - _EnvRefractionOn: 0
     - _FresnalOn: 0
     - _FresnalPower: 0.222
     - _FresnalTransparent: 0.002
     - _FresnalTransparentOn: 0
+    - _FresnelInvertOn: 0
     - _FresnelOn: 0
     - _FresnelPower: 0.5
     - _FresnelTransparent: 0
     - _FresnelTransparentOn: 0
     - _Language: 0
+    - _MainTexMaskChannel: 3
     - _MainTexMaskOffsetStop: 0
     - _MainTexMaskUseR: 1
+    - _MainTexMultiAlpha: 0
     - _MainTexOffsetStop: 0
     - _MainTexOffsetUseCustomData_XY: 0
     - _MainTexUseScreenColor: 0
-    - _MatCapIntensity: 0
+    - _MatCapIntensity: 1
+    - _MatCapOn: 0
+    - _OffsetBlendIntensity: 0.5
+    - _OffsetMaskChannel: 3
     - _OffsetMaskTexUseR: 0
-    - _OffsetOn: 1
+    - _OffsetOn: 0
     - _PixelDissolveOn: 0
     - _PixelWidth: 5.22
+    - _SoftParticle: 1
+    - _SoftParticleOn: 1
+    - _SoftParticleWidth: 0.2
     - _SrcMode: 5
     - _VertexDistortionIntensity: 1
     - _VertexDistortionOn: 0
     - _VertexDistortionSpeed: 1
     - _VertexWaveAtten_ForwardAtten: 1
     - _VertexWaveAtten_MapOn: 0
+    - _VertexWaveAtten_MaskMapChannel: 0
+    - _VertexWaveAtten_MaskMapOffsetStopOn: 0
+    - _VertexWaveAtten_MaskMapOn: 1
     - _VertexWaveAtten_NormalAtten: 0
     - _VertexWaveAtten_NormalAttenOn: 1
     - _VertexWaveAtten_NormalDirMode: 1
     - _VertexWaveAtten_NormalLength: 1.08
     - _VertexWaveAtten_VertexColor: 1
+    - _VertexWaveDirAtten_LocalSpaceOn: 0
     - _VertexWaveForawdLength: 0.82
-    - _VertexWaveIntensity: 9.91
+    - _VertexWaveIntensity: 0
     - _VertexWaveLength: 1
-    - _VertexWaveOn: 1
-    - _VertexWaveSpeed: 2.31
+    - _VertexWaveOn: 0
+    - _VertexWaveSpeed: 0
     - _VertexWave_NoiseScale: 1
     - _VertexWave_NoiseSpeed: 1
     - _VertgexWaveAtten_MapOn: 0
-    - _ZTestMode: 8
+    - _ZTestMode: 4
     - _ZWriteMode: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -148,6 +174,8 @@ Material:
     - _EdgeColor: {r: 1, g: 0, b: 0, a: 0.7176471}
     - _EdgeColor2: {r: 0, g: 1.4980392, b: 0, a: 0.13333334}
     - _EnvOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _EnvReflectionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _EnvRefractionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _FresnalColor: {r: 1, g: 1, b: 1, a: 1}
     - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
     - _OffsetDir: {r: 0, g: -13.58, b: 0, a: 0}

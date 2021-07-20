@@ -25,7 +25,7 @@ _Color=主纹理颜色
 _MainTexMultiAlpha=主纹理预乘alpha
 _MainTexMask=主纹理遮罩
 _MainTexMaskOffsetStop=主纹理遮罩自动滚动停止
-_MainTexMaskUseR=遮罩使用R通道?
+_MainTexMaskChannel=遮罩通道?
 _MainTexUseScreenColor=主纹理使用屏幕颜色(需_CameraOpaqueTexture)
 
 _VertexWaveOn=开启顶点摆动
@@ -41,12 +41,13 @@ _VertexWaveAtten_NormalAttenOn=法线参与衰减?
 _VertexWaveAtten_MaskMapOn=衰减图
 _VertexWaveAtten_MaskMap=衰减maskmap(r)
 _VertexWaveAtten_MaskMapOffsetStopOn=停止衰减uv自动滚动
+_VertexWaveAtten_MaskMapChannel=衰减图通道
 
 
 _DistortionOn=开启扭曲
 _DistortionNoiseTex=杂点图(xy:layer1,zw:layer2)
 _DistortionMaskTex=效果遮罩
-_DistortionMaskChannel=遮罩使用R通道?
+_DistortionMaskChannel=遮罩通道
 _DistortionIntensity=强度
 _DistortTile=平铺(xy:1层,zw:2层)
 _DistortDir=方向(xy:1层,zw:2层)
@@ -73,9 +74,9 @@ _EdgeColor=边1颜色
 _EdgeColor2=边2颜色
 
 _OffsetOn=开启流光
-_OffsetTex=效果图片
-_OffsetMaskTex=效果遮罩
-_OffsetMaskTexUseR=遮罩使用R通道?
+_OffsetTex=纹理
+_OffsetMaskTex=遮罩
+_OffsetMaskChannel=遮罩通道
 
 _OffsetTexColorTint=层1 颜色
 _OffsetTexColorTint2=层2 颜色
@@ -96,7 +97,7 @@ _EnvRefractionIOR=折射率
 _EnvRefractionColor=折射调色
 _EnvMap=环境cube
 _EnvMapMask=环境遮罩
-_EnvMapMaskChannel=环境遮罩通道
+_EnvMapMaskChannel=遮罩通道
 _EnvIntensity=环境强度
 _EnvOffset=视线偏移
 

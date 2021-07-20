@@ -166,4 +166,10 @@
         mainColor.rgb += matCapMap;
     }
 
+    void ApplySoftParticle(inout float4 mainColor,float4 projPos){
+        float sceneZ = LinearEyeDepth (SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(projPos)));
+        float partZ = projPos.z;
+        float fade = saturate (_DepthFadingWidth * (sceneZ-partZ));
+        mainColor *= smoothstep(0.1,0.4,fade);
+    }
 #endif //POWER_VFX_CGINC

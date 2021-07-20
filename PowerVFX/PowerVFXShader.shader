@@ -129,7 +129,11 @@ Shader "FX/PowerVFX"
 		[Header(MatCap)]
 		[Toggle]_MatCapOn("_MatCapOn",int) = 0
 		[noscaleoffset]_MatCapTex("_MapCapTex",2d)=""{}
-		_MatCapIntensity("_MatCapIntensity",float) = 0
+		_MatCapIntensity("_MatCapIntensity",float) = 1
+// ==================================================
+		[Header(_DepthFading)]
+		[Toggle]_DepthFadingOn("_DepthFadingOn",int) = 0
+		_DepthFadingWidth("_DepthFadingWidth",range(0.01,3)) = 1
 	}
 	SubShader
 	{
