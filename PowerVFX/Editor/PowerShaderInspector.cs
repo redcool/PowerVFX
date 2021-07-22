@@ -172,6 +172,7 @@ namespace PowerVFX
 
         void DrawBlendMode(Material mat)
         {
+            EditorGUILayout.PrefixLabel("Preset Blend Mode");
             EditorGUI.BeginChangeCheck();
             presetBlendMode = (PresetBlendMode)EditorGUILayout.EnumPopup(ConfigTool.Text(propNameTextDict,"PresetBlendMode"), presetBlendMode);
             if (EditorGUI.EndChangeCheck())

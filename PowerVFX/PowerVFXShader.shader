@@ -20,6 +20,8 @@ Shader "FX/PowerVFX"
 		[Header(BlendMode)]
 		[Enum(UnityEngine.Rendering.BlendMode)]_SrcMode("Src Mode",int) = 5
 		[Enum(UnityEngine.Rendering.BlendMode)]_DstMode("Dst Mode",int) = 10
+		[Header(BlendOp)]
+		[Enum(UnityEngine.Rendering.BlendOp)]_BlendOp("_BlendOp",int) = 0
 
 		[Header(DoubleEffect)]
 		[Toggle(_DoubleEffectOn)]_DoubleEffectOn("双重效果?",int)=0
@@ -143,6 +145,7 @@ Shader "FX/PowerVFX"
 		{
 			ZWrite[_ZWriteMode]
 			Blend [_SrcMode][_DstMode]
+			BlendOp[_BlendOp]
 			Cull[_CullMode]
 			ztest[_ZTestMode]
 			CGPROGRAM

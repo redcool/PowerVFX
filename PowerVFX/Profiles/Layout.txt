@@ -4,7 +4,7 @@
 tabNames =  Settings, Main,VertexWave, Distortion, Dissolve, Offset, Fresnel,EnvReflect,MatCap
 
 // Tab's contents
-Settings = _DoubleEffectOn, _CullMode, _ZWriteMode,_ZTestMode,_DepthFadingOn,_DepthFadingWidth
+Settings = _DoubleEffectOn, _CullMode, _ZWriteMode,_ZTestMode,_BlendOp,_DepthFadingOn,_DepthFadingWidth
 Main = _MainTex, _MainTexOffsetStop, _MainTexOffsetUseCustomData_XY, _Color,_MainTexMultiAlpha, _MainTexMask,_MainTexMaskOffsetStop,_MainTexMaskChannel ,_MainTexUseScreenColor
 VertexWave = _VertexWaveOn,_VertexWaveSpeed,_VertexWaveIntensity,_VertexWaveAtten_VertexColor,_VertexWaveDirAtten,_VertexWaveDirAtten_LocalSpaceOn,_VertexWaveAtten_NormalAttenOn,_VertexWaveAtten_MaskMapOn,_VertexWaveAtten_MaskMap,_VertexWaveAtten_MaskMapOffsetStopOn,_VertexWaveAtten_MaskMapChannel
 Distortion = _DistortionOn, _DistortionNoiseTex, _DistortionMaskTex, _DistortionMaskChannel, _DistortionIntensity, _DistortTile, _DistortDir
