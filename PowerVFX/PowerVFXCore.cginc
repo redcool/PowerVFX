@@ -8,7 +8,7 @@
     #include "NodeLib.cginc"
     #include "UtilLib.cginc"
 
-    void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV){
+    void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV,float attemMaskCDATA){
         float2 worldUV = worldPos.xz + _Time.y * _VertexWaveSpeed;
         float noise = Unity_GradientNoise(worldUV,_VertexWaveIntensity);
 
@@ -27,6 +27,9 @@
         //4 atten map
         if(_VertexWaveAtten_MaskMapOn){
             float offsetScale = _Time.y * !_VertexWaveAtten_MaskMapOffsetStopOn;
+            if(_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X){
+                offsetScale = attemMaskCDATA;
+            }
             float4 attenMapUV = float4(mainUV * _VertexWaveAtten_MaskMap_ST.xy + _VertexWaveAtten_MaskMap_ST.zw * offsetScale,0,0);
             atten *= tex2Dlod(_VertexWaveAtten_MaskMap,attenMapUV)[_VertexWaveAtten_MaskMapChannel];
         }

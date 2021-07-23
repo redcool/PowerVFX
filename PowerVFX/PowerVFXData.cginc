@@ -7,7 +7,7 @@
         float3 normal:NORMAL;
         float4 color : COLOR;
         half4 uv : TEXCOORD0; // xy:main uv,zw : particle's customData(mainTex scroll)
-        half4 uv1:TEXCOORD1; //particle's customData(x:dissolve,y:dissolveEdgeWidth)
+        half4 uv1:TEXCOORD1; //particle's customData(x:dissolve,y:dissolveEdgeWidth,z : _VertexWaveAttenMask_UseCustomeData2_X)
     };
 
     struct v2f
@@ -19,7 +19,7 @@
         float3 refractDir:COLOR3;
 
         float4 uv : TEXCOORD0;
-        float4 fresnal_customDataZ:TEXCOORD1;// x:fresnal,y:customData.x
+        float4 fresnal_customDataZ:TEXCOORD1;// x:fresnal,y:customData.x,z:_VertexWaveAttenMask_UseCustomeData2_X
         float4 grabPos:TEXCOORD2;
     };
 

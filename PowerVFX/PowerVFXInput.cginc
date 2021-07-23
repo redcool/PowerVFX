@@ -43,6 +43,7 @@ CBUFFER_START(UnityPerMaterial)
     float4 _VertexWaveAtten_MaskMap_ST;
     int _VertexWaveAtten_MaskMapOffsetStopOn;
     int _VertexWaveAtten_MaskMapChannel;
+    int _VertexWaveAttenMaskOffsetScale_UseCustomeData2_X;
 // ==================================================
     float _DistortionOn;
     int _DistortionMaskChannel;

@@ -47,6 +47,7 @@ Shader "FX/PowerVFX"
 		_VertexWaveAtten_MaskMap("_VertexWaveAtten_MaskMap",2d) = "white"{}
 		[Enum(R,0,G,1,B,2,A,3)]_VertexWaveAtten_MaskMapChannel("_VertexWaveAtten_MaskMapChannel",int) = 0
 		[Toggle]_VertexWaveAtten_MaskMapOffsetStopOn("_VertexWaveAtten_MaskMapOffsetStopOn",int) = 0
+		[Toggle]_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X("_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X",int) = 0
 // ==================================================
 		[Header(Distortion)]
 		[Toggle(DISTORTION_ON)]_DistortionOn("Distortion On?",int)=0

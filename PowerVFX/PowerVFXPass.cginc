@@ -12,7 +12,8 @@ v2f vert(appdata v)
         v2f o = (v2f)0;
         o.color = v.color;
         if(_VertexWaveOn){
-            ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv);
+            float attemMaskCDATA = v.uv1.z;
+            ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv,attemMaskCDATA);
         }
         o.vertex = UnityWorldToClipPos(worldPos);
 
