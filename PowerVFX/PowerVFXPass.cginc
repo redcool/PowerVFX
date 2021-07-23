@@ -38,7 +38,7 @@ v2f vert(appdata v)
         o.fresnal_customDataZ.z = v.uv1.y; // particle custom data (Custom1).w
         return o;
     }
-    fixed4 frag(v2f i) : SV_Target
+    fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     {
         half4 mainColor = float4(0,0,0,1);
         // setup mainUV
@@ -54,9 +54,9 @@ v2f vert(appdata v)
 
         if(_DistortionOn){
             float4 distortUV = mainUV.zwzw * _DistortTile + frac(_DistortDir * _Time.xxxx);
-            ApplyDistortion(mainColor,mainUV,distortUV,i.color);
+            ApplyDistortion(mainColor,mainUV,distortUV,i.color,faceId);
         }else{
-            mainColor = SampleMainTex(mainUV.xy,i.color);
+            mainColor = SampleMainTex(mainUV.xy,i.color,faceId);
         }
 
         ApplyMainTexMask(mainColor,mainUV.zw);

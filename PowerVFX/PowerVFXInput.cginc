@@ -18,7 +18,8 @@
     UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 
 CBUFFER_START(UnityPerMaterial)
-    fixed4 _Color;
+    float4 _Color;
+    float4 _BackFaceColor;
     int _MainTexMultiAlpha;
     half4 _MainTex_ST;
     float _MainTexOffsetStop;

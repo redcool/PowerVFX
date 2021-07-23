@@ -7,6 +7,7 @@ Shader "FX/PowerVFX"
 		[Toggle]_MainTexOffsetStop("禁用MainTex自动滚动?",int)=0
 		[Toggle]_MainTexOffsetUseCustomData_XY("_MainTexOffsetUseCustomData_XY -> uv.zw",int)=0
 		[HDR]_Color("Main Color",Color) = (1,1,1,1)
+		[HDR]_BackFaceColor("BackFace Color",Color) = (0.5,0.5,.5,1)
 		[Toggle]_MainTexMultiAlpha("_MainTexMultiAlpha",int) = 0
 
 		[Header(MaskTexMask)]
@@ -153,6 +154,7 @@ Shader "FX/PowerVFX"
 			CGPROGRAM
             #pragma multi_compile_instancing
 
+			#pragma target 3.0
 			#pragma vertex vert
 			#pragma fragment frag
 			

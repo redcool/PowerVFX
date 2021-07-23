@@ -54,10 +54,11 @@
         return scrollUV;
     }
 
-    float4 SampleMainTex(float2 uv,float4 vertexColor){
+    float4 SampleMainTex(float2 uv,float4 vertexColor,float faceId){
+        float4 color = lerp(_BackFaceColor,_Color,faceId);
         float4 mainTex = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : tex2D(_CameraOpaqueTexture,uv);
-        mainTex.xyz *= lerp(1,mainTex.a * vertexColor.a * _Color.a,_MainTexMultiAlpha);
-        return mainTex * _Color * vertexColor;
+        mainTex.xyz *= lerp(1,mainTex.a * vertexColor.a * color.a,_MainTexMultiAlpha);
+        return mainTex * color * vertexColor;
     }
 
     void ApplyMainTexMask(inout float4 mainColor,float2 uv){
@@ -66,7 +67,7 @@
         mainColor.a *= maskTex[_MainTexMaskChannel];
     }
 
-    void ApplyDistortion(inout float4 mainColor,float4 mainUV,float4 distortUV,float4 color){
+    void ApplyDistortion(inout float4 mainColor,float4 mainUV,float4 distortUV,float4 color,float faceId){
         half2 noise = (tex2D(_DistortionNoiseTex, distortUV.xy).xy -0.5) * 2;
         if(_DoubleEffectOn)
             noise += (tex2D(_DistortionNoiseTex, distortUV.zw).zw -0.5)*2;
@@ -76,7 +77,7 @@
         float4 maskTex = tex2D(_DistortionMaskTex,maskUV);
 
         half2 uv = mainUV.xy + noise * 0.2  * _DistortionIntensity * maskTex[_DistortionMaskChannel];
-        mainColor = SampleMainTex(uv,color);
+        mainColor = SampleMainTex(uv,color,faceId);
     }
 
     void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float dissolveCDATA,float edgeWidthCDATA){
