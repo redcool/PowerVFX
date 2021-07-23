@@ -92,7 +92,7 @@
         if(_DissolveByVertexColor)
             cutoff =  1 - color.a; // slider or vertex color
 
-        if(_DissolveByCustomData)
+        if(_DissolveByCustomData_Z)
             cutoff = 1- dissolveCDATA; // slider or particle's custom data
         
         cutoff = lerp(-0.15,1.01,cutoff);
@@ -108,7 +108,7 @@
 
         if(_DissolveEdgeOn){
             half4 edgeColor = (half4)0;
-            half edgeWidth = _DissolveEdgeWidthBy_Custom1 > 0? edgeWidthCDATA : _EdgeWidth;
+            half edgeWidth = _DissolveEdgeWidthByCustomData_W > 0? edgeWidthCDATA : _EdgeWidth;
             half edgeRate = cutoff + edgeWidth;
             
             half edge = step(refDissolve,edgeRate);

@@ -52,7 +52,7 @@ CBUFFER_START(UnityPerMaterial)
     float _DissolveOn;
     float _DissolveRevert;
     float _DissolveByVertexColor;
-    float _DissolveByCustomData;
+    float _DissolveByCustomData_Z;
     float _DissolveTexChannel;
     float4 _DissolveTex_ST;
     float _DissolveTexOffsetStop;
@@ -63,7 +63,7 @@ CBUFFER_START(UnityPerMaterial)
     float _PixelWidth;
 
     float _DissolveEdgeOn;
-    float _DissolveEdgeWidthBy_Custom1;
+    float _DissolveEdgeWidthByCustomData_W;
     float _EdgeWidth;
     float4 _EdgeColor;
     float4 _EdgeColor2;

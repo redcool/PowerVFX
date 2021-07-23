@@ -58,7 +58,7 @@ _DissolveTex=溶解图(设置Offset将自动滚动)
 _DissolveTexOffsetStop=禁止溶解自动滚动
 _DissolveTexChannel=溶解图通道
 _DissolveByVertexColor=溶解使用顶点颜色(A)
-_DissolveByCustomData=溶解使用CustomData.z->uv1.x?
+_DissolveByCustomData_Z=溶解使用CustomData.z->uv1.x?
 _DissolveFadingOn = 溶解透明?
 _DissolveFading=溶解透明值
 _DissolveFadingWidth=溶解透明宽度
@@ -68,7 +68,7 @@ _PixelDissolveOn=像素化溶解?
 _PixelWidth=像素化宽
 
 _DissolveEdgeOn=开启溶解边?
-_DissolveEdgeWidthBy_Custom1=溶解边受(CustomData.w->uv1.有)控制?
+_DissolveEdgeWidthByCustomData_W=溶解边受(CustomData.w->uv1.有)控制?
 _EdgeWidth=边宽度
 _EdgeColor=边1颜色
 _EdgeColor2=边2颜色

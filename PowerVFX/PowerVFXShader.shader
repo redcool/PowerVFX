@@ -32,6 +32,7 @@ Shader "FX/PowerVFX"
 		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 4
 // ==================================================
 		[Toggle]_VertexWaveOn("_VertexWaveOn ?",int) = 0
+		[Header(Noise Params)]
 		_VertexWaveSpeed("_VertexWaveSpeed",float) = 1
 		_VertexWaveIntensity("_VertexWaveIntensity",float) = 1
 
@@ -70,7 +71,7 @@ Shader "FX/PowerVFX"
 		
 		[Header(DissolveType)]
 		[Toggle]_DissolveByVertexColor("Dissolve By Vertex Color ?",int)=0
-		[Toggle]_DissolveByCustomData("Dissolve By customData.z -> uv1.x ?",int)=0
+		[Toggle]_DissolveByCustomData_Z("Dissolve By customData.z -> uv1.x ?",int)=0
 
 		[Header(DissolveFading)]
 		[Toggle]_DissolveFadingOn("_DissolveFadingOn",int) = 0
@@ -88,7 +89,7 @@ Shader "FX/PowerVFX"
 		[Header(DissolveEdge)]
 		[Toggle(DISSOLVE_EDGE_ON)]_DissolveEdgeOn("Dissolve Edge On?",int)=0
 		_EdgeWidth("EdgeWidth",range(0,0.3)) = 0.1
-		[Toggle]_DissolveEdgeWidthBy_Custom1("_DissolveEdgeWidthBy_Custom1.w -> uv1.y",int) = 0
+		[Toggle]_DissolveEdgeWidthByCustomData_W("_DissolveEdgeWidthByCustomData_W.w -> uv1.y",int) = 0
 		[HDR]_EdgeColor("EdgeColor",color) = (1,0,0,1)
 		[HDR]_EdgeColor2("EdgeColor2",color) = (0,1,0,1)
 // ==================================================
