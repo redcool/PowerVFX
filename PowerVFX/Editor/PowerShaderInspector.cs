@@ -11,6 +11,7 @@ namespace PowerVFX
 
     public enum PresetBlendMode
     {
+        Normal,
         AlphaBlend,
         SoftAdd, 
         Add,
@@ -50,6 +51,7 @@ namespace PowerVFX
         public PowerShaderInspector()
         {
             blendModeDict = new Dictionary<PresetBlendMode, BlendMode[]> {
+                {PresetBlendMode.Normal,new []{ BlendMode.One,BlendMode.Zero} },
                 {PresetBlendMode.AlphaBlend,new []{ BlendMode.SrcAlpha,BlendMode.OneMinusSrcAlpha} },
                 {PresetBlendMode.SoftAdd,new []{ BlendMode.SrcAlpha, BlendMode.One} }, //OneMinusDstColor
                 {PresetBlendMode.Add,new []{ BlendMode.One,BlendMode.One} },
