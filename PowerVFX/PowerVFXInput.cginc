@@ -19,6 +19,7 @@
 
 CBUFFER_START(UnityPerMaterial)
     float4 _Color;
+    float _ColorScale;
     float4 _BackFaceColor;
     int _MainTexMultiAlpha;
     half4 _MainTex_ST;

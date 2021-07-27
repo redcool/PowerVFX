@@ -58,7 +58,7 @@
         float4 color = lerp(_BackFaceColor,_Color,faceId);
         float4 mainTex = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : tex2D(_CameraOpaqueTexture,uv);
         mainTex.xyz *= lerp(1,mainTex.a * vertexColor.a * color.a,_MainTexMultiAlpha);
-        return mainTex * color * vertexColor;
+        return mainTex * color * vertexColor * _ColorScale;
     }
 
     void ApplyMainTexMask(inout float4 mainColor,float2 uv){
