@@ -9,12 +9,15 @@
     #include "UtilLib.cginc"
 
     void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV,float attemMaskCDATA){
-        float2 worldUV = worldPos.xz + _Time.y * _VertexWaveSpeed;
+        float2 worldUV = worldPos.xz + _VertexWaveSpeed * lerp(_Time.xy,1,_VertexWaveSpeedManual);
         float noise = Unity_GradientNoise(worldUV,_VertexWaveIntensity);
 
         //1 vertex color atten
         //2 uniform dir atten
         float3 dir = SafeNormalize(_VertexWaveDirAtten.xyz) * _VertexWaveDirAtten.w;
+        if(_VertexWaveDirAlongNormalOn)
+            dir *= normal;
+        
         if(_VertexWaveDirAtten_LocalSpaceOn)
             dir = mul(unity_ObjectToWorld,dir);
 

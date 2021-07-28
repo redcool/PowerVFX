@@ -36,10 +36,12 @@ CBUFFER_START(UnityPerMaterial)
 // ==================================================
     float _VertexWaveOn;
     float _VertexWaveSpeed;
+    int _VertexWaveSpeedManual;
     float _VertexWaveIntensity;
     // vertex wave attenuations
     float _VertexWaveAtten_VertexColor;
     float4 _VertexWaveDirAtten;
+    int _VertexWaveDirAlongNormalOn;
     int _VertexWaveDirAtten_LocalSpaceOn;
     int _VertexWaveAtten_NormalAttenOn;
 

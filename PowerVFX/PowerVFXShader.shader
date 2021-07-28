@@ -40,11 +40,13 @@ Shader "FX/PowerVFX"
 		[Toggle]_VertexWaveOn("_VertexWaveOn ?",int) = 0
 		[Header(Noise Params)]
 		_VertexWaveSpeed("_VertexWaveSpeed",float) = 1
+		[Toggle]_VertexWaveSpeedManual("_VertexWaveSpeedManual",int) = 0
 		_VertexWaveIntensity("_VertexWaveIntensity",float) = 1
 
 		[Header(Vertex Wava Atten)]
 		[Toggle]_VertexWaveAtten_VertexColor("_VertexWaveAtten_VertexColor(rgb)",float) = 0
 		_VertexWaveDirAtten("_VertexWaveDirAtten(xyz:dir,w:len)",vector) = (1,1,1,1)
+		[Toggle]_VertexWaveDirAlongNormalOn("_VertexWaveDirAlongNormalOn?",int) = 0
 		[Toggle]_VertexWaveDirAtten_LocalSpaceOn("_VertexWaveDirAtten_LocalSpaceOn",int) = 0
 		[Toggle]_VertexWaveAtten_NormalAttenOn("_VertexWaveAtten_NormalAttenOn",float) = 0
 
