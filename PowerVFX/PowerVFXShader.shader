@@ -8,8 +8,12 @@ Shader "FX/PowerVFX"
 		[Toggle]_MainTexOffsetUseCustomData_XY("_MainTexOffsetUseCustomData_XY -> uv.zw",int)=0
 		[HDR]_Color("Main Color",Color) = (1,1,1,1)
 		_ColorScale("ColorScale",range(1,3)) = 2
-		[HDR]_BackFaceColor("BackFace Color",Color) = (0.5,0.5,.5,1)
 		[Toggle]_MainTexMultiAlpha("_MainTexMultiAlpha",int) = 0
+		[Header(Saturate)]
+		_MainTexSaturate("_MainTexSaturate",float) = 1
+		[Header(Back Face)]
+		[Toggle]_BackFaceOn("_BackFaceOn",int) = 0
+		[HDR]_BackFaceColor("BackFace Color",Color) = (0.5,0.5,.5,1)
 
 		[Header(MaskTexMask)]
 		_MainTexMask("Main Texture Mask(R)", 2D) = "white" {}

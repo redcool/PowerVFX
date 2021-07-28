@@ -20,8 +20,10 @@
 CBUFFER_START(UnityPerMaterial)
     float4 _Color;
     float _ColorScale;
-    float4 _BackFaceColor;
+    float _MainTexSaturate;
     int _MainTexMultiAlpha;
+    int _BackFaceOn;
+    float4 _BackFaceColor;
     half4 _MainTex_ST;
     float _MainTexOffsetStop;
     float _MainTexOffsetUseCustomData_XY;

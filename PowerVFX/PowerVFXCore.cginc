@@ -36,8 +36,6 @@
         worldPos.xyz +=  noise * atten;
     }
 
-
-
     /**
         return : float4
         xy:ofset and scalel vertex uv,
@@ -55,12 +53,15 @@
     }
 
     float4 SampleMainTex(float2 uv,float4 vertexColor,float faceId){
-        float4 color = lerp(_BackFaceColor,_Color,faceId);
+        float4 color = _BackFaceOn ? lerp(_BackFaceColor,_Color,faceId) : _Color;
         float4 mainTex = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : tex2D(_CameraOpaqueTexture,uv);
         mainTex.xyz *= lerp(1,mainTex.a * vertexColor.a * color.a,_MainTexMultiAlpha);
         mainTex *= color * vertexColor * _ColorScale;
-
         return mainTex;
+    }
+
+    void ApplySaturate(inout float4 mainColor){
+        mainColor.xyz = lerp(Gray(mainColor.xyz),mainColor.xyz,_MainTexSaturate);
     }
 
     void ApplyMainTexMask(inout float4 mainColor,float2 uv){

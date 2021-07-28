@@ -58,7 +58,7 @@ v2f vert(appdata v)
         }else{
             mainColor = SampleMainTex(mainUV.xy,i.color,faceId);
         }
-
+        ApplySaturate(mainColor);
         ApplyMainTexMask(mainColor,mainUV.zw);
 
         if(_EnvReflectOn || _EnvRefractionOn)
