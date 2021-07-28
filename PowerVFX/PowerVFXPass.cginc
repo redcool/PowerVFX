@@ -54,6 +54,10 @@ v2f vert(appdata v)
 
         if(_DistortionOn){
             float4 distortUV = mainUV.zwzw * _DistortTile + frac(_DistortDir * _Time.xxxx);
+            if(_DistortionRadialUVOn){
+                float4 p = _DistortionRadialCenter_LenScale_LenOffset;
+                distortUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_DistortionRadialRot);
+            }
             ApplyDistortion(mainColor,mainUV,distortUV,i.color,faceId);
         }else{
             mainColor = SampleMainTex(mainUV.xy,i.color,faceId);
@@ -67,7 +71,8 @@ v2f vert(appdata v)
         if(_OffsetOn){
             float4 offsetUV = mainUV.zwzw * _OffsetTile + (_Time.xxxx * _OffsetDir); //暂时去除 frac
             if(_OffsetRadialUVOn){
-                offsetUV.xy = PolarUV(mainUV.zw,_OffsetRadialCenter_LenScale_LenOffset.xy,_OffsetRadialCenter_LenScale_LenOffset.z,_OffsetRadialCenter_LenScale_LenOffset.w*_Time.x,_OffsetRadialRot);
+                float4 p = _OffsetRadialCenter_LenScale_LenOffset;
+                offsetUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_OffsetRadialRot);
             }
             ApplyOffset(mainColor,offsetUV,mainUV.zw);
         }

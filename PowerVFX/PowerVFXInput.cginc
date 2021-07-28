@@ -53,6 +53,9 @@ CBUFFER_START(UnityPerMaterial)
     int _DistortionMaskChannel;
     float _DistortionIntensity;
     float4 _DistortTile,_DistortDir;
+    int _DistortionRadialUVOn;
+    float4 _DistortionRadialCenter_LenScale_LenOffset;
+    float _DistortionRadialRot;
 // ==================================================
     float _DissolveOn;
     float _DissolveRevert;

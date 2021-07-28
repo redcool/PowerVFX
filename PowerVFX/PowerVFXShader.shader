@@ -68,6 +68,10 @@ Shader "FX/PowerVFX"
 		_DistortTile("Distort Tile",vector) = (1,1,1,1)
 		_DistortDir("Distort Dir",vector) = (0,1,0,-1)
 
+		[Header(Radial UV)]
+		[Toggle]_DistortionRadialUVOn("_DistortionRadialUVOn",int) = 0
+		_DistortionRadialCenter_LenScale_LenOffset("_DistortionRadialCenter_LenScale_LenOffset",vector) = (.5,.5,1,0)
+		_DistortionRadialRot("_DistortionRadialRot",float) = 0
 // ==================================================
 		[Header(Dissolve)]
 		[Toggle(DISSOLVE_ON)]_DissolveOn("Dissolve On?",int)=0
@@ -113,8 +117,6 @@ Shader "FX/PowerVFX"
 		[Header(Radial UV)]
 		[Toggle]_OffsetRadialUVOn("_OffsetRadialUVOn",int) = 0
 		_OffsetRadialCenter_LenScale_LenOffset("_OffsetRadialCenter_LenScale_LenOffset",vector) = (.5,.5,1,0)
-		// _OffsetRadialLengthScale("_OffsetRadialLengthScale",float) = 1
-		// _OffsetRadialLengthOffset("_OffsetRadialLengthOffset",float) = 0
 		_OffsetRadialRot("_OffsetRadialRot",float) = 0
 // ==================================================
 		[Header(Fresnal)]
