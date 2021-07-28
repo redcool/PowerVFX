@@ -61,7 +61,7 @@
     }
 
     void ApplySaturate(inout float4 mainColor){
-        mainColor.xyz = lerp(Gray(mainColor.xyz),mainColor.xyz,_MainTexSaturate);
+        mainColor.xyz = lerp(0,mainColor.xyz,_MainTexSaturate);
     }
 
     void ApplyMainTexMask(inout float4 mainColor,float2 uv){

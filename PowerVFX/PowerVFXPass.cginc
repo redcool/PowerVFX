@@ -66,6 +66,9 @@ v2f vert(appdata v)
 
         if(_OffsetOn){
             float4 offsetUV = mainUV.zwzw * _OffsetTile + (_Time.xxxx * _OffsetDir); //暂时去除 frac
+            if(_OffsetRadialUVOn){
+                offsetUV.xy = PolarUV(mainUV.zw,_OffsetRadialCenter_LenScale_LenOffset.xy,_OffsetRadialCenter_LenScale_LenOffset.z,_OffsetRadialCenter_LenScale_LenOffset.w*_Time.x,_OffsetRadialRot);
+            }
             ApplyOffset(mainColor,offsetUV,mainUV.zw);
         }
 

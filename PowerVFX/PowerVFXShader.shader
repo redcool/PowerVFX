@@ -100,7 +100,7 @@ Shader "FX/PowerVFX"
 		[HDR]_EdgeColor("EdgeColor",color) = (1,0,0,1)
 		[HDR]_EdgeColor2("EdgeColor2",color) = (0,1,0,1)
 // ==================================================
-		[Header(Offset)]
+		[Header(Offset)] 
 		[Toggle(OFFSET_ON)] _OffsetOn("Offset On?",int) = 0
 		[NoScaleOffset]_OffsetTex("Offset Tex",2d) = ""{}
 		[NoScaleOffset]_OffsetMaskTex("Offset Mask (R)",2d) = "white"{}
@@ -110,6 +110,12 @@ Shader "FX/PowerVFX"
 		_OffsetTile("Offset Tile",vector) = (1,1,1,1)
 		_OffsetDir("Offset Dir",vector) = (1,1,0,0)
 		_OffsetBlendIntensity("Blend Intensity",range(0,10)) = 0.5
+		[Header(Radial UV)]
+		[Toggle]_OffsetRadialUVOn("_OffsetRadialUVOn",int) = 0
+		_OffsetRadialCenter_LenScale_LenOffset("_OffsetRadialCenter_LenScale_LenOffset",vector) = (.5,.5,1,0)
+		// _OffsetRadialLengthScale("_OffsetRadialLengthScale",float) = 1
+		// _OffsetRadialLengthOffset("_OffsetRadialLengthOffset",float) = 0
+		_OffsetRadialRot("_OffsetRadialRot",float) = 0
 // ==================================================
 		[Header(Fresnal)]
 		[Toggle(FRESNAL_ON)]_FresnelOn("_FresnelOn?",int)=0

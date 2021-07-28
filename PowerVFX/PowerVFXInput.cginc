@@ -82,6 +82,10 @@ CBUFFER_START(UnityPerMaterial)
     float4 _OffsetTexColorTint,_OffsetTexColorTint2;
     float4 _OffsetTile,_OffsetDir;
     float _OffsetBlendIntensity;
+    // radial uv 
+    int _OffsetRadialUVOn;
+    float4 _OffsetRadialCenter_LenScale_LenOffset;
+    float _OffsetRadialRot;
 // ==================================================
     float _FresnelOn;
     int _FresnelInvertOn;

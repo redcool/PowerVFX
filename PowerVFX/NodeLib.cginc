@@ -78,6 +78,34 @@ float Gray(float3 rgb){
 	return dot(float3(0.07,0.7,0.2),rgb);
 }
 
+float2 PolarUV(float2 mainUV,float2 center,float lenScale,float lenOffset,float rotOffset){
+	float2 uv = mainUV-center;
+
+	float r = sqrt(uv.x*uv.x+uv.y*uv.y)*lenScale+lenOffset;
+	float t = atan2(uv.y,uv.x) + rotOffset;
+	return float2(t,r);
+}
+
+float2 Twirl(float2 uv,float2 center,float scale,float2 offset){
+	float2 dir = uv - center;
+	float len = length(dir) * scale;
+
+	float2 nuv = float2(
+		dot(float2(cos(len),-sin(len)),dir),
+		dot(float2(sin(len),cos(len)),dir)
+	);
+	
+	return nuv + center + offset;
+}
+
+
+
+
+
+
+
+
+
 //input
 
 float3 _Camera_Position() { return _WorldSpaceCameraPos; }
