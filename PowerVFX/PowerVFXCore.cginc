@@ -59,7 +59,7 @@
         float4 mainTex = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : tex2D(_CameraOpaqueTexture,uv);
         mainTex.xyz *= lerp(1,mainTex.a * vertexColor.a * color.a,_MainTexMultiAlpha);
         mainTex *= color * vertexColor * _ColorScale;
-        mainTex.a = saturate(mainTex.a);
+
         return mainTex;
     }
 
@@ -176,7 +176,7 @@
         float sceneZ = LinearEyeDepth (SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(projPos)));
         float partZ = projPos.z;
         float delta = (sceneZ-partZ);
-        float fade = saturate (_DepthFadingWidth * delta) + 0.12*delta;
+        float fade = saturate (_DepthFadingWidth * delta + 0.12*delta);
         mainColor *= smoothstep(0.1,0.4,fade);
     }
 #endif //POWER_VFX_CGINC

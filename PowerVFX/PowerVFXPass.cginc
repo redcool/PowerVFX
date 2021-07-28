@@ -83,7 +83,8 @@ v2f vert(appdata v)
         
         if(_MatCapOn)
             ApplyMatcap(mainColor,mainUV.zw,i.viewNormal);
-
+        
+        mainColor.a = saturate(mainColor.a);
         return mainColor;
     }
 

@@ -10,9 +10,9 @@ Material:
   m_Name: test
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
   m_ShaderKeywords: DISSOLVE_EDGE_ON _DISSOLVETEXOFFSETSTOP_ON _DISSOLVETEXUSER_ON
-    _DISTORTIONMASKUSER_ON _MAINTEXMASKUSER_ON _SOFTPARTICLEON_ON _VERTEXWAVEATTEN_FORWARDATTEN_ON
-    _VERTEXWAVEATTEN_MASKMAPON_ON _VERTEXWAVEATTEN_NORMALATTENON_ON _VERTEXWAVEATTEN_VERTEXCOLOR_ON
-    _ZWRITEMODE_ON
+    _DISTORTIONMASKUSER_ON _MAINTEXMASKUSER_ON _MAINTEXMULTIALPHA_ON _SOFTPARTICLEON_ON
+    _VERTEXWAVEATTEN_FORWARDATTEN_ON _VERTEXWAVEATTEN_MASKMAPON_ON _VERTEXWAVEATTEN_NORMALATTENON_ON
+    _VERTEXWAVEATTEN_VERTEXCOLOR_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -84,15 +84,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BlendIntensity: 3.58
+    - _BlendOp: 0
     - _ColorScale: 1
-    - _CullMode: 2
+    - _CullMode: 0
     - _Cutoff: 0.104
     - _DepthFadingOn: 0
     - _DepthFadingWidth: 0.67
     - _DissolveByCustomData: 0
+    - _DissolveByCustomData_Z: 0
     - _DissolveByVertexColor: 0
     - _DissolveClipOn: 0
     - _DissolveEdgeOn: 1
+    - _DissolveEdgeWidthByCustomData_W: 0
     - _DissolveEdgeWidthBy_Custom1: 0
     - _DissolveFading: 0
     - _DissolveFadingOn: 0
@@ -129,7 +132,7 @@ Material:
     - _MainTexMaskChannel: 3
     - _MainTexMaskOffsetStop: 0
     - _MainTexMaskUseR: 1
-    - _MainTexMultiAlpha: 0
+    - _MainTexMultiAlpha: 1
     - _MainTexOffsetStop: 0
     - _MainTexOffsetUseCustomData_XY: 0
     - _MainTexUseScreenColor: 0
@@ -148,6 +151,7 @@ Material:
     - _VertexDistortionIntensity: 1
     - _VertexDistortionOn: 0
     - _VertexDistortionSpeed: 1
+    - _VertexWaveAttenMaskOffsetScale_UseCustomeData2_X: 0
     - _VertexWaveAtten_ForwardAtten: 1
     - _VertexWaveAtten_MapOn: 0
     - _VertexWaveAtten_MaskMapChannel: 0
@@ -168,8 +172,9 @@ Material:
     - _VertexWave_NoiseSpeed: 1
     - _VertgexWaveAtten_MapOn: 0
     - _ZTestMode: 4
-    - _ZWriteMode: 1
+    - _ZWriteMode: 0
     m_Colors:
+    - _BackFaceColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DistortDir: {r: 0, g: -1, b: 0, a: 1}
     - _DistortTile: {r: 1, g: 1, b: 2, a: 2}
