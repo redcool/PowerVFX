@@ -80,6 +80,9 @@ Shader "FX/PowerVFX"
 		[Toggle]_DistortionRadialUVOn("_DistortionRadialUVOn",int) = 0
 		_DistortionRadialCenter_LenScale_LenOffset("_DistortionRadialCenter_LenScale_LenOffset",vector) = (.5,.5,1,0)
 		_DistortionRadialRot("_DistortionRadialRot",float) = 0
+
+		[Header(Distortion Where)]
+		[Toggle]_ApplyToOffset("_ApplyToOffset",int) = 0
 // ==================================================
 		[Header(Dissolve)]
 		[Toggle(DISSOLVE_ON)]_DissolveOn("Dissolve On?",int)=0

@@ -57,6 +57,10 @@ _DistortionMaskChannel=遮罩通道
 _DistortionIntensity=强度
 _DistortTile=平铺(xy:1层,zw:2层)
 _DistortDir=方向(xy:1层,zw:2层)
+_DistortionRadialUVOn=径向?
+_DistortionRadialCenter_LenScale_LenOffset=径向位置_缩放_偏移量
+_DistortionRadialRot=径向扭曲角度
+_ApplyToOffset= 扭曲流光
 
 _DissolveOn=开启溶解?
 _DissolveRevert=反向溶解?
@@ -89,6 +93,10 @@ _OffsetTexColorTint2=层2 颜色
 _OffsetTile=平铺(xy:1层,zw:2层)
 _OffsetDir=方向(xy:1层,zw:2层)
 _OffsetBlendIntensity=混合强度
+
+_OffsetRadialUVOn=径向?
+_OffsetRadialCenter_LenScale_LenOffset=径向位置_缩放_偏移量
+_OffsetRadialRot=径向扭曲角度
 
 _FresnelOn=开启轮廓光
 _FresnelColor=轮廓光颜色

@@ -51,14 +51,15 @@ v2f vert(appdata v)
 
         //use _CameraOpaqueTexture
         mainUV.xy = _MainTexUseScreenColor == 0 ? mainUV.xy : i.grabPos.xy/i.grabPos.w;
-
+        
+        float2 uvDistorted = mainUV.zw;
         if(_DistortionOn){
             float4 distortUV = mainUV.zwzw * _DistortTile + frac(_DistortDir * _Time.xxxx);
             if(_DistortionRadialUVOn){
                 float4 p = _DistortionRadialCenter_LenScale_LenOffset;
                 distortUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_DistortionRadialRot);
             }
-            ApplyDistortion(mainColor,mainUV,distortUV,i.color,faceId);
+            uvDistorted = ApplyDistortion(mainColor,mainUV,distortUV,i.color,faceId);
         }else{
             mainColor = SampleMainTex(mainUV.xy,i.color,faceId);
         }
@@ -69,7 +70,7 @@ v2f vert(appdata v)
             ApplyEnv(mainColor,mainUV.zw,i.reflectDir,i.refractDir);
 
         if(_OffsetOn){
-            float4 offsetUV = mainUV.zwzw * _OffsetTile + (_Time.xxxx * _OffsetDir); //暂时去除 frac
+            float4 offsetUV = (_ApplyToOffset ? uvDistorted.xyxy : mainUV.zwzw) * _OffsetTile + (_Time.xxxx * _OffsetDir); //暂时去除 frac
             if(_OffsetRadialUVOn){
                 float4 p = _OffsetRadialCenter_LenScale_LenOffset;
                 offsetUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_OffsetRadialRot);

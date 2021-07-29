@@ -77,7 +77,7 @@
         mainColor.a *= maskTex[_MainTexMaskChannel];
     }
 
-    void ApplyDistortion(inout float4 mainColor,float4 mainUV,float4 distortUV,float4 color,float faceId){
+    float2 ApplyDistortion(inout float4 mainColor,float4 mainUV,float4 distortUV,float4 color,float faceId){
         half2 noise = (tex2D(_DistortionNoiseTex, distortUV.xy).xy -0.5) * 2;
         if(_DoubleEffectOn)
             noise += (tex2D(_DistortionNoiseTex, distortUV.zw).zw -0.5)*2;
@@ -86,8 +86,9 @@
 
         float4 maskTex = tex2D(_DistortionMaskTex,maskUV);
 
-        half2 uv = mainUV.xy + noise * 0.2  * _DistortionIntensity * maskTex[_DistortionMaskChannel];
-        mainColor = SampleMainTex(uv,color,faceId);
+        half2 duv = mainUV.xy + noise * 0.2  * _DistortionIntensity * maskTex[_DistortionMaskChannel];
+        mainColor = SampleMainTex(duv,color,faceId);
+        return duv;
     }
 
     void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float dissolveCDATA,float edgeWidthCDATA){

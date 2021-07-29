@@ -60,6 +60,7 @@ CBUFFER_START(UnityPerMaterial)
     int _DistortionRadialUVOn;
     float4 _DistortionRadialCenter_LenScale_LenOffset;
     float _DistortionRadialRot;
+    int _ApplyToOffset;
 // ==================================================
     float _DissolveOn;
     float _DissolveRevert;
