@@ -58,6 +58,10 @@
     float4 SampleMainTex(float2 uv,float4 vertexColor,float faceId){
         float4 color = _BackFaceOn ? lerp(_BackFaceColor,_Color,faceId) : _Color;
         float4 mainTex = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : tex2D(_CameraOpaqueTexture,uv);
+
+        if(_MainTexSingleChannelOn){
+            mainTex = mainTex[_MainTexChannel];
+        }
         mainTex.xyz *= lerp(1,mainTex.a * vertexColor.a * color.a,_MainTexMultiAlpha);
         mainTex *= color * vertexColor * _ColorScale;
         return mainTex;

@@ -9,8 +9,14 @@ Shader "FX/PowerVFX"
 		[HDR]_Color("Main Color",Color) = (1,1,1,1)
 		_ColorScale("ColorScale",range(1,3)) = 2
 		[Toggle]_MainTexMultiAlpha("_MainTexMultiAlpha",int) = 0
+		
 		[Header(Saturate)]
 		_MainTexSaturate("_MainTexSaturate",float) = 1
+
+		[Header(Single Channel MainTex)]
+		[Toggle]_MainTexSingleChannelOn("_MainTexSingleChannelOn?",int) = 0
+		[Enum(R,0,G,1,B,2,A,3)]_MainTexChannel("_MainTexChannel",int)=0
+
 		[Header(Back Face)]
 		[Toggle]_BackFaceOn("_BackFaceOn",int) = 0
 		[HDR]_BackFaceColor("BackFace Color",Color) = (0.5,0.5,.5,1)

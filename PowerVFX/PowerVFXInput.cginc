@@ -21,6 +21,8 @@ CBUFFER_START(UnityPerMaterial)
     float4 _Color;
     float _ColorScale;
     float _MainTexSaturate;
+    int _MainTexSingleChannelOn;
+    int _MainTexChannel;
     int _MainTexMultiAlpha;
     int _BackFaceOn;
     float4 _BackFaceColor;
