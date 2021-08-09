@@ -24,7 +24,7 @@ Shader "FX/PowerVFX"
 		[Header(MaskTexMask)]
 		_MainTexMask("Main Texture Mask(R)", 2D) = "white" {}
 		[Toggle]_MainTexMaskOffsetStop("_MainTexMaskOffsetStop",int)=0
-		[Enum(R,0,G,1,B,2,A,3)]_MainTexMaskChannel("_MainTexMaskChannel",int) = 3
+		[Enum(R,0,G,1,B,2,A,3)]_MainTexMaskChannel("_MainTexMaskChannel",int) = 0
 
 		[Header(ScreenOpaqueTexture)]
 		[Toggle]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
@@ -69,7 +69,7 @@ Shader "FX/PowerVFX"
 		
 		[Header(DistortionMask)]
 		[noscaleoffset]_DistortionMaskTex("Distortion Mask Tex(R)",2d) = "white"{}
-		[Enum(R,0,G,1,B,2,A,3)]_DistortionMaskChannel("_DistortionMaskChannel",int)=3
+		[Enum(R,0,G,1,B,2,A,3)]_DistortionMaskChannel("_DistortionMaskChannel",int)=0
 
 		[Header(DistortionParams)]
 		_DistortionIntensity("Distortion Intensity",Range(0,10)) = 0.5
@@ -89,7 +89,7 @@ Shader "FX/PowerVFX"
 		[Toggle]_DissolveRevert("_DissolveRevert",int) = 0
 		_DissolveTex("Dissolve Tex",2d)=""{}
 		[Toggle]_DissolveTexOffsetStop("_DissolveTexOffsetStop ?",int) = 0
-		[Enum(R,0,G,1,B,2,A,3)]_DissolveTexChannel("_DissolveTexChannel",int) = 3
+		[Enum(R,0,G,1,B,2,A,3)]_DissolveTexChannel("_DissolveTexChannel",int) = 0
 		
 		[Header(DissolveType)]
 		[Toggle]_DissolveByVertexColor("Dissolve By Vertex Color ?",int)=0
@@ -119,7 +119,7 @@ Shader "FX/PowerVFX"
 		[Toggle(OFFSET_ON)] _OffsetOn("Offset On?",int) = 0
 		[NoScaleOffset]_OffsetTex("Offset Tex",2d) = ""{}
 		[NoScaleOffset]_OffsetMaskTex("Offset Mask (R)",2d) = "white"{}
-		[Enum(R,0,G,1,B,2,A,3)]_OffsetMaskChannel("_OffsetMaskChannel",int) = 3
+		[Enum(R,0,G,1,B,2,A,3)]_OffsetMaskChannel("_OffsetMaskChannel",int) = 0
 		[HDR]_OffsetTexColorTint("OffsetTex Color",color) = (1,1,1,1)
 		[HDR]_OffsetTexColorTint2("OffsetTex Color 2",color) = (1,1,1,1)
 		_OffsetTile("Offset Tile",vector) = (1,1,1,1)
@@ -150,7 +150,7 @@ Shader "FX/PowerVFX"
 		[Header(Env Params)]
 		[NoScaleOffset]_EnvMap("Env Map",Cube) = ""{}
 		[NoScaleOffset]_EnvMapMask("Env Map Mask",2d) = ""{}
-		[Enum(R,0,G,1,B,2,A,3)]_EnvMapMaskChannel("_EnvMapMaskChannel",int)=3
+		[Enum(R,0,G,1,B,2,A,3)]_EnvMapMaskChannel("_EnvMapMaskChannel",int)=0
 		_EnvIntensity("Env intensity",float) = 1
 		_EnvOffset("EnvOffset",vector) = (0,0,0,0)
 
