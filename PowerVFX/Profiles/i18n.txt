@@ -117,6 +117,8 @@ _EnvOffset=视线偏移
 
 _MatCapTex=matcap图
 _MatCapIntensity=matcap强度
+_MatCapRotateOn=旋转matcap
+_MatCapAngle=旋转角度
 
 _DepthFadingOn=深度渐隐(软粒子)
 _DepthFadingWidth=渐隐宽

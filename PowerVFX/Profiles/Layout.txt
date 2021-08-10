@@ -12,4 +12,4 @@ Dissolve = _DissolveOn,_DissolveRevert, _DissolveTex,_DissolveTexOffsetStop, _Di
 Offset = _OffsetOn, _OffsetTex, _OffsetMaskTex, _OffsetMaskChannel, _OffsetTexColorTint, _OffsetTexColorTint2, _OffsetTile, _OffsetDir, _OffsetBlendIntensity, _OffsetHeightMap, _OffsetHeight,_OffsetRadialUVOn,_OffsetRadialCenter_LenScale_LenOffset,_OffsetRadialRot
 Fresnel = _FresnelOn, _FresnelInvertOn,_FresnelColor, _FresnelPower, _FresnelTransparentOn,_FresnelTransparent
 EnvReflect = _EnvReflectOn,_EnvReflectionColor,_EnvRefractionOn,_EnvRefractionIOR,_EnvRefractionColor, _EnvMap,_EnvMapMask, _EnvMapMaskChannel, _EnvIntensity ,_EnvOffset
-MatCap = _MatCapOn,_MatCapTex, _MatCapIntensity
+MatCap = _MatCapOn,_MatCapTex, _MatCapIntensity,_MatCapRotateOn,_MatCapAngle

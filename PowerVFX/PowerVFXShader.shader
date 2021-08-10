@@ -159,6 +159,8 @@ Shader "FX/PowerVFX"
 		[Toggle]_MatCapOn("_MatCapOn",int) = 0
 		[noscaleoffset]_MatCapTex("_MapCapTex",2d)=""{}
 		_MatCapIntensity("_MatCapIntensity",float) = 1
+		[Toggle]_MatCapRotateOn("_MatCapRotateOn",float) = 0
+		_MatCapAngle("_MapCatAngle",float) = 0
 // ==================================================
 		[Header(_DepthFading)]
 		[Toggle]_DepthFadingOn("_DepthFadingOn",int) = 0

@@ -9,7 +9,7 @@
     #include "UtilLib.cginc"
 
     void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV,float attemMaskCDATA){
-        float2 worldUV = worldPos.xz + _VertexWaveSpeed * lerp(_Time.xy,1,_VertexWaveSpeedManual);
+        float2 worldUV = worldPos.xz + _VertexWaveSpeed * lerp(_Time.xx,1,_VertexWaveSpeedManual);
         float noise = Unity_GradientNoise(worldUV,_VertexWaveIntensity);
 
         //1 vertex color atten
@@ -29,7 +29,10 @@
         }
         //4 atten map
         if(_VertexWaveAtten_MaskMapOn){
-            float offsetScale = _Time.y * !_VertexWaveAtten_MaskMapOffsetStopOn;
+            float2 offsetScale = 1;
+            if(!_VertexWaveAtten_MaskMapOffsetStopOn){
+                offsetScale = _Time.y  * _VertexWaveAtten_MaskMap_ST;
+            }
             if(_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X){
                 offsetScale = attemMaskCDATA;
             }
@@ -176,6 +179,16 @@
     }
 
     void ApplyMatcap(inout float4 mainColor,float2 mainUV,float2 viewNormal){
+        if(_MatCapRotateOn){
+            float theta = radians(_MatCapAngle);
+            viewNormal = (viewNormal-0.5 )* 2;
+            viewNormal = float2(
+                dot(float2(cos(theta),sin(theta)),viewNormal),
+                dot(float2(-sin(theta),cos(theta)),viewNormal)
+            );
+            viewNormal = viewNormal * 0.5+0.5;
+        }
+        
         float4 matCapMap = tex2D(_MatCapTex,viewNormal.xy);
         matCapMap *= _MatCapIntensity;
         mainColor.rgb += matCapMap;
