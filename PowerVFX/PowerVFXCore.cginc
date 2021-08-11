@@ -8,9 +8,33 @@
     #include "NodeLib.cginc"
     #include "UtilLib.cginc"
 
-    void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV,float attemMaskCDATA){
+    float4 SampleAttenMap(float2 mainUV,float attenMaskCDATA){
+        float2 offsetScale = 0;
+        // auto offset
+        if(!_VertexWaveAtten_MaskMapOffsetStopOn){
+            offsetScale = _Time.y  * _VertexWaveAtten_MaskMap_ST.zw;
+        }
+        // offset by custom data
+        if(_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X){
+            offsetScale = attenMaskCDATA;
+        }
+        float4 attenMapUV = float4(mainUV * _VertexWaveAtten_MaskMap_ST.xy + _VertexWaveAtten_MaskMap_ST.zw + offsetScale,0,0);
+        return tex2Dlod(_VertexWaveAtten_MaskMap,attenMapUV);
+    }
+
+    void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV,float attenMaskCDATA){
         float2 worldUV = worldPos.xz + _VertexWaveSpeed * lerp(_Time.xx,1,_VertexWaveSpeedManual);
-        float noise = Unity_GradientNoise(worldUV,_VertexWaveIntensity);
+        float noise = 0;
+        float4 attenMap=0;
+        
+
+        if(_NoiseUseAttenMaskMap){
+            attenMap = SampleAttenMap(mainUV,attenMaskCDATA);
+
+            noise = attenMap.x;
+        }else{
+            noise = Unity_GradientNoise(worldUV,_VertexWaveIntensity);
+        }
 
         //1 vertex color atten
         //2 uniform dir atten
@@ -29,15 +53,9 @@
         }
         //4 atten map
         if(_VertexWaveAtten_MaskMapOn){
-            float2 offsetScale = 1;
-            if(!_VertexWaveAtten_MaskMapOffsetStopOn){
-                offsetScale = _Time.y  * _VertexWaveAtten_MaskMap_ST;
-            }
-            if(_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X){
-                offsetScale = attemMaskCDATA;
-            }
-            float4 attenMapUV = float4(mainUV * _VertexWaveAtten_MaskMap_ST.xy + _VertexWaveAtten_MaskMap_ST.zw * offsetScale,0,0);
-            atten *= tex2Dlod(_VertexWaveAtten_MaskMap,attenMapUV)[_VertexWaveAtten_MaskMapChannel];
+            if(! _NoiseUseAttenMaskMap)
+                attenMap = SampleAttenMap(mainUV,attenMaskCDATA);
+            atten *= attenMap[_VertexWaveAtten_MaskMapChannel];
         }
         worldPos.xyz +=  noise * atten;
     }

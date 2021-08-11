@@ -44,6 +44,8 @@ Shader "FX/PowerVFX"
 		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 4
 // ==================================================
 		[Toggle]_VertexWaveOn("_VertexWaveOn ?",int) = 0
+		[Header(Noise Map)]
+		[Toggle]_NoiseUseAttenMaskMap("_NoiseUseAttenMaskMap",float)=0
 		[Header(Noise Params)]
 		_VertexWaveSpeed("_VertexWaveSpeed",float) = 1
 		[Toggle]_VertexWaveSpeedManual("_VertexWaveSpeedManual",int) = 0

@@ -37,6 +37,7 @@ CBUFFER_START(UnityPerMaterial)
     float _MainTexUseScreenColor;
 // ==================================================
     float _VertexWaveOn;
+    float _NoiseUseAttenMaskMap;
     float _VertexWaveSpeed;
     int _VertexWaveSpeedManual;
     float _VertexWaveIntensity;
