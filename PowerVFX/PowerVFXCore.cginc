@@ -219,4 +219,10 @@
         float fade = saturate (_DepthFadingWidth * delta + 0.12*delta);
         mainColor *= smoothstep(0.1,0.4,fade);
     }
+
+    void ApplyLight(inout float4 mainColor,float3 normal){
+        float3 lightDir = _WorldSpaceLightPos0.xyz + _WorldSpaceLightDirection.xyz;
+        float nl = saturate(dot(normal,lightDir));
+        mainColor.xyz *= nl;
+    }
 #endif //POWER_VFX_CGINC

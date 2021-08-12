@@ -36,10 +36,17 @@ v2f vert(appdata v)
 
         o.fresnal_customDataZ.y = v.uv1.x;// particle custom data (Custom1).z
         o.fresnal_customDataZ.z = v.uv1.y; // particle custom data (Custom1).w
+
+        if(_LightOn){
+            TANGENT_SPACE_COMBINE(v.vertex,v.normal,v.tangent,o/**/);
+        }
         return o;
     }
+
     fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     {
+        TANGENT_SPACE_SPLIT(i);
+
         half4 mainColor = float4(0,0,0,1);
         // setup mainUV
         float4 mainUV = MainTexOffset(i.uv);
@@ -92,6 +99,11 @@ v2f vert(appdata v)
         
         if(_MatCapOn)
             ApplyMatcap(mainColor,mainUV.zw,i.viewNormal);
+
+        if(_LightOn)
+        {
+            ApplyLight(mainColor/**/,normal);
+        }
         
         mainColor.a = saturate(mainColor.a);
         return mainColor;

@@ -17,6 +17,8 @@
     sampler2D _VertexWaveAtten_MaskMap;//r
     UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 
+    float3 _WorldSpaceLightDirection;
+
 CBUFFER_START(UnityPerMaterial)
     float4 _Color;
     float _ColorScale;
@@ -120,5 +122,6 @@ CBUFFER_START(UnityPerMaterial)
 // ==================================================    
     int _DepthFadingOn;
     float _DepthFadingWidth;
+    float _LightOn;
 CBUFFER_END
 #endif //POWER_VFX_INPUT_CGINC

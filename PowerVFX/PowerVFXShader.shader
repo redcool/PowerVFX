@@ -167,6 +167,8 @@ Shader "FX/PowerVFX"
 		[Header(_DepthFading)]
 		[Toggle]_DepthFadingOn("_DepthFadingOn",int) = 0
 		_DepthFadingWidth("_DepthFadingWidth",range(0.01,3)) = 1
+		[Header(Light)]
+		[Toggle]_LightOn("_LightOn",float) = 0
 	}
 	SubShader
 	{
