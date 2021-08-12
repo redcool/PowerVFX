@@ -217,7 +217,8 @@
         float partZ = projPos.z;
         float delta = (sceneZ-partZ);
         float fade = saturate (_DepthFadingWidth * delta + 0.12*delta);
-        mainColor *= smoothstep(0.1,0.4,fade);
+        // mainColor *= smoothstep(-0.5,0.5,fade);
+        mainColor *= fade;
     }
 
     void ApplyLight(inout float4 mainColor,float3 normal){
