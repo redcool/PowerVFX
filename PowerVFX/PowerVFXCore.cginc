@@ -177,9 +177,8 @@
         float f =  saturate(smoothstep(fresnal,0,_FresnelPower));
         if(_FresnelInvertOn)
             f = 1-f;
-        
         float4 fresnalColor = _FresnelColor *f * _FresnelColor.a;
-        mainColor.rgb =lerp(mainColor.rgb,fresnalColor.rgb,f*2);
+        mainColor.rgb = saturate(lerp(mainColor.rgb,fresnalColor.rgb,f));
         mainColor.a = saturate( lerp((_FresnelTransparent + f*2) ,mainColor.a,step(_FresnelTransparentOn,0)));
     }
 
