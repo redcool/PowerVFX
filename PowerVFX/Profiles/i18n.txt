@@ -120,6 +120,7 @@ _EnvIntensity=环境强度
 _EnvOffset=视线偏移
 
 _MatCapTex=matcap图
+_MatCapColor=matcap颜色
 _MatCapIntensity=matcap强度
 _MatCapRotateOn=旋转matcap
 _MatCapAngle=旋转角度

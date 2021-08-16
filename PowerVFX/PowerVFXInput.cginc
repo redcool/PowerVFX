@@ -116,6 +116,7 @@ CBUFFER_START(UnityPerMaterial)
     float4 _EnvRefractionColor;
 // ==================================================
     int _MatCapOn;
+    float4 _MatCapColor;
     float _MatCapIntensity;
     int _MatCapRotateOn;
     float _MatCapAngle;

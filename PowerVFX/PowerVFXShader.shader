@@ -160,6 +160,7 @@ Shader "FX/PowerVFX"
 		[Header(MatCap)]
 		[Toggle]_MatCapOn("_MatCapOn",int) = 0
 		[noscaleoffset]_MatCapTex("_MapCapTex",2d)=""{}
+		[hdr]_MatCapColor("_MatCapColor",color) = (1,1,1,1)
 		_MatCapIntensity("_MatCapIntensity",float) = 1
 		[Toggle]_MatCapRotateOn("_MatCapRotateOn",float) = 0
 		_MatCapAngle("_MapCatAngle",float) = 0

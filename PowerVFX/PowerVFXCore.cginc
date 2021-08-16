@@ -198,6 +198,7 @@
 
     void ApplyMatcap(inout float4 mainColor,float2 mainUV,float2 viewNormal){
         if(_MatCapRotateOn){
+            // rotate tex by center
             float theta = radians(_MatCapAngle);
             viewNormal = (viewNormal-0.5 )* 2;
             viewNormal = float2(
@@ -207,7 +208,7 @@
             viewNormal = viewNormal * 0.5+0.5;
         }
         
-        float4 matCapMap = tex2D(_MatCapTex,viewNormal.xy);
+        float4 matCapMap = tex2D(_MatCapTex,viewNormal.xy) * _MatCapColor;
         matCapMap *= _MatCapIntensity;
         mainColor.rgb += matCapMap;
     }
