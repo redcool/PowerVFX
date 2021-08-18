@@ -53,8 +53,6 @@ v2f vert(appdata v)
         float dissolveCustomData = i.fresnal_customDataZ.y;
         float dissolveEdgeWidth = i.fresnal_customDataZ.z;
 
-        if(_DepthFadingOn)
-            ApplySoftParticle(i.color/**/,i.grabPos); // change vertex color
 
         //use _CameraOpaqueTexture
         mainUV.xy = _MainTexUseScreenColor == 0 ? mainUV.xy : i.grabPos.xy/i.grabPos.w;
@@ -105,6 +103,8 @@ v2f vert(appdata v)
             ApplyLight(mainColor/**/,normal);
         }
         
+        if(_DepthFadingOn)
+            ApplySoftParticle(mainColor/**/,i.grabPos); // change vertex color
         mainColor.a = saturate(mainColor.a);
         return mainColor;
     }

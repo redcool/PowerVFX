@@ -7,7 +7,7 @@ Shader "FX/PowerVFX"
 		[Toggle]_MainTexOffsetStop("禁用MainTex自动滚动?",int)=0
 		[Toggle]_MainTexOffsetUseCustomData_XY("_MainTexOffsetUseCustomData_XY -> uv.zw",int)=0
 		[HDR]_Color("Main Color",Color) = (1,1,1,1)
-		_ColorScale("ColorScale",range(1,3)) = 2
+		_ColorScale("ColorScale",range(1,3)) = 1
 		[Toggle]_MainTexMultiAlpha("_MainTexMultiAlpha",int) = 0
 		
 		[Header(Saturate)]
