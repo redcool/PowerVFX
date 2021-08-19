@@ -59,7 +59,7 @@ public class BlitFrameBufferToTexture : MonoBehaviour
         if (!cam)
             return null;
 
-        var cmd = new CommandBuffer { name = "blit depth" };
+        var cmd = new CommandBuffer { name = bufferName };
         cmd.Blit(srcId, dstId);
         cmd.SetGlobalTexture(globalShaderId, dstId);
         cam.AddCommandBuffer(cameraEvent, cmd);
