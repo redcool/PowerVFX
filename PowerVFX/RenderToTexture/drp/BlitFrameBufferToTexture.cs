@@ -22,7 +22,9 @@ public class BlitFrameBufferToTexture : MonoBehaviour
     [Tooltip("mobile need depth mode at least")]
     public bool isBlitDepthTexture = true;
     public CameraEvent blitDepthEvent = CameraEvent.AfterForwardOpaque;
-    public DepthTextureMode camDepthTextureMode;
+
+
+    //public DepthTextureMode camDepthTextureMode;
 
     Camera cam;
     CommandBuffer blitColorBuf, blitDepthBuf;
@@ -31,7 +33,7 @@ public class BlitFrameBufferToTexture : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
-        cam.depthTextureMode = camDepthTextureMode;
+        //cam.depthTextureMode = camDepthTextureMode;
 
         if (isBlitColorTexture)
         {
