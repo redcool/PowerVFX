@@ -16,12 +16,12 @@ public class BlitFrameBufferToTexture : MonoBehaviour
 
     [Header("Color Texture")]
     public bool isBlitColorTexture = true;
-    public CameraEvent blitColorEvent = CameraEvent.AfterForwardOpaque;
+    public CameraEvent blitColorEvent = CameraEvent.AfterSkybox;
 
     [Header("Depth Texture")]
     [Tooltip("mobile need depth mode at least")]
     public bool isBlitDepthTexture = true;
-    public CameraEvent blitDepthEvent = CameraEvent.AfterForwardOpaque;
+    public CameraEvent blitDepthEvent = CameraEvent.AfterSkybox;
 
 
     //public DepthTextureMode camDepthTextureMode;
