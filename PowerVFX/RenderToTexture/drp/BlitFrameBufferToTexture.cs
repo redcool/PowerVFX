@@ -50,9 +50,28 @@ public class BlitFrameBufferToTexture : MonoBehaviour
         }
     }
 
-
-
     private void OnDestroy()
+    {
+        if(colorRT)
+            colorRT.Release();
+        if (depthRT)
+            depthRT.Release();
+    }
+
+    private void OnEnable()
+    {
+        if (isBlitColorTexture)
+        {
+            blitColorBuf = CreateBlitBuffer("Blit Color", BuiltinRenderTextureType.CameraTarget, colorRT, colorTextureName, cam, blitColorEvent);
+        }
+
+        if (isBlitDepthTexture)
+        {
+            blitDepthBuf = CreateBlitBuffer("Blit Depth", BuiltinRenderTextureType.Depth, depthRT, depthTextureName, cam, blitDepthEvent);
+        }
+    }
+
+    private void OnDisable()
     {
         ReleaseCommandBuffer(cam, blitColorEvent, blitColorBuf);
         ReleaseCommandBuffer(cam, blitDepthEvent, blitDepthBuf);
