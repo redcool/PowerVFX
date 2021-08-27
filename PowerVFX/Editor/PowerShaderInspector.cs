@@ -8,12 +8,12 @@ using System;
 
 namespace PowerVFX
 {
-
+    //UnityEngine.Rendering.BlendMode
     public enum PresetBlendMode
     {
         Normal,
         AlphaBlend,
-        SoftAdd, 
+        SoftAdd,
         Add,
         PremultiTransparent,
         MultiColor,
@@ -23,13 +23,12 @@ namespace PowerVFX
     public class PowerShaderInspector : ShaderGUI
     {
         const string SRC_MODE = "_SrcMode", DST_MODE = "_DstMode";
-        const int SETTING_TAB_ID = 0; // preset blend mode 显示在 0 号tab页
-
-        public static string shaderName = "PowerVFX";
-        public static string materialTabSelectedId = shaderName + "_SeletectedId";
 
         static string[] tabNames;
         static List<string[]> propNameList = new List<string[]>();
+        public static string shaderName = "PowerPBS";
+        public static string materialSelectedId = shaderName + "_SeletectedId";
+        public static int AlphaTabId = 0;  // preset blend mode 显示在 号tab页
 
         int selectedTabId;
         bool showOriginalPage;
@@ -113,7 +112,7 @@ namespace PowerVFX
                 materialEditor.ShaderProperty(prop, ConfigTool.Text(propNameTextDict, prop.name));
             }
 
-            if (selectedTabId == SETTING_TAB_ID && IsTargetShader(mat))
+            if (selectedTabId == AlphaTabId && IsTargetShader(mat))
             {
                 DrawBlendMode(mat);
             }
@@ -127,14 +126,14 @@ namespace PowerVFX
         private void DrawPageTabs()
         {
             //cache selectedId
-            selectedTabId = EditorPrefs.GetInt(materialTabSelectedId, selectedTabId);
+            selectedTabId = EditorPrefs.GetInt(materialSelectedId, selectedTabId);
             selectedTabId = GUILayout.Toolbar(selectedTabId, tabNamesInConfig);
-            EditorPrefs.SetInt(materialTabSelectedId, selectedTabId);
+            EditorPrefs.SetInt(materialSelectedId, selectedTabId);
         }
 
-        private void OnInit(Material mat,MaterialProperty[] properties)
+        private void OnInit(Material mat, MaterialProperty[] properties)
         {
-            if(IsTargetShader(mat))
+            if (IsTargetShader(mat))
                 presetBlendMode = GetPresetBlendMode(mat);
 
             var shaderFilePath = AssetDatabase.GetAssetPath(mat.shader);
@@ -142,7 +141,7 @@ namespace PowerVFX
 
             propNameTextDict = ConfigTool.ReadI18NConfig(shaderFilePath);
 
-            helpStr = ConfigTool.Text(propNameTextDict,"Help").Replace('|','\n');
+            helpStr = ConfigTool.Text(propNameTextDict, "Help").Replace('|', '\n');
 
             tabNamesInConfig = tabNames.Select(item => ConfigTool.Text(propNameTextDict, item)).ToArray();
         }
@@ -174,9 +173,12 @@ namespace PowerVFX
 
         void DrawBlendMode(Material mat)
         {
-            EditorGUILayout.PrefixLabel("Preset Blend Mode");
             EditorGUI.BeginChangeCheck();
-            presetBlendMode = (PresetBlendMode)EditorGUILayout.EnumPopup(ConfigTool.Text(propNameTextDict,"PresetBlendMode"), presetBlendMode);
+            GUILayout.BeginVertical("");
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("Alpha Blend", EditorStyles.boldLabel);
+            presetBlendMode = (PresetBlendMode)EditorGUILayout.EnumPopup(ConfigTool.Text(propNameTextDict, "PresetBlendMode"), presetBlendMode);
+            GUILayout.EndVertical();
             if (EditorGUI.EndChangeCheck())
             {
                 var blendModes = blendModeDict[presetBlendMode];
