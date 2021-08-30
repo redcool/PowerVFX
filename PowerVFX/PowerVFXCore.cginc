@@ -75,10 +75,16 @@
         scrollUV.zw = uv.xy;
         return scrollUV;
     }
+    
+    void ApplySaturate(inout float4 mainColor){
+        mainColor.xyz = lerp(Gray(mainColor.xyz),mainColor.xyz,_MainTexSaturate);
+    }
 
     float4 SampleMainTex(float2 uv,float4 vertexColor,float faceId){
         float4 color = _BackFaceOn ? lerp(_BackFaceColor,_Color,faceId) : _Color;
         float4 mainTex = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : tex2D(_CameraOpaqueTexture,uv);
+
+        ApplySaturate(mainTex);
 
         if(_MainTexSingleChannelOn){
             mainTex = mainTex[_MainTexChannel];
@@ -88,9 +94,7 @@
         return mainTex;
     }
 
-    void ApplySaturate(inout float4 mainColor){
-        mainColor.xyz = lerp(Gray(mainColor.xyz),mainColor.xyz,_MainTexSaturate);
-    }
+
 
     void ApplyMainTexMask(inout float4 mainColor,float2 uv){
         float2 maskTexOffset = _MainTexMaskOffsetStop ? _MainTexMask_ST.zw : _MainTexMask_ST.zw * _Time.xx;
