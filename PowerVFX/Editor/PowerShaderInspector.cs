@@ -23,12 +23,12 @@ namespace PowerVFX
     public class PowerShaderInspector : ShaderGUI
     {
         const string SRC_MODE = "_SrcMode", DST_MODE = "_DstMode";
+        public string shaderName = "";
+        public int AlphaTabId = 0;  // preset blend mode 显示在 号tab页
 
         string[] tabNames;
         List<string[]> propNameList = new List<string[]>();
-        public string shaderName = "";
         string materialSelectedId => shaderName + "_SeletectedId";
-        public int AlphaTabId = 0;  // preset blend mode 显示在 号tab页
 
         int selectedTabId;
         bool showOriginalPage;
