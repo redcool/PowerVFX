@@ -176,7 +176,7 @@ namespace PowerVFX
             EditorGUI.BeginChangeCheck();
             GUILayout.BeginVertical("");
             EditorGUILayout.Space(10);
-            EditorGUILayout.LabelField("Alpha Blend", EditorStyles.boldLabel);
+            GUILayout.Label("Alpha Blend", EditorStyles.boldLabel);
             presetBlendMode = (PresetBlendMode)EditorGUILayout.EnumPopup(ConfigTool.Text(propNameTextDict, "PresetBlendMode"), presetBlendMode);
             GUILayout.EndVertical();
             if (EditorGUI.EndChangeCheck())
