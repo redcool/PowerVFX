@@ -9,7 +9,7 @@ namespace PowerVFX
 {
     public class PowerVFXInspector : PowerShaderInspector
     {
-        static PowerVFXInspector()
+        public PowerVFXInspector()
         {
             shaderName = "PowerVFX";
         }

@@ -24,11 +24,11 @@ namespace PowerVFX
     {
         const string SRC_MODE = "_SrcMode", DST_MODE = "_DstMode";
 
-        static string[] tabNames;
-        static List<string[]> propNameList = new List<string[]>();
-        public static string shaderName = "PowerPBS";
-        public static string materialSelectedId = shaderName + "_SeletectedId";
-        public static int AlphaTabId = 0;  // preset blend mode 显示在 号tab页
+        string[] tabNames;
+        List<string[]> propNameList = new List<string[]>();
+        public string shaderName = "";
+        string materialSelectedId => shaderName + "_SeletectedId";
+        public int AlphaTabId = 0;  // preset blend mode 显示在 号tab页
 
         int selectedTabId;
         bool showOriginalPage;
@@ -40,6 +40,7 @@ namespace PowerVFX
         bool isFirstRunOnGUI = true;
         string helpStr;
         string[] tabNamesInConfig;
+
         Shader lastShader;
 
         MaterialEditor materialEditor;
@@ -118,7 +119,7 @@ namespace PowerVFX
             }
         }
 
-        private static bool IsTargetShader(Material mat)
+        private bool IsTargetShader(Material mat)
         {
             return mat.shader.name.Contains(shaderName);
         }
@@ -174,7 +175,7 @@ namespace PowerVFX
         void DrawBlendMode(Material mat)
         {
             EditorGUI.BeginChangeCheck();
-            GUILayout.BeginVertical("");
+            GUILayout.BeginVertical();
             EditorGUILayout.Space(10);
             GUILayout.Label("Alpha Blend", EditorStyles.boldLabel);
             presetBlendMode = (PresetBlendMode)EditorGUILayout.EnumPopup(ConfigTool.Text(propNameTextDict, "PresetBlendMode"), presetBlendMode);
