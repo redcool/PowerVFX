@@ -177,13 +177,9 @@
         color.rgb += lerp(0,offsetColor,mask);
     }
 
-    void ApplyFresnal(inout float4 mainColor,float fresnal){
-        float f =  saturate(smoothstep(fresnal,0,_FresnelPower));
-        if(_FresnelInvertOn)
-            f = 1-f;
-        float4 fresnalColor = _FresnelColor *f * _FresnelColor.a;
-        mainColor.rgb = saturate(lerp(mainColor.rgb,fresnalColor.rgb,f));
-        mainColor.a = saturate( lerp((_FresnelTransparent + f*2) ,mainColor.a,step(_FresnelTransparentOn,0)));
+    void ApplyFresnal(inout float4 mainColor,float fresnel){
+        float f = smoothstep(_FresnelPowerMin,_FresnelPowerMax,fresnel);
+        mainColor = f * lerp(_FresnelColor,_FresnelColor2,f);
     }
 
     void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refractDir){

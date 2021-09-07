@@ -135,11 +135,11 @@ Shader "FX/PowerVFX"
 // ==================================================
 		[Header(Fresnal)]
 		[Toggle(FRESNAL_ON)]_FresnelOn("_FresnelOn?",int)=0
-		[Toggle]_FresnelInvertOn("_FresnelInvertOn?",int) = 0
 		[HDR]_FresnelColor("_FresnelColor",color) = (1,1,1,1)
-		_FresnelPower("_FresnelPower",range(0,1)) = 0.5
-		[Toggle]_FresnelTransparentOn("_FresnelTransparentOn",range(0,1)) = 0
-		_FresnelTransparent("_FresnelTransparent",range(0,1)) = 0
+		[HDR]_FresnelColor2("_FresnelColor2",color) = (1,1,1,1)
+		[Header(Range)]
+		_FresnelPowerMin("_FresnelPowerMin",range(0,1)) = 0.4
+		_FresnelPowerMax("_FresnelPowerMax",range(0,1)) = 0.5
 // ==================================================		
 		[Header(EnvReflection)]
 		[Toggle]_EnvReflectOn("EnvReflect On?",int)=0

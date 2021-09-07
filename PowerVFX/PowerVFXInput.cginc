@@ -99,11 +99,9 @@ CBUFFER_START(UnityPerMaterial)
     float _OffsetRadialRot;
 // ==================================================
     float _FresnelOn;
-    int _FresnelInvertOn;
-    float4 _FresnelColor;
-    float _FresnelPower;
-    float _FresnelTransparentOn;
-    float _FresnelTransparent;
+    float4 _FresnelColor,_FresnelColor2;
+    float _FresnelPowerMin;
+    float _FresnelPowerMax;
 // ==================================================
     float _EnvReflectOn;
     float4 _EnvReflectionColor;

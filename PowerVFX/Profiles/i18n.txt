@@ -103,10 +103,10 @@ _OffsetRadialCenter_LenScale_LenOffset=径向位置_缩放_偏移量
 _OffsetRadialRot=径向扭曲角度
 
 _FresnelOn=开启轮廓光
-_FresnelColor=轮廓光颜色
-_FresnelPower=轮廓宽度
-_FresnelTransparentOn=轮廓中心透明
-_FresnelTransparent=透明度
+_FresnelColor=Color1
+_FresnelColor2=Color2
+_FresnelPowerMin=Min
+_FresnelPowerMax=Max
 
 _EnvReflectOn=环境反射
 _EnvReflectionColor=反射调色

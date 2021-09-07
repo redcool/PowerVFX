@@ -34,8 +34,7 @@ v2f vert(appdata v)
     if(_FresnelOn)
         o.fresnal_customDataZ.x = 1 - dot(worldNormal,viewDir) ;
 
-    o.fresnal_customDataZ.y = v.uv1.x;// particle custom data (Custom1).z
-    o.fresnal_customDataZ.z = v.uv1.y; // particle custom data (Custom1).w
+    o.fresnal_customDataZ.yz = v.uv1.xy;// particle custom data (Custom1).zw
 
     if(_LightOn){
         TANGENT_SPACE_COMBINE(v.vertex,v.normal,v.tangent,o/**/);
