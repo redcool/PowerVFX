@@ -33,8 +33,8 @@ Shader "FX/PowerVFX"
 		[Header(BlendMode)]
 		[Enum(UnityEngine.Rendering.BlendMode)]_SrcMode("Src Mode",int) = 5
 		[Enum(UnityEngine.Rendering.BlendMode)]_DstMode("Dst Mode",int) = 10
-		[Header(BlendOp)]
-		[Enum(UnityEngine.Rendering.BlendOp)]_BlendOp("_BlendOp",int) = 0
+		// [Header(BlendOp)]
+		// [Enum(UnityEngine.Rendering.BlendOp)]_BlendOp("_BlendOp",int) = 0
 
 		[Header(DoubleEffect)]
 		[Toggle(_DoubleEffectOn)]_DoubleEffectOn("双重效果?",int)=0
@@ -89,7 +89,6 @@ Shader "FX/PowerVFX"
 // ==================================================
 		[Header(Dissolve)]
 		[Toggle(DISSOLVE_ON)]_DissolveOn("Dissolve On?",int)=0
-		[Toggle]_DissolveRevert("_DissolveRevert",int) = 0
 		_DissolveTex("Dissolve Tex",2d)=""{}
 		[Toggle]_DissolveTexOffsetStop("_DissolveTexOffsetStop ?",int) = 0
 		[Enum(R,0,G,1,B,2,A,3)]_DissolveTexChannel("_DissolveTexChannel",int) = 0
@@ -99,9 +98,8 @@ Shader "FX/PowerVFX"
 		[Toggle]_DissolveByCustomData_Z("Dissolve By customData.z -> uv1.x ?",int)=0
 
 		[Header(DissolveFading)]
-		[Toggle]_DissolveFadingOn("_DissolveFadingOn",int) = 0
-		_DissolveFading("_DissolveFading",range(0,0.5)) = 0.01
-		_DissolveFadingWidth("_DissolveFadingWidth",range(0,0.5)) = 0.2
+		_DissolveFadingMin("_DissolveFadingMin",range(0,.2)) = 0
+		_DissolveFadingMax("_DissolveFadingMax",range(0,.2)) = .2
 
 		[Header(Dissolve Clip)]
 		[Toggle]_DissolveClipOn("_DissolveClipOn",int) = 1
@@ -180,7 +178,7 @@ Shader "FX/PowerVFX"
 		{
 			ZWrite[_ZWriteMode]
 			Blend [_SrcMode][_DstMode]
-			BlendOp[_BlendOp]
+			// BlendOp[_BlendOp]
 			Cull[_CullMode]
 			ztest[_ZTestMode]
 			CGPROGRAM

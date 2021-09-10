@@ -66,7 +66,6 @@ CBUFFER_START(UnityPerMaterial)
     int _ApplyToOffset;
 // ==================================================
     float _DissolveOn;
-    float _DissolveRevert;
     float _DissolveByVertexColor;
     float _DissolveByCustomData_Z;
     float _DissolveTexChannel;
@@ -84,9 +83,8 @@ CBUFFER_START(UnityPerMaterial)
     float4 _EdgeColor;
     float4 _EdgeColor2;
 
-    float _DissolveFadingOn;
-    float _DissolveFading;
-    float _DissolveFadingWidth;
+    float _DissolveFadingMin;
+    float _DissolveFadingMax;
 // ==================================================
     float _OffsetOn;
     float _OffsetMaskChannel;

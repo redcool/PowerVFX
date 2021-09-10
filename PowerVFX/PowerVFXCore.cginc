@@ -125,7 +125,7 @@
 
         half4 dissolveTex = tex2D(_DissolveTex,dissolveUV.xy);
         half refDissolve = dissolveTex[_DissolveTexChannel];
-        refDissolve = _DissolveRevert > 0 ? refDissolve : 1 - refDissolve;
+        // refDissolve = _DissolveRevert > 0 ? refDissolve : 1 - refDissolve;
 
         // remap cutoff
         half cutoff = _Cutoff;
@@ -138,31 +138,20 @@
         cutoff = lerp(-0.15,1.01,cutoff);
 
         half dissolve = refDissolve - cutoff;
+        dissolve = saturate(smoothstep(_DissolveFadingMin,_DissolveFadingMax,dissolve));
 
         if(_DissolveClipOn)
-            clip(dissolve);
-
-        // transparent outer edge
-        if(_DissolveFadingOn)
-            mainColor.a *= (smoothstep(0.0,_DissolveFadingWidth,saturate(dissolve + _DissolveFading)));
+            clip(dissolve-0.01);
+        
+        mainColor.a *= dissolve;
 
         if(_DissolveEdgeOn){
-            half4 edgeColor = (half4)0;
             half edgeWidth = _DissolveEdgeWidthByCustomData_W > 0? edgeWidthCDATA : _EdgeWidth;
-            half edgeRate = cutoff + edgeWidth;
-            
-            half edge = step(refDissolve,edgeRate);
-
-            // lerp edge colors 
-            half smoothEdge = smoothstep(0.000001,edge*0.1,saturate(edgeRate - refDissolve));
-            edgeColor = lerp(_EdgeColor,_EdgeColor2,saturate(1 - smoothEdge));
-
-            // edge color fadeout by cutoff.
-            edgeColor.a *= smoothstep(1,0.8,cutoff);
-
-            // apply mainTex alpha
-            edgeColor.a *= mainColor.a;
-            mainColor = lerp(mainColor,edgeColor,edge);
+            float edge = saturate(smoothstep(edgeWidth-0.1,edgeWidth+0.1,dissolve));
+            float4 edgeColor = lerp(_EdgeColor,_EdgeColor2,edge);
+            // edgeColor.a *= edge;
+            edge = saturate(smoothstep(0.,.6,1-dissolve));
+            mainColor.xyz = lerp(mainColor.xyz,(mainColor.xyz*0.5+ edgeColor.xyz)*1.5,edge);
         }
         
     }
