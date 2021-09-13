@@ -38,6 +38,7 @@ public class AfterTransparentRender : ScriptableRendererFeature
         List<ShaderTagId> shaderTags = new List<ShaderTagId> { 
             new ShaderTagId("SRPDefaultUnlit"),
             new ShaderTagId("UniversalForward"),
+            new ShaderTagId("UniversalForwardOnly"),
         };
 
         public AfterTransparentRenderPass(Settings settings)
@@ -47,24 +48,21 @@ public class AfterTransparentRender : ScriptableRendererFeature
         }
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
-            var cmd = CommandBufferPool.Get();
-            context.ExecuteCommandBuffer(cmd);
-            cmd.Clear();
-
+            // create draw settings.
             var sortingSettings = new SortingSettings { criteria = SortingCriteria.CommonTransparent };
-            var drawingSettings = new DrawingSettings(ShaderTagId.none, sortingSettings);
+            var drawingSettings = new DrawingSettings();
+            drawingSettings.sortingSettings = sortingSettings;
+            drawingSettings.perObjectData = renderingData.perObjectData;
+            drawingSettings.mainLightIndex = renderingData.lightData.mainLightIndex;
+
             for (int i = 0; i < shaderTags.Count; i++)
             {
                 drawingSettings.SetShaderPassName(i, shaderTags[i]);
-
             }
+
+            // or call CreateDrawingSettings
             //var drawingSettings = CreateDrawingSettings(ShaderTagId.none, ref renderingData, SortingCriteria.CommonTransparent);
             context.DrawRenderers(renderingData.cullResults, ref drawingSettings, ref filterSettings);
-
-
-            context.ExecuteCommandBuffer(cmd);
-            CommandBufferPool.Release(cmd);
-            cmd.Clear();
         }
         
     }
