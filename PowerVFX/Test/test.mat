@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortionNoiseTex:
-        m_Texture: {fileID: 2800000, guid: 9c7466ecc7e132e479ce8e6772ec9c1b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6449cd275bde43b4ab6c406536774326, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EnvMap:
@@ -101,6 +101,8 @@ Material:
     - _DissolveEdgeWidthByCustomData_W: 0
     - _DissolveEdgeWidthBy_Custom1: 0
     - _DissolveFading: 0
+    - _DissolveFadingMax: 0.2
+    - _DissolveFadingMin: 0
     - _DissolveFadingOn: 0
     - _DissolveFadingWidth: 0.149
     - _DissolveOn: 0
@@ -108,7 +110,7 @@ Material:
     - _DissolveTexChannel: 3
     - _DissolveTexOffsetStop: 1
     - _DissolveTexUseR: 1
-    - _DistortionIntensity: 0.9
+    - _DistortionIntensity: 1.16
     - _DistortionMaskChannel: 3
     - _DistortionMaskUseR: 1
     - _DistortionOn: 1
@@ -131,6 +133,8 @@ Material:
     - _FresnelInvertOn: 0
     - _FresnelOn: 0
     - _FresnelPower: 0.458
+    - _FresnelPowerMax: 0.5
+    - _FresnelPowerMin: 0.4
     - _FresnelTransparent: 0
     - _FresnelTransparentOn: 1
     - _Language: 0
@@ -203,6 +207,7 @@ Material:
     - _EnvRefractionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _FresnalColor: {r: 1, g: 1, b: 1, a: 1}
     - _FresnelColor: {r: 2, g: 0, b: 0, a: 1}
+    - _FresnelColor2: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 0.11792451, b: 0.11792451, a: 1}
     - _OffsetDir: {r: 0, g: 2, b: 0, a: 0}
     - _OffsetRadialCenter_LenScale_LenOffset: {r: 0.5, g: 0.5, b: 1, a: 0}

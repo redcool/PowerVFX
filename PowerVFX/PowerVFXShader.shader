@@ -133,6 +133,7 @@ Shader "FX/PowerVFX"
 // ==================================================
 		[Header(Fresnal)]
 		[Toggle(FRESNAL_ON)]_FresnelOn("_FresnelOn?",int)=0
+		[Toggle]_FresnelMultiVertexColor("_FresnelMultiVertexColor",int) = 0
 		[HDR]_FresnelColor("_FresnelColor",color) = (1,1,1,1)
 		[HDR]_FresnelColor2("_FresnelColor2",color) = (1,1,1,1)
 		[Header(Range)]

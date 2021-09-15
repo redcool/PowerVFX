@@ -91,7 +91,7 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
 
     if(_FresnelOn){
         float fresnal = i.fresnal_customDataZ.x;
-        ApplyFresnal(mainColor,fresnal);
+        ApplyFresnal(mainColor,fresnal, _FresnelMultiVertexColor ? i.color : 1);
     }
     
     if(_MatCapOn)
