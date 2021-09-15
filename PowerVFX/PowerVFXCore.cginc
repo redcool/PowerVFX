@@ -162,7 +162,9 @@
 
     void ApplyFresnal(inout float4 mainColor,float fresnel){
         float f = smoothstep(_FresnelPowerMin,_FresnelPowerMax,fresnel);
-        mainColor.xyz = f * lerp(_FresnelColor,_FresnelColor2,f);
+        float4 fresnelColor = f * lerp(_FresnelColor,_FresnelColor2,f);
+        mainColor.xyz = (_FresnelColorMode == 1? mainColor.xyz : 1 ) * fresnelColor;
+        mainColor.a *= fresnelColor.a;
     }
 
     void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refractDir){
