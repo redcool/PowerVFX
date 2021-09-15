@@ -91,7 +91,7 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
 
     if(_FresnelOn){
         float fresnal = i.fresnal_customDataZ.x;
-        ApplyFresnal(mainColor,fresnal, _FresnelMultiVertexColor ? i.color : 1);
+        ApplyFresnal(mainColor,fresnal);
     }
     
     if(_MatCapOn)
@@ -104,7 +104,8 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     
     if(_DepthFadingOn)
         ApplySoftParticle(mainColor/**/,i.grabPos); // change vertex color
-    mainColor.a = saturate(mainColor.a);
+    
+    mainColor.a = saturate(mainColor.a );
     return mainColor;
 }
 

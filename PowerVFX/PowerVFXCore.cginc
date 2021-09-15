@@ -1,8 +1,5 @@
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-
 #if !defined(POWER_VFX_CGINC)
     #define POWER_VFX_CGINC
-
     #include "PowerVFXInput.cginc"
     #include "PowerVFXData.cginc"
     #include "NodeLib.cginc"
@@ -26,7 +23,6 @@
         float2 worldUV = worldPos.xz + _VertexWaveSpeed * lerp(_Time.xx,1,_VertexWaveSpeedManual);
         float noise = 0;
         float4 attenMap=0;
-        
 
         if(_NoiseUseAttenMaskMap){
             attenMap = SampleAttenMap(mainUV,attenMaskCDATA);
@@ -94,8 +90,6 @@
         return mainTex;
     }
 
-
-
     void ApplyMainTexMask(inout float4 mainColor,float2 uv){
         float2 maskTexOffset = _MainTexMaskOffsetStop ? _MainTexMask_ST.zw : _MainTexMask_ST.zw * _Time.xx;
         float4 maskTex = tex2D(_MainTexMask,uv*_MainTexMask_ST.xy + maskTexOffset);// fp opearate mask uv.
@@ -156,19 +150,19 @@
         
     }
 
-    void ApplyOffset(inout float4 color,float4 offsetUV,float2 mainUV){
+    void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 mainUV){
         half3 offsetColor = tex2D(_OffsetTex,offsetUV.xy) * _OffsetTexColorTint;
         offsetColor += _DoubleEffectOn > 0 ? tex2D(_OffsetTex,offsetUV.zw) * _OffsetTexColorTint2 : 0;
 
         half mask = tex2D(_OffsetMaskTex,mainUV)[_OffsetMaskChannel];
 
-        offsetColor = color.rgb * offsetColor * _OffsetBlendIntensity * unity_ColorSpaceDouble;
-        color.rgb += lerp(0,offsetColor,mask);
+        offsetColor = mainColor.rgb * offsetColor * _OffsetBlendIntensity * unity_ColorSpaceDouble;
+        mainColor.rgb += lerp(0,offsetColor,mask);
     }
 
-    void ApplyFresnal(inout float4 mainColor,float fresnel,float4 vertexColor){
+    void ApplyFresnal(inout float4 mainColor,float fresnel){
         float f = smoothstep(_FresnelPowerMin,_FresnelPowerMax,fresnel);
-        mainColor = f * lerp(_FresnelColor,_FresnelColor2,f) * vertexColor;
+        mainColor.xyz = f * lerp(_FresnelColor,_FresnelColor2,f);
     }
 
     void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refractDir){

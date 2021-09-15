@@ -10,6 +10,6 @@ VertexWave = _VertexWaveOn,_NoiseUseAttenMaskMap,_VertexWaveSpeed,_VertexWaveSpe
 Distortion = _DistortionOn, _DistortionNoiseTex, _DistortionMaskTex, _DistortionMaskChannel, _DistortionIntensity, _DistortTile, _DistortDir,_DistortionRadialUVOn,_DistortionRadialCenter_LenScale_LenOffset,_DistortionRadialRot,_ApplyToOffset
 Dissolve = _DissolveOn,_DissolveRevert, _DissolveTex,_DissolveTexOffsetStop, _DissolveTexChannel, _DissolveByVertexColor, _DissolveByCustomData_Z,_DissolveFadingMin,_DissolveFadingMax, _DissolveClipOn,_Cutoff, _PixelDissolveOn,_PixelWidth,_DissolveEdgeOn,_DissolveEdgeWidthByCustomData_W, _EdgeWidth, _EdgeColor,_EdgeColor2
 Offset = _OffsetOn, _OffsetTex, _OffsetMaskTex, _OffsetMaskChannel, _OffsetTexColorTint, _OffsetTexColorTint2, _OffsetTile, _OffsetDir, _OffsetBlendIntensity, _OffsetHeightMap, _OffsetHeight,_OffsetRadialUVOn,_OffsetRadialCenter_LenScale_LenOffset,_OffsetRadialRot
-Fresnel = _FresnelOn,_FresnelMultiVertexColor, _FresnelColor,_FresnelColor2,_FresnelPowerMin, _FresnelPowerMax
+Fresnel = _FresnelOn, _FresnelColor,_FresnelColor2,_FresnelPowerMin, _FresnelPowerMax
 EnvReflect = _EnvReflectOn,_EnvReflectionColor,_EnvRefractionOn,_EnvRefractionIOR,_EnvRefractionColor, _EnvMap,_EnvMapMask, _EnvMapMaskChannel, _EnvIntensity ,_EnvOffset
 MatCap = _MatCapOn,_MatCapTex,_MatCapColor, _MatCapIntensity,_MatCapRotateOn,_MatCapAngle
