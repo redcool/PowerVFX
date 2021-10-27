@@ -71,7 +71,7 @@ Shader "FX/PowerVFX"
 		[noscaleoffset]_DistortionNoiseTex("Noise Texture(xy:layer1,zw:layer2)",2D) = "white" {}
 		
 		[Header(DistortionMask)]
-		[noscaleoffset]_DistortionMaskTex("Distortion Mask Tex(R)",2d) = "white"{}
+		_DistortionMaskTex("Distortion Mask Tex(R)",2d) = "white"{}
 		[Enum(R,0,G,1,B,2,A,3)]_DistortionMaskChannel("_DistortionMaskChannel",int)=0
 
 		[Header(DistortionParams)]

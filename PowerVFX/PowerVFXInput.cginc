@@ -58,6 +58,7 @@ CBUFFER_START(UnityPerMaterial)
 // ==================================================
     float _DistortionOn;
     int _DistortionMaskChannel;
+    float4 _DistortionMaskTex_ST;
     float _DistortionIntensity;
     float4 _DistortTile,_DistortDir;
     int _DistortionRadialUVOn;
