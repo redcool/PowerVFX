@@ -22,6 +22,11 @@ namespace PowerVFX
 
     public class PowerShaderInspector : ShaderGUI
     {
+        // events
+        public event Action<MaterialProperty, Material> OnDrawProperty;
+        public event Action<Dictionary<string, MaterialProperty> ,Material> OnDrawPropertyFinish;
+
+        // properties
         const string SRC_MODE = "_SrcMode", DST_MODE = "_DstMode";
         public string shaderName = "";
         public int AlphaTabId = 0;  // preset blend mode 显示在 号tab页
@@ -113,6 +118,9 @@ namespace PowerVFX
 
                 var prop = propDict[propName];
                 materialEditor.ShaderProperty(prop, ConfigTool.Text(propNameTextDict, prop.name));
+
+                if(OnDrawProperty != null)
+                    OnDrawProperty(prop, mat);
             }
             if (IsTargetShader(mat))
             {
@@ -121,6 +129,9 @@ namespace PowerVFX
                 if (selectedTabId == RenderQueueTabId)
                     DrawRenderQueue(mat);
             }
+
+            if (OnDrawPropertyFinish != null)
+                OnDrawPropertyFinish(propDict, mat);
         }
 
         private bool IsTargetShader(Material mat)
