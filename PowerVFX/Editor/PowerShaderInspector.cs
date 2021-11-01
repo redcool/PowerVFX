@@ -25,6 +25,7 @@ namespace PowerVFX
         const string SRC_MODE = "_SrcMode", DST_MODE = "_DstMode";
         public string shaderName = "";
         public int AlphaTabId = 0;  // preset blend mode 显示在 号tab页
+        public int RenderQueueTabId = 0; // render Queue显示的tab页码
 
         string[] tabNames;
         List<string[]> propNameList = new List<string[]>();
@@ -47,6 +48,7 @@ namespace PowerVFX
         MaterialProperty[] materialProperties;
         PresetBlendMode presetBlendMode;
         int languageId;
+        int renderQueue = 2000;
 
         public PowerShaderInspector()
         {
@@ -112,10 +114,12 @@ namespace PowerVFX
                 var prop = propDict[propName];
                 materialEditor.ShaderProperty(prop, ConfigTool.Text(propNameTextDict, prop.name));
             }
-
-            if (selectedTabId == AlphaTabId && IsTargetShader(mat))
+            if (IsTargetShader(mat))
             {
-                DrawBlendMode(mat);
+                if (selectedTabId == AlphaTabId)
+                    DrawBlendMode(mat);
+                if (selectedTabId == RenderQueueTabId)
+                    DrawRenderQueue(mat);
             }
         }
 
@@ -187,6 +191,15 @@ namespace PowerVFX
                 mat.SetFloat(SRC_MODE, (int)blendModes[0]);
                 mat.SetFloat(DST_MODE, (int)blendModes[1]);
             }
+        }
+
+        void DrawRenderQueue(Material mat)
+        {
+            GUILayout.BeginVertical();
+            EditorGUILayout.Space(10);
+            GUILayout.Label("Render Queue",EditorStyles.boldLabel);
+            mat.renderQueue = EditorGUILayout.IntField(ConfigTool.Text(propNameTextDict, "RenderQueue"), mat.renderQueue);
+            GUILayout.EndVertical();
         }
 
         PresetBlendMode GetPresetBlendMode(BlendMode srcMode, BlendMode dstMode)
