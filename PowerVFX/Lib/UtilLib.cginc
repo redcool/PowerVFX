@@ -3,7 +3,7 @@
 #define FLT_MIN  1.175494351e-38
 // ---- custom symbols
 #define if UNITY_BRANCH if
-#define for UNITY_LOOP
+#define for UNITY_LOOP for
 #define float half
 
 float SafeDiv(float numer, float denom)
