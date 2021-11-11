@@ -153,11 +153,11 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
     
 }
 
-void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 mainUV){
+void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 maskUV){
     half3 offsetColor = tex2D(_OffsetTex,offsetUV.xy) * _OffsetTexColorTint;
     offsetColor += _DoubleEffectOn > 0 ? tex2D(_OffsetTex,offsetUV.zw) * _OffsetTexColorTint2 : 0;
 
-    half mask = tex2D(_OffsetMaskTex,mainUV)[_OffsetMaskChannel];
+    half mask = tex2D(_OffsetMaskTex,maskUV)[_OffsetMaskChannel];
 
     offsetColor = mainColor.rgb * offsetColor * _OffsetBlendIntensity * unity_ColorSpaceDouble;
     mainColor.rgb += lerp(0,offsetColor,mask);

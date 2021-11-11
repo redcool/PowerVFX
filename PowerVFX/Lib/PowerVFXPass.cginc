@@ -79,7 +79,8 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
             float4 p = _OffsetRadialCenter_LenScale_LenOffset;
             offsetUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_OffsetRadialRot);
         }
-        ApplyOffset(mainColor,offsetUV,mainUV.zw);
+        float2 maskUV = mainUV.zw * _OffsetMaskTex_ST.xy + _OffsetMaskTex_ST.zw;
+        ApplyOffset(mainColor,offsetUV,maskUV);
     }
 
     //dissolve

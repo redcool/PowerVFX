@@ -88,6 +88,7 @@ CBUFFER_START(UnityPerMaterial)
     float _DissolveFadingMax;
 // ==================================================
     float _OffsetOn;
+    float4 _OffsetMaskTex_ST;
     float _OffsetMaskChannel;
     float4 _OffsetTexColorTint,_OffsetTexColorTint2;
     float4 _OffsetTile,_OffsetDir;
