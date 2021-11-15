@@ -16,7 +16,7 @@ Shader "Unlit/testDither"
             #pragma fragment frag
 
             #include "UnityCG.cginc"
-            #include "../NodeLib.cginc"
+            #include "../../Lib/NodeLib.cginc"
 
             struct appdata
             {

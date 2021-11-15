@@ -101,8 +101,10 @@ void ApplyMainTexMask(inout float4 mainColor,float2 uv){
 
 float2 ApplyDistortion(inout float4 mainColor,float4 mainUV,float4 distortUV,float4 color,float faceId){
     half2 noise = (tex2D(_DistortionNoiseTex, distortUV.xy).xy -0.5) * 2;
-    if(_DoubleEffectOn)
-        noise += (tex2D(_DistortionNoiseTex, distortUV.zw).zw -0.5)*2;
+    if(_DoubleEffectOn){
+        noise += (tex2D(_DistortionNoiseTex, distortUV.zw).xy -0.5)*2;
+        noise *= 0.5;
+    }
     
     float2 maskUV = _MainTexUseScreenColor == 0 ? mainUV.xy : mainUV.zw;
     maskUV = maskUV * _DistortionMaskTex_ST.xy + _DistortionMaskTex_ST.zw;
