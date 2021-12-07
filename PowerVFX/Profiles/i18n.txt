@@ -36,7 +36,7 @@ _MainTexMaskChannel=遮罩通道?
 _MainTexUseScreenColor=主纹理使用屏幕颜色(需_CameraOpaqueTexture)
 
 _VertexWaveOn=开启顶点摆动?
-_NoiseUseAttenMaskMap=衰减图噪波
+_NoiseUseAttenMaskMap=衰减图用于噪波
 _VertexWaveSpeed=速度
 _VertexWaveSpeedManual=手动速度?
 _VertexWaveIntensity=强度

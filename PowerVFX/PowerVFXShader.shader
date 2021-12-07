@@ -75,7 +75,7 @@ Shader "FX/PowerVFX"
 		[Enum(R,0,G,1,B,2,A,3)]_DistortionMaskChannel("_DistortionMaskChannel",int)=0
 
 		[Header(DistortionParams)]
-		_DistortionIntensity("Distortion Intensity",Range(0,10)) = 0.5
+		_DistortionIntensity("Distortion Intensity",Range(0,2)) = 0.5
 		_DistortTile("Distort Tile",vector) = (1,1,1,1)
 		_DistortDir("Distort Dir",vector) = (0,1,0,-1)
 
@@ -146,12 +146,12 @@ Shader "FX/PowerVFX"
 
 		[Header(EnvRefraction)]
 		[LiteToggle]_EnvRefractionOn("_EnvRefractionOn",int) = 0
-		_EnvRefractionIOR("_EnvRefractionIOR",range(1,3)) = 1.33
+		_EnvRefractionIOR("_EnvRefractionIOR",range(1,5)) = 1.33
 		_EnvRefractionColor("_EnvRefractionColor",color) = (.5,.5,.5,.5)
 
 		[Header(Env Params)]
 		[NoScaleOffset]_EnvMap("Env Map",Cube) = ""{}
-		[NoScaleOffset]_EnvMapMask("Env Map Mask",2d) = ""{}
+		_EnvMapMask("Env Map Mask",2d) = ""{}
 		[Enum(R,0,G,1,B,2,A,3)]_EnvMapMaskChannel("_EnvMapMaskChannel",int)=0
 		_EnvIntensity("Env intensity",float) = 1
 		_EnvOffset("EnvOffset",vector) = (0,0,0,0)

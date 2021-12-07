@@ -2,7 +2,7 @@ Shader "Unlit/testDither"
 {
     Properties
     {
-        _Scale("_Scale",float) = 1
+        _Scale("_Scale",half) = 1
     }
     SubShader
     {
@@ -20,21 +20,21 @@ Shader "Unlit/testDither"
 
             struct appdata
             {
-                float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
+                half4 vertex : POSITION;
+                half2 uv : TEXCOORD0;
             };
 
             struct v2f
             {
-                float2 uv : TEXCOORD0;
-                float4 vertex : SV_POSITION;
-                float4 screenPos:TEXCOORD2;
+                half2 uv : TEXCOORD0;
+                half4 vertex : SV_POSITION;
+                half4 screenPos:TEXCOORD2;
             };
 
             sampler2D _MainTex;
-            float4 _MainTex_ST;
+            half4 _MainTex_ST;
 
-            float _Scale;
+            half _Scale;
 
             v2f vert (appdata v)
             {
@@ -47,10 +47,10 @@ Shader "Unlit/testDither"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float4 v;
+                half4 v;
                 i.screenPos.xyz /= i.screenPos.w;
                 i.screenPos *= 0.5;
-                Unity_Dither_float4(_Scale,i.screenPos,v);
+                Unity_Dither_half4(_Scale,i.screenPos,v);
                 clip(0.1- v);
                 return v;
             }
