@@ -24,7 +24,7 @@ namespace PowerVFX
     {
         // events
         public event Action<MaterialProperty, Material> OnDrawProperty;
-        public event Action<Dictionary<string, MaterialProperty>, Material> OnDrawPropertyFinish;
+        public event Action<Dictionary<string, MaterialProperty> ,Material> OnDrawPropertyFinish;
 
         // properties
         const string SRC_MODE = "_SrcMode", DST_MODE = "_DstMode";
@@ -112,8 +112,15 @@ namespace PowerVFX
         /// </summary>
         private void DrawPageDetail(MaterialEditor materialEditor, Material mat)
         {
+            const string WARNING_NO_DETAIL = "No Details";
+            if(selectedTabId >= propNameList.Count)
+            {
+                EditorGUILayout.HelpBox(WARNING_NO_DETAIL, MessageType.Warning, true);
+                return;
+            }
+
             // content's tab 
-            EditorGUILayout.HelpBox(tabNames[selectedTabId], MessageType.Warning, true);
+            EditorGUILayout.HelpBox(tabNames[selectedTabId], MessageType.Warning,true);
 
             // contents
             var propNames = propNameList[selectedTabId];
@@ -154,11 +161,14 @@ namespace PowerVFX
         {
             // read from cache
             selectedTabId = EditorPrefs.GetInt(materialSelectedId, selectedTabId);
-            toolbarCount = EditorPrefs.GetInt(materialToolbarCount, tabNamesInConfig.Length);
+            if (selectedTabId >= tabNamesInConfig.Length)
+                selectedTabId = 0;
 
+            toolbarCount = EditorPrefs.GetInt(materialToolbarCount, tabNamesInConfig.Length);
+            
             // draw 
             GUILayout.BeginVertical("Box");
-            toolbarCount = EditorGUILayout.IntSlider("ToolbarCount:", toolbarCount, 3, tabNamesInConfig.Length);
+            toolbarCount = EditorGUILayout.IntSlider("ToolbarCount:",toolbarCount, 3, tabNamesInConfig.Length);
             selectedTabId = GUILayout.SelectionGrid(selectedTabId, tabNamesInConfig, toolbarCount, EditorStyles.miniButton);
             GUILayout.EndVertical();
 
@@ -229,7 +239,7 @@ namespace PowerVFX
             GUILayout.BeginVertical();
             EditorGUILayout.Space(10);
 
-            GUILayout.Label("Material Props", EditorStyles.boldLabel);
+            GUILayout.Label("Material Props",EditorStyles.boldLabel);
             //mat.renderQueue = EditorGUILayout.IntField(ConfigTool.Text(propNameTextDict, "RenderQueue"), mat.renderQueue);
             materialEditor.RenderQueueField();
             materialEditor.EnableInstancingField();
