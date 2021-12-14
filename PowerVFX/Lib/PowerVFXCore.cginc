@@ -90,6 +90,8 @@ half4 SampleMainTex(half2 uv,half4 vertexColor,half faceId){
     }
     mainTex.xyz *= lerp(1,mainTex.a * vertexColor.a * color.a,_MainTexMultiAlpha);
     mainTex *= color * vertexColor * _ColorScale;
+    // for alpha
+    mainTex.w *= _AlphaScale;
     mainTex.w = smoothstep(_AlphaMin,_AlphaMax,mainTex.w);
     return mainTex;
 }

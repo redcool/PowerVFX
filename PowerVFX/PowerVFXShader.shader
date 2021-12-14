@@ -14,9 +14,6 @@ Shader "FX/PowerVFX"
 		_ColorScale("ColorScale",range(1,3)) = 1
 		[LiteToggle]_MainTexMultiAlpha("_MainTexMultiAlpha",int) = 0
 
-		[Header(Alpha Range)]
-		_AlphaMin("_AlphaMin",range(0,1)) = 0
-		_AlphaMax("_AlphaMax",range(0,1)) = 1
 
 		[Header(Single Channel MainTex)]
 		[LiteToggle]_MainTexSingleChannelOn("_MainTexSingleChannelOn?",int) = 0
@@ -33,6 +30,14 @@ Shader "FX/PowerVFX"
 
 		[Header(ScreenOpaqueTexture)]
 		[LiteToggle]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
+
+// ==================================================		
+		[Header(Alpha Range)]
+		_AlphaMin("_AlphaMin",range(0,1)) = 0
+		_AlphaMax("_AlphaMax",range(0,1)) = 1
+
+		[Header(Alpha Scale)]
+		_AlphaScale("_AlphaScale",float) = 1
 // ==================================================
 		[Header(BlendMode)]
 		[Enum(UnityEngine.Rendering.BlendMode)]_SrcMode("Src Mode",int) = 5
