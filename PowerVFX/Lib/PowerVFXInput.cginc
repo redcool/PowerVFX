@@ -124,5 +124,7 @@ CBUFFER_START(UnityPerMaterial)
     int _DepthFadingOn;
     half _DepthFadingWidth;
     half _LightOn;
+// ==================================================    
+    half _AlphaMax,_AlphaMin;
 CBUFFER_END
 #endif //POWER_VFX_INPUT_CGINC

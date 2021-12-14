@@ -1,7 +1,7 @@
 // PowerVFXLayout, when edit this file need reselect material
 
 // Tabs
-tabNames =  Settings, Main,VertexWave, Distortion, Dissolve, Offset, Fresnel,EnvReflect,MatCap
+tabNames =  Settings, Main,VertexWave, Distortion, Dissolve, Offset, Fresnel,EnvReflect,MatCap,Alpha
 
 // Tab's contents
 Settings = _DoubleEffectOn, _CullMode, _ZWriteMode,_ZTestMode,_BlendOp,_DepthFadingOn,_DepthFadingWidth,_LightOn
@@ -13,3 +13,4 @@ Offset = _OffsetOn, _OffsetTex, _OffsetMaskTex, _OffsetMaskChannel, _OffsetTexCo
 Fresnel = _FresnelOn,_FresnelColorMode, _FresnelColor,_FresnelColor2,_FresnelPowerMin, _FresnelPowerMax
 EnvReflect = _EnvReflectOn,_EnvReflectionColor,_EnvRefractionOn,_EnvRefractionIOR,_EnvRefractionColor, _EnvMap,_EnvMapMask, _EnvMapMaskChannel, _EnvIntensity ,_EnvOffset
 MatCap = _MatCapOn,_MatCapTex,_MatCapColor, _MatCapIntensity,_MatCapRotateOn,_MatCapAngle
+Alpha = _AlphaMin,_AlphaMax

@@ -12,6 +12,7 @@ namespace PowerVFX
         public PowerVFXInspector()
         {
             shaderName = "PowerVFX";
+            AlphaTabId = 9;
         }
     }
 }

@@ -14,6 +14,10 @@ Shader "FX/PowerVFX"
 		_ColorScale("ColorScale",range(1,3)) = 1
 		[LiteToggle]_MainTexMultiAlpha("_MainTexMultiAlpha",int) = 0
 
+		[Header(Alpha Range)]
+		_AlphaMin("_AlphaMin",range(0,1)) = 0
+		_AlphaMax("_AlphaMax",range(0,1)) = 1
+
 		[Header(Single Channel MainTex)]
 		[LiteToggle]_MainTexSingleChannelOn("_MainTexSingleChannelOn?",int) = 0
 		[Enum(R,0,G,1,B,2,A,3)]_MainTexChannel("_MainTexChannel",int)=0
