@@ -10,7 +10,17 @@ public class AfterTransparentRender : ScriptableRendererFeature
     [Serializable]
     public class Settings
     {
-        public LayerMask layer;
+        [Header("Grab Pass")]
+        public bool enableGrabPass = true;
+        public RenderPassEvent grabPassEvent = RenderPassEvent.AfterRenderingTransparents;
+        public int grabPassEventOffset = 0;
+
+        [Header("Render Pass")]
+        public bool enableRenderPass = true;
+        public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
+        public int renderPassEventOffset = 1;
+
+        public LayerMask layer = -1;
         public string opaqueTextureName = "_CameraOpaqueTexture";
     }
 
@@ -21,8 +31,11 @@ public class AfterTransparentRender : ScriptableRendererFeature
     {
         grabTransparentPass.cameraColorTarget = renderer.cameraColorTarget;
 
-        renderer.EnqueuePass(grabTransparentPass);
-        renderer.EnqueuePass(renderAfterTransparentPass);
+        if (settings.enableGrabPass)
+            renderer.EnqueuePass(grabTransparentPass);
+
+        if (settings.enableRenderPass)
+            renderer.EnqueuePass(renderAfterTransparentPass);
     }
 
     public override void Create()
@@ -43,7 +56,8 @@ public class AfterTransparentRender : ScriptableRendererFeature
 
         public AfterTransparentRenderPass(Settings settings)
         {
-            renderPassEvent = RenderPassEvent.AfterRenderingTransparents + 1;
+            //renderPassEvent = RenderPassEvent.AfterRenderingTransparents + 1;
+            renderPassEvent = settings.renderPassEvent + settings.renderPassEventOffset;
             filterSettings = new FilteringSettings(RenderQueueRange.all, settings.layer);
         }
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
@@ -76,7 +90,8 @@ public class AfterTransparentRender : ScriptableRendererFeature
         public GrabTransparentPass(Settings settings)
         {
             this.settings = settings;
-            renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
+            //renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
+            renderPassEvent = settings.grabPassEvent + settings.grabPassEventOffset;
             targetTextureHandle.Init(settings.opaqueTextureName);
         }
         public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
