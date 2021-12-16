@@ -2,7 +2,7 @@ Shader "Unlit/testDither"
 {
     Properties
     {
-        _Scale("_Scale",half) = 1
+        _Scale("_Scale",float) = 1
     }
     SubShader
     {
