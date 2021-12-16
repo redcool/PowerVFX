@@ -4,6 +4,7 @@ Shader "FX/PowerVFX"
 	Properties
 	{
 		_MainTex("Main Texture", 2D) = "white" {}
+		_MainUVAngle("_MainUVAngle",float) = 0
 		[LiteToggle]_MainTexOffsetStop("禁用MainTex自动滚动?",int)=0
 		[LiteToggle]_MainTexOffsetUseCustomData_XY("_MainTexOffsetUseCustomData_XY -> uv.zw",int)=0
 

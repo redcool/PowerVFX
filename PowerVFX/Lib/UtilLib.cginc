@@ -58,5 +58,11 @@ float3x3 AngleAxis3x3(float rad, float3 axis)
     );
 }
 
+void RotateUV(half rotAngle,half2 center,inout half2 uv){
+    uv -= center;
+    half uvAngle = radians(rotAngle);
+    uv.xy = mul(half2x2(cos(uvAngle),-sin(uvAngle),sin(uvAngle),cos(uvAngle)),uv.xy);
+    uv += center;
+}
 
 #endif //UTIL_LIB_CGINC

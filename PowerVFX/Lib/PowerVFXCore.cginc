@@ -59,12 +59,16 @@ void ApplyVertexWaveWorldSpace(inout half3 worldPos,half3 normal,half3 vertexCol
     worldPos.xyz +=  noise * atten;
 }
 
+
+
 /**
     return : half4
     xy:ofset and scalel vertex uv,
     zw:vertex uv
 */
 half4 MainTexOffset(half4 uv){
+    RotateUV(_MainUVAngle,0.5,uv.xy/**/);
+
     half2 offsetScale = lerp(_Time.xx, 1 ,_MainTexOffsetStop);
     half2 mainTexOffset = (_MainTex_ST.zw * offsetScale);
     mainTexOffset = lerp(mainTexOffset,uv.zw, _MainTexOffsetUseCustomData_XY); // vertex uv0.z : particle customData1.xy

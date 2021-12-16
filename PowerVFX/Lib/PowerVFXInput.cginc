@@ -20,6 +20,7 @@
     half3 _WorldSpaceLightDirection;
 
 CBUFFER_START(UnityPerMaterial)
+    half _MainUVAngle;
     half4 _Color;
     half _ColorScale;
     half _MainTexSaturate;
@@ -29,6 +30,7 @@ CBUFFER_START(UnityPerMaterial)
     int _BackFaceOn;
     half4 _BackFaceColor;
     half4 _MainTex_ST;
+    half4 _MainTex_TexelSize;
     half _MainTexOffsetStop;
     half _MainTexOffsetUseCustomData_XY;
 
