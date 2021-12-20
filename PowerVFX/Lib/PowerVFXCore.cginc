@@ -168,8 +168,9 @@ void ApplyOffset(inout half4 mainColor,half4 offsetUV,half2 maskUV){
 
     half mask = tex2D(_OffsetMaskTex,maskUV)[_OffsetMaskChannel];
 
-    offsetColor = mainColor.rgb * offsetColor * _OffsetBlendIntensity * unity_ColorSpaceDouble;
-    mainColor.rgb += lerp(0,offsetColor,mask);
+    offsetColor =  offsetColor * _OffsetBlendIntensity * unity_ColorSpaceDouble * mask;
+    
+    mainColor.rgb = mainColor.rgb * (_OffsetBlendMode + offsetColor);
 }
 
 void ApplyFresnal(inout half4 mainColor,half fresnel){

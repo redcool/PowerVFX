@@ -136,6 +136,8 @@ Shader "FX/PowerVFX"
 		_OffsetTile("Offset Tile",vector) = (1,1,1,1)
 		_OffsetDir("Offset Dir",vector) = (1,1,0,0)
 		_OffsetBlendIntensity("Blend Intensity",range(0,10)) = 0.5
+		_OffsetBlendMode("_OffsetBlendMode",range(0,1)) = 0
+
 		[Header(Radial UV)]
 		[LiteToggle]_OffsetRadialUVOn("_OffsetRadialUVOn",int) = 0
 		_OffsetRadialCenter_LenScale_LenOffset("_OffsetRadialCenter_LenScale_LenOffset",vector) = (.5,.5,1,0)

@@ -95,6 +95,7 @@ CBUFFER_START(UnityPerMaterial)
     half4 _OffsetTexColorTint,_OffsetTexColorTint2;
     half4 _OffsetTile,_OffsetDir;
     half _OffsetBlendIntensity;
+    half _OffsetBlendMode;
     // radial uv 
     int _OffsetRadialUVOn;
     half4 _OffsetRadialCenter_LenScale_LenOffset;
