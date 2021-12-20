@@ -101,7 +101,7 @@ half4 SampleMainTex(half2 uv,half4 vertexColor,half faceId){
 }
 
 void ApplyMainTexMask(inout half4 mainColor,half2 uv){
-    half2 maskTexOffset = _MainTexMaskOffsetStop ? _MainTexMask_ST.zw : _MainTexMask_ST.zw * _Time.xx;
+    half2 maskTexOffset = _MainTexMask_ST.zw * _Time.xx *(1-_MainTexMaskOffsetStop);
     half4 maskTex = tex2D(_MainTexMask,uv*_MainTexMask_ST.xy + maskTexOffset);// fp opearate mask uv.
     mainColor.a *= maskTex[_MainTexMaskChannel];
 }

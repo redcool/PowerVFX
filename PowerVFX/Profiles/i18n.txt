@@ -103,6 +103,9 @@ _OffsetRadialUVOn=径向?
 _OffsetRadialCenter_LenScale_LenOffset=径向位置_缩放_偏移量
 _OffsetRadialRot=径向扭曲角度
 
+_OffsetBlendMode=流光混合模式
+_OffsetMaskPanStop=停止遮罩滚动
+
 _FresnelOn=开启轮廓光
 _FresnelColorMode=_FresnelColorMode
 _FresnelColor=Color1

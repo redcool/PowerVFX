@@ -129,14 +129,19 @@ Shader "FX/PowerVFX"
 		[Header(Offset)] 
 		[LiteToggle] _OffsetOn("Offset On?",int) = 0
 		[NoScaleOffset]_OffsetTex("Offset Tex",2d) = ""{}
-		_OffsetMaskTex("Offset Mask (R)",2d) = "white"{}
-		[Enum(R,0,G,1,B,2,A,3)]_OffsetMaskChannel("_OffsetMaskChannel",int) = 0
-		[HDR]_OffsetTexColorTint("OffsetTex Color",color) = (1,1,1,1)
-		[HDR]_OffsetTexColorTint2("OffsetTex Color 2",color) = (1,1,1,1)
 		_OffsetTile("Offset Tile",vector) = (1,1,1,1)
 		_OffsetDir("Offset Dir",vector) = (1,1,0,0)
+		[HDR]_OffsetTexColorTint("OffsetTex Color",color) = (1,1,1,1)
+		[HDR]_OffsetTexColorTint2("OffsetTex Color 2",color) = (1,1,1,1)
+
+		[Header(Blend Ops)]
 		_OffsetBlendIntensity("Blend Intensity",range(0,10)) = 0.5
 		_OffsetBlendMode("_OffsetBlendMode",range(0,1)) = 0
+
+		[Header(Offset Mask)]
+		_OffsetMaskTex("Offset Mask (R)",2d) = "white"{}
+		[LiteToggle]_OffsetMaskPanStop("_OffsetMaskPanStop",float) = 0
+		[Enum(R,0,G,1,B,2,A,3)]_OffsetMaskChannel("_OffsetMaskChannel",int) = 0
 
 		[Header(Radial UV)]
 		[LiteToggle]_OffsetRadialUVOn("_OffsetRadialUVOn",int) = 0

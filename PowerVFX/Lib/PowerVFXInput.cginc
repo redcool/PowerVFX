@@ -91,6 +91,7 @@ CBUFFER_START(UnityPerMaterial)
 // ==================================================
     half _OffsetOn;
     half4 _OffsetMaskTex_ST;
+    half _OffsetMaskPanStop;
     half _OffsetMaskChannel;
     half4 _OffsetTexColorTint,_OffsetTexColorTint2;
     half4 _OffsetTile,_OffsetDir;
