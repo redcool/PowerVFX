@@ -22,6 +22,7 @@ namespace PowerVFX
         static Regex kvRegex = new Regex(@"\s*=\s*");
         public const string I18N_PROFILE_PATH = "Profiles/i18n.txt";
         public const string LAYOUT_PROFILE_PATH = "Profiles/Layout.txt";
+        public const string COLOR_PROFILE_PATH = "Profiles/Colors.txt";
 
         /// <summary>
         /// 从configPath开始找configFileName文件,一直找到Assets目录
@@ -81,11 +82,13 @@ namespace PowerVFX
             return vs.Select(v => v.Trim()).ToArray();
         }
 
-        public static Dictionary<string, string> ReadI18NConfig(string shaderFilePath)
+
+        public static Dictionary<string,string> ReadConfig(string shaderFilePath,string profileFilePath)
         {
-            var i18nFilePath = FindPathRecursive(shaderFilePath,I18N_PROFILE_PATH);
-            return ReadKeyValueConfig(i18nFilePath);
+            var path = FindPathRecursive(shaderFilePath, profileFilePath);
+            return ReadKeyValueConfig(path);
         }
+
 
         public static Dictionary<string, MaterialProperty> CacheProperties(MaterialProperty[] properties)
         {

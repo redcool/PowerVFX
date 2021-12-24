@@ -1,0 +1,4 @@
+// PowerVFX 颜色配置文件
+// 为注释行
+
+_DissolveClipOn=#FF0000
