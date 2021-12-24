@@ -147,7 +147,12 @@ namespace PowerVFX
                 DrawPageTabs();
 
                 EditorGUILayout.BeginVertical("Box");
-                DrawPageDetail(materialEditor, mat);
+
+
+                //DrawPageDetail(materialEditor, mat);
+
+                DrawPageDetails(materialEditor, mat);
+
                 EditorGUILayout.EndVertical();
             }
             EditorGUILayout.EndVertical();
@@ -158,7 +163,7 @@ namespace PowerVFX
         /// <summary>
         /// draw properties
         /// </summary>
-        private void DrawPageDetail(MaterialEditor materialEditor, Material mat)
+        private void DrawPageDetail(MaterialEditor materialEditor, Material mat,string tabName,string[] propNames)
         {
             const string WARNING_NO_DETAIL = "No Details";
             if(selectedTabId >= propNameList.Count)
@@ -168,11 +173,11 @@ namespace PowerVFX
             }
 
             // content's tab 
-            EditorGUILayout.HelpBox(tabNames[selectedTabId], MessageType.Info,true);
+            EditorGUILayout.HelpBox(tabName, MessageType.Info, true);
 
             MaterialCodeProps.Instance.Clear();
             // contents
-            var propNames = propNameList[selectedTabId];
+
             foreach (var propName in propNames)
             {
                 MaterialCodeProps.Instance.InitMaterialCodeVars(propName);
@@ -183,7 +188,7 @@ namespace PowerVFX
                 // found color
                 var contentColor = defaultContentColor;
                 string colorString;
-                if(colorTextDict.TryGetValue(propName,out colorString))
+                if (colorTextDict.TryGetValue(propName, out colorString))
                 {
                     ColorUtility.TryParseHtmlString(colorString, out contentColor);
                 }
@@ -212,6 +217,20 @@ namespace PowerVFX
 
             if (OnDrawPropertyFinish != null)
                 OnDrawPropertyFinish(propDict, mat);
+        }
+
+        void DrawPageDetails(MaterialEditor materialEditor, Material mat)
+        {
+            var selectedTabIdList = new List<int>();
+            selectedTabIdList.Add(selectedTabId);
+
+            foreach (var tablId in selectedTabIdList)
+            {
+                var tabName = tabNames[tablId];
+                var propNames = propNameList[tablId];
+
+                DrawPageDetail(materialEditor, mat, tabName, propNames);
+            }
         }
 
 
