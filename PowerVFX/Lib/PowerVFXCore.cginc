@@ -218,7 +218,7 @@ void ApplySoftParticle(inout half4 mainColor,half4 projPos){
     half delta = (sceneZ-partZ);
     half fade = saturate (_DepthFadingWidth * delta + 0.12*delta);
     // mainColor *= smoothstep(-0.5,0.5,fade);
-    mainColor.a *= fade;
+    mainColor *= fade;// xyz,a all multi fade
 }
 
 void ApplyLight(inout half4 mainColor,half3 normal){

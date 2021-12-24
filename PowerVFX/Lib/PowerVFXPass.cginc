@@ -118,6 +118,7 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
         ApplySoftParticle(mainColor/**/,i.grabPos); // change vertex color
     
     mainColor.a = saturate(mainColor.a );
+    // mainColor.xyz *= mainColor.a;
     return mainColor;
 }
 
