@@ -146,8 +146,10 @@ void ApplyDissolve(inout half4 mainColor,half2 dissolveUV,half4 color,half disso
     half dissolve = refDissolve - cutoff;
     dissolve = saturate(smoothstep(_DissolveFadingMin,_DissolveFadingMax,dissolve));
 
+    #if defined(ALPHA_TEST)
     if(_DissolveClipOn)
         clip(dissolve-0.01);
+    #endif
     
     mainColor.a *= dissolve;
 

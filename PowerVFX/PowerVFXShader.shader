@@ -111,9 +111,10 @@ Shader "FX/PowerVFX"
 		_DissolveFadingMin("_DissolveFadingMin",range(0,.2)) = 0
 		_DissolveFadingMax("_DissolveFadingMax",range(0,.2)) = .2
 
+		[Header(Dissolve Progress)]
+		_Cutoff ("_Cutoff", Range(0,1)) = 0.5
 		[Header(Dissolve Clip)]
-		[LiteToggle]_DissolveClipOn("_DissolveClipOn",int) = 1
-		_Cutoff ("AlphaTest cutoff", Range(0,1)) = 0.5
+		[Toggle(ALPHA_TEST)]_DissolveClipOn("_DissolveClipOn",int) = 1
 
 		[Header(PixelDissolve)]
 		[LiteToggle]_PixelDissolveOn("_PixelDissolveOn",float) = 0
@@ -201,6 +202,7 @@ Shader "FX/PowerVFX"
 			ztest[_ZTestMode]
 			CGPROGRAM
             #pragma multi_compile_instancing
+			#pragma multi_compile_local_fragment _ ALPHA_TEST
 
 			#pragma target 3.0
 			#pragma vertex vert
