@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using System.Linq;
 using System;
+using PowerUtilities;
 
 namespace PowerVFX
 {
@@ -20,6 +21,9 @@ namespace PowerVFX
         MultiColor_2X
     }
 
+    /// <summary>
+    /// 管理材质上代码绘制的属性
+    /// </summary>
     public class MaterialCodeProps {
         public const string _PresetBlendMode = "_PresetBlendMode",
             _RenderQueue = "_RenderQueue";
@@ -68,11 +72,14 @@ namespace PowerVFX
         public string shaderName = ""; //子类来指定,用于EditorPrefs读写
 
         string[] tabNames;
+        bool[] tabToggles;
+        List<int> tabSelectedIds = new List<int>();
+
         List<string[]> propNameList = new List<string[]>();
         string materialSelectedId => shaderName + "_SeletectedId";
         string materialToolbarCount => shaderName + "_ToolbarCount";
 
-        int selectedTabId;
+        //int selectedTabId;
         bool showOriginalPage;
 
         Dictionary<PresetBlendMode, BlendMode[]> blendModeDict;
@@ -87,10 +94,7 @@ namespace PowerVFX
         Shader lastShader;
 
         MaterialEditor materialEditor;
-        MaterialProperty[] materialProperties;
         PresetBlendMode presetBlendMode;
-        int languageId;
-        int renderQueue = 2000;
         int toolbarCount = 5;
 
         Color defaultContentColor;
@@ -109,14 +113,9 @@ namespace PowerVFX
             };
         }
 
-
-
-
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
         {
-
             this.materialEditor = materialEditor;
-            materialProperties = properties;
 
             var mat = materialEditor.target as Material;
             propDict = ConfigTool.CacheProperties(properties);
@@ -147,12 +146,7 @@ namespace PowerVFX
                 DrawPageTabs();
 
                 EditorGUILayout.BeginVertical("Box");
-
-
-                //DrawPageDetail(materialEditor, mat);
-
                 DrawPageDetails(materialEditor, mat);
-
                 EditorGUILayout.EndVertical();
             }
             EditorGUILayout.EndVertical();
@@ -166,7 +160,7 @@ namespace PowerVFX
         private void DrawPageDetail(MaterialEditor materialEditor, Material mat,string tabName,string[] propNames)
         {
             const string WARNING_NO_DETAIL = "No Details";
-            if(selectedTabId >= propNameList.Count)
+            if(propNames == null || propNames.Length == 0)
             {
                 EditorGUILayout.HelpBox(WARNING_NO_DETAIL, MessageType.Warning, true);
                 return;
@@ -221,13 +215,13 @@ namespace PowerVFX
 
         void DrawPageDetails(MaterialEditor materialEditor, Material mat)
         {
-            var selectedTabIdList = new List<int>();
-            selectedTabIdList.Add(selectedTabId);
-
-            foreach (var tablId in selectedTabIdList)
+            if (tabSelectedIds.Count == 0) {
+                EditorGUILayout.LabelField("No Selected");
+            }
+            foreach (var tabId in tabSelectedIds)
             {
-                var tabName = tabNames[tablId];
-                var propNames = propNameList[tablId];
+                var tabName = tabNames[tabId];
+                var propNames = propNameList[tabId];
 
                 DrawPageDetail(materialEditor, mat, tabName, propNames);
             }
@@ -238,25 +232,40 @@ namespace PowerVFX
         {
             return mat.shader.name.Contains(shaderName);
         }
+        void ReadFromCache()
+        {
+            // read from cache
+            tabSelectedIds.Clear();
+            EditorPrefTools.GetList(materialSelectedId, ref tabSelectedIds, ",", (idStr) => Convert.ToInt32(idStr));
+
+            foreach (var selectedId in tabSelectedIds)
+            {
+                tabToggles[selectedId] = true;
+            }
+
+            toolbarCount = EditorPrefs.GetInt(materialToolbarCount, tabNamesInConfig.Length);
+        }
+
+        void SaveToCache()
+        {
+            //cache selectedId
+            //EditorPrefs.SetInt(materialSelectedId, selectedTabId);
+            EditorPrefTools.SetList(materialSelectedId, tabSelectedIds, ",");
+            EditorPrefs.SetInt(materialToolbarCount, toolbarCount);
+        }
 
         private void DrawPageTabs()
         {
-            // read from cache
-            selectedTabId = EditorPrefs.GetInt(materialSelectedId, selectedTabId);
-            if (selectedTabId >= tabNamesInConfig.Length)
-                selectedTabId = 0;
+            ReadFromCache();
 
-            toolbarCount = EditorPrefs.GetInt(materialToolbarCount, tabNamesInConfig.Length);
-            
             // draw 
             GUILayout.BeginVertical("Box");
-            toolbarCount = EditorGUILayout.IntSlider("ToolbarCount:",toolbarCount, 3, tabNamesInConfig.Length);
-            selectedTabId = GUILayout.SelectionGrid(selectedTabId, tabNamesInConfig, toolbarCount, EditorStyles.miniButton);
+            toolbarCount = EditorGUILayout.IntSlider("ToolbarCount:", toolbarCount, 3, tabNamesInConfig.Length);
+            //selectedTabId = GUILayout.SelectionGrid(selectedTabId, tabNamesInConfig, toolbarCount, EditorStyles.miniButton);
+            EditorGUITools.MultiSelectionGrid(tabNames, tabToggles, tabSelectedIds, toolbarCount);
             GUILayout.EndVertical();
 
-            //cache selectedId
-            EditorPrefs.SetInt(materialSelectedId, selectedTabId);
-            EditorPrefs.SetInt(materialToolbarCount, toolbarCount);
+            SaveToCache();
         }
 
         private void OnInit(Material mat, MaterialProperty[] properties)
@@ -272,6 +281,7 @@ namespace PowerVFX
             helpStr = ConfigTool.Text(propNameTextDict, "").Replace('|', '\n');
 
             tabNamesInConfig = tabNames.Select(item => ConfigTool.Text(propNameTextDict, item)).ToArray();
+            tabToggles = new bool[tabNamesInConfig.Length];
 
             colorTextDict = ConfigTool.ReadConfig(shaderFilePath, ConfigTool.COLOR_PROFILE_PATH);
         }
