@@ -103,7 +103,7 @@ namespace PowerUtilities
             GUI.color = lastColor;
         }
 
-        public static void MultiSelectionGrid(GUIContent[] contents, bool[] toggles, List<int> selectedIds, int xCount, GUIStyle rowStyle = null, GUIStyle columnStyle = null)
+        public static bool MultiSelectionGrid(GUIContent[] contents, bool[] toggles, List<int> selectedIds, int xCount, GUIStyle rowStyle = null, GUIStyle columnStyle = null)
         {
             // check styles
             rowStyle = rowStyle == null ? "" : rowStyle;
@@ -119,6 +119,7 @@ namespace PowerUtilities
             // item
             var itemIndex = 0;
             var itemWidth = (Screen.width - 40 -2*xCount) / xCount ; // guess inspector's width
+            var hasChanged = false;
 
             GUILayout.BeginVertical(columnStyle);
             for (int x = 0; x < rows; x++)
@@ -129,9 +130,18 @@ namespace PowerUtilities
                     if (itemIndex >= contents.Length)
                         break;
 
-                    toggles[itemIndex] = GUILayout.Toggle(toggles[itemIndex], contents[itemIndex], "Button", GUILayout.Width(itemWidth));
+                    var lastToggle = toggles[itemIndex];
+                    toggles[itemIndex] = GUILayout.Toggle(lastToggle, contents[itemIndex], "Button", GUILayout.Width(itemWidth));
+
                     if (toggles[itemIndex])
+                    {
                         selectedIds.Add(itemIndex);
+                    }
+
+                    if(!hasChanged && lastToggle != toggles[itemIndex])
+                    {
+                        hasChanged = true;
+                    }
 
                     itemIndex++;
                 }
@@ -139,12 +149,14 @@ namespace PowerUtilities
 
             }
             GUILayout.EndVertical();
+
+            return hasChanged;
         }
 
-        public static void MultiSelectionGrid(string[] contents, bool[] toggles, List<int> selectedIds, int xCount, GUIStyle rowStyle = null, GUIStyle columnStyle = null)
+        public static bool MultiSelectionGrid(string[] contents, bool[] toggles, List<int> selectedIds, int xCount, GUIStyle rowStyle = null, GUIStyle columnStyle = null)
         {
             var guiContents = contents.Select(str => new GUIContent(str)).ToArray();
-            MultiSelectionGrid(guiContents, toggles, selectedIds, xCount, rowStyle, columnStyle);
+            return MultiSelectionGrid(guiContents, toggles, selectedIds, xCount, rowStyle, columnStyle);
         }
     }
 }
