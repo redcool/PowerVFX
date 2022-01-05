@@ -45,6 +45,7 @@ v2f vert(appdata v)
         half3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
         TANGENT_SPACE_COMBINE(worldPos,worldNormal,half4(worldTangent,v.tangent.w),o/**/);
     }
+    UNITY_TRANSFER_FOG(o,o.vertex);
     return o;
 }
 
@@ -118,7 +119,10 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
         ApplySoftParticle(mainColor/**/,i.grabPos); // change vertex color
     
     mainColor.a = saturate(mainColor.a );
-    // mainColor.xyz *= mainColor.a;
+    // apply fog
+    UNITY_APPLY_FOG(i.fogCoord , mainColor);
+    // mainColor.xyz *= lerp(1,mainColor.a,_MainTexMultiAlpha);
+
     return mainColor;
 }
 

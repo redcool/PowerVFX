@@ -201,6 +201,7 @@ Shader "FX/PowerVFX"
 			Cull[_CullMode]
 			ztest[_ZTestMode]
 			CGPROGRAM
+			#pragma multi_compile_fog
             #pragma multi_compile_instancing
 			#pragma multi_compile_local_fragment _ ALPHA_TEST
 
