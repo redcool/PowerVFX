@@ -262,7 +262,7 @@ namespace PowerVFX
             GUILayout.BeginVertical("Box");
             toolbarCount = EditorGUILayout.IntSlider("ToolbarCount:", toolbarCount, 3, tabNamesInConfig.Length);
             //selectedTabId = GUILayout.SelectionGrid(selectedTabId, tabNamesInConfig, toolbarCount, EditorStyles.miniButton);
-            EditorGUITools.MultiSelectionGrid(tabNames, tabToggles, tabSelectedIds, toolbarCount);
+            EditorGUITools.MultiSelectionGrid(tabNamesInConfig, tabToggles, tabSelectedIds, toolbarCount);
             GUILayout.EndVertical();
 
             SaveToCache();
