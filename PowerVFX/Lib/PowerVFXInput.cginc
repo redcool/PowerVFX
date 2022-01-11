@@ -39,7 +39,7 @@ CBUFFER_START(UnityPerMaterial)
     half _MainTexMaskOffsetStop;
     int _MainTexMaskChannel;
     half _MainTexUseScreenColor;
-// ==================================================
+// ==================================================_VertexWaveOn
     half _VertexWaveOn;
     half _NoiseUseAttenMaskMap;
     half _VertexWaveSpeed;
@@ -57,7 +57,7 @@ CBUFFER_START(UnityPerMaterial)
     int _VertexWaveAtten_MaskMapOffsetStopOn;
     int _VertexWaveAtten_MaskMapChannel;
     int _VertexWaveAttenMaskOffsetScale_UseCustomeData2_X;
-// ==================================================
+// ==================================================_DistortionOn
     half _DistortionOn;
     int _DistortionMaskChannel;
     half4 _DistortionMaskTex_ST;
@@ -67,7 +67,7 @@ CBUFFER_START(UnityPerMaterial)
     half4 _DistortionRadialCenter_LenScale_LenOffset;
     half _DistortionRadialRot;
     int _ApplyToOffset;
-// ==================================================
+// ==================================================_DissolveOn
     half _DissolveOn;
     half _DissolveByVertexColor;
     half _DissolveByCustomData_Z;
@@ -88,7 +88,7 @@ CBUFFER_START(UnityPerMaterial)
 
     half _DissolveFadingMin;
     half _DissolveFadingMax;
-// ==================================================
+// ==================================================_OffsetOn
     half _OffsetOn;
     half4 _OffsetMaskTex_ST;
     half _OffsetMaskPanStop;
@@ -101,13 +101,13 @@ CBUFFER_START(UnityPerMaterial)
     int _OffsetRadialUVOn;
     half4 _OffsetRadialCenter_LenScale_LenOffset;
     half _OffsetRadialRot;
-// ==================================================
+// ==================================================_FresnelOn
     half _FresnelOn;
     int _FresnelColorMode;
     half4 _FresnelColor,_FresnelColor2;
     half _FresnelPowerMin;
     half _FresnelPowerMax;
-// ==================================================
+// ==================================================_EnvReflectOn
     half _EnvReflectOn;
     half4 _EnvReflectionColor;
     half4 _EnvMapMask_ST;
@@ -118,17 +118,17 @@ CBUFFER_START(UnityPerMaterial)
     int _EnvRefractionOn;
     half _EnvRefractionIOR;
     half4 _EnvRefractionColor;
-// ==================================================
+// ==================================================_MatCapOn
     int _MatCapOn;
     half4 _MatCapColor;
     half _MatCapIntensity;
     int _MatCapRotateOn;
     half _MatCapAngle;
-// ==================================================    
+// ==================================================    _DepthFadingOn
     int _DepthFadingOn;
     half _DepthFadingWidth;
     half _LightOn;
-// ==================================================    
+// ==================================================   _Alpha 
     half _AlphaMax,_AlphaMin,_AlphaScale;
 
 CBUFFER_END

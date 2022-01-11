@@ -32,14 +32,14 @@ Shader "FX/PowerVFX"
 		[Header(ScreenOpaqueTexture)]
 		[LiteToggle]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
 
-// ==================================================		
+// ==================================================		Alpha
 		[Header(Alpha Range)]
 		_AlphaMin("_AlphaMin",range(0,1)) = 0
 		_AlphaMax("_AlphaMax",range(0,1)) = 1
 
 		[Header(Alpha Scale)]
 		_AlphaScale("_AlphaScale",float) = 1
-// ==================================================
+// ==================================================BlendMode
 		[Header(BlendMode)]
 		[Enum(UnityEngine.Rendering.BlendMode)]_SrcMode("Src Mode",int) = 5
 		[Enum(UnityEngine.Rendering.BlendMode)]_DstMode("Dst Mode",int) = 10
@@ -53,7 +53,7 @@ Shader "FX/PowerVFX"
 		[Enum(UnityEngine.Rendering.CullMode)]_CullMode("Cull Mode",float) = 0
 		[LiteToggle]_ZWriteMode("ZWriteMode",int) = 0
 		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 4
-// ==================================================
+// ==================================================_VertexWaveOn
 		[LiteToggle]_VertexWaveOn("_VertexWaveOn ?",int) = 0
 		[Header(Noise Map)]
 		[LiteToggle]_NoiseUseAttenMaskMap("_NoiseUseAttenMaskMap",float)=0
@@ -75,7 +75,7 @@ Shader "FX/PowerVFX"
 		[Enum(R,0,G,1,B,2,A,3)]_VertexWaveAtten_MaskMapChannel("_VertexWaveAtten_MaskMapChannel",int) = 0
 		[LiteToggle]_VertexWaveAtten_MaskMapOffsetStopOn("_VertexWaveAtten_MaskMapOffsetStopOn",int) = 0
 		[LiteToggle]_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X("_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X",int) = 0
-// ==================================================
+// ==================================================Distortion
 		[Header(Distortion)]
 		[LiteToggle]_DistortionOn("Distortion On?",int)=0
 		[noscaleoffset]_DistortionNoiseTex("Noise Texture(xy:layer1,zw:layer2)",2D) = "white" {}
@@ -96,7 +96,7 @@ Shader "FX/PowerVFX"
 
 		[Header(Distortion Where)]
 		[LiteToggle]_ApplyToOffset("_ApplyToOffset",int) = 0
-// ==================================================
+// ==================================================Dissolve
 		[Header(Dissolve)]
 		[LiteToggle]_DissolveOn("Dissolve On?",int)=0
 		_DissolveTex("Dissolve Tex",2d)=""{}
@@ -126,7 +126,7 @@ Shader "FX/PowerVFX"
 		[LiteToggle]_DissolveEdgeWidthByCustomData_W("_DissolveEdgeWidthByCustomData_W.w -> uv1.y",int) = 0
 		[HDR]_EdgeColor("EdgeColor",color) = (1,0,0,1)
 		[HDR]_EdgeColor2("EdgeColor2",color) = (0,1,0,1)
-// ==================================================
+// ==================================================Offset
 		[Header(Offset)] 
 		[LiteToggle] _OffsetOn("Offset On?",int) = 0
 		[NoScaleOffset]_OffsetTex("Offset Tex",2d) = ""{}
@@ -148,7 +148,7 @@ Shader "FX/PowerVFX"
 		[LiteToggle]_OffsetRadialUVOn("_OffsetRadialUVOn",int) = 0
 		_OffsetRadialCenter_LenScale_LenOffset("_OffsetRadialCenter_LenScale_LenOffset",vector) = (.5,.5,1,0)
 		_OffsetRadialRot("_OffsetRadialRot",float) = 0
-// ==================================================
+// ==================================================Fresnal
 		[Header(Fresnal)]
 		[LiteToggle]_FresnelOn("_FresnelOn?",int)=0
 		[Enum(Replace,0,Multiply,1)]_FresnelColorMode("_FresnelColorMode",int) = 0
@@ -157,7 +157,7 @@ Shader "FX/PowerVFX"
 		[Header(Range)]
 		_FresnelPowerMin("_FresnelPowerMin",range(0,1)) = 0.4
 		_FresnelPowerMax("_FresnelPowerMax",range(0,1)) = 0.5
-// ==================================================		
+// ==================================================	EnvReflection	
 		[Header(EnvReflection)]
 		[LiteToggle]_EnvReflectOn("EnvReflect On?",int)=0
 		_EnvReflectionColor("_EnvReflectionColor",color) = (.5,.5,.5,.5)
@@ -174,7 +174,7 @@ Shader "FX/PowerVFX"
 		_EnvIntensity("Env intensity",float) = 1
 		_EnvOffset("EnvOffset",vector) = (0,0,0,0)
 
-// ==================================================
+// ==================================================MatCap
 		[Header(MatCap)]
 		[LiteToggle]_MatCapOn("_MatCapOn",int) = 0
 		[noscaleoffset]_MatCapTex("_MapCapTex",2d)=""{}
@@ -182,7 +182,7 @@ Shader "FX/PowerVFX"
 		_MatCapIntensity("_MatCapIntensity",float) = 1
 		[LiteToggle]_MatCapRotateOn("_MatCapRotateOn",float) = 0
 		_MatCapAngle("_MapCatAngle",float) = 0
-// ==================================================
+// ==================================================_DepthFading
 		[Header(_DepthFading)]
 		[LiteToggle]_DepthFadingOn("_DepthFadingOn",int) = 0
 		_DepthFadingWidth("_DepthFadingWidth",range(0.01,3)) = 1

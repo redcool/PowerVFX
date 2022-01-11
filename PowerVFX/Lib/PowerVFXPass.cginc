@@ -23,7 +23,7 @@ v2f vert(appdata v)
     o.grabPos.z = COMPUTE_EYEDEPTH(o.grabPos.z);
 
     // #if defined(UNITY_UV_STARTS_AT_TOP)
-    //     // if(_MainTex_TexelSize.y < 0)
+    //     if(_MainTex_TexelSize.y < 0)
     //         o.grabPos.y = o.grabPos.w - o.grabPos.y;
     // #endif
 

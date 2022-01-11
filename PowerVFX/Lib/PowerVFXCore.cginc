@@ -213,7 +213,7 @@ void ApplyMatcap(inout half4 mainColor,half2 mainUV,half2 viewNormal){
 }
 
 void ApplySoftParticle(inout half4 mainColor,half4 projPos){
-    half sceneZ = LinearEyeDepth (SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(projPos)));
+    half sceneZ = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(projPos)));
     half partZ = projPos.z;
     half delta = (sceneZ-partZ);
     half fade = saturate (_DepthFadingWidth * delta + 0.12*delta);
