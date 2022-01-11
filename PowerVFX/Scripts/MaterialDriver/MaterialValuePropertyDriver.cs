@@ -20,12 +20,12 @@ public class MaterialValuePropertyInfo
     public void UpdateValue(float deltaTime)
     {
         value += speed * deltaTime;
-        value = Mathf.Clamp01(value);
+        value = Mathf.Clamp(value,minValue,maxValue);
     }
 
     public bool CanUpdate()
     {
-        return enabled && !string.IsNullOrEmpty(name);
+        return enabled && !string.IsNullOrEmpty(name) && value >= minValue && value <= maxValue;
     }
 }
 
