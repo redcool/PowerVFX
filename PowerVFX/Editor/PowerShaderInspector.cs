@@ -79,6 +79,11 @@ namespace PowerVFX
         string materialSelectedId => shaderName + "_SeletectedId";
         string materialToolbarCount => shaderName + "_ToolbarCount";
 
+        string GetMaterialSelectionIdKey(string matName)
+        {
+            return matName + shaderName + "_SeletectedId";
+        }
+
         //int selectedTabId;
         bool showOriginalPage;
 
@@ -236,7 +241,7 @@ namespace PowerVFX
         {
             // read from cache
             tabSelectedIds.Clear();
-            EditorPrefTools.GetList(materialSelectedId, ref tabSelectedIds, ",", (idStr) => Convert.ToInt32(idStr));
+            EditorPrefTools.GetList(GetMaterialSelectionIdKey(materialEditor.target.name), ref tabSelectedIds, ",", (idStr) => Convert.ToInt32(idStr));
 
             foreach (var selectedId in tabSelectedIds)
             {
@@ -250,7 +255,7 @@ namespace PowerVFX
         {
             //cache selectedId
             //EditorPrefs.SetInt(materialSelectedId, selectedTabId);
-            EditorPrefTools.SetList(materialSelectedId, tabSelectedIds, ",");
+            EditorPrefTools.SetList(GetMaterialSelectionIdKey(materialEditor.target.name), tabSelectedIds, ",");
             EditorPrefs.SetInt(materialToolbarCount, toolbarCount);
         }
 
