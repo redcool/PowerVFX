@@ -283,7 +283,7 @@ namespace PowerVFX
 
             propNameTextDict = ConfigTool.ReadConfig(shaderFilePath, ConfigTool.I18N_PROFILE_PATH);
 
-            helpStr = ConfigTool.Text(propNameTextDict, "").Replace('|', '\n');
+            helpStr = ConfigTool.Text(propNameTextDict, "Help").Replace('|', '\n');
 
             tabNamesInConfig = tabNames.Select(item => ConfigTool.Text(propNameTextDict, item)).ToArray();
             tabToggles = new bool[tabNamesInConfig.Length];

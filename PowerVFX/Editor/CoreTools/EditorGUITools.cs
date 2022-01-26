@@ -103,13 +103,23 @@ namespace PowerUtilities
             GUI.color = lastColor;
         }
 
+        /// <summary>
+        /// 
+        /// Hold control select multi buttons.
+        /// </summary>
+        /// <param name="contents"></param>
+        /// <param name="toggles"></param>
+        /// <param name="selectedIds"></param>
+        /// <param name="xCount"></param>
+        /// <param name="rowStyle"></param>
+        /// <param name="columnStyle"></param>
+        /// <returns></returns>
         public static bool MultiSelectionGrid(GUIContent[] contents, bool[] toggles, List<int> selectedIds, int xCount, GUIStyle rowStyle = null, GUIStyle columnStyle = null)
         {
+            var e = Event.current;
             // check styles
             rowStyle = rowStyle == null ? "" : rowStyle;
             columnStyle = columnStyle == null ? "" : columnStyle;
-
-            selectedIds.Clear();
 
             //calc rows
             var rows = contents.Length / xCount;
@@ -127,23 +137,17 @@ namespace PowerUtilities
                 GUILayout.BeginHorizontal(rowStyle);
                 for (int y = 0; y < xCount; y++)
                 {
-                    if (itemIndex >= contents.Length)
-                        break;
+                    itemIndex = y + x * xCount;
 
                     var lastToggle = toggles[itemIndex];
+                    //GUILayout.Toggle(lastToggle, contents[itemIndex], "Button", GUILayout.Width(itemWidth));
                     toggles[itemIndex] = GUILayout.Toggle(lastToggle, contents[itemIndex], "Button", GUILayout.Width(itemWidth));
 
-                    if (toggles[itemIndex])
-                    {
-                        selectedIds.Add(itemIndex);
-                    }
 
-                    if(!hasChanged && lastToggle != toggles[itemIndex])
+                    if(lastToggle != toggles[itemIndex])
                     {
-                        hasChanged = true;
+                        SelectionControl(toggles, selectedIds, e, itemIndex);
                     }
-
-                    itemIndex++;
                 }
                 GUILayout.EndHorizontal();
 
@@ -151,7 +155,39 @@ namespace PowerUtilities
             GUILayout.EndVertical();
 
             return hasChanged;
+
+            // inner method
+            void SelectionControl(bool[] toggles, List<int> selectedIds, Event e, int itemIndex)
+            {
+                Debug.Log(itemIndex);
+                // multiple selection
+                if (e.control)
+                {
+                    var isSelected = toggles[itemIndex];
+                    var isContained = selectedIds.Contains(itemIndex);
+
+                    if (isSelected && !isContained)
+                        selectedIds.Add(itemIndex);
+
+                    if (!isSelected && isContained)
+                        selectedIds.Remove(itemIndex);
+                }
+                else
+                {
+                    // single selection
+                    for (int i = 0; i < toggles.Length; i++)
+                    {
+                        if (i != itemIndex)
+                            toggles[i] = false;
+                    }
+
+                    selectedIds.Clear();
+                    selectedIds.Add(itemIndex);
+                }
+            }
         }
+
+
 
         public static bool MultiSelectionGrid(string[] contents, bool[] toggles, List<int> selectedIds, int xCount, GUIStyle rowStyle = null, GUIStyle columnStyle = null)
         {
