@@ -118,8 +118,8 @@ namespace PowerUtilities
         {
             var e = Event.current;
             // check styles
-            rowStyle = rowStyle == null ? "" : rowStyle;
-            columnStyle = columnStyle == null ? "" : columnStyle;
+            rowStyle = rowStyle == null ? GUIStyle.none : rowStyle;
+            columnStyle = columnStyle == null ? GUIStyle.none : columnStyle;
 
             //calc rows
             var rows = contents.Length / xCount;
@@ -138,6 +138,8 @@ namespace PowerUtilities
                 for (int y = 0; y < xCount; y++)
                 {
                     itemIndex = y + x * xCount;
+                    if (itemIndex >= toggles.Length)
+                        break;
 
                     var lastToggle = toggles[itemIndex];
                     toggles[itemIndex] = GUILayout.Toggle(lastToggle, contents[itemIndex], "Button", GUILayout.Width(itemWidth));
@@ -158,7 +160,6 @@ namespace PowerUtilities
             // inner method
             void SelectionControl(bool[] toggles, List<int> selectedIds, Event e, int itemIndex)
             {
-                Debug.Log(itemIndex);
                 // multiple selection
                 if (e.control)
                 {
