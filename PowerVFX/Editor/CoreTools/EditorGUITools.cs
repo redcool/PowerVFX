@@ -140,7 +140,6 @@ namespace PowerUtilities
                     itemIndex = y + x * xCount;
 
                     var lastToggle = toggles[itemIndex];
-                    //GUILayout.Toggle(lastToggle, contents[itemIndex], "Button", GUILayout.Width(itemWidth));
                     toggles[itemIndex] = GUILayout.Toggle(lastToggle, contents[itemIndex], "Button", GUILayout.Width(itemWidth));
 
 
