@@ -27,7 +27,7 @@ public class AfterTransparentRender : ScriptableRendererFeature
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
         public int renderPassEventOffset = 1;
 
-        public LayerMask layer = -1;
+        public LayerMask layer = 0;
     }
 
     [SerializeField]Settings settings;
