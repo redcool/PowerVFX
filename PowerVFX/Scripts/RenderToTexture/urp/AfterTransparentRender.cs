@@ -15,13 +15,19 @@ public class AfterTransparentRender : ScriptableRendererFeature
         public RenderPassEvent grabPassEvent = RenderPassEvent.AfterRenderingTransparents;
         public int grabPassEventOffset = 0;
 
+        [Header("CameraOpaqueTexture")]
+        public string opaqueTextureName = "_CameraOpaqueTexture";
+        [Range(1,6)]public int opaqueTextureDownSample = 4;
+
+        public bool applyBlur;
+        [Range(0.5f,3f)]public float blurRadius = 1.2f;
+
         [Header("Render Pass")]
         public bool enableRenderPass = true;
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
         public int renderPassEventOffset = 1;
 
         public LayerMask layer = -1;
-        public string opaqueTextureName = "_CameraOpaqueTexture";
     }
 
     [SerializeField]Settings settings;
@@ -85,6 +91,11 @@ public class AfterTransparentRender : ScriptableRendererFeature
     {
         Settings settings;
         RenderTargetHandle targetTextureHandle;
+
+        int _BlurTex = Shader.PropertyToID("_BlurTex");
+        Material blurMat;
+
+
         public RenderTargetIdentifier cameraColorTarget;
 
         public GrabTransparentPass(Settings settings)
@@ -96,16 +107,39 @@ public class AfterTransparentRender : ScriptableRendererFeature
         }
         public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
         {
-            cmd.GetTemporaryRT(targetTextureHandle.id, cameraTextureDescriptor);
+            if (!blurMat)
+                blurMat = new Material(Shader.Find("Hidden/GaussianBlur"));
+
+            var w = Mathf.Max(1,cameraTextureDescriptor.width >> settings.opaqueTextureDownSample);
+            var h = Mathf.Max(1,cameraTextureDescriptor.height >> settings.opaqueTextureDownSample);
+            
+            cmd.GetTemporaryRT(targetTextureHandle.id,w,h,cameraTextureDescriptor.depthBufferBits,FilterMode.Bilinear);
             cmd.SetGlobalTexture(targetTextureHandle.id, targetTextureHandle.Identifier());
+
+            cmd.GetTemporaryRT(_BlurTex, w, h);
         }
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
             var cmd = CommandBufferPool.Get();
+
             context.ExecuteCommandBuffer(cmd);
             cmd.Clear();
 
+            cmd.BeginSample(nameof(GrabTransparentPass));
+
             Blit(cmd, cameraColorTarget, targetTextureHandle.id);
+
+            // execute blur pass
+            if (settings.applyBlur)
+            {
+                blurMat.SetFloat("_Scale",settings.blurRadius);
+                Blit(cmd, targetTextureHandle.id, _BlurTex, blurMat);
+
+                blurMat.SetFloat("_Scale", settings.blurRadius*1.2f);
+                Blit(cmd, _BlurTex, targetTextureHandle.id, blurMat);
+            }
+
+            cmd.EndSample(nameof(GrabTransparentPass));
             context.ExecuteCommandBuffer(cmd);
 
             CommandBufferPool.Release(cmd);
@@ -114,6 +148,7 @@ public class AfterTransparentRender : ScriptableRendererFeature
         public override void FrameCleanup(CommandBuffer cmd)
         {
             cmd.ReleaseTemporaryRT(targetTextureHandle.id);
+            cmd.ReleaseTemporaryRT(_BlurTex);
         }
     }
 }
