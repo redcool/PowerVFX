@@ -42,17 +42,20 @@ Shader "Unlit/BlurBackground"
             };
 
             sampler2D _MainTex;
+            sampler2D _CameraOpaqueTexture;
+            float4 _CameraOpaqueTexture_TexelSize;
+            sampler2D _NormalMap;
+
+            CBUFFER_START(UnityPerMaterial)
             float4 _MainTex_ST;
             float _Fade;
 
             float _BlurScale;
 
-            sampler2D _CameraOpaqueTexture;
-            float4 _CameraOpaqueTexture_TexelSize;
 
-            sampler2D _NormalMap;
             float4 _NormalMap_ST;
             float _NormalScale;
+            CBUFFER_END
 
             v2f vert (appdata v)
             {
