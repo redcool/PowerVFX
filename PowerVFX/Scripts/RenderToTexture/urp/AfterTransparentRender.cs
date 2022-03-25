@@ -17,7 +17,7 @@ public class AfterTransparentRender : ScriptableRendererFeature
 
         [Header("CameraOpaqueTexture")]
         public string opaqueTextureName = "_CameraOpaqueTexture";
-        [Range(1,6)]public int opaqueTextureDownSample = 4;
+        [Range(0,6)]public int opaqueTextureDownSample = 4;
 
         public bool applyBlur;
         [Range(0.5f,3f)]public float blurRadius = 1.2f;
