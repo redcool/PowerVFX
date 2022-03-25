@@ -30,7 +30,7 @@ public class AfterTransparentRender : ScriptableRendererFeature
         public LayerMask layer = 0;
     }
 
-    [SerializeField]Settings settings;
+    [SerializeField]Settings settings = new Settings();
     AfterTransparentRenderPass renderAfterTransparentPass;
     GrabTransparentPass grabTransparentPass;
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
@@ -108,7 +108,11 @@ public class AfterTransparentRender : ScriptableRendererFeature
         public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
         {
             if (!blurMat)
-                blurMat = new Material(Shader.Find("Hidden/GaussianBlur"));
+            {
+                var s = Shader.Find("Hidden/GaussianBlur");
+                if(s)
+                    blurMat = new Material(s);
+            }
 
             var w = Mathf.Max(1,cameraTextureDescriptor.width >> settings.opaqueTextureDownSample);
             var h = Mathf.Max(1,cameraTextureDescriptor.height >> settings.opaqueTextureDownSample);
@@ -130,7 +134,7 @@ public class AfterTransparentRender : ScriptableRendererFeature
             Blit(cmd, cameraColorTarget, targetTextureHandle.id);
 
             // execute blur pass
-            if (settings.applyBlur)
+            if (settings.applyBlur && blurMat)
             {
                 blurMat.SetFloat("_Scale",settings.blurRadius);
                 Blit(cmd, targetTextureHandle.id, _BlurTex, blurMat);
