@@ -65,4 +65,13 @@ void RotateUV(half rotAngle,half2 center,inout half2 uv){
     uv += center;
 }
 
+/**
+    uv_t : uv translation part,like _MainTex_ST.zw
+    autoStop : a switch
+    return : uv_t or uv_t + _Time.xx
+*/
+half2 UVOffset(half2 uv_t,half autoStop){
+    return uv_t * ( 1+ _Time.xx *( 1 - autoStop) );
+}
+
 #endif //UTIL_LIB_CGINC

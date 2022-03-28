@@ -9,16 +9,12 @@
 #include "UtilLib.cginc"
 
 half4 SampleAttenMap(half2 mainUV,half attenMaskCDATA){
-    half2 offsetScale = 0;
     // auto offset
-    if(!_VertexWaveAtten_MaskMapOffsetStopOn){
-        offsetScale = _Time.y  * _VertexWaveAtten_MaskMap_ST.zw;
-    }
+    half2 uvOffset = UVOffset(_VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAtten_MaskMapOffsetStopOn);
     // offset by custom data
-    if(_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X){
-        offsetScale = attenMaskCDATA;
-    }
-    half4 attenMapUV = half4(mainUV * _VertexWaveAtten_MaskMap_ST.xy + _VertexWaveAtten_MaskMap_ST.zw + offsetScale,0,0);
+    uvOffset = lerp(uvOffset,attenMaskCDATA + _VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X);
+
+    half4 attenMapUV = half4(mainUV * _VertexWaveAtten_MaskMap_ST.xy + uvOffset,0,0);
     return tex2Dlod(_VertexWaveAtten_MaskMap,attenMapUV);
 }
 
@@ -38,8 +34,7 @@ void ApplyVertexWaveWorldSpace(inout half3 worldPos,half3 normal,half3 vertexCol
     //1 vertex color atten
     //2 uniform dir atten
     half3 dir = SafeNormalize(_VertexWaveDirAtten.xyz) * _VertexWaveDirAtten.w;
-    if(_VertexWaveDirAlongNormalOn)
-        dir *= normal;
+    dir *= lerp(1,normal,_VertexWaveDirAlongNormalOn);
     
     if(_VertexWaveDirAtten_LocalSpaceOn)
         dir = mul(unity_ObjectToWorld,dir);
@@ -47,9 +42,8 @@ void ApplyVertexWaveWorldSpace(inout half3 worldPos,half3 normal,half3 vertexCol
     half3 vcAtten = _VertexWaveAtten_VertexColor? vertexColor : 1;
     half3 atten = dir * vcAtten;
     //3 normal direction atten
-    if(_VertexWaveAtten_NormalAttenOn){
-        atten *= saturate(dot(dir,normal));
-    }
+    atten *= lerp(1 , saturate(dot(dir,normal)) , _VertexWaveAtten_NormalAttenOn);
+
     //4 atten map
     if(_VertexWaveAtten_MaskMapOn){
         if(! _NoiseUseAttenMaskMap)
@@ -69,8 +63,7 @@ void ApplyVertexWaveWorldSpace(inout half3 worldPos,half3 normal,half3 vertexCol
 half4 MainTexOffset(half4 uv){
     RotateUV(_MainUVAngle,0.5,uv.xy/**/);
 
-    half2 offsetScale = lerp(_Time.xx, 1 ,_MainTexOffsetStop);
-    half2 mainTexOffset = (_MainTex_ST.zw * offsetScale);
+    half2 mainTexOffset = UVOffset(_MainTex_ST.zw,_MainTexOffsetStop);
     mainTexOffset = lerp(mainTexOffset,uv.zw, _MainTexOffsetUseCustomData_XY); // vertex uv0.z : particle customData1.xy
 
     half4 scrollUV = (half4)0;
@@ -101,7 +94,8 @@ half4 SampleMainTex(half2 uv,half4 vertexColor,half faceId){
 }
 
 void ApplyMainTexMask(inout half4 mainColor,half2 uv){
-    half2 maskTexOffset = _MainTexMask_ST.zw + _Time.xx *(1-_MainTexMaskOffsetStop);
+    // half2 maskTexOffset = _MainTexMask_ST.zw * ( 1+ _Time.xx *(1-_MainTexMaskOffsetStop) );
+    half2 maskTexOffset = UVOffset(_MainTexMask_ST.zw,_MainTexMaskOffsetStop);
     half4 maskTex = tex2D(_MainTexMask,uv*_MainTexMask_ST.xy + maskTexOffset);// fp opearate mask uv.
     mainColor.a *= maskTex[_MainTexMaskChannel];
 }
