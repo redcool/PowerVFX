@@ -90,7 +90,7 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
             half4 p = _OffsetRadialCenter_LenScale_LenOffset;
             offsetUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_OffsetRadialRot);
         }
-        half2 maskUVOffset = _OffsetMaskTex_ST.zw * _Time.xx *(1- _OffsetMaskPanStop);
+        half2 maskUVOffset = _OffsetMaskTex_ST.zw + _Time.xx *(1- _OffsetMaskPanStop);
         half2 maskUV = mainUV.zw * _OffsetMaskTex_ST.xy + maskUVOffset;
         ApplyOffset(mainColor,offsetUV,maskUV);
     }
