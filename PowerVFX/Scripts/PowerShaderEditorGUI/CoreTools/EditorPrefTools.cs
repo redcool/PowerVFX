@@ -28,5 +28,5 @@ namespace PowerUtilities
             }
         }
     }
-#endif
 }
+#endif
