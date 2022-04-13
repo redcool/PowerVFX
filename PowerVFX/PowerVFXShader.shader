@@ -215,5 +215,5 @@ Shader "FX/PowerVFX"
 		}
 	}
 
-	CustomEditor "PowerVFX.PowerVFXInspector"
+	CustomEditor "PowerUtilities.PowerVFXInspector"
 }

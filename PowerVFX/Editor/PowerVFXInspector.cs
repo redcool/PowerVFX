@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PowerVFX
+namespace PowerUtilities
 {
     public class PowerVFXInspector : PowerShaderInspector
     {

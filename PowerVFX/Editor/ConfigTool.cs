@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Linq;
 
-namespace PowerVFX
+namespace PowerUtilities
 {
 
     /// <summary>
@@ -59,7 +59,7 @@ namespace PowerVFX
         public static Dictionary<string,string> ReadKeyValueConfig(string configFilePath)
         {
             var dict = new Dictionary<string, string>();
-            if (!string.IsNullOrEmpty(configFilePath))
+            if (!string.IsNullOrEmpty(configFilePath) && File.Exists(configFilePath))
             {
                 var lines = File.ReadAllLines(configFilePath);
                 foreach (var lineStr in lines)

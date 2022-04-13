@@ -5,9 +5,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using System.Linq;
 using System;
-using PowerUtilities;
 
-namespace PowerVFX
+namespace PowerUtilities
 {
     //UnityEngine.Rendering.BlendMode
     public enum PresetBlendMode
