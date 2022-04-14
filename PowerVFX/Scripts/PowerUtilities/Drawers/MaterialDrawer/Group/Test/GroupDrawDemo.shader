@@ -14,7 +14,8 @@ Shader "Unlit/GroupDrawDemo"
         [GroupToggle(group1,_Ker)]_ToggleWithKeyword("_ToggleWithKeyword",int) = 1
 
 
-        [GroupHeader(group1,header1)]
+        //[GroupHeader(group1,header1)]
+        [LineHeader(group1,header2)]
         // show Enum with keyword
         [GroupEnum(group1, _kEYA _KEYB,true)]_GroupKeywordEnum("_GroupKeywordEnum",int) = 0
         // // show Enum, space is splitter 

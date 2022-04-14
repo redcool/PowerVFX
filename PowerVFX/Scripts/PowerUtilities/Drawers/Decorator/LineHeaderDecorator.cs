@@ -19,6 +19,8 @@ namespace PowerUtilities
 
         public override void OnGUI(Rect position, MaterialProperty prop, string label, MaterialEditor editor)
         {
+            if (!string.IsNullOrEmpty(groupName) && !MaterialGroupTools.IsGroupOn(groupName))
+                return;
 
             var indentLevel = string.IsNullOrEmpty(groupName) ? 0: 1;
             EditorGUI.indentLevel += indentLevel;
@@ -31,8 +33,7 @@ namespace PowerUtilities
         }
         public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor)
         {
-            return 24;
-            //return string.IsNullOrEmpty(groupName) || MaterialGroupTools.IsGroupOn(groupName) ? 24 : 0;
+            return string.IsNullOrEmpty(groupName) || MaterialGroupTools.IsGroupOn(groupName) ? 24 : 0;
         }
     }
 }
