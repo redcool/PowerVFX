@@ -7,33 +7,19 @@ using UnityEngine;
 namespace PowerUtilities
 {
 
-    public class GroupHeaderDecorator : MaterialPropertyDrawer
+    public class GroupHeaderDecorator : BaseGroupItemDrawer
     {
-        string groupName, header;
-        public GroupHeaderDecorator(string groupName, string header)
+        string header;
+        public GroupHeaderDecorator(string header):this("",header) { }
+        public GroupHeaderDecorator(string groupName, string header):base(groupName)
         {
-            this.groupName = groupName;
             this.header = $"--------{header}--------";
         }
 
-
-        public override void OnGUI(Rect position, MaterialProperty prop, string label, MaterialEditor editor)
+        public override void DrawGroupUI(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
         {
-            if(!MaterialGroupTools.IsGroupOn(groupName))
-                return;
-
-            var indentLevel = string.IsNullOrEmpty(groupName) ? 0 : 1;
-            EditorGUI.indentLevel += indentLevel;
-
-            //position.y += 8;
             position = EditorGUI.IndentedRect(position);
             EditorGUI.DropShadowLabel(position, header, EditorStyles.boldLabel);
-
-            EditorGUI.indentLevel -= indentLevel;
-        }
-        public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor)
-        {
-            return MaterialGroupTools.IsGroupOn(groupName) ? 24 : -1;
         }
     }
 }

@@ -26,6 +26,12 @@ namespace PowerUtilities
                     mat.DisableKeyword(keyword);
             }
         }
+
+        public static float DrawRemapSlider(Rect position, Vector2 range, string label, float value)
+        {
+            float v = EditorGUI.Slider(position, label, Mathf.InverseLerp(range.x, range.y, value), 0, 1);
+            return Mathf.Lerp(range.x, range.y, v);
+        }
     }
 }
 #endif

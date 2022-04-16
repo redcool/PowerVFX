@@ -6,36 +6,28 @@ Shader "Unlit/GroupDrawDemo"
         [Group(group1)]
         [GroupItem(group1)]_MainTex1 ("Texture1", 2D) = "white" {}
         // show group item
-        [GroupItem(group1)]_FloatVlaue("_FloatVlaue",range(0,1)) = 0.1
-        [GroupItem(group1)]_FloatVlaue2("_FloatVlaue",float) = 0.1
-        [GroupItem(group1)]_FloatVlaue3("_FloatVlaue",range(0,1)) = 0.1
-        // // // show Toggle
+        [GroupItem(group1)]_FloatVlaue("_FloatVlaue1",range(0,1)) = 0.1
+        // remap slider
+        [GroupSlider(group1)]_GroupSlider("_GroupSlider",range(0.1,0.5)) = 0.2
+        [GroupItem(group1)]_FloatVlaue2("_FloatVlaue2",float) = 0.1
+        // Toggle
         [GroupToggle(group1)]_ToggleNoKeyword("_ToggleNoKeyword",int) = 1
         [GroupToggle(group1,_Ker)]_ToggleWithKeyword("_ToggleWithKeyword",int) = 1
-
-
-        //[GroupHeader(group1,header1)]
-        [LineHeader(group1,header2)]
+        //header
+        [GroupHeader(group1,header1)]
         // show Enum with keyword
-        [GroupEnum(group1, _kEYA _KEYB,true)]_GroupKeywordEnum("_GroupKeywordEnum",int) = 0
+        [GroupEnum( ,_kEYA _KEYB,true)]_GroupKeywordEnum("_GroupKeywordEnum",int) = 0
         // // show Enum, space is splitter 
         [GroupEnum(group1,A 0 B 1)]_GroupEnum("_GroupEnum",int) = 0
         [GroupEnum(group1,UnityEngine.Rendering.BlendMode)]_GroupEnumBlend("_GroupEnumBlend",int) = 0
 
+        // vector slider
+        [GroupVectorSlider(group1,a b c d,0_1 1_2 0_1 0_2)] _Vector("_Vector",vector) = (1,1,1,1)
+        [GroupVectorSlider(group1,Dir(xyz) intensity, 0_1)]_Vector2("_Vector2", vector) = (1,0.1,0,1)
+
         [Group(group2)]
         [GroupItem(group2)]_MainTex2 ("Texture2", 2D) = "white" {}
 
-        //         [Group(group3)]
-        // [GroupItem(group3)]_MainTex3 ("Texture2", 2D) = "white" {}
-
-        //         [Group(group4)]
-        // [GroupItem(group4)]_MainTex4 ("Texture2", 2D) = "white" {}
-
-        //         [Group(group5)]
-        // [GroupItem(group5)]_MainTex5 ("Texture2", 2D) = "white" {}
-
-        //         [Group(group6)]
-        // [GroupItem(group6)]_MainTex6 ("Texture2", 2D) = "white" {}
     }
     SubShader{
         pass{

@@ -10,38 +10,25 @@ namespace PowerUtilities
     /// <summary>
     /// Material's Group Item Attribute
     /// </summary>
-    public class GroupItemDrawer : MaterialPropertyDrawer
+    public class GroupItemDrawer : BaseGroupItemDrawer
     {
-        string groupName;
 
-        public GroupItemDrawer(string groupName)
+        public GroupItemDrawer(string groupName) : base(groupName) { }
+
+        public override void DrawGroupUI(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
         {
-            this.groupName = groupName;
+            throw new System.NotImplementedException();
         }
 
-        public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor)
-        {
-            if (MaterialGroupTools.IsGroupOn(groupName))
-            {
-                var baseHeight = MaterialGroupTools.BASE_LINE_HEIGHT;
-                if (prop.type == MaterialProperty.PropType.Texture)
-                {
-                    baseHeight *= 4;
-                }
-                return baseHeight;
-            }
-
-            return -1;
-        }
 
         public override void OnGUI(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
         {
-            if (MaterialGroupTools.IsGroupOn(groupName))
-            {
-                EditorGUI.indentLevel++;
-                editor.DefaultShaderProperty(position, prop, label.text);
-                EditorGUI.indentLevel--;
-            }
+            if (!MaterialGroupTools.IsGroupOn(GroupName))
+                return;
+
+            EditorGUI.indentLevel += MaterialGroupTools.GroupIndentLevel(GroupName);
+            editor.DefaultShaderProperty(position, prop, label.text);
+            EditorGUI.indentLevel -= MaterialGroupTools.GroupIndentLevel(GroupName);
         }
 
     }
