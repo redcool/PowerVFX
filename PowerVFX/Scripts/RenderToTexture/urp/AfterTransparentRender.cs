@@ -137,10 +137,10 @@ public class AfterTransparentRender : ScriptableRendererFeature
             if (settings.applyBlur && blurMat)
             {
                 blurMat.SetFloat("_Scale",settings.blurRadius);
-                Blit(cmd, targetTextureHandle.id, _BlurTex, blurMat);
+                Blit(cmd, targetTextureHandle.id, _BlurTex, blurMat,1);
 
-                blurMat.SetFloat("_Scale", settings.blurRadius*1.2f);
-                Blit(cmd, _BlurTex, targetTextureHandle.id, blurMat);
+                //blurMat.SetFloat("_Scale", settings.blurRadius*1.2f);
+                Blit(cmd, _BlurTex, targetTextureHandle.id, blurMat,2);
             }
 
             cmd.EndSample(nameof(GrabTransparentPass));
