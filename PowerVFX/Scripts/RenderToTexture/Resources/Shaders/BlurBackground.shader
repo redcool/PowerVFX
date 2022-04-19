@@ -1,4 +1,4 @@
-Shader "Unlit/BlurBackground"
+Shader "Unlit/Blur/BlurBackground"
 {
     Properties
     {
