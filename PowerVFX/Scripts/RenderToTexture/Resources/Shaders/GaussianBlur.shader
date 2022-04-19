@@ -70,7 +70,7 @@ Shader "Hidden/GaussianBlur"
                 half2 uv = i.uv;
                 half3 col = 0;
 
-                col += BoxBlur10(_MainTex,uv, _Scale * half2(1,0));
+                col += GaussianBlur10(_MainTex,uv, _Scale * half2(1,0));
 
                 return half4(col,1);
             }
@@ -88,7 +88,7 @@ Shader "Hidden/GaussianBlur"
                 half2 uv = i.uv;
                 half3 col = 0;
 
-                col += BoxBlur10(_MainTex,uv , _Scale * half2(0,1));
+                col += GaussianBlur10(_MainTex,uv , _Scale * half2(0,1));
                 return half4(col,1);
             }
             ENDCG            
