@@ -17,10 +17,10 @@ public class AfterTransparentRender : ScriptableRendererFeature
 
         [Header("CameraOpaqueTexture")]
         public string opaqueTextureName = "_CameraOpaqueTexture";
-        [Range(0,6)]public int opaqueTextureDownSample = 4;
+        [Range(0,4)]public int opaqueTextureDownSample = 3;
 
         public bool applyBlur;
-        [Range(0.5f,3f)]public float blurRadius = 1.2f;
+        [Range(0.01f,1f)]public float blurScale = 0.5f;
 
         [Header("Render Pass")]
         public bool enableRenderPass = true;
@@ -136,7 +136,7 @@ public class AfterTransparentRender : ScriptableRendererFeature
             // execute blur pass
             if (settings.applyBlur && blurMat)
             {
-                blurMat.SetFloat("_Scale",settings.blurRadius);
+                blurMat.SetFloat("_Scale",settings.blurScale);
                 Blit(cmd, targetTextureHandle.id, _BlurTex, blurMat,1);
 
                 //blurMat.SetFloat("_Scale", settings.blurRadius*1.2f);
