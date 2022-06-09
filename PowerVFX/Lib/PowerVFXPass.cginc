@@ -20,7 +20,7 @@ v2f vert(appdata v)
     // o.uv = v.uv; // uv.xy : main uv, zw : custom data.xy
     o.uv = MainTexOffset(v.uv);
     o.grabPos = ComputeGrabScreenPos(o.vertex);
-    o.grabPos.z = COMPUTE_EYEDEPTH(o.grabPos.z);
+    COMPUTE_EYEDEPTH(o.grabPos.z);
 
     // #if defined(UNITY_UV_STARTS_AT_TOP)
     //     if(_MainTex_TexelSize.y < 0)
@@ -56,6 +56,7 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     half3 refractDir = i.refractDir;
 
     half4 mainColor = half4(0,0,0,1);
+    half4 screenColor=0;
     // setup mainUV, move to vs
     // half4 mainUV = MainTexOffset(i.uv);
     half4 mainUV = i.uv;
@@ -65,7 +66,8 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
 
 
     //use _CameraOpaqueTexture
-    mainUV.xy = _MainTexUseScreenColor == 0 ? mainUV.xy : i.grabPos.xy/i.grabPos.w;
+    half2 screenUV = i.grabPos.xy/i.grabPos.w;
+    mainUV.xy = _MainTexUseScreenColor == 0 ? mainUV.xy : screenUV;
     
     half2 uvDistorted = mainUV.zw;
     if(_DistortionOn){
@@ -74,10 +76,13 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
             half4 p = _DistortionRadialCenter_LenScale_LenOffset;
             distortUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_DistortionRadialRot);
         }
-        uvDistorted = ApplyDistortion(mainColor,mainUV,distortUV,i.color,faceId);
+        uvDistorted = ApplyDistortion(mainUV,distortUV);
+        SampleMainTex(mainColor/**/,screenColor/**/,uvDistorted,screenUV,i.color,faceId);
     }else{
-        mainColor = SampleMainTex(mainUV.xy,i.color,faceId);
+        SampleMainTex(mainColor/**/,screenColor/**/,mainUV.xy,screenUV,i.color,faceId);
     }
+    
+    //-------- mainColor, screenColor prepared done
     
     ApplyMainTexMask(mainColor,mainUV.zw);
 
@@ -105,11 +110,12 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
 
     if(_FresnelOn){
         half fresnal = i.fresnal_customDataZ.x;
-        ApplyFresnal(mainColor,fresnal);
+        ApplyFresnal(mainColor,fresnal,screenColor);
     }
     
     if(_MatCapOn)
         ApplyMatcap(mainColor,mainUV.zw,i.viewNormal);
+        return mainColor;
 
     if(_LightOn)
     {

@@ -107,6 +107,8 @@ CBUFFER_START(UnityPerMaterial)
     half4 _FresnelColor,_FresnelColor2;
     half _FresnelPowerMin;
     half _FresnelPowerMax;
+    half _BlendScreenColor;
+    
 // ==================================================_EnvReflectOn
     half _EnvReflectOn;
     half4 _EnvReflectionColor;

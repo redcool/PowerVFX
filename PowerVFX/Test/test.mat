@@ -2,18 +2,34 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: test
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
-  m_ShaderKeywords: _BACKFACEON_ON _DEPTHFADINGON_ON _DISSOLVECLIPON_ON _DISSOLVETEXOFFSETSTOP_ON
-    _DISSOLVETEXUSER_ON _DISTORTIONMASKUSER_ON _DISTORTIONRADIALUVON_ON _FRESNELTRANSPARENTON_ON
-    _MAINTEXMASKUSER_ON _MAINTEXMULTIALPHA_ON _MATCAPON_ON _MATCAPROTATEON_ON _NOISEUSEATTENMAP_ON
-    _SOFTPARTICLEON_ON _VERTEXWAVEATTEN_FORWARDATTEN_ON _VERTEXWAVEATTEN_VERTEXCOLOR_ON
-    _VERTEXWAVEDIRALONGNORMALON_ON _ZWRITEMODE_ON
+  m_ValidKeywords:
+  - ALPHA_TEST
+  m_InvalidKeywords:
+  - _BACKFACEON_ON
+  - _DEPTHFADINGON_ON
+  - _DISSOLVECLIPON_ON
+  - _DISSOLVETEXOFFSETSTOP_ON
+  - _DISSOLVETEXUSER_ON
+  - _DISTORTIONMASKUSER_ON
+  - _DISTORTIONRADIALUVON_ON
+  - _FRESNELTRANSPARENTON_ON
+  - _MAINTEXMASKUSER_ON
+  - _MAINTEXMULTIALPHA_ON
+  - _MATCAPON_ON
+  - _MATCAPROTATEON_ON
+  - _NOISEUSEATTENMAP_ON
+  - _SOFTPARTICLEON_ON
+  - _VERTEXWAVEATTEN_FORWARDATTEN_ON
+  - _VERTEXWAVEATTEN_VERTEXCOLOR_ON
+  - _VERTEXWAVEDIRALONGNORMALON_ON
+  - _ZWRITEMODE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -44,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: bbdf9d6edc4839b4b9c21a313f31fc25, type: 3}
+        m_Texture: {fileID: 2800000, guid: ebf5e9921fc906448b56a3fc01c82abc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexMask:
@@ -52,7 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCapTex:
-        m_Texture: {fileID: 2800000, guid: 39fdeba1ec91d4ac484dbbe36b44f013, type: 3}
+        m_Texture: {fileID: 2800000, guid: 843b155472439a94c9325a26d8e75d5f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTex:
@@ -83,7 +99,11 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - _AlphaMax: 1
+    - _AlphaMin: 0
+    - _AlphaScale: 1
     - _ApplyToOffset: 0
     - _BackFaceOn: 1
     - _BlendIntensity: 3.58
@@ -150,14 +170,17 @@ Material:
     - _MainTexSaturate: 1
     - _MainTexSingleChannelOn: 0
     - _MainTexUseScreenColor: 0
-    - _MatCapAngle: -15.69
-    - _MatCapIntensity: 0.2
+    - _MainUVAngle: 0
+    - _MatCapAngle: -32.4
+    - _MatCapIntensity: 1.5
     - _MatCapOn: 1
-    - _MatCapRotateOn: 1
+    - _MatCapRotateOn: 0
     - _NoiseUseAttenMap: 1
     - _NoiseUseAttenMaskMap: 0
     - _OffsetBlendIntensity: 2.92
+    - _OffsetBlendMode: 0
     - _OffsetMaskChannel: 0
+    - _OffsetMaskPanStop: 0
     - _OffsetMaskTexUseR: 0
     - _OffsetOn: 0
     - _OffsetRadialRot: 4.26

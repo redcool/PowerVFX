@@ -30,7 +30,7 @@ Shader "FX/PowerVFX"
 		[Enum(R,0,G,1,B,2,A,3)]_MainTexMaskChannel("_MainTexMaskChannel",int) = 0
 
 		[Header(ScreenOpaqueTexture)]
-		[GroupToggle]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
+		[GroupToggle(_)]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
 
 // ==================================================		Alpha
 		[Header(Alpha Range)]
@@ -157,6 +157,8 @@ Shader "FX/PowerVFX"
 		[Header(Range)]
 		_FresnelPowerMin("_FresnelPowerMin",range(0,1)) = 0.4
 		_FresnelPowerMax("_FresnelPowerMax",range(0,1)) = 0.5
+		[Header(BlendScreenColor)]
+		_BlendScreenColor("_BlendScreenColor",range(0,1)) = 0
 // ==================================================	EnvReflection	
 		[Header(EnvReflection)]
 		[GroupToggle]_EnvReflectOn("EnvReflect On?",int)=0

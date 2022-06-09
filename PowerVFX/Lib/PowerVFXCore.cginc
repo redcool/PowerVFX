@@ -76,21 +76,22 @@ void ApplySaturate(inout half4 mainColor){
     mainColor.xyz = lerp(Gray(mainColor.xyz),mainColor.xyz,_MainTexSaturate);
 }
 
-half4 SampleMainTex(half2 uv,half4 vertexColor,half faceId){
+void SampleMainTex(inout half4 mainColor, inout half4 screenColor,half2 uv,half2 screenUV,half4 vertexColor,half faceId ){
     half4 color = _BackFaceOn ? lerp(_BackFaceColor,_Color,faceId) : _Color;
-    half4 mainTex = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : tex2D(_CameraOpaqueTexture,uv);
 
-    ApplySaturate(mainTex);
+    screenColor = tex2D(_CameraOpaqueTexture,_MainTexUseScreenColor == 0? screenUV : uv);
+    mainColor = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : screenColor; 
+    
+    ApplySaturate(mainColor);
 
     if(_MainTexSingleChannelOn){
-        mainTex = mainTex[_MainTexChannel];
+        mainColor = mainColor[_MainTexChannel];
     }
-    mainTex.xyz *= lerp(1,mainTex.a * vertexColor.a * color.a,_MainTexMultiAlpha);
-    mainTex *= color * vertexColor * _ColorScale;
+    mainColor.xyz *= lerp(1,mainColor.a * vertexColor.a * color.a,_MainTexMultiAlpha);
+    mainColor *= color * vertexColor * _ColorScale;
     // for alpha
-    mainTex.w *= _AlphaScale;
-    mainTex.w = smoothstep(_AlphaMin,_AlphaMax,mainTex.w);
-    return mainTex;
+    mainColor.w *= _AlphaScale;
+    mainColor.w = smoothstep(_AlphaMin,_AlphaMax,mainColor.w);
 }
 
 void ApplyMainTexMask(inout half4 mainColor,half2 uv){
@@ -100,7 +101,7 @@ void ApplyMainTexMask(inout half4 mainColor,half2 uv){
     mainColor.a *= maskTex[_MainTexMaskChannel];
 }
 
-half2 ApplyDistortion(inout half4 mainColor,half4 mainUV,half4 distortUV,half4 color,half faceId){
+half2 ApplyDistortion(half4 mainUV,half4 distortUV){
     half2 noise = (tex2D(_DistortionNoiseTex, distortUV.xy).xy -0.5) * 2;
     if(_DoubleEffectOn){
         noise += (tex2D(_DistortionNoiseTex, distortUV.zw).xy -0.5)*2;
@@ -112,7 +113,6 @@ half2 ApplyDistortion(inout half4 mainColor,half4 mainUV,half4 distortUV,half4 c
     half4 maskTex = tex2D(_DistortionMaskTex,maskUV);
 
     half2 duv = mainUV.xy + noise * 0.2  * _DistortionIntensity * maskTex[_DistortionMaskChannel];
-    mainColor = SampleMainTex(duv,color,faceId);
     return duv;
 }
 
@@ -169,11 +169,13 @@ void ApplyOffset(inout half4 mainColor,half4 offsetUV,half2 maskUV){
     mainColor.rgb = mainColor.rgb * (_OffsetBlendMode + offsetColor);
 }
 
-void ApplyFresnal(inout half4 mainColor,half fresnel){
+void ApplyFresnal(inout half4 mainColor,half fresnel,half4 screenColor){
     half f = smoothstep(_FresnelPowerMin,_FresnelPowerMax,fresnel);
     half4 fresnelColor = f * lerp(_FresnelColor,_FresnelColor2,f);
     mainColor.xyz += (_FresnelColorMode == FRESNEL_COLOR_MULTIPLY? mainColor.xyz : 1 ) * fresnelColor;
     mainColor.a *= fresnelColor.a;
+
+    mainColor.xyz = lerp(mainColor,screenColor,_BlendScreenColor * f);
 }
 
 void ApplyEnv(inout half4 mainColor,half2 mainUV,half3 reflectDir,half3 refractDir){
