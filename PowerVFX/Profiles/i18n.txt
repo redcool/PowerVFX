@@ -59,6 +59,7 @@ _DistortionNoiseTex=杂点图(xy:layer1,zw:layer2)
 _DistortionMaskTex=效果遮罩
 _DistortionMaskChannel=遮罩通道
 _DistortionIntensity=强度
+_DistortionByCustomData_Vector2_X=强度由customData(vector2.x)控制
 _DistortTile=平铺(xy:1层,zw:2层)
 _DistortDir=方向(xy:1层,zw:2层)
 _DistortionRadialUVOn=径向?

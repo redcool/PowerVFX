@@ -39,7 +39,7 @@ v2f vert(appdata v)
     if(_FresnelOn)
         o.fresnal_customDataZ.x = 1 - dot(worldNormal,viewDir) ;
 
-    o.fresnal_customDataZ.yz = v.uv1.xy;// particle custom data (Custom1).zw
+    o.fresnal_customDataZ.yzw = v.uv1.xyz;// particle custom data (Custom1).zw
 
     if(_LightOn){
         half3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
@@ -61,9 +61,10 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     // half4 mainUV = MainTexOffset(i.uv);
     half4 mainUV = i.uv;
 
+// get particle system's custom data
     half dissolveCustomData = i.fresnal_customDataZ.y;
     half dissolveEdgeWidth = i.fresnal_customDataZ.z;
-
+    half distortionCustomData = i.fresnal_customDataZ.w;
 
     //use _CameraOpaqueTexture
     half2 screenUV = i.grabPos.xy/i.grabPos.w;
@@ -76,7 +77,7 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
             half4 p = _DistortionRadialCenter_LenScale_LenOffset;
             distortUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_DistortionRadialRot);
         }
-        uvDistorted = ApplyDistortion(mainUV,distortUV);
+        uvDistorted = ApplyDistortion(mainUV,distortUV,distortionCustomData);
         SampleMainTex(mainColor/**/,screenColor/**/,uvDistorted,screenUV,i.color,faceId);
     }else{
         SampleMainTex(mainColor/**/,screenColor/**/,mainUV.xy,screenUV,i.color,faceId);

@@ -62,6 +62,7 @@ CBUFFER_START(UnityPerMaterial)
     int _DistortionMaskChannel;
     half4 _DistortionMaskTex_ST;
     half _DistortionIntensity;
+    half _DistortionByCustomData_Vector2_X;
     half4 _DistortTile,_DistortDir;
     int _DistortionRadialUVOn;
     half4 _DistortionRadialCenter_LenScale_LenOffset;

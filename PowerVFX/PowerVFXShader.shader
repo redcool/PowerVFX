@@ -84,8 +84,11 @@ Shader "FX/PowerVFX"
 		_DistortionMaskTex("Distortion Mask Tex(R)",2d) = "white"{}
 		[Enum(R,0,G,1,B,2,A,3)]_DistortionMaskChannel("_DistortionMaskChannel",int)=0
 
-		[Header(DistortionParams)]
+		[Header(Distortion Intensity)]
 		_DistortionIntensity("Distortion Intensity",Range(0,2)) = 0.5
+		[GroupToggle]_DistortionByCustomData_Vector2_X("_DistortionByCustomData_Vector2_X",int) = 0
+
+		[Header(DistortionParams)]
 		_DistortTile("Distort Tile",vector) = (1,1,1,1)
 		_DistortDir("Distort Dir",vector) = (0,1,0,-1)
 

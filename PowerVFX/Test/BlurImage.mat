@@ -1,0 +1,172 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BlurImage
+  m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
+  m_ShaderKeywords: ALPHA_TEST _GAUSSIAN_BLUR
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DissolveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionMaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DistortionNoiseTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EnvMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EnvMapMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 31402a96387867c4c976c60f1e3d8219, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTexMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MatCapTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: aa6ebf3e4b5a8764ba42f75096b396d6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OffsetMaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OffsetTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VertexWaveAtten_MaskMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AlphaMax: 1
+    - _AlphaMin: 0
+    - _AlphaScale: 1
+    - _ApplyToOffset: 0
+    - _BackFaceOn: 0
+    - _BlurScale: 5
+    - _ColorScale: 1
+    - _CullMode: 0
+    - _Cutoff: 0.5
+    - _DepthFadingOn: 0
+    - _DepthFadingWidth: 1
+    - _DissolveByCustomData_Z: 0
+    - _DissolveByVertexColor: 0
+    - _DissolveClipOn: 1
+    - _DissolveEdgeOn: 0
+    - _DissolveEdgeWidthByCustomData_W: 0
+    - _DissolveFadingMax: 0.2
+    - _DissolveFadingMin: 0
+    - _DissolveOn: 0
+    - _DissolveTexChannel: 0
+    - _DissolveTexOffsetStop: 0
+    - _DistortionIntensity: 0.5
+    - _DistortionMaskChannel: 0
+    - _DistortionOn: 0
+    - _DistortionRadialRot: 0
+    - _DistortionRadialUVOn: 0
+    - _DoubleEffectOn: 0
+    - _DstMode: 10
+    - _EdgeWidth: 0.1
+    - _EnvIntensity: 1
+    - _EnvMapMaskChannel: 0
+    - _EnvReflectOn: 0
+    - _EnvRefractionIOR: 1.33
+    - _EnvRefractionOn: 0
+    - _Fade: 0
+    - _FresnelColorMode: 0
+    - _FresnelOn: 0
+    - _FresnelPowerMax: 0.5
+    - _FresnelPowerMin: 0.4
+    - _GaussianBlur: 1
+    - _LightOn: 0
+    - _MainTexChannel: 0
+    - _MainTexMaskChannel: 0
+    - _MainTexMaskOffsetStop: 0
+    - _MainTexMultiAlpha: 0
+    - _MainTexOffsetStop: 0
+    - _MainTexOffsetUseCustomData_XY: 0
+    - _MainTexSaturate: 1
+    - _MainTexSingleChannelOn: 0
+    - _MainTexUseScreenColor: 1
+    - _MainUVAngle: 0
+    - _MatCapAngle: 0
+    - _MatCapIntensity: 1
+    - _MatCapOn: 0
+    - _MatCapRotateOn: 0
+    - _NoiseUseAttenMaskMap: 0
+    - _NormalScale: 0
+    - _OffsetBlendIntensity: 0.5
+    - _OffsetBlendMode: 0
+    - _OffsetMaskChannel: 0
+    - _OffsetMaskPanStop: 0
+    - _OffsetOn: 0
+    - _OffsetRadialRot: 0
+    - _OffsetRadialUVOn: 0
+    - _PixelDissolveOn: 0
+    - _PixelWidth: 10
+    - _SrcMode: 5
+    - _VertexWaveAttenMaskOffsetScale_UseCustomeData2_X: 0
+    - _VertexWaveAtten_MaskMapChannel: 0
+    - _VertexWaveAtten_MaskMapOffsetStopOn: 0
+    - _VertexWaveAtten_MaskMapOn: 0
+    - _VertexWaveAtten_NormalAttenOn: 0
+    - _VertexWaveAtten_VertexColor: 0
+    - _VertexWaveDirAlongNormalOn: 0
+    - _VertexWaveDirAtten_LocalSpaceOn: 0
+    - _VertexWaveIntensity: 1
+    - _VertexWaveOn: 0
+    - _VertexWaveSpeed: 1
+    - _VertexWaveSpeedManual: 0
+    - _ZTestMode: 4
+    - _ZWriteMode: 0
+    m_Colors:
+    - _BackFaceColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DistortDir: {r: 0, g: 1, b: 0, a: -1}
+    - _DistortTile: {r: 1, g: 1, b: 1, a: 1}
+    - _DistortionRadialCenter_LenScale_LenOffset: {r: 0.5, g: 0.5, b: 1, a: 0}
+    - _EdgeColor: {r: 1, g: 0, b: 0, a: 1}
+    - _EdgeColor2: {r: 0, g: 1, b: 0, a: 1}
+    - _EnvOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _EnvReflectionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _EnvRefractionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FresnelColor2: {r: 1, g: 1, b: 1, a: 1}
+    - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OffsetDir: {r: 1, g: 1, b: 0, a: 0}
+    - _OffsetRadialCenter_LenScale_LenOffset: {r: 0.5, g: 0.5, b: 1, a: 0}
+    - _OffsetTexColorTint: {r: 1, g: 1, b: 1, a: 1}
+    - _OffsetTexColorTint2: {r: 1, g: 1, b: 1, a: 1}
+    - _OffsetTile: {r: 1, g: 1, b: 1, a: 1}
+    - _VertexWaveDirAtten: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

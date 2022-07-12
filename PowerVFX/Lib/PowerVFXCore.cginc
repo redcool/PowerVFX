@@ -101,7 +101,7 @@ void ApplyMainTexMask(inout half4 mainColor,half2 uv){
     mainColor.a *= maskTex[_MainTexMaskChannel];
 }
 
-half2 ApplyDistortion(half4 mainUV,half4 distortUV){
+half2 ApplyDistortion(half4 mainUV,half4 distortUV,half customDataIntensity){
     half2 noise = (tex2D(_DistortionNoiseTex, distortUV.xy).xy -0.5) * 2;
     if(_DoubleEffectOn){
         noise += (tex2D(_DistortionNoiseTex, distortUV.zw).xy -0.5)*2;
@@ -112,7 +112,8 @@ half2 ApplyDistortion(half4 mainUV,half4 distortUV){
     maskUV = maskUV * _DistortionMaskTex_ST.xy + _DistortionMaskTex_ST.zw;
     half4 maskTex = tex2D(_DistortionMaskTex,maskUV);
 
-    half2 duv = mainUV.xy + noise * 0.2  * _DistortionIntensity * maskTex[_DistortionMaskChannel];
+    float intensity = _DistortionByCustomData_Vector2_X ? customDataIntensity : _DistortionIntensity;
+    half2 duv = mainUV.xy + noise * 0.2  * intensity * maskTex[_DistortionMaskChannel];
     return duv;
 }
 
