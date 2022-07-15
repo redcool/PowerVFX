@@ -114,15 +114,15 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
         ApplyFresnal(mainColor,fresnal,screenColor);
     }
     
-    if(_MatCapOn)
+    if(_MatCapOn){
         ApplyMatcap(mainColor,mainUV.zw,i.viewNormal);
-        return mainColor;
+    }
 
     if(_LightOn)
     {
         ApplyLight(mainColor/**/,normal);
     }
-    
+
     if(_DepthFadingOn)
         ApplySoftParticle(mainColor/**/,i.grabPos); // change vertex color
     
