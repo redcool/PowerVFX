@@ -26,6 +26,7 @@ public class AfterTransparentRender : ScriptableRendererFeature
         public bool enableRenderPass = true;
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
         public int renderPassEventOffset = 1;
+        public string[] additionalLightModes;
 
         public LayerMask layer = 0;
     }
@@ -65,6 +66,11 @@ public class AfterTransparentRender : ScriptableRendererFeature
             //renderPassEvent = RenderPassEvent.AfterRenderingTransparents + 1;
             renderPassEvent = settings.renderPassEvent + settings.renderPassEventOffset;
             filterSettings = new FilteringSettings(RenderQueueRange.all, settings.layer);
+
+            for (int i = 0; i < settings.additionalLightModes.Length; i++)
+            {
+                shaderTags.Add(new ShaderTagId(settings.additionalLightModes[i]));
+            }
         }
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
