@@ -17,122 +17,122 @@
     sampler2D _VertexWaveAtten_MaskMap;//r
     UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 
-    half3 _WorldSpaceLightDirection;
+    float3 _WorldSpaceLightDirection;
 
 CBUFFER_START(UnityPerMaterial)
-    half _MainUVAngle;
-    half4 _Color;
-    half _ColorScale;
-    half _MainTexSaturate;
+    float _MainUVAngle;
+    float4 _Color;
+    float _ColorScale;
+    float _MainTexSaturate;
     int _MainTexSingleChannelOn;
     int _MainTexChannel;
     int _MainTexMultiAlpha;
     int _BackFaceOn;
-    half4 _BackFaceColor;
-    half4 _MainTex_ST;
-    half4 _MainTex_TexelSize;
-    half _MainTexOffsetStop;
-    half _MainTexOffsetUseCustomData_XY;
+    float4 _BackFaceColor;
+    float4 _MainTex_ST;
+    float4 _MainTex_TexelSize;
+    float _MainTexOffsetStop;
+    float _MainTexOffsetUseCustomData_XY;
 
-    half _DoubleEffectOn; //2层效果,
-    half4 _MainTexMask_ST;
-    half _MainTexMaskOffsetStop;
+    float _DoubleEffectOn; //2层效果,
+    float4 _MainTexMask_ST;
+    float _MainTexMaskOffsetStop;
     int _MainTexMaskChannel;
-    half _MainTexUseScreenColor;
+    float _MainTexUseScreenColor;
 // ==================================================_VertexWaveOn
-    half _VertexWaveOn;
-    half _NoiseUseAttenMaskMap;
-    half _VertexWaveSpeed;
+    float _VertexWaveOn;
+    float _NoiseUseAttenMaskMap;
+    float _VertexWaveSpeed;
     int _VertexWaveSpeedManual;
-    half _VertexWaveIntensity;
+    float _VertexWaveIntensity;
     // vertex wave attenuations
-    half _VertexWaveAtten_VertexColor;
-    half4 _VertexWaveDirAtten;
+    float _VertexWaveAtten_VertexColor;
+    float4 _VertexWaveDirAtten;
     int _VertexWaveDirAlongNormalOn;
     int _VertexWaveDirAtten_LocalSpaceOn;
     int _VertexWaveAtten_NormalAttenOn;
 
     int _VertexWaveAtten_MaskMapOn;
-    half4 _VertexWaveAtten_MaskMap_ST;
+    float4 _VertexWaveAtten_MaskMap_ST;
     int _VertexWaveAtten_MaskMapOffsetStopOn;
     int _VertexWaveAtten_MaskMapChannel;
     int _VertexWaveAttenMaskOffsetScale_UseCustomeData2_X;
 // ==================================================_DistortionOn
-    half _DistortionOn;
+    float _DistortionOn;
     int _DistortionMaskChannel;
-    half4 _DistortionMaskTex_ST;
-    half _DistortionIntensity;
-    half _DistortionByCustomData_Vector2_X;
-    half4 _DistortTile,_DistortDir;
+    float4 _DistortionMaskTex_ST;
+    float _DistortionIntensity;
+    float _DistortionByCustomData_Vector2_X;
+    float4 _DistortTile,_DistortDir;
     int _DistortionRadialUVOn;
-    half4 _DistortionRadialCenter_LenScale_LenOffset;
-    half _DistortionRadialRot;
+    float4 _DistortionRadialCenter_LenScale_LenOffset;
+    float _DistortionRadialRot;
     int _ApplyToOffset;
 // ==================================================_DissolveOn
-    half _DissolveOn;
-    half _DissolveByVertexColor;
-    half _DissolveByCustomData_Z;
-    half _DissolveTexChannel;
-    half4 _DissolveTex_ST;
-    half _DissolveTexOffsetStop;
-    half _DissolveClipOn;
-    half _Cutoff;
+    float _DissolveOn;
+    float _DissolveByVertexColor;
+    float _DissolveByCustomData_Z;
+    float _DissolveTexChannel;
+    float4 _DissolveTex_ST;
+    float _DissolveTexOffsetStop;
+    float _DissolveClipOn;
+    float _Cutoff;
 
-    half _PixelDissolveOn;
-    half _PixelWidth;
+    float _PixelDissolveOn;
+    float _PixelWidth;
 
-    half _DissolveEdgeOn;
-    half _DissolveEdgeWidthByCustomData_W;
-    half _EdgeWidth;
-    half4 _EdgeColor;
-    half4 _EdgeColor2;
+    float _DissolveEdgeOn;
+    float _DissolveEdgeWidthByCustomData_W;
+    float _EdgeWidth;
+    float4 _EdgeColor;
+    float4 _EdgeColor2;
 
-    half _DissolveFadingMin;
-    half _DissolveFadingMax;
+    float _DissolveFadingMin;
+    float _DissolveFadingMax;
 // ==================================================_OffsetOn
-    half _OffsetOn;
-    half4 _OffsetMaskTex_ST;
-    half _OffsetMaskPanStop;
-    half _OffsetMaskChannel;
-    half4 _OffsetTexColorTint,_OffsetTexColorTint2;
-    half4 _OffsetTile,_OffsetDir;
-    half _OffsetBlendIntensity;
-    half _OffsetBlendMode;
+    float _OffsetOn;
+    float4 _OffsetMaskTex_ST;
+    float _OffsetMaskPanStop;
+    float _OffsetMaskChannel;
+    float4 _OffsetTexColorTint,_OffsetTexColorTint2;
+    float4 _OffsetTile,_OffsetDir;
+    float _OffsetBlendIntensity;
+    float _OffsetBlendMode;
     // radial uv 
     int _OffsetRadialUVOn;
-    half4 _OffsetRadialCenter_LenScale_LenOffset;
-    half _OffsetRadialRot;
+    float4 _OffsetRadialCenter_LenScale_LenOffset;
+    float _OffsetRadialRot;
 // ==================================================_FresnelOn
-    half _FresnelOn;
+    float _FresnelOn;
     int _FresnelColorMode;
-    half4 _FresnelColor,_FresnelColor2;
-    half _FresnelPowerMin;
-    half _FresnelPowerMax;
-    half _BlendScreenColor;
+    float4 _FresnelColor,_FresnelColor2;
+    float _FresnelPowerMin;
+    float _FresnelPowerMax;
+    float _BlendScreenColor;
     
 // ==================================================_EnvReflectOn
-    half _EnvReflectOn;
-    half4 _EnvReflectionColor;
-    half4 _EnvMapMask_ST;
-    half _EnvMapMaskChannel;
-    half _EnvIntensity;
-    half4 _EnvOffset;
+    float _EnvReflectOn;
+    float4 _EnvReflectionColor;
+    float4 _EnvMapMask_ST;
+    float _EnvMapMaskChannel;
+    float _EnvIntensity;
+    float4 _EnvOffset;
 
     int _EnvRefractionOn;
-    half _EnvRefractionIOR;
-    half4 _EnvRefractionColor;
+    float _EnvRefractionIOR;
+    float4 _EnvRefractionColor;
 // ==================================================_MatCapOn
     int _MatCapOn;
-    half4 _MatCapColor;
-    half _MatCapIntensity;
+    float4 _MatCapColor;
+    float _MatCapIntensity;
     int _MatCapRotateOn;
-    half _MatCapAngle;
+    float _MatCapAngle;
 // ==================================================    _DepthFadingOn
     int _DepthFadingOn;
-    half _DepthFadingWidth;
-    half _LightOn;
+    float _DepthFadingWidth;
+    float _LightOn;
 // ==================================================   _Alpha 
-    half _AlphaMax,_AlphaMin,_AlphaScale;
+    float _AlphaMax,_AlphaMin,_AlphaScale;
 
 CBUFFER_END
 #endif //POWER_VFX_INPUT_CGINC

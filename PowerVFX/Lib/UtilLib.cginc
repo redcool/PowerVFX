@@ -4,15 +4,15 @@
 // ---- custom symbols
 #define if UNITY_BRANCH if
 #define for UNITY_LOOP for
-#define half half
+#define float float
 
-half SafeDiv(half numer, half denom)
+float SafeDiv(float numer, float denom)
 {
     return (numer != denom) ? numer / denom : 1;
 }
-half3 SafeNormalize(half3 inVec)
+float3 SafeNormalize(float3 inVec)
 {
-    half3 dp3 = max(FLT_MIN, dot(inVec, inVec));
+    float3 dp3 = max(FLT_MIN, dot(inVec, inVec));
     return inVec * rsqrt(dp3);
 }
 
@@ -58,9 +58,9 @@ float3x3 AngleAxis3x3(float rad, float3 axis)
     );
 }
 
-void RotateUV(half rotAngle,half2 center,inout half2 uv){
+void RotateUV(float rotAngle,float2 center,inout float2 uv){
     uv -= center;
-    half uvAngle = radians(rotAngle);
+    float uvAngle = radians(rotAngle);
     uv.xy = mul(half2x2(cos(uvAngle),-sin(uvAngle),sin(uvAngle),cos(uvAngle)),uv.xy);
     uv += center;
 }
@@ -70,7 +70,7 @@ void RotateUV(half rotAngle,half2 center,inout half2 uv){
     autoStop : a switch
     return : uv_t or uv_t + _Time.xx
 */
-half2 UVOffset(half2 uv_t,half autoStop){
+float2 UVOffset(float2 uv_t,float autoStop){
     return uv_t * ( 1+ _Time.xx *( 1 - autoStop) );
 }
 
