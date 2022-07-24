@@ -96,8 +96,8 @@ namespace PowerUtilities
             tex.Apply();
             var bytes = tex.EncodeToJPG();
 
-#if UNITY_EDITOR
             var path = "Assets/OutputFrames";
+#if UNITY_EDITOR
             if (!AssetDatabase.IsValidFolder(path))
             {
                 AssetDatabase.CreateFolder("Assets", "OutputFrames");
