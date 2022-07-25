@@ -63,7 +63,7 @@ _DistortionByCustomData_Vector2_X=强度由customData(vector2.x)控制
 _DistortTile=平铺(xy:1层,zw:2层)
 _DistortDir=方向(xy:1层,zw:2层)
 _DistortionRadialUVOn=径向?
-_DistortionRadialCenter_LenScale_LenOffset=径向位置_缩放_偏移量
+_DistortionRadialCenter_LenScale_LenOffset=(xy)径向位置_(z)缩放_(w)偏移量
 _DistortionRadialRot=径向扭曲角度
 _ApplyToOffset= 扭曲流光
 
@@ -101,7 +101,7 @@ _OffsetDir=方向(xy:1层,zw:2层)
 _OffsetBlendIntensity=混合强度
 
 _OffsetRadialUVOn=径向?
-_OffsetRadialCenter_LenScale_LenOffset=径向位置_缩放_偏移量
+_OffsetRadialCenter_LenScale_LenOffset=(xy)径向位置_(z)缩放_(w)偏移量
 _OffsetRadialRot=径向扭曲角度
 
 _OffsetBlendMode=流光混合模式
