@@ -76,11 +76,10 @@ void ApplySaturate(inout float4 mainColor){
     mainColor.xyz = lerp(Gray(mainColor.xyz),mainColor.xyz,_MainTexSaturate);
 }
 
-void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,float2 screenUV,float4 vertexColor,float faceId ){
+void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,float4 vertexColor,float faceId ){
     float4 color = _BackFaceOn ? lerp(_BackFaceColor,_Color,faceId) : _Color;
 
-    screenColor = tex2D(_CameraOpaqueTexture,_MainTexUseScreenColor == 0? screenUV : uv);
-    mainColor = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : screenColor; 
+    mainColor = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : tex2D(_CameraOpaqueTexture,uv); 
     
     ApplySaturate(mainColor);
 
@@ -126,6 +125,8 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
 
     float4 dissolveTex = tex2D(_DissolveTex,dissolveUV.xy);
     float refDissolve = dissolveTex[_DissolveTexChannel];
+    // dissolveTex.a as mask
+    refDissolve *= lerp(1,dissolveTex[_DissolveMaskChannel],_DissolveMaskFromTexOn);
     // refDissolve = _DissolveRevert > 0 ? refDissolve : 1 - refDissolve;
 
     // remap cutoff

@@ -2,3 +2,4 @@
 // 为注释行
 
 _DissolveClipOn=#FF0000
+_DissolveMaskFromTexOn=#88ff88

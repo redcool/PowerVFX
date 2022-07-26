@@ -73,6 +73,10 @@ CBUFFER_START(UnityPerMaterial)
     float _DissolveByVertexColor;
     float _DissolveByCustomData_Z;
     float _DissolveTexChannel;
+
+    float _DissolveMaskFromTexOn;
+    float _DissolveMaskChannel;
+
     float4 _DissolveTex_ST;
     float _DissolveTexOffsetStop;
     float _DissolveClipOn;

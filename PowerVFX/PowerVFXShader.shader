@@ -105,6 +105,10 @@ Shader "FX/PowerVFX"
 		_DissolveTex("Dissolve Tex",2d)=""{}
 		[GroupToggle]_DissolveTexOffsetStop("_DissolveTexOffsetStop ?",int) = 0
 		[Enum(R,0,G,1,B,2,A,3)]_DissolveTexChannel("_DissolveTexChannel",int) = 0
+
+		[Header(DissolveMask)]
+		[GroupToggle]_DissolveMaskFromTexOn("_DissolveMaskFromTexOn",int) = 0
+		[Enum(R,0,G,1,B,2,A,3)]_DissolveMaskChannel("_DissolveMaskChannel",int)=3
 		
 		[Header(DissolveType)]
 		[GroupToggle]_DissolveByVertexColor("Dissolve By Vertex Color ?",int)=0
