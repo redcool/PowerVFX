@@ -140,7 +140,7 @@ Shader "FX/PowerVFX"
 
 		[Header(Blend Ops)]
 		_OffsetBlendIntensity("Blend Intensity",range(0,10)) = 0.5
-		_OffsetBlendMode("_OffsetBlendMode",range(0,1)) = 0
+		_OffsetBlendMode("_OffsetBlendMode",range(0,1)) = 1
 
 		[Header(Offset Mask)]
 		_OffsetMaskTex("Offset Mask (R)",2d) = "white"{}
