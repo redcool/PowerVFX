@@ -98,7 +98,9 @@ Shader "FX/PowerVFX"
 		_DistortionRadialRot("_DistortionRadialRot",float) = 0
 
 		[Header(Distortion Where)]
-		[GroupToggle]_ApplyToOffset("_ApplyToOffset",int) = 0
+		[GroupToggle]_DistortionApplyToOffset("_DistortionApplyToOffset",int) = 0
+		[GroupToggle]_DistortionApplyToMainTexMask("_DistortionApplyToMainTexMask",int) = 0
+		[GroupToggle]_DistortionApplyToDissolve("_DistortionApplyToDissolve",int) = 0
 // ==================================================Dissolve
 		[Header(Dissolve)]
 		[GroupToggle]_DissolveOn("Dissolve On?",int)=0

@@ -107,7 +107,7 @@ Material:
     - _AlphaMax: 1
     - _AlphaMin: 0
     - _AlphaScale: 1
-    - _ApplyToOffset: 0
+    - _DistortionApplyToOffset: 0
     - _BackFaceOn: 0
     - _BlendIntensity: 3.58
     - _BlendOp: 0

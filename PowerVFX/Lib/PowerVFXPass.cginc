@@ -85,13 +85,13 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     
     //-------- mainColor, screenColor prepared done
     
-    ApplyMainTexMask(mainColor,mainUV.zw);
+    ApplyMainTexMask(mainColor,_DistortionApplyToMainTexMask ? uvDistorted : mainUV.zw);
 
     if(_EnvReflectOn || _EnvRefractionOn)
         ApplyEnv(mainColor,mainUV.zw,reflectDir,refractDir);
 
     if(_OffsetOn){
-        float4 offsetUV = (_ApplyToOffset ? uvDistorted.xyxy : mainUV.zwzw) * _OffsetTile + (_Time.xxxx * _OffsetDir); //暂时去除 frac
+        float4 offsetUV = (_DistortionApplyToOffset ? uvDistorted.xyxy : mainUV.zwzw) * _OffsetTile + (_Time.xxxx * _OffsetDir); //暂时去除 frac
         if(_OffsetRadialUVOn){
             float4 p = _OffsetRadialCenter_LenScale_LenOffset;
             offsetUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_OffsetRadialRot);
@@ -105,7 +105,7 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     //dissolve
     if(_DissolveOn){
         float2 dissolveUVOffset = UVOffset(_DissolveTex_ST.zw,_DissolveTexOffsetStop);
-        float2 dissolveUV = mainUV.zw * _DissolveTex_ST.xy + dissolveUVOffset;
+        float2 dissolveUV = (_DistortionApplyToDissolve ? uvDistorted : mainUV.zw) * _DissolveTex_ST.xy + dissolveUVOffset;
         ApplyDissolve(mainColor,dissolveUV,i.color,dissolveCustomData,dissolveEdgeWidth);
     }
 

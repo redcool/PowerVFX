@@ -65,7 +65,7 @@ _DistortDir=方向(xy:1层,zw:2层)
 _DistortionRadialUVOn=径向?
 _DistortionRadialCenter_LenScale_LenOffset=(xy)径向位置_(z)缩放_(w)偏移量
 _DistortionRadialRot=径向扭曲角度
-_ApplyToOffset= 扭曲流光
+_DistortionApplyToOffset= 扭曲流光
 
 _DissolveOn=开启溶解?
 _DissolveRevert=反向溶解?
