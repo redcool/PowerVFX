@@ -125,9 +125,10 @@ _EnvRefractionOn=环境折射
 _EnvRefractionIOR=折射率
 _EnvRefractionColor=折射调色
 _EnvMap=环境cube
+_EnvMaskUseMainTexMask=环境遮罩使用MainTexMask
 _EnvMapMaskChannel=MainTexMask遮罩通道
 _EnvIntensity=环境强度
-_EnvOffset=视线偏移
+_EnvOffset=法线偏移
 
 _MatCapTex=matcap图
 _MatCapColor=matcap颜色

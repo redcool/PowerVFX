@@ -180,12 +180,12 @@ Shader "FX/PowerVFX"
 
 		[Header(Env Params)]
 		[NoScaleOffset]_EnvMap("Env Map",Cube) = ""{}
-
-		[GroupToggle]_EnvMaskUseMainTexMask("_EnvMaskUseMainTexMask",int)=3
-		[Enum(R,0,G,1,B,2,A,3)]_EnvMapMaskChannel("_EnvMapMaskChannel",int)=0
-
 		_EnvIntensity("Env intensity",float) = 1
 		_EnvOffset("EnvOffset",vector) = (0,0,0,0)
+
+		[Header(Env Mask)]
+		[GroupToggle]_EnvMaskUseMainTexMask("_EnvMaskUseMainTexMask",int)=3
+		[Enum(R,0,G,1,B,2,A,3)]_EnvMapMaskChannel("_EnvMapMaskChannel",int)=0
 
 // ==================================================MatCap
 		[Header(MatCap)]
