@@ -11,13 +11,15 @@
     sampler2D _OffsetMaskTex;//(r,a)
     sampler2D _CameraOpaqueTexture;
     samplerCUBE _EnvMap;
-    sampler2D _EnvMapMask;//(r,a)
+    sampler2D _PbrMask;//(r,a)
     
     sampler2D _MatCapTex;
     sampler2D _VertexWaveAtten_MaskMap;//r
     UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
+    sampler2D _NormalMap;
 
-    float3 _WorldSpaceLightDirection;
+    float4 _MainLightPosition;
+    float4 _MainLightColor;
 
 CBUFFER_START(UnityPerMaterial)
     float _MainUVAngle;
@@ -120,6 +122,7 @@ CBUFFER_START(UnityPerMaterial)
     float _EnvReflectOn;
     float4 _EnvReflectionColor;
     float4 _EnvMapMask_ST;
+    int _EnvMaskUseMainTexMask;
     float _EnvMapMaskChannel;
     float _EnvIntensity;
     float4 _EnvOffset;
@@ -127,6 +130,7 @@ CBUFFER_START(UnityPerMaterial)
     int _EnvRefractionOn;
     float _EnvRefractionIOR;
     float4 _EnvRefractionColor;
+    float4 _EnvMap_HDR;
 // ==================================================_MatCapOn
     int _MatCapOn;
     float4 _MatCapColor;
@@ -136,9 +140,12 @@ CBUFFER_START(UnityPerMaterial)
 // ==================================================    _DepthFadingOn
     int _DepthFadingOn;
     float _DepthFadingWidth;
-    float _LightOn;
 // ==================================================   _Alpha 
     float _AlphaMax,_AlphaMin,_AlphaScale;
 
+// ==================================================   Light
+    // float _PbrLightOn;
+    float _Metallic,_Smoothness,_Occlusion;
+    float _NormalMapScale;
 CBUFFER_END
 #endif //POWER_VFX_INPUT_CGINC

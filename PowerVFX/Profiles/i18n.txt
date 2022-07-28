@@ -125,8 +125,7 @@ _EnvRefractionOn=环境折射
 _EnvRefractionIOR=折射率
 _EnvRefractionColor=折射调色
 _EnvMap=环境cube
-_EnvMapMask=环境遮罩
-_EnvMapMaskChannel=遮罩通道
+_EnvMapMaskChannel=MainTexMask遮罩通道
 _EnvIntensity=环境强度
 _EnvOffset=视线偏移
 
@@ -138,3 +137,6 @@ _MatCapAngle=旋转角度
 
 _DepthFadingOn=深度渐隐(软粒子)
 _DepthFadingWidth=渐隐宽
+
+_PbrLightOn = Pbr光照计算
+_PbrMask=_PbrMask(R:Metallic,G:Smoothness,B:Occlusion)

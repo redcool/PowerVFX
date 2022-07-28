@@ -35,7 +35,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _EnvMapMask:
+    - _PbrMask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -108,7 +108,7 @@ Material:
     - _FresnelPowerMax: 0.5
     - _FresnelPowerMin: 0.4
     - _GaussianBlur: 1
-    - _LightOn: 0
+    - _PbrLightOn: 0
     - _MainTexChannel: 0
     - _MainTexMaskChannel: 0
     - _MainTexMaskOffsetStop: 0

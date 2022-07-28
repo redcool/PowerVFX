@@ -5,7 +5,7 @@ Shader "FX/PowerVFX"
 	{
 		_MainTex("Main Texture", 2D) = "white" {}
 		_MainUVAngle("_MainUVAngle",float) = 0
-		[GroupToggle]_MainTexOffsetStop("禁用MainTex自动滚动?",int)=0
+		[GroupToggle]_MainTexOffsetStop("_MainTexOffsetStop",int)=0
 		[GroupToggle]_MainTexOffsetUseCustomData_XY("_MainTexOffsetUseCustomData_XY -> uv.zw",int)=0
 
 		[Header(Saturate)]
@@ -180,8 +180,10 @@ Shader "FX/PowerVFX"
 
 		[Header(Env Params)]
 		[NoScaleOffset]_EnvMap("Env Map",Cube) = ""{}
-		_EnvMapMask("Env Map Mask",2d) = ""{}
+
+		[GroupToggle]_EnvMaskUseMainTexMask("_EnvMaskUseMainTexMask",int)=3
 		[Enum(R,0,G,1,B,2,A,3)]_EnvMapMaskChannel("_EnvMapMaskChannel",int)=0
+
 		_EnvIntensity("Env intensity",float) = 1
 		_EnvOffset("EnvOffset",vector) = (0,0,0,0)
 
@@ -197,8 +199,16 @@ Shader "FX/PowerVFX"
 		[Header(_DepthFading)]
 		[GroupToggle]_DepthFadingOn("_DepthFadingOn",int) = 0
 		_DepthFadingWidth("_DepthFadingWidth",range(0.01,3)) = 1
+
+// ================================================== Light		
 		[Header(Light)]
-		[GroupToggle]_LightOn("_LightOn",float) = 0
+		[GroupToggle(_,PBR_LIGHTING)]_PbrLightOn("_PbrLightOn",float) = 0
+		_NormalMap("_NormalMap",2d)="bump"{}
+		_NormalMapScale("_NormalMapScale",range(0,5)) = 1
+		_PbrMask("_PbrMask(Metal,Smooth,Occ)",2d)="white"{}
+		_Metallic("_Metallic",range(0,1))=0.5
+		_Smoothness("_Smoothness",range(0,1))=0.5
+		_Occlusion("_Occlusion",range(0,1)) = 0
 	}
 	SubShader
 	{
@@ -215,6 +225,7 @@ Shader "FX/PowerVFX"
 			#pragma multi_compile_fog
             #pragma multi_compile_instancing
 			#pragma multi_compile_local_fragment _ ALPHA_TEST
+			#pragma multi_compile _ PBR_LIGHTING
 
 			#pragma target 3.0
 			#pragma vertex vert

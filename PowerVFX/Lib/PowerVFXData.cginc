@@ -1,6 +1,6 @@
 #if !defined(POWER_VFX_DATA_CGINC)
 #define POWER_VFX_DATA_CGINC
-#include "TangentLib.cginc"
+#include "../../PowerShaderLib/Lib/TangentLib.hlsl"
 
     struct appdata
     {

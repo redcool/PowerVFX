@@ -6,8 +6,8 @@
 v2f vert(appdata v)
 {
     float4 worldPos = mul(unity_ObjectToWorld,v.vertex);
-    float3 viewDir = normalize(UnityWorldSpaceViewDir(worldPos.xyz));
-    float3 worldNormal = normalize(UnityObjectToWorldNormal(v.normal));
+    float3 viewDir = normalize(_WorldSpaceCameraPos.xyz - worldPos.xyz);
+    float3 worldNormal = normalize(mul(v.normal,unity_WorldToObject));
 
     v2f o = (v2f)0;
     o.color = v.color;
@@ -41,10 +41,13 @@ v2f vert(appdata v)
 
     o.fresnal_customDataZ.yzw = v.uv1.xyz;// particle custom data (Custom1).zw
 
-    if(_LightOn){
+    #if defined(PBR_LIGHTING)
+    // if(_PbrLightOn){
         float3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
-        TANGENT_SPACE_COMBINE(worldPos,worldNormal,float4(worldTangent,v.tangent.w),o/**/);
-    }
+        TANGENT_SPACE_COMBINE_WORLD(worldPos,worldNormal,float4(worldTangent,v.tangent.w),o/**/);
+    // }
+    #endif
+
     UNITY_TRANSFER_FOG(o,o.vertex);
     return o;
 }
@@ -78,17 +81,24 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
             distortUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_DistortionRadialRot);
         }
         uvDistorted = ApplyDistortion(mainUV,distortUV,distortionCustomData);
-        SampleMainTex(mainColor/**/,screenColor/**/,uvDistorted,i.color,faceId);
-    }else{
-        SampleMainTex(mainColor/**/,screenColor/**/,mainUV.xy,i.color,faceId);
     }
     
-    //-------- mainColor, screenColor prepared done
+    SampleMainTex(mainColor/**/,screenColor/**/,uvDistorted,i.color,faceId);
     
-    ApplyMainTexMask(mainColor,_DistortionApplyToMainTexMask ? uvDistorted : mainUV.zw);
+    //-------- mainColor, screenColor prepared done
+    float4 mainTexMask=0;
+    ApplyMainTexMask(mainColor/**/,mainTexMask/**/,_DistortionApplyToMainTexMask ? uvDistorted : mainUV.zw);
 
-    if(_EnvReflectOn || _EnvRefractionOn)
-        ApplyEnv(mainColor,mainUV.zw,reflectDir,refractDir);
+    #if defined(PBR_LIGHTING)
+        normal = SampleNormalMap(uvDistorted,i.tSpace0,i.tSpace1,i.tSpace2);
+        float3 viewDir = normalize(_WorldSpaceCameraPos - worldPos);
+        ApplyPbrLighting(mainColor.xyz/**/,uvDistorted,normal,viewDir);
+    #endif
+
+    if(_EnvReflectOn || _EnvRefractionOn){
+        float envMask = lerp(1,mainTexMask.w,_EnvMaskUseMainTexMask);
+        ApplyEnv(mainColor,mainUV.zw,reflectDir,refractDir,envMask);
+    }
 
     if(_OffsetOn){
         float4 offsetUV = (_DistortionApplyToOffset ? uvDistorted.xyxy : mainUV.zwzw) * _OffsetTile + (_Time.xxxx * _OffsetDir); //暂时去除 frac
@@ -116,11 +126,6 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     
     if(_MatCapOn){
         ApplyMatcap(mainColor,mainUV.zw,i.viewNormal);
-    }
-
-    if(_LightOn)
-    {
-        ApplyLight(mainColor/**/,normal);
     }
 
     if(_DepthFadingOn)
