@@ -5,3 +5,4 @@ _DissolveClipOn=#FF0000
 _DissolveMaskFromTexOn=#88ff88
 _DistortionApplyToMainTexMask=#88ff88
 _DistortionApplyToDissolve=#88ff88
+_PbrLightOn=#88ff88
