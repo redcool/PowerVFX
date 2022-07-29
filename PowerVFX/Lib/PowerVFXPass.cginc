@@ -7,14 +7,18 @@ v2f vert(appdata v)
 {
     float4 worldPos = mul(unity_ObjectToWorld,v.vertex);
     float3 viewDir = normalize(_WorldSpaceCameraPos.xyz - worldPos.xyz);
-    float3 worldNormal = normalize(mul(v.normal,unity_WorldToObject));
+    float3 worldNormal = normalize(mul(v.normal,(float3x3)unity_WorldToObject));
 
     v2f o = (v2f)0;
     o.color = v.color;
-    if(_VertexWaveOn){
+
+    #if defined(VERTEX_WAVE_ON)
+    // if(_VertexWaveOn)
+    {
         float attemMaskCDATA = v.uv1.z;
         ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv,attemMaskCDATA);
     }
+    #endif
     o.vertex = UnityWorldToClipPos(worldPos);
 
     // o.uv = v.uv; // uv.xy : main uv, zw : custom data.xy
@@ -36,10 +40,12 @@ v2f vert(appdata v)
     float3 viewNormal = normalize(mul((half3x3)UNITY_MATRIX_MV,v.normal));
     o.viewNormal = viewNormal.xy * 0.5 + 0.5;
 
-    if(_FresnelOn)
-        o.fresnal_customDataZ.x = 1 - dot(worldNormal,viewDir) ;
+    #if defined(FRESNEL_ON)
+    // if(_FresnelOn)
+        o.fresnel_customDataZ.x = 1 - dot(worldNormal,viewDir) ;
+    #endif
 
-    o.fresnal_customDataZ.yzw = v.uv1.xyz;// particle custom data (Custom1).zw
+    o.fresnel_customDataZ.yzw = v.uv1.xyz;// particle custom data (Custom1).zw
 
     #if defined(PBR_LIGHTING)
     // if(_PbrLightOn){
@@ -65,16 +71,18 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     float4 mainUV = i.uv;
 
 // get particle system's custom data
-    float dissolveCustomData = i.fresnal_customDataZ.y;
-    float dissolveEdgeWidth = i.fresnal_customDataZ.z;
-    float distortionCustomData = i.fresnal_customDataZ.w;
+    float dissolveCustomData = i.fresnel_customDataZ.y;
+    float dissolveEdgeWidth = i.fresnel_customDataZ.z;
+    float distortionCustomData = i.fresnel_customDataZ.w;
 
     //use _CameraOpaqueTexture
     float2 screenUV = i.grabPos.xy/i.grabPos.w;
     mainUV.xy = _MainTexUseScreenColor == 0 ? mainUV.xy : screenUV;
     
     float2 uvDistorted = mainUV.zw;
-    if(_DistortionOn){
+    #if defined(DISTORTION_ON)
+    // if(_DistortionOn)
+    {
         float4 distortUV = mainUV.zwzw * _DistortTile + frac(_DistortDir * _Time.xxxx);
         if(_DistortionRadialUVOn){
             float4 p = _DistortionRadialCenter_LenScale_LenOffset;
@@ -82,6 +90,7 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
         }
         uvDistorted = ApplyDistortion(mainUV,distortUV,distortionCustomData);
     }
+    #endif
     
     SampleMainTex(mainColor/**/,screenColor/**/,uvDistorted,i.color,faceId);
     
@@ -95,12 +104,17 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
         ApplyPbrLighting(mainColor.xyz/**/,uvDistorted,normal,viewDir);
     #endif
 
-    if(_EnvReflectOn || _EnvRefractionOn){
+    #if defined(ENV_REFRACTION_ON) || defined(ENV_REFLECT_ON)
+    // if(_EnvReflectOn || _EnvRefractionOn)
+    {
         float envMask = lerp(1,mainTexMask.w,_EnvMaskUseMainTexMask);
         ApplyEnv(mainColor,mainUV.zw,reflectDir,refractDir,envMask);
     }
+    #endif
 
-    if(_OffsetOn){
+    #if defined(OFFSET_ON)
+    // if(_OffsetOn)
+    {
         float4 offsetUV = (_DistortionApplyToOffset ? uvDistorted.xyxy : mainUV.zwzw) * _OffsetTile + (_Time.xxxx * _OffsetDir); //暂时去除 frac
         if(_OffsetRadialUVOn){
             float4 p = _OffsetRadialCenter_LenScale_LenOffset;
@@ -111,25 +125,39 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
         float2 maskUV = mainUV.zw * _OffsetMaskTex_ST.xy + maskUVOffset;
         ApplyOffset(mainColor,offsetUV,maskUV);
     }
+    #endif
 
-    //dissolve
-    if(_DissolveOn){
+    //------------- dissolve
+    #if defined(DISSOLVE_ON)
+    // if(_DissolveOn)
+    {
         float2 dissolveUVOffset = UVOffset(_DissolveTex_ST.zw,_DissolveTexOffsetStop);
         float2 dissolveUV = (_DistortionApplyToDissolve ? uvDistorted : mainUV.zw) * _DissolveTex_ST.xy + dissolveUVOffset;
         ApplyDissolve(mainColor,dissolveUV,i.color,dissolveCustomData,dissolveEdgeWidth);
     }
+    #endif 
 
-    if(_FresnelOn){
-        float fresnal = i.fresnal_customDataZ.x;
-        ApplyFresnal(mainColor,fresnal,screenColor);
+    #if defined(FRESNEL_ON)
+    // if(_FresnelOn)
+    {
+        float fresnel = i.fresnel_customDataZ.x;
+        ApplyFresnal(mainColor,fresnel,screenColor);
     }
+    #endif
     
-    if(_MatCapOn){
+    #if defined(MATCAP_ON)
+    // if(_MatCapOn)
+    {
         ApplyMatcap(mainColor,mainUV.zw,i.viewNormal);
     }
+    #endif
 
-    if(_DepthFadingOn)
+    #if defined(DEPTH_FADING_ON)
+    // if(_DepthFadingOn)
+    {
         ApplySoftParticle(mainColor/**/,i.grabPos); // change vertex color
+    }
+    #endif
     
     mainColor.a = saturate(mainColor.a );
     // apply fog

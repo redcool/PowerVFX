@@ -54,7 +54,7 @@ Shader "FX/PowerVFX"
 		[GroupToggle]_ZWriteMode("ZWriteMode",int) = 0
 		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 4
 // ==================================================_VertexWaveOn
-		[GroupToggle]_VertexWaveOn("_VertexWaveOn ?",int) = 0
+		[GroupToggle(_,VERTEX_WAVE_ON)]_VertexWaveOn("_VertexWaveOn ?",int) = 0
 		[Header(Noise Map)]
 		[GroupToggle]_NoiseUseAttenMaskMap("_NoiseUseAttenMaskMap",float)=0
 		[Header(Noise Params)]
@@ -77,7 +77,7 @@ Shader "FX/PowerVFX"
 		[GroupToggle]_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X("_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X",int) = 0
 // ==================================================Distortion
 		[Header(Distortion)]
-		[GroupToggle]_DistortionOn("Distortion On?",int)=0
+		[GroupToggle(_,DISTORTION_ON)]_DistortionOn("Distortion On?",int)=0
 		[noscaleoffset]_DistortionNoiseTex("Noise Texture(xy:layer1,zw:layer2)",2D) = "white" {}
 		
 		[Header(DistortionMask)]
@@ -103,7 +103,7 @@ Shader "FX/PowerVFX"
 		[GroupToggle]_DistortionApplyToDissolve("_DistortionApplyToDissolve",int) = 0
 // ==================================================Dissolve
 		[Header(Dissolve)]
-		[GroupToggle]_DissolveOn("Dissolve On?",int)=0
+		[GroupToggle(_,DISSOLVE_ON)]_DissolveOn("Dissolve On?",int)=0
 		_DissolveTex("Dissolve Tex",2d)=""{}
 		[GroupToggle]_DissolveTexOffsetStop("_DissolveTexOffsetStop ?",int) = 0
 		[Enum(R,0,G,1,B,2,A,3)]_DissolveTexChannel("_DissolveTexChannel",int) = 0
@@ -137,7 +137,7 @@ Shader "FX/PowerVFX"
 		[HDR]_EdgeColor2("EdgeColor2",color) = (0,1,0,1)
 // ==================================================Offset
 		[Header(Offset)] 
-		[GroupToggle] _OffsetOn("Offset On?",int) = 0
+		[GroupToggle(_,OFFSET_ON)] _OffsetOn("Offset On?",int) = 0
 		[NoScaleOffset]_OffsetTex("Offset Tex",2d) = ""{}
 		_OffsetTile("Offset Tile",vector) = (1,1,1,1)
 		_OffsetDir("Offset Dir",vector) = (1,1,0,0)
@@ -159,7 +159,7 @@ Shader "FX/PowerVFX"
 		_OffsetRadialRot("_OffsetRadialRot",float) = 0
 // ==================================================Fresnal
 		[Header(Fresnal)]
-		[GroupToggle]_FresnelOn("_FresnelOn?",int)=0
+		[GroupToggle(_,FRESNEL_ON)]_FresnelOn("_FresnelOn?",int)=0
 		[Enum(Replace,0,Multiply,1)]_FresnelColorMode("_FresnelColorMode",int) = 0
 		[HDR]_FresnelColor("_FresnelColor",color) = (1,1,1,1)
 		[HDR]_FresnelColor2("_FresnelColor2",color) = (1,1,1,1)
@@ -170,11 +170,11 @@ Shader "FX/PowerVFX"
 		_BlendScreenColor("_BlendScreenColor",range(0,1)) = 0
 // ==================================================	EnvReflection	
 		[Header(EnvReflection)]
-		[GroupToggle]_EnvReflectOn("EnvReflect On?",int)=0
+		[GroupToggle(_,ENV_REFLECT_ON)]_EnvReflectOn("EnvReflect On?",int)=0
 		_EnvReflectionColor("_EnvReflectionColor",color) = (.5,.5,.5,.5)
 
 		[Header(EnvRefraction)]
-		[GroupToggle]_EnvRefractionOn("_EnvRefractionOn",int) = 0
+		[GroupToggle(_,ENV_REFRACTION_ON)]_EnvRefractionOn("_EnvRefractionOn",int) = 0
 		_EnvRefractionIOR("_EnvRefractionIOR",range(1,5)) = 1.33
 		_EnvRefractionColor("_EnvRefractionColor",color) = (.5,.5,.5,.5)
 
@@ -189,7 +189,7 @@ Shader "FX/PowerVFX"
 
 // ==================================================MatCap
 		[Header(MatCap)]
-		[GroupToggle]_MatCapOn("_MatCapOn",int) = 0
+		[GroupToggle(_,MATCAP_ON)]_MatCapOn("_MatCapOn",int) = 0
 		[noscaleoffset]_MatCapTex("_MapCapTex",2d)=""{}
 		[hdr]_MatCapColor("_MatCapColor",color) = (1,1,1,1)
 		_MatCapIntensity("_MatCapIntensity",float) = 1
@@ -197,7 +197,7 @@ Shader "FX/PowerVFX"
 		_MatCapAngle("_MapCatAngle",float) = 0
 // ==================================================_DepthFading
 		[Header(_DepthFading)]
-		[GroupToggle]_DepthFadingOn("_DepthFadingOn",int) = 0
+		[GroupToggle(_,DEPTH_FADING_ON)]_DepthFadingOn("_DepthFadingOn",int) = 0
 		_DepthFadingWidth("_DepthFadingWidth",range(0.01,3)) = 1
 
 // ================================================== Light		
@@ -226,6 +226,15 @@ Shader "FX/PowerVFX"
             #pragma multi_compile_instancing
 			#pragma multi_compile_local_fragment _ ALPHA_TEST
 			#pragma multi_compile _ PBR_LIGHTING
+			#pragma multi_compile_local_vertex _ VERTEX_WAVE_ON
+			#pragma multi_compile_local_fragment _ DISTORTION_ON
+			#pragma multi_compile_local_fragment _ DISSOLVE_ON
+			#pragma multi_compile_local_fragment _ OFFSET_ON
+			#pragma multi_compile _ FRESNEL_ON
+			#pragma multi_compile_local_fragment _ ENV_REFLECT_ON
+			#pragma multi_compile_local_fragment _ ENV_REFRACTION_ON
+			#pragma multi_compile_local_fragment _ MATCAP_ON
+			#pragma multi_compile_local_fragment _ DEPTH_FADING_ON
 
 			#pragma target 3.0
 			#pragma vertex vert

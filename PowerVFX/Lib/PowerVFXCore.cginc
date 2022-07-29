@@ -188,10 +188,15 @@ float3 SampleEnvMap(float3 dir){
 void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refractDir,float envMask){
 
     float4 envColor = (float4)0;
-    if(_EnvReflectOn)
+    #if defined(ENV_REFLECT_ON)
+    // if(_EnvReflectOn)
         envColor.xyz += SampleEnvMap(reflectDir) * _EnvReflectionColor;
-    if(_EnvRefractionOn)
+    #endif
+    
+    #if defined(ENV_REFRACTION_ON)        
+    // if(_EnvRefractionOn)
         envColor.xyz += SampleEnvMap(refractDir) * _EnvRefractionColor;
+    #endif
     
     envColor *= _EnvIntensity * envMask;
     mainColor.rgb += envColor.rgb;
@@ -244,7 +249,7 @@ void ApplyPbrLighting(inout float3 mainColor,float2 uv,float3 n,float3 v){
     float3 diffColor = mainColor * (1-metallic);
     float3 specColor = lerp(0.04,mainColor,metallic);
     // gi
-    float3 giDiff = ShadeSH9(float4(n,1)) * diffColor;
+    float3 giDiff = diffColor;// * ShadeSH9(float4(n,1));
     
     float mip = (1.7-0.7*rough)*rough*6;
     float3 reflectDir = reflect(-v,n);
