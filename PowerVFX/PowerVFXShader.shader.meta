@@ -2,8 +2,21 @@ fileFormatVersion: 2
 guid: 8cf021abb8a27644490ac2f7e882470a
 ShaderImporter:
   externalObjects: {}
-  defaultTextures: []
+  defaultTextures:
+  - _MainTex: {instanceID: 0}
+  - _MainTexMask: {instanceID: 0}
+  - _VertexWaveAtten_MaskMap: {instanceID: 0}
+  - _DistortionNoiseTex: {instanceID: 0}
+  - _DistortionMaskTex: {instanceID: 0}
+  - _DissolveTex: {instanceID: 0}
+  - _OffsetTex: {instanceID: 0}
+  - _OffsetMaskTex: {instanceID: 0}
+  - _EnvMap: {instanceID: 0}
+  - _MatCapTex: {instanceID: 0}
+  - _NormalMap: {instanceID: 0}
+  - _PbrMask: {instanceID: 0}
   nonModifiableTextures: []
+  preprocessorOverride: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 

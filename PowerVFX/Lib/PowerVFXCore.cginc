@@ -5,7 +5,7 @@
 
 #include "PowerVFXInput.cginc"
 #include "PowerVFXData.cginc"
-#include "NodeLib.cginc"
+#include "../../PowerShaderLib/Lib/NodeLib.hlsl"
 #include "UtilLib.cginc"
 
 float4 SampleAttenMap(float2 mainUV,float attenMaskCDATA){
