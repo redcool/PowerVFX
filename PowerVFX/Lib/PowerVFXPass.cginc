@@ -89,11 +89,12 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
             distortUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_DistortionRadialRot);
         }
         uvDistorted = ApplyDistortion(mainUV,distortUV,distortionCustomData);
+        SampleMainTex(mainColor/**/,screenColor/**/,uvDistorted,i.color,faceId);
     }
+    #else
+        SampleMainTex(mainColor/**/,screenColor/**/,mainUV.xy,i.color,faceId);
     #endif
-    
-    SampleMainTex(mainColor/**/,screenColor/**/,uvDistorted,i.color,faceId);
-    
+
     //-------- mainColor, screenColor prepared done
     float4 mainTexMask=0;
     ApplyMainTexMask(mainColor/**/,mainTexMask/**/,_DistortionApplyToMainTexMask ? uvDistorted : mainUV.zw);
