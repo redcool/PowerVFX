@@ -224,13 +224,14 @@ Shader "FX/PowerVFX"
 			CGPROGRAM
 			#pragma multi_compile_fog
             #pragma multi_compile_instancing
-			#pragma multi_compile_local_fragment _ ALPHA_TEST
-			#pragma multi_compile _ PBR_LIGHTING
+			#pragma multi_compile_local _ PBR_LIGHTING
+			#pragma multi_compile_local _ FRESNEL_ON
+
 			#pragma multi_compile_local_vertex _ VERTEX_WAVE_ON
+			#pragma multi_compile_local_fragment _ ALPHA_TEST
 			#pragma multi_compile_local_fragment _ DISTORTION_ON
 			#pragma multi_compile_local_fragment _ DISSOLVE_ON
 			#pragma multi_compile_local_fragment _ OFFSET_ON
-			#pragma multi_compile _ FRESNEL_ON
 			#pragma multi_compile_local_fragment _ ENV_REFLECT_ON
 			#pragma multi_compile_local_fragment _ ENV_REFRACTION_ON
 			#pragma multi_compile_local_fragment _ MATCAP_ON
