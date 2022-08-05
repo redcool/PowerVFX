@@ -2,34 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 8
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: test
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
-  m_ValidKeywords:
-  - ALPHA_TEST
-  m_InvalidKeywords:
-  - _BACKFACEON_ON
-  - _DEPTHFADINGON_ON
-  - _DISSOLVECLIPON_ON
-  - _DISSOLVETEXOFFSETSTOP_ON
-  - _DISSOLVETEXUSER_ON
-  - _DISTORTIONMASKUSER_ON
-  - _DISTORTIONRADIALUVON_ON
-  - _FRESNELTRANSPARENTON_ON
-  - _MAINTEXMASKUSER_ON
-  - _MAINTEXMULTIALPHA_ON
-  - _MATCAPON_ON
-  - _MATCAPROTATEON_ON
-  - _NOISEUSEATTENMAP_ON
-  - _SOFTPARTICLEON_ON
-  - _VERTEXWAVEATTEN_FORWARDATTEN_ON
-  - _VERTEXWAVEATTEN_VERTEXCOLOR_ON
-  - _VERTEXWAVEDIRALONGNORMALON_ON
-  - _ZWRITEMODE_ON
+  m_ShaderKeywords: PBR_LIGHTING
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -103,7 +83,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - _AlphaMax: 1
     - _AlphaMin: 0
@@ -115,7 +94,7 @@ Material:
     - _ColorScale: 1
     - _CullMode: 2
     - _Cutoff: 0.133
-    - _DepthFadingOn: 1
+    - _DepthFadingOn: 0
     - _DepthFadingWidth: 3
     - _DissolveByCustomData: 0
     - _DissolveByCustomData_Z: 0
@@ -188,6 +167,7 @@ Material:
     - _Metallic: 0.5
     - _NoiseUseAttenMap: 1
     - _NoiseUseAttenMaskMap: 0
+    - _NormalMapScale: 1
     - _Occlusion: 0
     - _OffsetBlendIntensity: 2.92
     - _OffsetBlendMode: 0
@@ -197,7 +177,7 @@ Material:
     - _OffsetOn: 0
     - _OffsetRadialRot: 4.26
     - _OffsetRadialUVOn: 0
-    - _PbrLightOn: 0
+    - _PbrLightOn: 1
     - _PixelDissolveOn: 0
     - _PixelWidth: 5.22
     - _Smoothness: 0.5

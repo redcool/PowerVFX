@@ -47,7 +47,7 @@ Shader "FX/PowerVFX"
 		// [Enum(UnityEngine.Rendering.BlendOp)]_BlendOp("_BlendOp",int) = 0
 
 		[Header(DoubleEffect)]
-		[GroupToggle]_DoubleEffectOn("双重效果?",int)=0
+		[GroupToggle(_,DOUBLE_EFFECT_ON)]_DoubleEffectOn("双重效果?",int)=0
 		
 		[Header(CullMode)]
 		[Enum(UnityEngine.Rendering.CullMode)]_CullMode("Cull Mode",float) = 0
@@ -235,6 +235,8 @@ Shader "FX/PowerVFX"
 			#pragma multi_compile_local_fragment _ ENV_REFRACTION_ON
 			#pragma multi_compile_local_fragment _ MATCAP_ON
 			#pragma multi_compile_local_fragment _ DEPTH_FADING_ON
+			#pragma multi_compile_local_fragment _ DOUBLE_EFFECT_ON
+			// #pragma multi_compile_local_fragment _ MAIN_TEX_USE_SCREEN_COLOR // unused yet
 
 			#pragma target 3.0
 			#pragma vertex vert

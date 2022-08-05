@@ -102,10 +102,13 @@ void ApplyMainTexMask(inout float4 mainColor,inout float4 mainTexMask,float2 uv)
 
 float2 ApplyDistortion(float4 mainUV,float4 distortUV,float customDataIntensity){
     float2 noise = (tex2D(_DistortionNoiseTex, distortUV.xy).xy -0.5) * 2;
-    if(_DoubleEffectOn){
+    #if defined(DOUBLE_EFFECT_ON)
+    // if(_DoubleEffectOn)
+    {
         noise += (tex2D(_DistortionNoiseTex, distortUV.zw).xy -0.5)*2;
         noise *= 0.5;
     }
+    #endif
     
     float2 maskUV = _MainTexUseScreenColor == 0 ? mainUV.xy : mainUV.zw;
     maskUV = maskUV * _DistortionMaskTex_ST.xy + _DistortionMaskTex_ST.zw;
@@ -143,7 +146,7 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
     dissolve = saturate(smoothstep(_DissolveFadingMin,_DissolveFadingMax,dissolve));
 
     #if defined(ALPHA_TEST)
-    if(_DissolveClipOn)
+    // if(_DissolveClipOn)
         clip(dissolve-0.01);
     #endif
     
@@ -162,7 +165,9 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
 
 void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 maskUV){
     float3 offsetColor = tex2D(_OffsetTex,offsetUV.xy) * _OffsetTexColorTint;
-    offsetColor += _DoubleEffectOn > 0 ? tex2D(_OffsetTex,offsetUV.zw) * _OffsetTexColorTint2 : 0;
+    #if defined(DOUBLE_EFFECT_ON)
+        offsetColor += tex2D(_OffsetTex,offsetUV.zw) * _OffsetTexColorTint2;
+    #endif
 
     float mask = tex2D(_OffsetMaskTex,maskUV)[_OffsetMaskChannel];
 

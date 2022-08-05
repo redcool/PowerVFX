@@ -2,36 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 8
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: test 1
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
-  m_ValidKeywords: []
-  m_InvalidKeywords:
-  - DISSOLVE_EDGE_ON
-  - DISSOLVE_ON
-  - FRESNAL_ON
-  - _DISSOLVECLIPON_ON
-  - _DISSOLVEEDGEON_ON
-  - _DISSOLVEFADINGON_ON
-  - _DISSOLVEON_ON
-  - _DISSOLVEREVERT_ON
-  - _DISSOLVETEXOFFSETSTOP_ON
-  - _DISSOLVETEXUSER_ON
-  - _DISTORTIONMASKUSER_ON
-  - _FRESNELON_ON
-  - _FRESNELTRANSPARENTON_ON
-  - _LIGHTON_ON
-  - _MAINTEXMASKUSER_ON
-  - _MATCAPROTATEON_ON
-  - _NOISEUSEATTENMAP_ON
-  - _SOFTPARTICLEON_ON
-  - _VERTEXWAVEATTEN_FORWARDATTEN_ON
-  - _VERTEXWAVEATTEN_VERTEXCOLOR_ON
-  - _VERTEXWAVEDIRALONGNORMALON_ON
+  m_ShaderKeywords: DISSOLVE_ON DISTORTION_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -89,7 +67,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - _AlphaMax: 1
     - _AlphaMin: 0
