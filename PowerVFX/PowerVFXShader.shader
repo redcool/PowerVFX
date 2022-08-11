@@ -53,6 +53,8 @@ Shader "FX/PowerVFX"
 		[Enum(UnityEngine.Rendering.CullMode)]_CullMode("Cull Mode",float) = 0
 		[GroupToggle]_ZWriteMode("ZWriteMode",int) = 0
 		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 4
+		[GroupEnum(_,RGBA 15 RGB 14 RG 12 GB 6 RB 10 R 8 G 4 B 2 A 1 None 0)]
+		_ColorMask("_ColorMask",int) = 0
 // ==================================================_VertexWaveOn
 		[GroupToggle(_,VERTEX_WAVE_ON)]_VertexWaveOn("_VertexWaveOn ?",int) = 0
 		[Header(Noise Map)]
@@ -221,23 +223,25 @@ Shader "FX/PowerVFX"
 			// BlendOp[_BlendOp]
 			Cull[_CullMode]
 			ztest[_ZTestMode]
+			ColorMask [_ColorMask]
+
 			CGPROGRAM
 			#pragma multi_compile_fog
             #pragma multi_compile_instancing
-			#pragma multi_compile _ PBR_LIGHTING
-			#pragma multi_compile _ FRESNEL_ON
+			#pragma multi_compile_local _ PBR_LIGHTING
+			#pragma multi_compile_local _ FRESNEL_ON
 
-			#pragma multi_compile_vertex _ VERTEX_WAVE_ON
-			#pragma multi_compile_fragment _ ALPHA_TEST
-			#pragma multi_compile_fragment _ DISTORTION_ON
-			#pragma multi_compile_fragment _ DISSOLVE_ON
-			#pragma multi_compile_fragment _ OFFSET_ON
-			#pragma multi_compile_fragment _ ENV_REFLECT_ON
-			#pragma multi_compile_fragment _ ENV_REFRACTION_ON
-			#pragma multi_compile_fragment _ MATCAP_ON
-			#pragma multi_compile_fragment _ DEPTH_FADING_ON
-			#pragma multi_compile_fragment _ DOUBLE_EFFECT_ON
-			// #pragma multi_compile_fragment _ MAIN_TEX_USE_SCREEN_COLOR // unused yet
+			#pragma multi_compile_local_vertex _ VERTEX_WAVE_ON
+			#pragma multi_compile_local_fragment _ ALPHA_TEST
+			#pragma multi_compile_local_fragment _ DISTORTION_ON
+			#pragma multi_compile_local_fragment _ DISSOLVE_ON
+			#pragma multi_compile_local_fragment _ OFFSET_ON
+			#pragma multi_compile_local_fragment _ ENV_REFLECT_ON
+			#pragma multi_compile_local_fragment _ ENV_REFRACTION_ON
+			#pragma multi_compile_local_fragment _ MATCAP_ON
+			#pragma multi_compile_local_fragment _ DEPTH_FADING_ON
+			#pragma multi_compile_local_fragment _ DOUBLE_EFFECT_ON
+			// #pragma multi_compile_local_fragment _ MAIN_TEX_USE_SCREEN_COLOR // unused yet
 
 			#pragma target 3.0
 			#pragma vertex vert
