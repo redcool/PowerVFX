@@ -6,6 +6,7 @@
 #include "PowerVFXInput.cginc"
 #include "PowerVFXData.cginc"
 #include "../../PowerShaderLib/Lib/NodeLib.hlsl"
+#include "../../PowerShaderLib/Lib/UVMapping.hlsl"
 #include "UtilLib.cginc"
 
 float4 SampleAttenMap(float2 mainUV,float attenMaskCDATA){
@@ -66,9 +67,13 @@ float4 MainTexOffset(float4 uv){
     float2 mainTexOffset = UVOffset(_MainTex_ST.zw,_MainTexOffsetStop);
     mainTexOffset = lerp(mainTexOffset,uv.zw, _MainTexOffsetUseCustomData_XY); // vertex uv0.z : particle customData1.xy
 
+    //apply sheet
+    uv.xy = RectUV(_Time.y*_MainTexSheetAnimSpeed,uv.xy,_MainTexSheet,true,0);
+
     float4 scrollUV = (float4)0;
     scrollUV.xy = uv.xy * _MainTex_ST.xy + mainTexOffset;
     scrollUV.zw = uv.xy;
+
     return scrollUV;
 }
 

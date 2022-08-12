@@ -41,6 +41,9 @@ CBUFFER_START(UnityPerMaterial)
     float _MainTexMaskOffsetStop;
     int _MainTexMaskChannel;
     float _MainTexUseScreenColor;
+    half2 _MainTexSheet;
+    half _MainTexSheetAnimSpeed;
+    // int _MainTexSheetPlayOnce;
 // ==================================================_VertexWaveOn
     float _VertexWaveOn;
     float _NoiseUseAttenMaskMap;

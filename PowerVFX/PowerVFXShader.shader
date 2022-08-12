@@ -32,6 +32,10 @@ Shader "FX/PowerVFX"
 		[Header(ScreenOpaqueTexture)]
 		[GroupToggle(_)]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
 
+		[Header(SheetAnimation)]
+		_MainTexSheet("_MainTexSheet",vector)=(1,1,1,1)
+		_MainTexSheetAnimSpeed("_MainTexSheetAnimSpeed",float) = 1
+		// [GroupToggle(_)]_MainTexSheetPlayOnce("_MainTexSheetPlayOnce",int) = 0
 // ==================================================		Alpha
 		[Header(Alpha Range)]
 		_AlphaMin("_AlphaMin",range(0,1)) = 0
@@ -54,7 +58,7 @@ Shader "FX/PowerVFX"
 		[GroupToggle]_ZWriteMode("ZWriteMode",int) = 0
 		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 4
 		[GroupEnum(_,RGBA 15 RGB 14 RG 12 GB 6 RB 10 R 8 G 4 B 2 A 1 None 0)]
-		_ColorMask("_ColorMask",int) = 0
+		_ColorMask("_ColorMask",int) = 15
 // ==================================================_VertexWaveOn
 		[GroupToggle(_,VERTEX_WAVE_ON)]_VertexWaveOn("_VertexWaveOn ?",int) = 0
 		[Header(Noise Map)]

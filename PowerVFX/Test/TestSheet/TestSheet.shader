@@ -48,18 +48,39 @@ Shader "Unlit/TestSheet"
                 return o;
             }
 
-            float4 RectUV(float2 uv,float2 sheet){
-                int id = (_Id)%(sheet.x*sheet.y);
-                int x = id % sheet.x;
-                int y = id / sheet.x; 
-                float2 size = 1/sheet;
-                return float4(float2(x,y)*size,float2(x+1,y+1)*size);
+            /**
+                Remap uv to rect uv
+
+                sheet[x:number of row,y:number of column]
+
+                Testcase:
+                    float2 uv = i.uv;
+                    uv = RectUV(_Id * _Time.y,uv,_Sheet,true);
+                    half4 col = tex2D(_MainTex, uv);
+            */
+
+            float2 RectUV(float id,float2 uv,half2 sheet,bool invertY,bool playOnce){
+                /*
+                    id = id % (sheet.x*sheet.y); // play loop
+                    id = min(sheet.x*sheet.y-0.1,id) // play once
+                */
+                half count = sheet.x*sheet.y;
+                id %= count;
+                // id = playOnce ? min(count-0.1,id) : id % count; // play mode
+
+                int x = (id % sheet.x);
+                int y = (id / sheet.x);
+                y= invertY ? (sheet.y-y-1) : y;
+
+                half2 size = 1.0/sheet;
+                half4 rect = half4(half2(x,y),half2(x+1,y+1)) * size.xyxy;
+                return lerp(rect.xy,rect.zw,uv);
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float4 rect = RectUV(i.uv,_Sheet);
-                float2 uv = lerp(rect.xy,rect.zw,i.uv);
+                float2 uv = i.uv;
+                uv  = RectUV(_Id * _Time.y,uv,_Sheet,true,1);
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, uv);
                 // apply fog

@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 59a318bb1780e4746abcbd2551380fc8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexMask:
@@ -73,6 +73,7 @@ Material:
     - _AlphaScale: 1
     - _BackFaceOn: 0
     - _BlendScreenColor: 0
+    - _ColorMask: 15
     - _ColorScale: 1
     - _CullMode: 0
     - _Cutoff: 0.308
@@ -100,7 +101,7 @@ Material:
     - _DistortionRadialRot: 0
     - _DistortionRadialUVOn: 0
     - _DoubleEffectOn: 0
-    - _DstMode: 10
+    - _DstMode: 0
     - _EdgeWidth: 0.1
     - _EnvIntensity: 1
     - _EnvMapMaskChannel: 0
@@ -119,6 +120,7 @@ Material:
     - _MainTexOffsetStop: 0
     - _MainTexOffsetUseCustomData_XY: 0
     - _MainTexSaturate: 1
+    - _MainTexSheetAnimSpeed: 1
     - _MainTexSingleChannelOn: 0
     - _MainTexUseScreenColor: 0
     - _MainUVAngle: 0
@@ -141,7 +143,7 @@ Material:
     - _PixelDissolveOn: 0
     - _PixelWidth: 10
     - _Smoothness: 0.656
-    - _SrcMode: 5
+    - _SrcMode: 1
     - _VertexWaveAttenMaskOffsetScale_UseCustomeData2_X: 0
     - _VertexWaveAtten_MaskMapChannel: 0
     - _VertexWaveAtten_MaskMapOffsetStopOn: 0
@@ -169,6 +171,7 @@ Material:
     - _EnvRefractionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
     - _FresnelColor2: {r: 1, g: 1, b: 1, a: 1}
+    - _MainTexSheet: {r: 9, g: 4, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OffsetDir: {r: 1, g: 1, b: 0, a: 0}
     - _OffsetRadialCenter_LenScale_LenOffset: {r: 0.5, g: 0.5, b: 1, a: 0}
