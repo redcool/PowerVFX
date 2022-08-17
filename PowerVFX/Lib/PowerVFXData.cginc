@@ -9,8 +9,8 @@ struct appdata
     float4 tangent:TANGENT;
     float4 color : COLOR;
     /**
-        xy : main uv
-        zw : mainTex scroll (particle's customData Custom1.xy)
+        uv.xy : main uv
+        uv.zw : mainTex scroll (particle's customData Custom1.xy)
     */
     float4 uv : TEXCOORD0; 
     /**

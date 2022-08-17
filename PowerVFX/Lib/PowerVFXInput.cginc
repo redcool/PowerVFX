@@ -25,11 +25,10 @@
     Particle system custom data
     vector1
         1 (xy)_MainTexOffset_CustomData
-        2 (z)_DissolveCustomDataOn
-        3 (w)_DissolveEdgeWidthCustomData
+        2 (zw)_DissolveCustomData,_DissolveEdgeWidthCustomData
     vector2 
-        1 _DistortionCustomDataOn
-        2 _MainTexMaskByCustomData_Vector2_YZ
+        (x) _DistortionCustomData
+        (y) _VertexWaveAttenMaskOffsetCustomeData
 */
 
 CBUFFER_START(UnityPerMaterial)
