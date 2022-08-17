@@ -13,7 +13,7 @@ float4 SampleAttenMap(float2 mainUV,float attenMaskCDATA){
     // auto offset
     float2 uvOffset = UVOffset(_VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAtten_MaskMapOffsetStopOn);
     // offset by custom data
-    uvOffset = lerp(uvOffset,attenMaskCDATA + _VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X);
+    uvOffset = lerp(uvOffset,attenMaskCDATA + _VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAttenMaskOffsetCustomeDataOn);
 
     float4 attenMapUV = float4(mainUV * _VertexWaveAtten_MaskMap_ST.xy + uvOffset,0,0);
     return tex2Dlod(_VertexWaveAtten_MaskMap,attenMapUV);
@@ -65,7 +65,7 @@ float4 MainTexOffset(float4 uv){
     RotateUV(_MainUVAngle,0.5,uv.xy/**/);
 
     float2 mainTexOffset = UVOffset(_MainTex_ST.zw,_MainTexOffsetStop);
-    mainTexOffset = lerp(mainTexOffset,uv.zw, _MainTexOffsetUseCustomData_XY); // vertex uv0.z : particle customData1.xy
+    mainTexOffset = lerp(mainTexOffset,uv.zw, _MainTexOffset_CustomData_On); // vertex uv0.z : particle customData1.xy
 
     //apply sheet
     uv.xy = RectUV(_Time.y*_MainTexSheetAnimSpeed,uv.xy,_MainTexSheet,true,0);
@@ -119,7 +119,8 @@ float2 ApplyDistortion(float4 mainUV,float4 distortUV,float customDataIntensity)
     maskUV = maskUV * _DistortionMaskTex_ST.xy + _DistortionMaskTex_ST.zw;
     float4 maskTex = tex2D(_DistortionMaskTex,maskUV);
 
-    float intensity = _DistortionByCustomData_Vector2_X ? customDataIntensity : _DistortionIntensity;
+    // float intensity = _DistortionCustomDataOn ? customDataIntensity : _DistortionIntensity;
+    float intensity = lerp(_DistortionIntensity,customDataIntensity,_DistortionCustomDataOn);
     float2 duv = mainUV.xy + noise * 0.2  * intensity * maskTex[_DistortionMaskChannel];
     return duv;
 }
@@ -142,8 +143,9 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
     if(_DissolveByVertexColor)
         cutoff =  1 - color.a; // slider or vertex color
 
-    if(_DissolveByCustomData_Z)
-        cutoff = 1- dissolveCDATA; // slider or particle's custom data
+    // if(_DissolveCustomDataOn)
+    //     cutoff = 1- dissolveCDATA; // slider or particle's custom data
+    cutoff = lerp(cutoff,1- dissolveCDATA,_DissolveCustomDataOn);
     
     cutoff = lerp(-0.15,1.01,cutoff);
 
@@ -158,7 +160,7 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
     mainColor.a *= dissolve;
 
     if(_DissolveEdgeOn){
-        float edgeWidth = _DissolveEdgeWidthByCustomData_W > 0? edgeWidthCDATA : _EdgeWidth;
+        float edgeWidth = lerp(_EdgeWidth,edgeWidthCDATA,_DissolveEdgeWidthCustomDataOn);
         float edge = saturate(smoothstep(edgeWidth-0.1,edgeWidth+0.1,dissolve));
         float4 edgeColor = lerp(_EdgeColor,_EdgeColor2,edge);
         // edgeColor.a *= edge;

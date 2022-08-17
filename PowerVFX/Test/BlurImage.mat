@@ -79,11 +79,11 @@ Material:
     - _Cutoff: 0.5
     - _DepthFadingOn: 0
     - _DepthFadingWidth: 1
-    - _DissolveByCustomData_Z: 0
+    - _DissolveCustomDataOn: 0
     - _DissolveByVertexColor: 0
     - _DissolveClipOn: 1
     - _DissolveEdgeOn: 0
-    - _DissolveEdgeWidthByCustomData_W: 0
+    - _DissolveEdgeWidthCustomDataOn: 0
     - _DissolveFadingMax: 0.2
     - _DissolveFadingMin: 0
     - _DissolveMaskChannel: 3
@@ -94,7 +94,7 @@ Material:
     - _DistortionApplyToDissolve: 0
     - _DistortionApplyToMainTexMask: 0
     - _DistortionApplyToOffset: 0
-    - _DistortionByCustomData_Vector2_X: 0
+    - _DistortionCustomDataOn: 0
     - _DistortionIntensity: 0.5
     - _DistortionMaskChannel: 0
     - _DistortionOn: 0
@@ -120,7 +120,7 @@ Material:
     - _MainTexMaskOffsetStop: 0
     - _MainTexMultiAlpha: 0
     - _MainTexOffsetStop: 0
-    - _MainTexOffsetUseCustomData_XY: 0
+    - _MainTexOffset_CustomData_On: 0
     - _MainTexSaturate: 1
     - _MainTexSingleChannelOn: 0
     - _MainTexUseScreenColor: 1
@@ -146,7 +146,7 @@ Material:
     - _PixelWidth: 10
     - _Smoothness: 0.5
     - _SrcMode: 5
-    - _VertexWaveAttenMaskOffsetScale_UseCustomeData2_X: 0
+    - _VertexWaveAttenMaskOffsetCustomeDataOn: 0
     - _VertexWaveAtten_MaskMapChannel: 0
     - _VertexWaveAtten_MaskMapOffsetStopOn: 0
     - _VertexWaveAtten_MaskMapOn: 0

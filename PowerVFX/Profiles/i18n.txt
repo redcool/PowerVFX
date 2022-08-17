@@ -20,7 +20,7 @@ PresetBlendMode=预制混合模式
 
 _MainTex=主纹理(设置Offset将自动滚动)
 _MainTexOffsetStop=禁用主纹理自动滚动?
-_MainTexOffsetUseCustomData_XY=纹理滚动使用CustomData.xy->uv.zw
+_MainTexOffset_CustomData_On=纹理滚动使用CustomData
 _Color=主纹理颜色
 _ColorScale=颜色倍数
 _MainTexSaturate=主纹理饱和度
@@ -52,14 +52,14 @@ _VertexWaveAtten_MaskMapOn=衰减图?
 _VertexWaveAtten_MaskMap=衰减maskmap(r)
 _VertexWaveAtten_MaskMapOffsetStopOn=停止衰减uv自动滚动
 _VertexWaveAtten_MaskMapChannel=衰减图通道
-_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X=衰减图offset使用粒子customData2.x控制
+_VertexWaveAttenMaskOffsetCustomeDataOn=衰减图offset使用粒子customData2.y控制
 
 _DistortionOn=开启扭曲?
 _DistortionNoiseTex=杂点图(xy:layer1,zw:layer2)
 _DistortionMaskTex=效果遮罩
 _DistortionMaskChannel=遮罩通道
 _DistortionIntensity=强度
-_DistortionByCustomData_Vector2_X=强度由customData(vector2.x)控制
+_DistortionCustomDataOn=强度由customData(vector2.x)控制
 _DistortTile=平铺(xy:1层,zw:2层)
 _DistortDir=方向(xy:1层,zw:2层)
 _DistortionRadialUVOn=径向?
@@ -78,7 +78,7 @@ _DissolveFadingOn = 溶解透明渐变?
 _DissolveFadingMin=透明Min
 _DissolveFadingMax=透明Max
 _DissolveByVertexColor=使用顶点颜色(A)控制?
-_DissolveByCustomData_Z=使用(CustomData.z->uv1.x)控制?
+_DissolveCustomDataOn=使用(CustomData.z->uv1.x)控制?
 
 _DissolveClipOn=像素剔除?
 _Cutoff=镂空值
@@ -86,7 +86,7 @@ _PixelDissolveOn=像素化溶解?
 _PixelWidth=像素化宽
 
 _DissolveEdgeOn=开启溶解边?
-_DissolveEdgeWidthByCustomData_W=溶解边受(CustomData.w->uv1.有)控制?
+_DissolveEdgeWidthCustomDataOn=溶解边受(CustomData.w->uv1.y)控制?
 _EdgeWidth=边宽度
 _EdgeColor=边1颜色
 _EdgeColor2=边2颜色

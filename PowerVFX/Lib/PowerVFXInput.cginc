@@ -21,6 +21,17 @@
     float4 _MainLightPosition;
     float4 _MainLightColor;
 
+/**
+    Particle system custom data
+    vector1
+        1 (xy)_MainTexOffset_CustomData
+        2 (z)_DissolveCustomDataOn
+        3 (w)_DissolveEdgeWidthCustomData
+    vector2 
+        1 _DistortionCustomDataOn
+        2 _MainTexMaskByCustomData_Vector2_YZ
+*/
+
 CBUFFER_START(UnityPerMaterial)
     float _MainUVAngle;
     float4 _Color;
@@ -34,7 +45,7 @@ CBUFFER_START(UnityPerMaterial)
     float4 _MainTex_ST;
     float4 _MainTex_TexelSize;
     float _MainTexOffsetStop;
-    float _MainTexOffsetUseCustomData_XY;
+    int _MainTexOffset_CustomData_On,_MainTexOffset_CustomData_X,_MainTexOffset_CustomData_Y; // default Custom1.xy
 
     float _DoubleEffectOn; //2层效果,
     float4 _MainTexMask_ST;
@@ -61,13 +72,13 @@ CBUFFER_START(UnityPerMaterial)
     float4 _VertexWaveAtten_MaskMap_ST;
     int _VertexWaveAtten_MaskMapOffsetStopOn;
     int _VertexWaveAtten_MaskMapChannel;
-    int _VertexWaveAttenMaskOffsetScale_UseCustomeData2_X;
+    int _VertexWaveAttenMaskOffsetCustomeDataOn,_VertexWaveAttenMaskOffsetCustomeData;//default custom2.y
 // ==================================================_DistortionOn
     float _DistortionOn;
     int _DistortionMaskChannel;
     float4 _DistortionMaskTex_ST;
     float _DistortionIntensity;
-    float _DistortionByCustomData_Vector2_X;
+    int _DistortionCustomDataOn , _DistortionCustomData; // default uv1.z(Custom2.x)
     float4 _DistortTile,_DistortDir;
     int _DistortionRadialUVOn;
     float4 _DistortionRadialCenter_LenScale_LenOffset;
@@ -78,7 +89,7 @@ CBUFFER_START(UnityPerMaterial)
 // ==================================================_DissolveOn
     float _DissolveOn;
     float _DissolveByVertexColor;
-    float _DissolveByCustomData_Z;
+    int _DissolveCustomDataOn,_DissolveCustomData; // default uv1.x(Custom1.z)
     float _DissolveTexChannel;
 
     float _DissolveMaskFromTexOn;
@@ -93,7 +104,7 @@ CBUFFER_START(UnityPerMaterial)
     float _PixelWidth;
 
     float _DissolveEdgeOn;
-    float _DissolveEdgeWidthByCustomData_W;
+    int _DissolveEdgeWidthCustomDataOn,_DissolveEdgeWidthCustomData ; // default uv1.y(Custom1.w)
     float _EdgeWidth;
     float4 _EdgeColor;
     float4 _EdgeColor2;

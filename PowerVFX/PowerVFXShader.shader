@@ -6,7 +6,10 @@ Shader "FX/PowerVFX"
 		_MainTex("Main Texture", 2D) = "white" {}
 		_MainUVAngle("_MainUVAngle",float) = 0
 		[GroupToggle]_MainTexOffsetStop("_MainTexOffsetStop",int)=0
-		[GroupToggle]_MainTexOffsetUseCustomData_XY("_MainTexOffsetUseCustomData_XY -> uv.zw",int)=0
+		[Header(Particle Custom Data)]
+		[GroupToggle]_MainTexOffset_CustomData_On("_MainTexOffset_CustomData_On",int)=0
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexOffset_CustomData_X("_MainTexOffset_CustomData_X",int) = 0
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexOffset_CustomData_Y("_MainTexOffset_CustomData_Y",int) = 1
 
 		[Header(Saturate)]
 		_MainTexSaturate("_MainTexSaturate",float) = 1
@@ -80,7 +83,10 @@ Shader "FX/PowerVFX"
 		_VertexWaveAtten_MaskMap("_VertexWaveAtten_MaskMap",2d) = "white"{}
 		[Enum(R,0,G,1,B,2,A,3)]_VertexWaveAtten_MaskMapChannel("_VertexWaveAtten_MaskMapChannel",int) = 0
 		[GroupToggle]_VertexWaveAtten_MaskMapOffsetStopOn("_VertexWaveAtten_MaskMapOffsetStopOn",int) = 0
-		[GroupToggle]_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X("_VertexWaveAttenMaskOffsetScale_UseCustomeData2_X",int) = 0
+
+		[Header(Particle Custom Data)]
+		[GroupToggle]_VertexWaveAttenMaskOffsetCustomeDataOn("_VertexWaveAttenMaskOffsetCustomeDataOn",int) = 0
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_VertexWaveAttenMaskOffsetCustomeData("_VertexWaveAttenMaskOffsetCustomeData",int) = 4
 // ==================================================Distortion
 		[Header(Distortion)]
 		[GroupToggle(_,DISTORTION_ON)]_DistortionOn("Distortion On?",int)=0
@@ -92,7 +98,9 @@ Shader "FX/PowerVFX"
 
 		[Header(Distortion Intensity)]
 		_DistortionIntensity("Distortion Intensity",Range(0,2)) = 0.5
-		[GroupToggle]_DistortionByCustomData_Vector2_X("_DistortionByCustomData_Vector2_X",int) = 0
+		[Header(Particle Custom Data)]
+		[GroupToggle]_DistortionCustomDataOn("_DistortionCustomDataOn",int) = 0
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_DistortionCustomData("_DistortionCustomData",int) = 5
 
 		[Header(DistortionParams)]
 		_DistortTile("Distort Tile",vector) = (1,1,1,1)
@@ -120,7 +128,11 @@ Shader "FX/PowerVFX"
 		
 		[Header(DissolveType)]
 		[GroupToggle]_DissolveByVertexColor("Dissolve By Vertex Color ?",int)=0
-		[GroupToggle]_DissolveByCustomData_Z("Dissolve By customData.z -> uv1.x ?",int)=0
+
+		[Header(Particle Custom Data)]
+		[GroupToggle]_DissolveCustomDataOn("Dissolve By customData.z -> uv1.x ?",int)=0
+		//default custom1.z
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_DissolveCustomData("_DissolveCustomData",int) = 2
 
 		[Header(DissolveFading)]
 		_DissolveFadingMin("_DissolveFadingMin",range(0,.2)) = 0
@@ -138,7 +150,12 @@ Shader "FX/PowerVFX"
 		[Header(DissolveEdge)]
 		[GroupToggle]_DissolveEdgeOn("Dissolve Edge On?",int)=0
 		_EdgeWidth("EdgeWidth",range(0,0.3)) = 0.1
-		[GroupToggle]_DissolveEdgeWidthByCustomData_W("_DissolveEdgeWidthByCustomData_W.w -> uv1.y",int) = 0
+
+		[Header(Particle Custom Data)]
+		[GroupToggle]_DissolveEdgeWidthCustomDataOn("_DissolveEdgeWidthCustomDataOn.w -> uv1.y",int) = 0
+		//default custom1.w
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_DissolveEdgeWidthCustomData("_DissolveEdgeWidthCustomData",int) = 3
+
 		[HDR]_EdgeColor("EdgeColor",color) = (1,0,0,1)
 		[HDR]_EdgeColor2("EdgeColor2",color) = (0,1,0,1)
 // ==================================================Offset
@@ -233,9 +250,9 @@ Shader "FX/PowerVFX"
 			#pragma multi_compile_fog
             #pragma multi_compile_instancing
 			#pragma multi_compile_local _ PBR_LIGHTING
-			#pragma multi_compile_local _ FRESNEL_ON
 
 			#pragma multi_compile_local_vertex _ VERTEX_WAVE_ON
+			#pragma multi_compile_local_fragment _ FRESNEL_ON
 			#pragma multi_compile_local_fragment _ ALPHA_TEST
 			#pragma multi_compile_local_fragment _ DISTORTION_ON
 			#pragma multi_compile_local_fragment _ DISSOLVE_ON

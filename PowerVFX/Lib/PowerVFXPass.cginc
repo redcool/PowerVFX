@@ -1,4 +1,6 @@
 #if !defined(POWER_VFX_PASS_CGINC)
+// Upgrade NOTE: excluded shader from DX11, OpenGL ES 2.0 because it uses unsized arrays
+#pragma exclude_renderers d3d11 gles
 #define POWER_VFX_PASS_CGINC
 #include "UnityCG.cginc"
 #include "PowerVFXCore.cginc"
@@ -11,20 +13,29 @@ v2f vert(appdata v)
 
     v2f o = (v2f)0;
     o.color = v.color;
+    o.viewDir = viewDir;
+
+    // composite custom datas
+    o.customData1 = float4(v.uv.zw,v.uv1.xy);// particle custom data (Custom1.zw)(Custom2.xy)
+    o.customData2 = float4(v.uv1.zw,v.uv2.xy); // particle custom data (Custom2.xy)
+    float customDatas[8] = {o.customData1,o.customData2};
 
     #if defined(VERTEX_WAVE_ON)
     // if(_VertexWaveOn)
     {
-        float attemMaskCDATA = v.uv1.z;
+        float attemMaskCDATA = customDatas[_VertexWaveAttenMaskOffsetCustomeData];
         ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv,attemMaskCDATA);
     }
     #endif
     o.vertex = UnityWorldToClipPos(worldPos);
 
-    // o.uv = v.uv; // uv.xy : main uv, zw : custom data.xy
-    o.uv = MainTexOffset(v.uv);
-    o.grabPos = ComputeGrabScreenPos(o.vertex);
-    COMPUTE_EYEDEPTH(o.grabPos.z);
+
+    // uv.xy : main uv, zw : custom data1.xy
+    float mainTexOffsetCdataX = customDatas[_MainTexOffset_CustomData_X];
+    float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
+    o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));
+    // o.grabPos = ComputeGrabScreenPos(o.vertex);
+    // COMPUTE_EYEDEPTH(o.grabPos.z);
 
     // #if defined(UNITY_UV_STARTS_AT_TOP)
     //     if(_MainTex_TexelSize.y < 0)
@@ -40,13 +51,6 @@ v2f vert(appdata v)
     float3 viewNormal = normalize(mul((half3x3)UNITY_MATRIX_MV,v.normal));
     o.viewNormal = viewNormal.xy * 0.5 + 0.5;
 
-    #if defined(FRESNEL_ON)
-    // if(_FresnelOn)
-        o.fresnel_customDataZ.x = 1 - dot(worldNormal,viewDir) ;
-    #endif
-
-    o.fresnel_customDataZ.yzw = v.uv1.xyz;// particle custom data (Custom1).zw
-
     #if defined(PBR_LIGHTING)
     // if(_PbrLightOn){
         float3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
@@ -61,8 +65,10 @@ v2f vert(appdata v)
 fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
 {
     TANGENT_SPACE_SPLIT(i);
+
     float3 reflectDir = i.reflectDir;
     float3 refractDir = i.refractDir;
+    float3 viewDir = normalize(i.viewDir);
 
     float4 mainColor = float4(0,0,0,1);
     float4 screenColor=0;
@@ -70,13 +76,16 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     // float4 mainUV = MainTexOffset(i.uv);
     float4 mainUV = i.uv;
 
-// get particle system's custom data
-    float dissolveCustomData = i.fresnel_customDataZ.y;
-    float dissolveEdgeWidth = i.fresnel_customDataZ.z;
-    float distortionCustomData = i.fresnel_customDataZ.w;
+//  get particle system's custom data
+    float customDatas[8] = {i.customData1,i.customData2};
+
+    float dissolveCustomData = customDatas[_DissolveCustomData];
+    float dissolveEdgeWidthCustomData = customDatas[_DissolveEdgeWidthCustomData];
+    float distortionCustomData = customDatas[_DistortionCustomData];
 
     //use _CameraOpaqueTexture
-    float2 screenUV = i.grabPos.xy/i.grabPos.w;
+    // float2 screenUV = i.grabPos.xy/i.grabPos.w;
+    float2 screenUV = i.vertex.xy/_ScreenParams.xy;
     mainUV.xy = _MainTexUseScreenColor == 0 ? mainUV.xy : screenUV;
     
     float2 uvDistorted = mainUV.zw;
@@ -101,7 +110,6 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
 
     #if defined(PBR_LIGHTING)
         normal = SampleNormalMap(uvDistorted,i.tSpace0,i.tSpace1,i.tSpace2);
-        float3 viewDir = normalize(_WorldSpaceCameraPos - worldPos);
         ApplyPbrLighting(mainColor.xyz/**/,uvDistorted,normal,viewDir);
     #endif
 
@@ -134,14 +142,14 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     {
         float2 dissolveUVOffset = UVOffset(_DissolveTex_ST.zw,_DissolveTexOffsetStop);
         float2 dissolveUV = (_DistortionApplyToDissolve ? uvDistorted : mainUV.zw) * _DissolveTex_ST.xy + dissolveUVOffset;
-        ApplyDissolve(mainColor,dissolveUV,i.color,dissolveCustomData,dissolveEdgeWidth);
+        ApplyDissolve(mainColor,dissolveUV,i.color,dissolveCustomData,dissolveEdgeWidthCustomData);
     }
     #endif 
 
     #if defined(FRESNEL_ON)
     // if(_FresnelOn)
     {
-        float fresnel = i.fresnel_customDataZ.x;
+        float fresnel = 1 - dot(worldNormal,viewDir);
         ApplyFresnal(mainColor,fresnel,screenColor);
     }
     #endif
