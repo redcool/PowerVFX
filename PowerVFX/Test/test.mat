@@ -188,7 +188,7 @@ Material:
     - _VertexDistortionIntensity: 1
     - _VertexDistortionOn: 0
     - _VertexDistortionSpeed: 1
-    - _VertexWaveAttenMaskOffsetCustomeDataOn: 0
+    - _VertexWaveAttenMaskOffsetCustomDataOn: 0
     - _VertexWaveAtten_ForwardAtten: 1
     - _VertexWaveAtten_MapOn: 0
     - _VertexWaveAtten_MaskMapChannel: 0

@@ -13,7 +13,7 @@ float4 SampleAttenMap(float2 mainUV,float attenMaskCDATA){
     // auto offset
     float2 uvOffset = UVOffset(_VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAtten_MaskMapOffsetStopOn);
     // offset by custom data
-    uvOffset = lerp(uvOffset,attenMaskCDATA + _VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAttenMaskOffsetCustomeDataOn);
+    uvOffset = lerp(uvOffset,attenMaskCDATA + _VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAttenMaskOffsetCustomDataOn);
 
     float4 attenMapUV = float4(mainUV * _VertexWaveAtten_MaskMap_ST.xy + uvOffset,0,0);
     return tex2Dlod(_VertexWaveAtten_MaskMap,attenMapUV);
@@ -98,9 +98,10 @@ void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,fl
     mainColor.w = smoothstep(_AlphaMin,_AlphaMax,mainColor.w);
 }
 
-void ApplyMainTexMask(inout float4 mainColor,inout float4 mainTexMask,float2 uv){
+void ApplyMainTexMask(inout float4 mainColor,inout float4 mainTexMask,float2 uv,float2 maskOffsetCDATA){
     // float2 maskTexOffset = _MainTexMask_ST.zw * ( 1+ _Time.xx *(1-_MainTexMaskOffsetStop) );
     float2 maskTexOffset = UVOffset(_MainTexMask_ST.zw,_MainTexMaskOffsetStop);
+    maskTexOffset = lerp(maskTexOffset,maskOffsetCDATA,_MainTexMaskOffsetCustomDataOn);
     mainTexMask = tex2D(_MainTexMask,uv*_MainTexMask_ST.xy + maskTexOffset);// fp opearate mask uv.
     mainColor.a *= mainTexMask[_MainTexMaskChannel];
 }

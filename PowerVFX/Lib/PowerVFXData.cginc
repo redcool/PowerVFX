@@ -16,7 +16,7 @@ struct appdata
     /**
         uv1.xy (x:dissolve,y:dissolveEdgeWidth (particle's customData Custom1.zw)
         uv1.z (_DistortionCustomData)(custom2.x)
-        uv1.w(_VertexWaveAttenMaskOffsetCustomeData) (particle's customData Custom2.y)
+        uv1.w(_VertexWaveAttenMaskOffsetCustomData) (particle's customData Custom2.y)
     */
     float4 uv1:TEXCOORD1;
     /**

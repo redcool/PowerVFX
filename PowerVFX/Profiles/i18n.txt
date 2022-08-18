@@ -36,7 +36,7 @@ _MainTexMaskChannel=遮罩通道?
 _MainTexUseScreenColor=主纹理使用屏幕颜色(需_CameraOpaqueTexture)
 
 _VertexWaveOn=开启顶点摆动?
-_NoiseUseAttenMaskMap=衰减图用于噪波
+_NoiseUseAttenMaskMap=噪波采样衰减图?
 _VertexWaveSpeed=速度
 _VertexWaveSpeedManual=手动速度?
 _VertexWaveIntensity=强度
@@ -48,11 +48,11 @@ _VertexWaveDirAtten_LocalSpaceOn=本地空间方向?
 _VertexWaveAtten_VertexColor=顶点色衰减(rgb)
 _VertexWaveAtten_NormalAttenOn=法线参与方向衰减?
 
-_VertexWaveAtten_MaskMapOn=衰减图?
-_VertexWaveAtten_MaskMap=衰减maskmap(r)
+_VertexWaveAtten_MaskMapOn=用图控制衰减?
+_VertexWaveAtten_MaskMap=衰减图
 _VertexWaveAtten_MaskMapOffsetStopOn=停止衰减uv自动滚动
 _VertexWaveAtten_MaskMapChannel=衰减图通道
-_VertexWaveAttenMaskOffsetCustomeDataOn=衰减图offset使用粒子customData2.y控制
+_VertexWaveAttenMaskOffsetCustomDataOn=衰减图offset使用粒子customData2.y控制
 
 _DistortionOn=开启扭曲?
 _DistortionNoiseTex=杂点图(xy:layer1,zw:layer2)

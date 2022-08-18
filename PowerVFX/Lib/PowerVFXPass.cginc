@@ -23,7 +23,7 @@ v2f vert(appdata v)
     #if defined(VERTEX_WAVE_ON)
     // if(_VertexWaveOn)
     {
-        float attemMaskCDATA = customDatas[_VertexWaveAttenMaskOffsetCustomeData];
+        float attemMaskCDATA = customDatas[_VertexWaveAttenMaskOffsetCustomData];
         ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv,attemMaskCDATA);
     }
     #endif
@@ -82,6 +82,7 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     float dissolveCustomData = customDatas[_DissolveCustomData];
     float dissolveEdgeWidthCustomData = customDatas[_DissolveEdgeWidthCustomData];
     float distortionCustomData = customDatas[_DistortionCustomData];
+    float2 mainTexMaskOffsetCustomData = float2(customDatas[_MainTexMaskOffsetCustomDataX] , customDatas[_MainTexMaskOffsetCustomDataY]);
 
     //use _CameraOpaqueTexture
     // float2 screenUV = i.grabPos.xy/i.grabPos.w;
@@ -106,7 +107,7 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
 
     //-------- mainColor, screenColor prepared done
     float4 mainTexMask=0;
-    ApplyMainTexMask(mainColor/**/,mainTexMask/**/,_DistortionApplyToMainTexMask ? uvDistorted : mainUV.zw);
+    ApplyMainTexMask(mainColor/**/,mainTexMask/**/,_DistortionApplyToMainTexMask ? uvDistorted : mainUV.zw,mainTexMaskOffsetCustomData);
 
     #if defined(PBR_LIGHTING)
         normal = SampleNormalMap(uvDistorted,i.tSpace0,i.tSpace1,i.tSpace2);

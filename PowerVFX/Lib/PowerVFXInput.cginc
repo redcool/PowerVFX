@@ -28,7 +28,7 @@
         2 (zw)_DissolveCustomData,_DissolveEdgeWidthCustomData
     vector2 
         (x) _DistortionCustomData
-        (y) _VertexWaveAttenMaskOffsetCustomeData
+        (y) _VertexWaveAttenMaskOffsetCustomData
 */
 
 CBUFFER_START(UnityPerMaterial)
@@ -50,6 +50,7 @@ CBUFFER_START(UnityPerMaterial)
     float4 _MainTexMask_ST;
     float _MainTexMaskOffsetStop;
     int _MainTexMaskChannel;
+    int _MainTexMaskOffsetCustomDataOn,_MainTexMaskOffsetCustomDataX,_MainTexMaskOffsetCustomDataY; // default Custom2.zw
     float _MainTexUseScreenColor;
     half2 _MainTexSheet;
     half _MainTexSheetAnimSpeed;
@@ -71,7 +72,7 @@ CBUFFER_START(UnityPerMaterial)
     float4 _VertexWaveAtten_MaskMap_ST;
     int _VertexWaveAtten_MaskMapOffsetStopOn;
     int _VertexWaveAtten_MaskMapChannel;
-    int _VertexWaveAttenMaskOffsetCustomeDataOn,_VertexWaveAttenMaskOffsetCustomeData;//default custom2.y
+    int _VertexWaveAttenMaskOffsetCustomDataOn,_VertexWaveAttenMaskOffsetCustomData;//default custom2.y
 // ==================================================_DistortionOn
     float _DistortionOn;
     int _DistortionMaskChannel;

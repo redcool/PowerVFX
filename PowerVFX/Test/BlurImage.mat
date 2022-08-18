@@ -146,7 +146,7 @@ Material:
     - _PixelWidth: 10
     - _Smoothness: 0.5
     - _SrcMode: 5
-    - _VertexWaveAttenMaskOffsetCustomeDataOn: 0
+    - _VertexWaveAttenMaskOffsetCustomDataOn: 0
     - _VertexWaveAtten_MaskMapChannel: 0
     - _VertexWaveAtten_MaskMapOffsetStopOn: 0
     - _VertexWaveAtten_MaskMapOn: 0

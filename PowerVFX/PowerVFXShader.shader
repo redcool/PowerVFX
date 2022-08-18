@@ -32,6 +32,11 @@ Shader "FX/PowerVFX"
 		[GroupToggle]_MainTexMaskOffsetStop("_MainTexMaskOffsetStop",int)=0
 		[Enum(R,0,G,1,B,2,A,3)]_MainTexMaskChannel("_MainTexMaskChannel",int) = 0
 
+		[Header(Particle Custom Data)]
+		[GroupToggle]_MainTexMaskOffsetCustomDataOn("_MainTexMaskOffsetCustomDataOn",int)=0
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexMaskOffsetCustomDataX("_MainTexMaskOffsetCustomDataX",int) = 6
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexMaskOffsetCustomDataY("_MainTexMaskOffsetCustomDataY",int) = 7
+
 		[Header(ScreenOpaqueTexture)]
 		[GroupToggle(_)]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
 
@@ -85,8 +90,8 @@ Shader "FX/PowerVFX"
 		[GroupToggle]_VertexWaveAtten_MaskMapOffsetStopOn("_VertexWaveAtten_MaskMapOffsetStopOn",int) = 0
 
 		[Header(Particle Custom Data)]
-		[GroupToggle]_VertexWaveAttenMaskOffsetCustomeDataOn("_VertexWaveAttenMaskOffsetCustomeDataOn",int) = 0
-		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_VertexWaveAttenMaskOffsetCustomeData("_VertexWaveAttenMaskOffsetCustomeData",int) = 4
+		[GroupToggle]_VertexWaveAttenMaskOffsetCustomDataOn("_VertexWaveAttenMaskOffsetCustomDataOn",int) = 0
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_VertexWaveAttenMaskOffsetCustomData("_VertexWaveAttenMaskOffsetCustomData",int) = 4
 // ==================================================Distortion
 		[Header(Distortion)]
 		[GroupToggle(_,DISTORTION_ON)]_DistortionOn("Distortion On?",int)=0
