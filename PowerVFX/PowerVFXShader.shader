@@ -27,7 +27,7 @@ Shader "FX/PowerVFX"
 		[GroupToggle]_BackFaceOn("_BackFaceOn",int) = 0
 		[HDR]_BackFaceColor("BackFace Color",Color) = (0.5,0.5,.5,1)
 
-		[Header(MaskTexMask)]
+		[Header(MaskTex)]
 		_MainTexMask("Main Texture Mask(R)", 2D) = "white" {}
 		[GroupToggle]_MainTexMaskOffsetStop("_MainTexMaskOffsetStop",int)=0
 		[Enum(R,0,G,1,B,2,A,3)]_MainTexMaskChannel("_MainTexMaskChannel",int) = 0
