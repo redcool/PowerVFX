@@ -1,0 +1,2 @@
+// property's help text
+_DoubleEffectOn=(扭曲,流光)开双重效果
