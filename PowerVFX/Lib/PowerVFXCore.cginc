@@ -88,10 +88,11 @@ void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,fl
     
     ApplySaturate(mainColor);
 
-    if(_MainTexSingleChannelOn){
-        mainColor = mainColor[_MainTexChannel];
-    }
+    //select a channel
+    mainColor = lerp(mainColor, mainColor[_MainTexChannel] ,_MainTexSingleChannelOn);
+    // multiply alpha
     mainColor.xyz *= lerp(1,mainColor.a * vertexColor.a * color.a,_MainTexMultiAlpha);
+    // color tint
     mainColor *= color * vertexColor * _ColorScale;
     // for alpha
     mainColor.w *= _AlphaScale;
