@@ -3,6 +3,3 @@
 
 _DissolveClipOn=#FF0000
 // new features #88ff88
-_MainTexSheet=#88ff88
-_MainTexSheetAnimSpeed=#88ff88
-_MainTexSheetPlayOnce=#88ff88

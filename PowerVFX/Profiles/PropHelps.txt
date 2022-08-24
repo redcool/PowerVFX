@@ -1,2 +1,8 @@
 // property's help text
+_MainTex=基础图
 _DoubleEffectOn=(扭曲,流光)开双重效果
+_MainUVAngle=主uv旋转角度
+_MainTexOffset_CustomData_On=使用ParticleSystem的CustomData控制主纹理偏移
+_MainTexUseScreenColor=使用屏幕颜色
+_MainTexSheet=使用序列帧动画(xy,水平,竖直的数量)
+_MainTexSheetAnimSpeed=多少帧每秒
