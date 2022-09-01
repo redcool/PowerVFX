@@ -6,7 +6,7 @@
 
 v2f vert(appdata v)
 {
-    float4 worldPos = mul(unity_ObjectToWorld,v.vertex);
+    float3 worldPos = mul(unity_ObjectToWorld,v.vertex).xyz;
     float3 viewDir = normalize(_WorldSpaceCameraPos.xyz - worldPos.xyz);
     float3 worldNormal = normalize(mul(v.normal,(float3x3)unity_WorldToObject));
 
