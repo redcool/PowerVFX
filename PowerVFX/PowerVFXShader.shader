@@ -230,13 +230,16 @@ Shader "FX/PowerVFX"
 
 // ================================================== Light		
 		[Header(Light)]
-		[GroupToggle(_,PBR_LIGHTING)]_PbrLightOn("_PbrLightOn",float) = 0
+		[GroupToggle(_,PBR_LIGHTING)]_PbrLightOn("_PbrLightOn",int) = 0
 		_NormalMap("_NormalMap",2d)="bump"{}
 		_NormalMapScale("_NormalMapScale",range(0,5)) = 1
 		_PbrMask("_PbrMask(Metal,Smooth,Occ)",2d)="white"{}
 		_Metallic("_Metallic",range(0,1))=0.5
 		_Smoothness("_Smoothness",range(0,1))=0.5
 		_Occlusion("_Occlusion",range(0,1)) = 0
+
+		[Header(Additional Lights)]
+		[GroupToggle(_,_ADDITIONAL_LIGHTS)]_AdditionalLightOn("_AdditionalLightOn",int)=0
 	}
 	SubShader
 	{
@@ -251,10 +254,11 @@ Shader "FX/PowerVFX"
 			ztest[_ZTestMode]
 			ColorMask [_ColorMask]
 
-			CGPROGRAM
+			HLSLPROGRAM
 			#pragma multi_compile_fog
             #pragma multi_compile_instancing
 			#pragma multi_compile_local _ PBR_LIGHTING
+			#pragma multi_compile_local _ _ADDITIONAL_LIGHTS
 
 			#pragma multi_compile_local_vertex _ VERTEX_WAVE_ON
 			#pragma multi_compile_local_fragment _ FRESNEL_ON
@@ -275,7 +279,7 @@ Shader "FX/PowerVFX"
 			
 			#include "Lib/PowerVFXPass.cginc"
 
-			ENDCG
+			ENDHLSL
 		}
 	}
 

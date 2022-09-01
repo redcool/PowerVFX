@@ -38,11 +38,9 @@ struct v2f
     float4 uv : TEXCOORD0;
     // x y:customData.x,z:_VertexWaveAttenMask_UseCustomeData2_X
     float4 customData1:TEXCOORD1;
-    // 
     float4 customData2:TEXCOORD2;
-    // float4 grabPos:TEXCOORD2;
     TANGENT_SPACE_DECLARE(3,4,5);
-    UNITY_FOG_COORDS(6)
+    float fogCoord:TEXCOORD6;
     float3 viewDir :TEXCOORD7;
     
 };

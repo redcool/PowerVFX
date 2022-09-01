@@ -4,7 +4,7 @@ Shader "Unlit/TestSheet"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Sheet("_Sheet",vector)=(1,1,1,1)
-        _Id("id",int) = 0
+        [Tooltip(need helps)]_Id("id",int) = 0
     }
     SubShader
     {

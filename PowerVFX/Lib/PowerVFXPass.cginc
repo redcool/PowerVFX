@@ -1,8 +1,7 @@
 #if !defined(POWER_VFX_PASS_CGINC)
-// Upgrade NOTE: excluded shader from DX11, OpenGL ES 2.0 because it uses unsized arrays
-#pragma exclude_renderers d3d11 gles
 #define POWER_VFX_PASS_CGINC
-#include "UnityCG.cginc"
+#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
+#include "../../PowerShaderLib/UrpLib/URP_Fog.hlsl"
 #include "PowerVFXCore.cginc"
 
 v2f vert(appdata v)
@@ -58,11 +57,12 @@ v2f vert(appdata v)
     // }
     #endif
 
-    UNITY_TRANSFER_FOG(o,o.vertex);
+    o.fogCoord.x = ComputeFogFactor(o.vertex.z);
+    // UNITY_TRANSFER_FOG(o,o.vertex);
     return o;
 }
 
-fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
+half4 frag(v2f i,half faceId:VFACE) : SV_Target
 {
     TANGENT_SPACE_SPLIT(i);
 
@@ -112,7 +112,8 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     #if defined(PBR_LIGHTING)
         normal = SampleNormalMap(uvDistorted,i.tSpace0,i.tSpace1,i.tSpace2);
         ApplyPbrLighting(mainColor.xyz/**/,uvDistorted,normal,viewDir);
-    #endif
+
+    #endif //PBR_LIGHTING
 
     #if defined(ENV_REFRACTION_ON) || defined(ENV_REFLECT_ON)
     // if(_EnvReflectOn || _EnvRefractionOn)
@@ -171,8 +172,7 @@ fixed4 frag(v2f i,fixed faceId:VFACE) : SV_Target
     
     mainColor.a = saturate(mainColor.a );
     // apply fog
-    UNITY_APPLY_FOG(i.fogCoord , mainColor);
-    // mainColor.xyz *= lerp(1,mainColor.a,_MainTexMultiAlpha);
+    mainColor.xyz = MixFog(mainColor.xyz,i.fogCoord);
 
     return mainColor;
 }

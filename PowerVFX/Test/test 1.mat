@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: test 1
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
-  m_ShaderKeywords: ALPHA_TEST DISTORTION_ON
+  m_ShaderKeywords: ALPHA_TEST
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 59a318bb1780e4746abcbd2551380fc8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 84ee3e1689c6a194b8aa0e1dbd660542, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexMask:
@@ -72,17 +72,19 @@ Material:
     - _AlphaMin: 0
     - _AlphaScale: 1
     - _BackFaceOn: 0
-    - _BlendScreenColor: 0
+    - _BlendScreenColor: 0.406
     - _ColorMask: 15
     - _ColorScale: 1
     - _CullMode: 2
     - _Cutoff: 0.5
     - _DepthFadingOn: 0
     - _DepthFadingWidth: 1
-    - _DissolveCustomDataOn: 0
     - _DissolveByVertexColor: 0
     - _DissolveClipOn: 1
+    - _DissolveCustomData: 2
+    - _DissolveCustomDataOn: 0
     - _DissolveEdgeOn: 0
+    - _DissolveEdgeWidthCustomData: 3
     - _DissolveEdgeWidthCustomDataOn: 0
     - _DissolveFadingMax: 0.2
     - _DissolveFadingMin: 0
@@ -94,28 +96,31 @@ Material:
     - _DistortionApplyToDissolve: 0
     - _DistortionApplyToMainTexMask: 0
     - _DistortionApplyToOffset: 0
+    - _DistortionCustomData: 5
     - _DistortionCustomDataOn: 0
     - _DistortionIntensity: 0
     - _DistortionMaskChannel: 0
-    - _DistortionOn: 1
+    - _DistortionOn: 0
     - _DistortionRadialRot: 0
     - _DistortionRadialUVOn: 0
-    - _DistortionCustomData: 5
     - _DoubleEffectOn: 0
-    - _DstMode: 10
+    - _DstMode: 0
     - _EdgeWidth: 0.1
     - _EnvIntensity: 1
     - _EnvMapMaskChannel: 0
-    - _EnvMaskUseMainTexMask: 3
+    - _EnvMaskUseMainTexMask: 1
     - _EnvReflectOn: 0
     - _EnvRefractionIOR: 1.33
     - _EnvRefractionOn: 0
     - _FresnelColorMode: 0
     - _FresnelOn: 0
-    - _FresnelPowerMax: 0.5
-    - _FresnelPowerMin: 0.4
+    - _FresnelPowerMax: 0.459
+    - _FresnelPowerMin: 0.414
     - _MainTexChannel: 0
     - _MainTexMaskChannel: 0
+    - _MainTexMaskOffsetCustomDataOn: 0
+    - _MainTexMaskOffsetCustomDataX: 6
+    - _MainTexMaskOffsetCustomDataY: 7
     - _MainTexMaskOffsetStop: 0
     - _MainTexMultiAlpha: 0
     - _MainTexOffsetStop: 0
@@ -124,8 +129,8 @@ Material:
     - _MainTexOffset_CustomData_Y: 1
     - _MainTexSaturate: 1
     - _MainTexSheetAnimSpeed: 10
-    - _MainTexSingleChannelOn: 0
-    - _MainTexUseScreenColor: 0
+    - _MainTexSingleChannelOn: 1
+    - _MainTexUseScreenColor: 1
     - _MainUVAngle: 0
     - _MatCapAngle: 0
     - _MatCapIntensity: 1
@@ -146,7 +151,8 @@ Material:
     - _PixelDissolveOn: 0
     - _PixelWidth: 10
     - _Smoothness: 0.5
-    - _SrcMode: 5
+    - _SrcMode: 1
+    - _VertexWaveAttenMaskOffsetCustomData: 4
     - _VertexWaveAttenMaskOffsetCustomDataOn: 0
     - _VertexWaveAtten_MaskMapChannel: 0
     - _VertexWaveAtten_MaskMapOffsetStopOn: 0

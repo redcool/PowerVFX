@@ -7,6 +7,7 @@
 #include "PowerVFXData.cginc"
 #include "../../PowerShaderLib/Lib/NodeLib.hlsl"
 #include "../../PowerShaderLib/Lib/UVMapping.hlsl"
+#include "../../PowerShaderLib/UrpLib/Lighting.hlsl"
 #include "UtilLib.cginc"
 
 float4 SampleAttenMap(float2 mainUV,float attenMaskCDATA){
@@ -180,7 +181,7 @@ void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 maskUV){
 
     float mask = tex2D(_OffsetMaskTex,maskUV)[_OffsetMaskChannel];
 
-    offsetColor =  offsetColor * _OffsetBlendIntensity * unity_ColorSpaceDouble * mask;
+    offsetColor =  offsetColor * _OffsetBlendIntensity * mask * 2; //unity_ColorSpaceDouble
     
     mainColor.rgb = mainColor.rgb * (_OffsetBlendMode + offsetColor);
 }
@@ -196,7 +197,7 @@ void ApplyFresnal(inout float4 mainColor,float fresnel,float4 screenColor){
 
 float3 SampleEnvMap(float3 dir){
     float4 c = texCUBE(_EnvMap,dir);
-    return DecodeHDR(c,_EnvMap_HDR);
+    return DecodeHDREnvironment(c,_EnvMap_HDR);
 }
 
 void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refractDir,float envMask){
@@ -234,9 +235,9 @@ void ApplyMatcap(inout float4 mainColor,float2 mainUV,float2 viewNormal){
 }
 
 void ApplySoftParticle(inout float4 mainColor,float4 projPos){
-    float sceneZ = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(projPos)));
-    float partZ = projPos.z;
-    float delta = (sceneZ-partZ);
+    float sceneZ = LinearEyeDepth(tex2D(_CameraDepthTexture, projPos.xy/projPos.w),_ZBufferParams);
+    float curZ = projPos.z;
+    float delta = (sceneZ-curZ);
     float fade = saturate (_DepthFadingWidth * delta + 0.12*delta);
     // mainColor *= smoothstep(-0.5,0.5,fade);
     mainColor *= fade;// xyz,a all multi fade
@@ -268,7 +269,7 @@ void ApplyPbrLighting(inout float3 mainColor,float2 uv,float3 n,float3 v){
     float mip = (1.7-0.7*rough)*rough*6;
     float3 reflectDir = reflect(-v,n);
     float4 envColor = texCUBElod(_EnvMap,float4(reflectDir,mip));
-    envColor.xyz = DecodeHDR(envColor,_EnvMap_HDR);
+    envColor.xyz = DecodeHDREnvironment(envColor,_EnvMap_HDR);
     float surfaceReducion = 1/(a2+1);
     float grazingTerm = saturate(metallic+smoothness);
     float fresnelTerm = Pow4(1-nv);
@@ -282,7 +283,7 @@ void ApplyPbrLighting(inout float3 mainColor,float2 uv,float3 n,float3 v){
 }
 
 float3 SampleNormalMap(float2 uv,float4 tSpace0,float4 tSpace1,float4 tSpace2){
-    float3 tn = UnpackScaleNormal(tex2D(_NormalMap,uv),_NormalMapScale);
+    float3 tn = UnpackNormalScale(tex2D(_NormalMap,uv),_NormalMapScale);
     return TangentToWorld(tn,tSpace0,tSpace1,tSpace2);
 }
 #endif //POWER_VFX_CGINC

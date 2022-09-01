@@ -15,11 +15,11 @@
     
     sampler2D _MatCapTex;
     sampler2D _VertexWaveAtten_MaskMap;//r
-    UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
+    sampler2D _CameraDepthTexture;
     sampler2D _NormalMap;
 
-    float4 _MainLightPosition;
-    float4 _MainLightColor;
+    // float4 _MainLightPosition;
+    // float4 _MainLightColor;
 
 /**
     Particle system custom data
