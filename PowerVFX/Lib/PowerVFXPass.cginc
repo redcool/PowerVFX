@@ -151,7 +151,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #if defined(FRESNEL_ON)
     // if(_FresnelOn)
     {
-        float fresnel = 1 - dot(worldNormal,viewDir);
+        float fresnel = 1 - dot(normal,viewDir);
         ApplyFresnal(mainColor,fresnel,screenColor);
     }
     #endif
