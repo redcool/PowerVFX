@@ -238,6 +238,10 @@ Shader "FX/PowerVFX"
 		_Smoothness("_Smoothness",range(0,1))=0.5
 		_Occlusion("_Occlusion",range(0,1)) = 0
 
+		[Header(Shadow)]
+		// [GroupToggle(_,_RECEIVE_SHADOWS_ON)]_ReceiveShadowOn("_ReceiveShadowOn",int) = 0
+		// _MainLightSoftShadowScale("_MainLightSoftShadowScale",range(0,1))=0
+
 		[Header(Additional Lights)]
 		[GroupToggle(_,_ADDITIONAL_LIGHTS)]_AdditionalLightOn("_AdditionalLightOn",int)=0
 	}
@@ -257,8 +261,16 @@ Shader "FX/PowerVFX"
 			HLSLPROGRAM
 			#pragma multi_compile_fog
             #pragma multi_compile_instancing
+
 			#pragma multi_compile_local _ PBR_LIGHTING
-			#pragma multi_compile_local _ _ADDITIONAL_LIGHTS
+			#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE 
+			#pragma multi_compile_fragment _ _SHADOWS_SOFT
+			
+			#pragma multi_compile_fragment _ _ADDITIONAL_LIGHTS
+			#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+			#pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT
+
+			#pragma shader_feature_local_fragment _RECEIVE_SHADOWS_ON
 
 			#pragma multi_compile_local_vertex _ VERTEX_WAVE_ON
 			#pragma multi_compile_local_fragment _ FRESNEL_ON

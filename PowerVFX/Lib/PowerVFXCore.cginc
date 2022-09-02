@@ -196,7 +196,7 @@ void ApplyFresnal(inout float4 mainColor,float fresnel,float4 screenColor){
 }
 
 float3 SampleEnvMap(float3 dir){
-    float4 c = texCUBE(_EnvMap,dir);
+    float4 c = SAMPLE_TEXTURECUBE(_EnvMap,sampler_EnvMap,dir);
     return DecodeHDREnvironment(c,_EnvMap_HDR);
 }
 
@@ -243,9 +243,11 @@ void ApplySoftParticle(inout float4 mainColor,float4 projPos){
     mainColor *= fade;// xyz,a all multi fade
 }
 
+
+/*
 float Pow4(float a){return a*a*a*a;}
 
-void ApplyPbrLighting(inout float3 mainColor,float2 uv,float3 n,float3 v){
+void ApplyPbrLighting_(inout float3 mainColor,float3 worldPos,float2 uv,float3 n,float3 v){
     float4 pbrMask = tex2D(_PbrMask,uv);
     float metallic = _Metallic * pbrMask.x;
     float smoothness = _Smoothness * pbrMask.y;
@@ -264,22 +266,63 @@ void ApplyPbrLighting(inout float3 mainColor,float2 uv,float3 n,float3 v){
     float3 diffColor = mainColor * (1-metallic);
     float3 specColor = lerp(0.04,mainColor,metallic);
     // gi
-    float3 giDiff = diffColor;// * ShadeSH9(float4(n,1));
+    float3 giDiff = diffColor * SampleSH(n);
     
     float mip = (1.7-0.7*rough)*rough*6;
     float3 reflectDir = reflect(-v,n);
-    float4 envColor = texCUBElod(_EnvMap,float4(reflectDir,mip));
+    float4 envColor = SAMPLE_TEXTURECUBE_LOD(_EnvMap,sampler_EnvMap,reflectDir,mip);
     envColor.xyz = DecodeHDREnvironment(envColor,_EnvMap_HDR);
     float surfaceReducion = 1/(a2+1);
     float grazingTerm = saturate(metallic+smoothness);
     float fresnelTerm = Pow4(1-nv);
     float3 giSpec = envColor.xyz * lerp(specColor,grazingTerm,fresnelTerm) * surfaceReducion;
     mainColor = (giDiff + giSpec) * occlusion;
+
     // lighting
     float d = nh*nh*(a2-1)+1;
     float specTerm = a2/(d*d*max(0.0001,lh*lh) * (4*a+2));
     float3 radiance = nl * _MainLightColor.xyz;
     mainColor += (diffColor + specTerm * specColor) * radiance;
+}
+*/
+
+void ApplyPbrLighting(inout float3 mainColor,float3 worldPos,float4 shadowCoord,float2 uv,float3 n,float3 v){
+    float4 pbrMask = tex2D(_PbrMask,uv);
+    float metallic = _Metallic * pbrMask.x;
+    float smoothness = _Smoothness * pbrMask.y;
+    float rough = 1-smoothness;
+    float a = max(rough*rough,1e-4);
+    float a2 = a*a;
+    float occlusion = lerp(1, pbrMask.z,_Occlusion);
+
+    float3 diffColor = mainColor * (1-metallic);
+    float3 specColor = lerp(0.04,mainColor,metallic);
+
+    float nv = saturate(dot(n,v));
+
+    float3 reflectDirOffset = 0;
+    float reflectIntensity = 1;
+    float3 giDiff = CalcGIDiff(n,diffColor);
+    float3 giSpec = CalcGISpec(_EnvMap,sampler_EnvMap,_EnvMap_HDR,specColor,n,v,reflectDirOffset,reflectIntensity,nv,a,a2,smoothness,metallic);
+    half3 giColor = (giDiff + giSpec)*occlusion;
+    
+    mainColor = giColor;
+
+    Light mainLight = GetMainLight();
+
+    #if defined(MAIN_LIGHT_CALCULATE_SHADOWS)
+        mainLight.shadowAttenuation = CalcShadow(shadowCoord,worldPos,_MainLightSoftShadowScale);
+        // mainColor = mainLight.shadowAttenuation;
+        // return;
+    #endif
+
+    half3 lightColor = CalcLight(mainLight,diffColor,specColor,n,v,a,a2);
+    mainColor += lightColor;
+
+    #if defined(_ADDITIONAL_LIGHTS)
+        float4 shadowMask = 0;
+        mainColor += CalcAdditionalLights(worldPos,diffColor,specColor,n,v,a,a2,shadowMask);
+    #endif
 }
 
 float3 SampleNormalMap(float2 uv,float4 tSpace0,float4 tSpace1,float4 tSpace2){

@@ -10,7 +10,8 @@
     sampler2D _OffsetTex;
     sampler2D _OffsetMaskTex;//(r,a)
     sampler2D _CameraOpaqueTexture;
-    samplerCUBE _EnvMap;
+    // samplerCUBE _EnvMap;
+    TEXTURECUBE(_EnvMap);SAMPLER(sampler_EnvMap);
     sampler2D _PbrMask;//(r,a)
     
     sampler2D _MatCapTex;
@@ -146,7 +147,7 @@ CBUFFER_START(UnityPerMaterial)
     float4 _EnvRefractionColor;
     float4 _EnvMap_HDR;
 // ==================================================_MatCapOn
-    int _MatCapOn;
+    // int _MatCapOn; // to keyword MATCAP_ON
     float4 _MatCapColor;
     float _MatCapIntensity;
     int _MatCapRotateOn;
@@ -159,6 +160,7 @@ CBUFFER_START(UnityPerMaterial)
 
 // ==================================================   Light
     // float _PbrLightOn;
+    half _MainLightSoftShadowScale;
     float _Metallic,_Smoothness,_Occlusion;
     float _NormalMapScale;
     // float4 _NormalMap_ST;

@@ -59,6 +59,11 @@ v2f vert(appdata v)
 
     o.fogCoord.x = ComputeFogFactor(o.vertex.z);
     // UNITY_TRANSFER_FOG(o,o.vertex);
+
+    #if defined(MAIN_LIGHT_CALCULATE_SHADOWS)
+        o._ShadowCoord = TransformWorldToShadowCoord(worldPos.xyz); // move to frag
+    #endif 
+
     return o;
 }
 
@@ -111,7 +116,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     #if defined(PBR_LIGHTING)
         normal = SampleNormalMap(uvDistorted,i.tSpace0,i.tSpace1,i.tSpace2);
-        ApplyPbrLighting(mainColor.xyz/**/,uvDistorted,normal,viewDir);
+        ApplyPbrLighting(mainColor.xyz/**/,worldPos,i._ShadowCoord,uvDistorted,normal,viewDir);
 
     #endif //PBR_LIGHTING
 
