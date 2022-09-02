@@ -42,7 +42,7 @@ struct v2f
     TANGENT_SPACE_DECLARE(3,4,5);
     float fogCoord:TEXCOORD6;
     float3 viewDir :TEXCOORD7;
-    float4 _ShadowCoord:TEXCOORD8;
+    float4 shadowCoord:TEXCOORD8;
 };
 
 

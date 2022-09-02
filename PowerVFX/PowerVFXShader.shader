@@ -221,7 +221,9 @@ Shader "FX/PowerVFX"
 		[noscaleoffset]_MatCapTex("_MapCapTex",2d)=""{}
 		[hdr]_MatCapColor("_MatCapColor",color) = (1,1,1,1)
 		_MatCapIntensity("_MatCapIntensity",float) = 1
-		[GroupToggle]_MatCapRotateOn("_MatCapRotateOn",float) = 0
+
+		[Header(Matcap UV Rotate)]
+		[GroupToggle(_,MATCAP_ROTATE_ON)]_MatCapRotateOn("_MatCapRotateOn",float) = 0
 		_MatCapAngle("_MapCatAngle",float) = 0
 // ==================================================_DepthFading
 		[Header(_DepthFading)]
@@ -239,8 +241,8 @@ Shader "FX/PowerVFX"
 		_Occlusion("_Occlusion",range(0,1)) = 0
 
 		[Header(Shadow)]
-		// [GroupToggle(_,_RECEIVE_SHADOWS_ON)]_ReceiveShadowOn("_ReceiveShadowOn",int) = 0
-		// _MainLightSoftShadowScale("_MainLightSoftShadowScale",range(0,1))=0
+		[GroupToggle(_,_RECEIVE_SHADOWS_ON)]_ReceiveShadowOn("_ReceiveShadowOn",int) = 0
+		_MainLightSoftShadowScale("_MainLightSoftShadowScale",range(0,1))=0
 
 		[Header(Additional Lights)]
 		[GroupToggle(_,_ADDITIONAL_LIGHTS)]_AdditionalLightOn("_AdditionalLightOn",int)=0
@@ -266,11 +268,11 @@ Shader "FX/PowerVFX"
 			#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE 
 			#pragma multi_compile_fragment _ _SHADOWS_SOFT
 			
-			#pragma multi_compile_fragment _ _ADDITIONAL_LIGHTS
-			#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+			#pragma multi_compile_local_fragment _ _ADDITIONAL_LIGHTS
+			#pragma multi_compile_local_fragment _ _ADDITIONAL_LIGHT_SHADOWS
 			#pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT
 
-			#pragma shader_feature_local_fragment _RECEIVE_SHADOWS_ON
+			#pragma shader_feature_local _RECEIVE_SHADOWS_ON
 
 			#pragma multi_compile_local_vertex _ VERTEX_WAVE_ON
 			#pragma multi_compile_local_fragment _ FRESNEL_ON
@@ -280,7 +282,8 @@ Shader "FX/PowerVFX"
 			#pragma multi_compile_local_fragment _ OFFSET_ON
 			#pragma multi_compile_local_fragment _ ENV_REFLECT_ON
 			#pragma multi_compile_local_fragment _ ENV_REFRACTION_ON
-			#pragma multi_compile_local_fragment _ MATCAP_ON
+			#pragma multi_compile_local_fragment _ MATCAP_ON MATCAP_ROTATE_ON
+			#pragma shader_feature_local_fragment _ MATCAP_ROTATE_ON
 			#pragma multi_compile_local_fragment _ DEPTH_FADING_ON
 			#pragma multi_compile_local_fragment _ DOUBLE_EFFECT_ON
 			// #pragma multi_compile_local_fragment _ MAIN_TEX_USE_SCREEN_COLOR // unused yet
@@ -289,10 +292,65 @@ Shader "FX/PowerVFX"
 			#pragma vertex vert
 			#pragma fragment frag
 			
-			#include "Lib/PowerVFXPass.cginc"
+			#include "Lib/PowerVFXPass.hlsl"
 
 			ENDHLSL
 		}
+		
+		Pass
+        {
+            Name "DepthOnly"
+            Tags{"LightMode" = "DepthOnly"}
+
+            ZWrite On
+            ColorMask 0
+            Cull[_Cull]
+
+            HLSLPROGRAM
+            #pragma only_renderers gles gles3 glcore d3d11
+            #pragma target 2.0
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma multi_compile_local_fragment _ ALPHA_TEST
+
+            #include "Lib/ShadowCasterPass.hlsl"
+            ENDHLSL
+        }
+		Pass
+        {
+            Name "ShadowCaster"
+            Tags{"LightMode" = "ShadowCaster"}
+
+            ZWrite On
+            ColorMask 0
+            Cull[_Cull]
+
+            HLSLPROGRAM
+            #pragma only_renderers gles gles3 glcore d3d11
+            #pragma target 2.0
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma multi_compile_local_fragment _ ALPHA_TEST
+			#define SHADOW_PASS
+            #include "Lib/ShadowCasterPass.hlsl"
+            ENDHLSL
+        }
 	}
 
 	CustomEditor "PowerUtilities.PowerVFXInspector"

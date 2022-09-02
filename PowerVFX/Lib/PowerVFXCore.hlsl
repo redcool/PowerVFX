@@ -3,8 +3,8 @@
 #define FRESNEL_COLOR_REPLACE 0
 #define FRESNEL_COLOR_MULTIPLY 1
 
-#include "PowerVFXInput.cginc"
-#include "PowerVFXData.cginc"
+#include "PowerVFXInput.hlsl"
+#include "PowerVFXData.hlsl"
 #include "../../PowerShaderLib/Lib/NodeLib.hlsl"
 #include "../../PowerShaderLib/Lib/UVMapping.hlsl"
 #include "../../PowerShaderLib/UrpLib/Lighting.hlsl"
@@ -218,7 +218,9 @@ void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refr
 }
 
 void ApplyMatcap(inout float4 mainColor,float2 mainUV,float2 viewNormal){
-    if(_MatCapRotateOn){
+    // if(_MatCapRotateOn)
+    #if defined(MATCAP_ROTATE_ON)
+    {
         // rotate tex by center
         float theta = radians(_MatCapAngle);
         viewNormal = (viewNormal-0.5 )* 2;
@@ -228,6 +230,7 @@ void ApplyMatcap(inout float4 mainColor,float2 mainUV,float2 viewNormal){
         );
         viewNormal = viewNormal * 0.5+0.5;
     }
+    #endif
     
     float4 matCapMap = tex2D(_MatCapTex,viewNormal.xy) * _MatCapColor;
     matCapMap *= _MatCapIntensity;
@@ -311,9 +314,8 @@ void ApplyPbrLighting(inout float3 mainColor,float3 worldPos,float4 shadowCoord,
     Light mainLight = GetMainLight();
 
     #if defined(MAIN_LIGHT_CALCULATE_SHADOWS)
+        // shadowCoord = TransformWorldToShadowCoord(worldPos.xyz);
         mainLight.shadowAttenuation = CalcShadow(shadowCoord,worldPos,_MainLightSoftShadowScale);
-        // mainColor = mainLight.shadowAttenuation;
-        // return;
     #endif
 
     half3 lightColor = CalcLight(mainLight,diffColor,specColor,n,v,a,a2);

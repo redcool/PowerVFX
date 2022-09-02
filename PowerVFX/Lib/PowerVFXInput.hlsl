@@ -150,7 +150,7 @@ CBUFFER_START(UnityPerMaterial)
     // int _MatCapOn; // to keyword MATCAP_ON
     float4 _MatCapColor;
     float _MatCapIntensity;
-    int _MatCapRotateOn;
+    // int _MatCapRotateOn; // to keyword MATCAP_ROTATE_ON
     float _MatCapAngle;
 // ==================================================    _DepthFadingOn
     int _DepthFadingOn;

@@ -2,8 +2,8 @@
 #define POWER_VFX_PASS_CGINC
 #include "../../PowerShaderLib/Lib/UnityLib.hlsl"
 #include "../../PowerShaderLib/UrpLib/URP_Fog.hlsl"
-#include "PowerVFXCore.cginc"
-
+#include "PowerVFXCore.hlsl"
+#include "../../PowerShaderLib/UrpLib/URP_AdditionalLightShadows.hlsl"
 v2f vert(appdata v)
 {
     float3 worldPos = mul(unity_ObjectToWorld,v.vertex).xyz;
@@ -61,8 +61,8 @@ v2f vert(appdata v)
     // UNITY_TRANSFER_FOG(o,o.vertex);
 
     #if defined(MAIN_LIGHT_CALCULATE_SHADOWS)
-        o._ShadowCoord = TransformWorldToShadowCoord(worldPos.xyz); // move to frag
-    #endif 
+        o.shadowCoord = TransformWorldToShadowCoord(worldPos.xyz); // move to frag
+    #endif
 
     return o;
 }
@@ -116,7 +116,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     #if defined(PBR_LIGHTING)
         normal = SampleNormalMap(uvDistorted,i.tSpace0,i.tSpace1,i.tSpace2);
-        ApplyPbrLighting(mainColor.xyz/**/,worldPos,i._ShadowCoord,uvDistorted,normal,viewDir);
+        ApplyPbrLighting(mainColor.xyz/**/,worldPos,i.shadowCoord,uvDistorted,normal,viewDir);
 
     #endif //PBR_LIGHTING
 
