@@ -34,6 +34,13 @@ v2f vert(appdata v)
     float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
     o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));
 
+    #if defined(DEPTH_FADING_ON)
+    o.projPos = o.vertex * 0.5; // [-0.5w,.5w]
+    o.projPos.xy = o.projPos.xy * float2(1,_ProjectionParams.x) + o.projPos.w; //[0,w]
+    o.projPos.zw = o.vertex.zw;
+    o.projPos.z = -mul(unity_MatrixV,worldPos).z; // optimise calc in vs,
+    #endif
+
     float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
     if(_EnvReflectOn)
         o.reflectDir = reflect(- viewDir,normalDistorted);
@@ -83,7 +90,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     float2 mainTexMaskOffsetCustomData = float2(customDatas[_MainTexMaskOffsetCustomDataX] , customDatas[_MainTexMaskOffsetCustomDataY]);
 
     //use _CameraOpaqueTexture
-    // float2 screenUV = i.grabPos.xy/i.grabPos.w;
+    // float2 screenUV = i.projPos.xy;
     float2 screenUV = i.vertex.xy/_ScreenParams.xy;
     mainUV.xy = _MainTexUseScreenColor == 0 ? mainUV.xy : screenUV;
     
@@ -164,11 +171,12 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #if defined(DEPTH_FADING_ON)
     // if(_DepthFadingOn)
     {
-        float3 viewPos = mul(unity_MatrixV,worldPos);
-        ApplySoftParticle(mainColor/**/,screenUV,viewPos.z); // change vertex color
+        // float3 viewPos = mul(unity_MatrixV,worldPos); 
+        // float curZ = abs(viewPos.x);
+        ApplySoftParticle(mainColor/**/,i.projPos.xy/i.projPos.w,abs(i.projPos.z)); // change vertex color
     }
     #endif
-    
+
     mainColor.a = saturate(mainColor.a );
     // apply fog
     mainColor.xyz = MixFog(mainColor.xyz,i.fogCoord);

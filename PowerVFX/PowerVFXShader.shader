@@ -51,7 +51,7 @@ Shader "FX/PowerVFX"
 
 		[Header(Alpha Scale)]
 		_AlphaScale("_AlphaScale",float) = 1
-// ==================================================BlendMode
+// ================================================== States Settings
 		[Header(BlendMode)]
 		[Enum(UnityEngine.Rendering.BlendMode)]_SrcMode("Src Mode",int) = 5
 		[Enum(UnityEngine.Rendering.BlendMode)]_DstMode("Dst Mode",int) = 10
@@ -65,6 +65,8 @@ Shader "FX/PowerVFX"
 		[Enum(UnityEngine.Rendering.CullMode)]_CullMode("Cull Mode",float) = 0
 		[GroupToggle]_ZWriteMode("ZWriteMode",int) = 0
 		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 4
+
+		[Header(Color Mask)]
 		[GroupEnum(_,RGBA 15 RGB 14 RG 12 GB 6 RB 10 R 8 G 4 B 2 A 1 None 0)]
 		_ColorMask("_ColorMask",int) = 15
 // ==================================================_VertexWaveOn
@@ -229,6 +231,7 @@ Shader "FX/PowerVFX"
 		[Header(_DepthFading)]
 		[GroupToggle(_,DEPTH_FADING_ON)]_DepthFadingOn("_DepthFadingOn",int) = 0
 		_DepthFadingWidth("_DepthFadingWidth",range(0.01,3)) = 1
+		_DepthFadingMax("_DepthFadingMax",range(0.01,3)) = 1
 
 // ================================================== Light		
 		[Header(Light)]
@@ -284,7 +287,7 @@ Shader "FX/PowerVFX"
 			#pragma multi_compile_local_fragment _ ENV_REFRACTION_ON
 			#pragma multi_compile_local_fragment _ MATCAP_ON MATCAP_ROTATE_ON
 			#pragma shader_feature_local_fragment _ MATCAP_ROTATE_ON
-			#pragma multi_compile_local_fragment _ DEPTH_FADING_ON
+			#pragma multi_compile_local _ DEPTH_FADING_ON
 			#pragma multi_compile_local_fragment _ DOUBLE_EFFECT_ON
 			// #pragma multi_compile_local_fragment _ MAIN_TEX_USE_SCREEN_COLOR // unused yet
 

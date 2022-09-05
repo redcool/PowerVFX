@@ -239,10 +239,10 @@ void ApplyMatcap(inout float4 mainColor,float2 mainUV,float2 viewNormal){
 
 void ApplySoftParticle(inout float4 mainColor,float2 screenUV,float curZ){
     float sceneZ = LinearEyeDepth(tex2D(_CameraDepthTexture, screenUV).x,_ZBufferParams);
-    float delta = (sceneZ-curZ);
-    float fade = saturate (_DepthFadingWidth * delta + 0.12*delta);
-    // mainColor *= smoothstep(-0.5,0.5,fade);
-    mainColor *= fade;// xyz,a all multi fade
+    // float delta = (sceneZ-curZ);
+    // float fade = saturate (_DepthFadingWidth * delta + 0.12*delta);
+    float fade = saturate(_DepthFadingMax * (sceneZ - _DepthFadingWidth - curZ));
+    mainColor.a *= fade;
 }
 
 

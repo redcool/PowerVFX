@@ -155,6 +155,7 @@ CBUFFER_START(UnityPerMaterial)
 // ==================================================    _DepthFadingOn
     int _DepthFadingOn;
     float _DepthFadingWidth;
+    float _DepthFadingMax;
 // ==================================================   _Alpha 
     float _AlphaMax,_AlphaMin,_AlphaScale;
 

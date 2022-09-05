@@ -43,6 +43,7 @@ struct v2f
     float fogCoord:TEXCOORD6;
     float3 viewDir :TEXCOORD7;
     float4 shadowCoord:TEXCOORD8;
+    float4 projPos:TEXCOORD9;
 };
 
 

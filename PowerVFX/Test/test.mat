@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EnvMap:
-        m_Texture: {fileID: 8900000, guid: a85eb1095ea218145a6b055db2b27d47, type: 3}
+        m_Texture: {fileID: 8900000, guid: 45fd527e6c2dcdf4ab784991425f4c22, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -72,7 +72,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PbrMask:
-        m_Texture: {fileID: 2800000, guid: ebf5e9921fc906448b56a3fc01c82abc, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _VertexWaveAtten_Map:
@@ -98,11 +98,12 @@ Material:
     - _BlendOp: 0
     - _BlendScreenColor: 0
     - _ColorMask: 15
-    - _ColorScale: 1
+    - _ColorScale: 1.18
     - _CullMode: 2
     - _Cutoff: 0.133
+    - _DepthFadingMax: 1
     - _DepthFadingOn: 1
-    - _DepthFadingWidth: 3
+    - _DepthFadingWidth: 1
     - _DissolveByCustomData: 0
     - _DissolveByVertexColor: 0
     - _DissolveClipOn: 1
@@ -142,7 +143,7 @@ Material:
     - _EnvIntensity: 7.38
     - _EnvMapMaskChannel: 0
     - _EnvMapMaskUseR: 0
-    - _EnvMaskUseMainTexMask: 3
+    - _EnvMaskUseMainTexMask: 1
     - _EnvReflectOn: 0
     - _EnvRefractionIOR: 1.58
     - _EnvRefractionOn: 0
@@ -181,11 +182,11 @@ Material:
     - _MatCapIntensity: 1.5
     - _MatCapOn: 0
     - _MatCapRotateOn: 0
-    - _Metallic: 0.5
+    - _Metallic: 1
     - _NoiseUseAttenMap: 1
     - _NoiseUseAttenMaskMap: 0
-    - _NormalMapScale: 1
-    - _Occlusion: 0
+    - _NormalMapScale: 0
+    - _Occlusion: 1
     - _OffsetBlendIntensity: 2.92
     - _OffsetBlendMode: 0
     - _OffsetMaskChannel: 0
@@ -198,7 +199,7 @@ Material:
     - _PixelDissolveOn: 0
     - _PixelWidth: 5.22
     - _ReceiveShadowOn: 0
-    - _Smoothness: 0.5
+    - _Smoothness: 0.835
     - _SoftParticle: 1
     - _SoftParticleOn: 1
     - _SoftParticleWidth: 0.75
@@ -233,7 +234,7 @@ Material:
     - _ZWriteMode: 1
     m_Colors:
     - _BackFaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0, g: 0, b: 0, a: 0.8627451}
+    - _Color: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
     - _DistortDir: {r: 0, g: -1, b: 0, a: 1}
     - _DistortTile: {r: 1, g: 1, b: 2, a: 2}
     - _DistortionRadialCenter_LenScale_LenOffset: {r: 0.5, g: 0.5, b: 1, a: 2.4}
