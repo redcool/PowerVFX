@@ -230,7 +230,7 @@ Shader "FX/PowerVFX"
 // ==================================================_DepthFading
 		[Header(_DepthFading)]
 		[GroupToggle(_,DEPTH_FADING_ON)]_DepthFadingOn("_DepthFadingOn",int) = 0
-		_DepthFadingWidth("_DepthFadingWidth",range(0.01,3)) = 1
+		_DepthFadingWidth("_DepthFadingWidth",range(0.01,3)) = 0.33
 		_DepthFadingMax("_DepthFadingMax",range(0.01,3)) = 1
 
 // ================================================== Light		

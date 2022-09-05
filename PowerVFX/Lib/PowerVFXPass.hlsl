@@ -38,7 +38,6 @@ v2f vert(appdata v)
     o.projPos = o.vertex * 0.5; // [-0.5w,.5w]
     o.projPos.xy = o.projPos.xy * float2(1,_ProjectionParams.x) + o.projPos.w; //[0,w]
     o.projPos.zw = o.vertex.zw;
-    o.projPos.z = -mul(unity_MatrixV,worldPos).z; // optimise calc in vs,
     #endif
 
     float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
@@ -171,9 +170,10 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #if defined(DEPTH_FADING_ON)
     // if(_DepthFadingOn)
     {
-        // float3 viewPos = mul(unity_MatrixV,worldPos); 
-        // float curZ = abs(viewPos.x);
-        ApplySoftParticle(mainColor/**/,i.projPos.xy/i.projPos.w,abs(i.projPos.z)); // change vertex color
+        // float3 viewPos = mul(unity_MatrixV,worldPos);
+        float3 projPos = i.projPos.xyz/i.projPos.w;
+        float curZ = LinearEyeDepth(projPos.z,_ZBufferParams);
+        ApplySoftParticle(mainColor/**/,projPos.xy,curZ); // change vertex color
     }
     #endif
 
