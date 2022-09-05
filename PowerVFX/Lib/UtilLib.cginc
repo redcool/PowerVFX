@@ -6,12 +6,4 @@
 #define for UNITY_LOOP for
 #include "../../../PowerShaderLib/Lib/MathLib.hlsl"
 
-float SafeDiv(float numer, float denom)
-{
-    return (numer != denom) ? numer / denom : 1;
-}
-
-
-
-
 #endif //UTIL_LIB_CGINC

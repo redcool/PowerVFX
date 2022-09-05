@@ -2,14 +2,17 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: test 1
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
-  m_ShaderKeywords: ALPHA_TEST
+  m_ValidKeywords:
+  - ALPHA_TEST
+  - DEPTH_FADING_ON
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -67,7 +70,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - _AdditionalLightOn: 0
     - _AlphaMax: 1
     - _AlphaMin: 0
     - _AlphaScale: 1
@@ -77,8 +82,8 @@ Material:
     - _ColorScale: 1
     - _CullMode: 2
     - _Cutoff: 0.5
-    - _DepthFadingOn: 0
-    - _DepthFadingWidth: 1
+    - _DepthFadingOn: 1
+    - _DepthFadingWidth: 0.01
     - _DissolveByVertexColor: 0
     - _DissolveClipOn: 1
     - _DissolveCustomData: 2
@@ -116,6 +121,7 @@ Material:
     - _FresnelOn: 0
     - _FresnelPowerMax: 0.459
     - _FresnelPowerMin: 0.414
+    - _MainLightSoftShadowScale: 0
     - _MainTexChannel: 0
     - _MainTexMaskChannel: 0
     - _MainTexMaskOffsetCustomDataOn: 0
@@ -150,6 +156,7 @@ Material:
     - _PbrLightOn: 0
     - _PixelDissolveOn: 0
     - _PixelWidth: 10
+    - _ReceiveShadowOn: 0
     - _Smoothness: 0.5
     - _SrcMode: 1
     - _VertexWaveAttenMaskOffsetCustomData: 4

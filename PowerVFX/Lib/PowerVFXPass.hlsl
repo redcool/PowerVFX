@@ -33,13 +33,6 @@ v2f vert(appdata v)
     float mainTexOffsetCdataX = customDatas[_MainTexOffset_CustomData_X];
     float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
     o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));
-    // o.grabPos = ComputeGrabScreenPos(o.vertex);
-    // COMPUTE_EYEDEPTH(o.grabPos.z);
-
-    // #if defined(UNITY_UV_STARTS_AT_TOP)
-    //     if(_MainTex_TexelSize.y < 0)
-    //         o.grabPos.y = o.grabPos.w - o.grabPos.y;
-    // #endif
 
     float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
     if(_EnvReflectOn)
@@ -171,7 +164,8 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #if defined(DEPTH_FADING_ON)
     // if(_DepthFadingOn)
     {
-        ApplySoftParticle(mainColor/**/,i.grabPos); // change vertex color
+        float3 viewPos = mul(unity_MatrixV,worldPos);
+        ApplySoftParticle(mainColor/**/,screenUV,viewPos.z); // change vertex color
     }
     #endif
     
