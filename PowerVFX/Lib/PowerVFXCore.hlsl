@@ -3,12 +3,12 @@
 #define FRESNEL_COLOR_REPLACE 0
 #define FRESNEL_COLOR_MULTIPLY 1
 
+#include "CommonLib.cginc"
 #include "PowerVFXInput.hlsl"
 #include "PowerVFXData.hlsl"
 #include "../../PowerShaderLib/Lib/NodeLib.hlsl"
 #include "../../PowerShaderLib/Lib/UVMapping.hlsl"
 #include "../../PowerShaderLib/UrpLib/Lighting.hlsl"
-#include "UtilLib.cginc"
 
 float4 SampleAttenMap(float2 mainUV,float attenMaskCDATA){
     // auto offset
