@@ -49,12 +49,16 @@ v2f vert(appdata v)
     float3 viewNormal = normalize(mul((half3x3)UNITY_MATRIX_MV,v.normal));
     o.viewNormal = viewNormal.xy * 0.5 + 0.5;
 
-    #if defined(PBR_LIGHTING)
+    /* 
+        light, fresnel need nuormal
+    */
+
+    // #if defined(PBR_LIGHTING) 
     // if(_PbrLightOn){
         float3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
         TANGENT_SPACE_COMBINE_WORLD(worldPos,worldNormal,float4(worldTangent,v.tangent.w),o/**/);
     // }
-    #endif
+    // #endif
 
     o.fogCoord.x = ComputeFogFactor(o.vertex.z);
     // UNITY_TRANSFER_FOG(o,o.vertex);
