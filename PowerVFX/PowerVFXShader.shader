@@ -245,10 +245,14 @@ Shader "FX/PowerVFX"
 
 		[Header(Shadow)]
 		[GroupToggle(_,_RECEIVE_SHADOWS_ON)]_ReceiveShadowOn("_ReceiveShadowOn",int) = 0
+		[GroupToggle(_,_SHADOWS_SOFT)]_ShadowsSoft("_ShadowsSoft",int) = 0 
 		_MainLightSoftShadowScale("_MainLightSoftShadowScale",range(0,1))=0
 
 		[Header(Additional Lights)]
 		[GroupToggle(_,_ADDITIONAL_LIGHTS)]_AdditionalLightOn("_AdditionalLightOn",int)=0
+		[GroupToggle(_,_ADDITIONAL_LIGHT_SHADOWS)]_AdditionalLightShadowsOn("_AdditionalLightShadowsOn",int)=0
+		[GroupToggle(_,_ADDITIONAL_LIGHT_SHADOWS_SOFT)]_AdditionalLightShadowsSoftOn("_AdditionalLightShadowsSoftOn",int)=0
+		_AdditionalLightSoftShadowScale("_AdditionalLightSoftShadowScale",range(1,3)) = 1
 	}
 	SubShader
 	{
@@ -269,8 +273,8 @@ Shader "FX/PowerVFX"
             // -------------------------------------
             // Material Keywords
 			#pragma shader_feature_local _ PBR_LIGHTING
-			#pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT
 			#pragma shader_feature_local _RECEIVE_SHADOWS_ON
+			#pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT
 
 			#pragma shader_feature_local_vertex _ VERTEX_WAVE_ON
 			#pragma shader_feature_local_fragment _ FRESNEL_ON
@@ -290,11 +294,11 @@ Shader "FX/PowerVFX"
 			// -------------------------------------
             // Universal Pipeline keywords
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
-            #pragma multi_compile _  _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
-            #pragma multi_compile _ _ADDITIONAL_LIGHT_SHADOWS
+            #pragma shader_feature_local _  _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
+            #pragma shader_feature_local _ _ADDITIONAL_LIGHT_SHADOWS
             // #pragma multi_compile _ _REFLECTION_PROBE_BLENDING
             // #pragma multi_compile _ _REFLECTION_PROBE_BOX_PROJECTION
-            #pragma multi_compile _ _SHADOWS_SOFT
+            #pragma shader_feature_local _ _SHADOWS_SOFT
             // #pragma multi_compile _ _SCREEN_SPACE_OCCLUSION
             // #pragma multi_compile _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
             // #pragma multi_compile _ _LIGHT_LAYERS

@@ -165,5 +165,6 @@ CBUFFER_START(UnityPerMaterial)
     float _Metallic,_Smoothness,_Occlusion;
     float _NormalMapScale;
     // float4 _NormalMap_ST;
+    half _AdditionalLightSoftShadowScale;
 CBUFFER_END
 #endif //POWER_VFX_INPUT_CGINC

@@ -322,7 +322,7 @@ void ApplyPbrLighting(inout float3 mainColor,float3 worldPos,float4 shadowCoord,
 
     #if defined(_ADDITIONAL_LIGHTS)
         float4 shadowMask = 0;
-        mainColor += CalcAdditionalLights(worldPos,diffColor,specColor,n,v,a,a2,shadowMask);
+        mainColor += CalcAdditionalLights(worldPos,diffColor,specColor,n,v,a,a2,shadowMask,_AdditionalLightSoftShadowScale);
     #endif
 }
 
