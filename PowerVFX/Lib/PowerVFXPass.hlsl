@@ -84,13 +84,17 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     // float4 mainUV = MainTexOffset(i.uv);
     float4 mainUV = i.uv;
 
-//  get particle system's custom data
+/**  
+    get particle system's custom data
+
+*/
     float customDatas[8] = {i.customData1,i.customData2};
 
     float dissolveCustomData = customDatas[_DissolveCustomData];
     float dissolveEdgeWidthCustomData = customDatas[_DissolveEdgeWidthCustomData];
     float distortionCustomData = customDatas[_DistortionCustomData];
     float2 mainTexMaskOffsetCustomData = float2(customDatas[_MainTexMaskOffsetCustomDataX] , customDatas[_MainTexMaskOffsetCustomDataY]);
+    float2 offsetLayer1CData = float2(customDatas[_OffsetLayer1_CustomData_X],customDatas[_OffsetLayer1_CustomData_Y]);
 
     //use _CameraOpaqueTexture
     // float2 screenUV = i.projPos.xy;
@@ -134,7 +138,9 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #if defined(OFFSET_ON)
     // if(_OffsetOn)
     {
-        float4 offsetUV = (_DistortionApplyToOffset ? uvDistorted.xyxy : mainUV.zwzw) * _OffsetTile + (_Time.xxxx * _OffsetDir); //暂时去除 frac
+        half4 offsetDir = lerp(_Time.xxxx,1,_StopAutoOffset) * _OffsetDir;
+        offsetDir.xy = lerp(offsetDir.xy,offsetLayer1CData,_OffsetCustomDataOn);
+        float4 offsetUV = (_DistortionApplyToOffset ? uvDistorted.xyxy : mainUV.zwzw) * _OffsetTile + (offsetDir); //暂时去除 frac
         if(_OffsetRadialUVOn){
             float4 p = _OffsetRadialCenter_LenScale_LenOffset;
             offsetUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_OffsetRadialRot);

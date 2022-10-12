@@ -181,9 +181,18 @@ void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 maskUV){
 
     float mask = tex2D(_OffsetMaskTex,maskUV)[_OffsetMaskChannel];
 
-    offsetColor =  offsetColor * _OffsetBlendIntensity * mask * 2; //unity_ColorSpaceDouble
+    offsetColor = offsetColor * _OffsetBlendIntensity * mask * 2; //unity_ColorSpaceDouble
     
+    /** offset blend mode
+        0 : a*b
+        1 : a+a*b
+        2 : lerp(a,b,b.w)
+    */
+    #if defined(_OFFSET_BLEND_REPLACE_MODE)
+    mainColor.rgb = lerp(mainColor.rgb,offsetColor.xyz,offsetColor[_OffsetBlendReplaceMode_Channel]);
+    #else
     mainColor.rgb = mainColor.rgb * (_OffsetBlendMode + offsetColor.xyz);
+    #endif
 }
 
 void ApplyFresnal(inout float4 mainColor,float fresnel,float4 screenColor){

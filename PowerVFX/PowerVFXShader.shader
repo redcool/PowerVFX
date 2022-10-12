@@ -171,12 +171,24 @@ Shader "FX/PowerVFX"
 		[NoScaleOffset]_OffsetTex("Offset Tex",2d) = ""{}
 		_OffsetTile("Offset Tile",vector) = (1,1,1,1)
 		_OffsetDir("Offset Dir",vector) = (1,1,0,0)
+		[GroupToggle]_StopAutoOffset("_StopAutoOffset",int) = 0 //停止自动流动
+		
+		[Header(Offset CustomData)]
+		[GroupToggle]_OffsetCustomDataOn("_OffsetCustomDataOn",int) = 1
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_OffsetLayer1_CustomData_X("_OffsetLayer1_CustomData_X",int) = 0
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_OffsetLayer1_CustomData_Y("_OffsetLayer1_CustomData_Y",int) = 1
+
+
+		[Header(Offset Color)]
 		[HDR]_OffsetTexColorTint("OffsetTex Color",color) = (1,1,1,1)
 		[HDR]_OffsetTexColorTint2("OffsetTex Color 2",color) = (1,1,1,1)
 
 		[Header(Blend Ops)]
 		_OffsetBlendIntensity("Blend Intensity",range(0,10)) = 0.5
 		_OffsetBlendMode("_OffsetBlendMode",range(0,1)) = 1
+		[Header(Replace Blend Mode)]
+		[GroupToggle(_,_OFFSET_BLEND_REPLACE_MODE)]_OffsetBlendReplaceMode("_OffsetBlendReplaceMode",int)=0
+		[Enum(R,0,G,1,B,2,A,3)]_OffsetBlendReplaceMode_Channel("_OffsetBlendReplaceMode_Channel",int) = 3
 
 		[Header(Offset Mask)]
 		_OffsetMaskTex("Offset Mask (R)",2d) = "white"{}
@@ -288,6 +300,7 @@ Shader "FX/PowerVFX"
 			#pragma shader_feature_local_fragment _ MATCAP_ROTATE_ON
 			#pragma shader_feature_local _ DEPTH_FADING_ON
 			#pragma shader_feature_local_fragment _ DOUBLE_EFFECT_ON
+			#pragma shader_feature_local_fragment _OFFSET_BLEND_REPLACE_MODE
 			// #pragma shader_feature_local_fragment _ MAIN_TEX_USE_SCREEN_COLOR // unused yet
 
 

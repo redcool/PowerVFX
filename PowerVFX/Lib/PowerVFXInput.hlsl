@@ -114,6 +114,8 @@ CBUFFER_START(UnityPerMaterial)
     float _DissolveFadingMax;
 // ==================================================_OffsetOn
     float _OffsetOn;
+    half _StopAutoOffset,_OffsetCustomDataOn,_OffsetLayer1_CustomData_X,_OffsetLayer1_CustomData_Y;
+
     float4 _OffsetMaskTex_ST;
     float _OffsetMaskPanStop;
     float _OffsetMaskChannel;
@@ -121,6 +123,7 @@ CBUFFER_START(UnityPerMaterial)
     float4 _OffsetTile,_OffsetDir;
     float _OffsetBlendIntensity;
     float _OffsetBlendMode;
+    half _OffsetBlendReplaceMode_Channel;
     // radial uv 
     int _OffsetRadialUVOn;
     float4 _OffsetRadialCenter_LenScale_LenOffset;
