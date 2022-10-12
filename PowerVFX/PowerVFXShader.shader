@@ -64,7 +64,10 @@ Shader "FX/PowerVFX"
 		[Header(CullMode)]
 		[Enum(UnityEngine.Rendering.CullMode)]_CullMode("Cull Mode",float) = 0
 		[GroupToggle]_ZWriteMode("ZWriteMode",int) = 0
-		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 4
+		/*
+		Disabled,Never,Less,Equal,LessEqual,Greater,NotEqual,GreaterEqual,Always
+		*/
+		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 8
 
 		[Header(Color Mask)]
 		[GroupEnum(_,RGBA 15 RGB 14 RG 12 GB 6 RB 10 R 8 G 4 B 2 A 1 None 0)]
