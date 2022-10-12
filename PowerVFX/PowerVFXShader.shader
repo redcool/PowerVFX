@@ -67,7 +67,7 @@ Shader "FX/PowerVFX"
 		/*
 		Disabled,Never,Less,Equal,LessEqual,Greater,NotEqual,GreaterEqual,Always
 		*/
-		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 8
+		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 4
 
 		[Header(Color Mask)]
 		[GroupEnum(_,RGBA 15 RGB 14 RG 12 GB 6 RB 10 R 8 G 4 B 2 A 1 None 0)]
@@ -310,11 +310,11 @@ Shader "FX/PowerVFX"
 			// -------------------------------------
             // Universal Pipeline keywords
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
-            #pragma shader_feature_local _  _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
-            #pragma shader_feature_local _ _ADDITIONAL_LIGHT_SHADOWS
+            #pragma multi_compile _ _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
+            #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             // #pragma multi_compile _ _REFLECTION_PROBE_BLENDING
             // #pragma multi_compile _ _REFLECTION_PROBE_BOX_PROJECTION
-            #pragma shader_feature_local _ _SHADOWS_SOFT
+            #pragma multi_compile_fragment _ _SHADOWS_SOFT
             // #pragma multi_compile _ _SCREEN_SPACE_OCCLUSION
             // #pragma multi_compile _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
             // #pragma multi_compile _ _LIGHT_LAYERS
@@ -349,12 +349,10 @@ Shader "FX/PowerVFX"
             Cull[_Cull]
 
             HLSLPROGRAM
-            #pragma only_renderers gles gles3 glcore d3d11
-            #pragma target 2.0
 
             //--------------------------------------
             // GPU Instancing
-            #pragma multi_compile_instancing
+            // #pragma multi_compile_instancing
 
             #pragma vertex vert
             #pragma fragment frag
@@ -376,12 +374,10 @@ Shader "FX/PowerVFX"
             Cull[_Cull]
 
             HLSLPROGRAM
-            #pragma only_renderers gles gles3 glcore d3d11
-            #pragma target 2.0
 
             //--------------------------------------
             // GPU Instancing
-            #pragma multi_compile_instancing
+            // #pragma multi_compile_instancing
 
             #pragma vertex vert
             #pragma fragment frag
