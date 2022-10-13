@@ -344,7 +344,7 @@ Shader "FX/PowerVFX"
             Name "DepthOnly"
             Tags{"LightMode" = "DepthOnly"}
 
-            ZWrite On
+            ZWrite [_ZWriteMode]
             ColorMask 0
             Cull[_Cull]
 
@@ -369,12 +369,11 @@ Shader "FX/PowerVFX"
             Name "ShadowCaster"
             Tags{"LightMode" = "ShadowCaster"}
 
-            ZWrite On
+            ZWrite [_ZWriteMode]
             ColorMask 0
             Cull[_Cull]
 
             HLSLPROGRAM
-
             //--------------------------------------
             // GPU Instancing
             // #pragma multi_compile_instancing
