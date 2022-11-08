@@ -31,7 +31,7 @@ public class MaterialValuePropertyInfo
 
 public class MaterialValuePropertyDriver : MonoBehaviour
 {
-    public MaterialValuePropertyInfo[] infos;
+    public List<MaterialValuePropertyInfo> infos = new List<MaterialValuePropertyInfo>();
 
     Renderer render;
     static MaterialPropertyBlock block;
@@ -48,7 +48,7 @@ public class MaterialValuePropertyDriver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (infos == null || infos.Length == 0 || !render)
+        if (infos == null || infos.Count == 0 || !render)
             return;
 
         foreach (var info in infos)

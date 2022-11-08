@@ -2,7 +2,24 @@
 _MainTex=基础图
 _DoubleEffectOn=(扭曲,流光)开双重效果
 _MainUVAngle=主uv旋转角度
+_MainTexOffsetStop=主纹理offset不为0时,将自动滚动,勾上将停止滚动
 _MainTexOffset_CustomData_On=使用ParticleSystem的CustomData控制主纹理偏移
-_MainTexUseScreenColor=使用屏幕颜色
+_MainTexOffset_CustomData_X=主uv.x 受控的customData的数据,c1:CustomData1,c2:CustomData2
+_MainTexOffset_CustomData_Y=主uv.y 受控的customData的数据,c1:CustomData1,c2:CustomData2
+_MainTexSaturate=控制主纹理的饱和度
+_ColorScale=控制主颜色值的强度
+_MainTexMultiAlpha=主纹理a,顶点色a,主颜色.a乘到 主纹理的rgb
+_MainTexSingleChannelOn=主纹理使用单色
+_MainTexChannel=要使用的通道
+_BackFaceOn=显示物体背面,剔除模式需为Off
+_BackFaceColor=背面的颜色乘数
+
+_MainTexMaskOffsetStop=主纹理遮罩offset不为0时,将自动滚动,勾上将停止滚动
+_MainTexMaskOffsetCustomDataOn=使用particleSystem's CustomData控制遮罩的滚动
+_MainTexMaskOffsetCustomDataX=uv.x 受控的customData的数据,c1:CustomData1,c2:CustomData2
+_MainTexMaskOffsetCustomDataX=uv.y 受控的customData的数据,c1:CustomData1,c2:CustomData2
+
+_MainTexUseScreenColor=使用屏幕颜色,用于屏幕扭曲
+
 _MainTexSheet=使用序列帧动画(xy,水平,竖直的数量)
 _MainTexSheetAnimSpeed=多少帧每秒

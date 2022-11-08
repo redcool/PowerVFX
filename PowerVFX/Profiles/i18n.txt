@@ -18,23 +18,36 @@ _CullMode=剔除模式
 _ZWriteMode=写入深度?
 _ZTestMode=深度测试
 PresetBlendMode=预制混合模式
+_ToggleGroups=开合全部分组
 
 _MainTex=主纹理(设置Offset将自动滚动)
+_MainUVAngle=主uv旋转(度)
 _MainTexOffsetStop=禁用主纹理自动滚动?
-_MainTexOffset_CustomData_On=纹理滚动使用CustomData
+_MainTexOffset_CustomData_On=使用CustomData控制主uv滚动
+_MainTexOffset_CustomData_X=主uv.x 的cdata槽
+_MainTexOffset_CustomData_Y=主uv.y 的cdata槽
+
+_MainTexSaturate=主纹理饱和度
 _Color=主纹理颜色
 _ColorScale=颜色倍数
-_MainTexSaturate=主纹理饱和度
+_MainTexMultiAlpha=主纹理预乘alpha(主纹理,主颜色,顶点色)
 _MainTexSingleChannelOn=主纹理使用单通道?
 _MainTexChannel=主纹理通道
-
-_BackFaceOn=背面?(需要cull off)
+_BackFaceOn=显示背面?(要cull off)
 _BackFaceColor=背面色
-_MainTexMultiAlpha=主纹理预乘alpha(主纹理,主颜色,顶点色)
 _MainTexMask=主纹理遮罩
 _MainTexMaskOffsetStop=主纹理遮罩自动滚动停止
 _MainTexMaskChannel=遮罩通道?
+_MainTexMaskOffsetCustomDataOn=使用CustomData主纹理遮罩uv滚动
+_MainTexMaskOffsetCustomDataX=主纹理遮罩uv.x 的cdata槽
+_MainTexMaskOffsetCustomDataY=主纹理遮罩uv.y 的cdata槽
+
 _MainTexUseScreenColor=主纹理使用屏幕颜色(需_CameraOpaqueTexture)
+
+_MainTexSheet=序列帧动画
+_MainTexSheetAnimSpeed=播放速度
+
+//====== vertex wave
 
 _VertexWaveOn=开启顶点摆动?
 _NoiseUseAttenMaskMap=噪波采样衰减图?

@@ -3,46 +3,51 @@ Shader "FX/PowerVFX"
 {
 	Properties
 	{
+		[GroupHeader(,MainTex)]
 		_MainTex("Main Texture", 2D) = "white" {}
-		_MainUVAngle("_MainUVAngle",float) = 0
-		[GroupToggle]_MainTexOffsetStop("_MainTexOffsetStop",int)=0
-		[Header(Particle Custom Data)]
-		[GroupToggle]_MainTexOffset_CustomData_On("_MainTexOffset_CustomData_On",int)=0
-		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexOffset_CustomData_X("_MainTexOffset_CustomData_X",int) = 0
-		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexOffset_CustomData_Y("_MainTexOffset_CustomData_Y",int) = 1
+		[Group(MainTex Options)]
+		[GroupItem(MainTex Options)]_MainUVAngle("_MainUVAngle",float) = 0
+		[GroupToggle(MainTex Options)]_MainTexOffsetStop("_MainTexOffsetStop",int)=0
+		[GroupHeader(MainTex Options,Particle Custom Data)]
+		[GroupToggle(MainTex Options)]_MainTexOffset_CustomData_On("_MainTexOffset_CustomData_On",int)=0
+		[GroupEnum(MainTex Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexOffset_CustomData_X("_MainTexOffset_CustomData_X",int) = 0
+		[GroupEnum(MainTex Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexOffset_CustomData_Y("_MainTexOffset_CustomData_Y",int) = 1
+		[Group(MainTex Color Options)]
+		[GroupHeader(MainTex Color Options,Saturate)]
+		[GroupItem(MainTex Color Options)]_MainTexSaturate("_MainTexSaturate",float) = 1
+		[GroupHeader(MainTex Color Options,Main Color)]
+		[GroupItem(MainTex Color Options)][HDR]_Color("Main Color",Color) = (1,1,1,1)
+		[GroupItem(MainTex Color Options)]_ColorScale("ColorScale",range(1,3)) = 1
+		[GroupToggle(MainTex Color Options)]_MainTexMultiAlpha("_MainTexMultiAlpha",int) = 0
 
-		[Header(Saturate)]
-		_MainTexSaturate("_MainTexSaturate",float) = 1
-		[Header(Main Color)]
-		[HDR]_Color("Main Color",Color) = (1,1,1,1)
-		_ColorScale("ColorScale",range(1,3)) = 1
-		[GroupToggle]_MainTexMultiAlpha("_MainTexMultiAlpha",int) = 0
+		[GroupHeader(MainTex Color Options,Single Channel MainTex)]
+		[GroupToggle(MainTex Color Options)]_MainTexSingleChannelOn("_MainTexSingleChannelOn?",int) = 0
+		[GroupEnum(MainTex Color Options,R 0 G 1 B 2 A 3)]_MainTexChannel("_MainTexChannel",int)=0
 
+		[Group(Back Face)]
+		[GroupToggle(Back Face)]_BackFaceOn("_BackFaceOn",int) = 0
+		[GroupItem(Back Face)][HDR]_BackFaceColor("BackFace Color",Color) = (0.5,0.5,.5,1)
 
-		[Header(Single Channel MainTex)]
-		[GroupToggle]_MainTexSingleChannelOn("_MainTexSingleChannelOn?",int) = 0
-		[Enum(R,0,G,1,B,2,A,3)]_MainTexChannel("_MainTexChannel",int)=0
-
-		[Header(Back Face)]
-		[GroupToggle]_BackFaceOn("_BackFaceOn",int) = 0
-		[HDR]_BackFaceColor("BackFace Color",Color) = (0.5,0.5,.5,1)
-
-		[Header(MaskTex)]
+		// [GroupHeader(MainTex Mask Options)]
+		[Space(10)]
 		_MainTexMask("Main Texture Mask(R)", 2D) = "white" {}
-		[GroupToggle]_MainTexMaskOffsetStop("_MainTexMaskOffsetStop",int)=0
-		[Enum(R,0,G,1,B,2,A,3)]_MainTexMaskChannel("_MainTexMaskChannel",int) = 0
+		[Group(MainTex Mask Options)]
+		[GroupToggle(MainTex Mask Options)]_MainTexMaskOffsetStop("_MainTexMaskOffsetStop",int)=0
+		[GroupEnum(MainTex Mask Options,R 0 G 1 B 2 A 3)]_MainTexMaskChannel("_MainTexMaskChannel",int) = 0
 
-		[Header(Particle Custom Data)]
-		[GroupToggle]_MainTexMaskOffsetCustomDataOn("_MainTexMaskOffsetCustomDataOn",int)=0
-		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexMaskOffsetCustomDataX("_MainTexMaskOffsetCustomDataX",int) = 6
-		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexMaskOffsetCustomDataY("_MainTexMaskOffsetCustomDataY",int) = 7
+		[GroupHeader(MainTex Mask Options,Particle Custom Data)]
+		[GroupToggle(MainTex Mask Options)]_MainTexMaskOffsetCustomDataOn("_MainTexMaskOffsetCustomDataOn",int)=0
+		[GroupEnum(MainTex Mask Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexMaskOffsetCustomDataX("_MainTexMaskOffsetCustomDataX",int) = 6
+		[GroupEnum(MainTex Mask Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexMaskOffsetCustomDataY("_MainTexMaskOffsetCustomDataY",int) = 7
 
-		[Header(ScreenOpaqueTexture)]
+		[Space(10)]
+		[GroupHeader(_,ScreenOpaqueTexture)]
 		[GroupToggle(_)]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
 
-		[Header(SheetAnimation)]
-		_MainTexSheet("_MainTexSheet",vector)=(1,1,1,1)
-		_MainTexSheetAnimSpeed("_MainTexSheetAnimSpeed",float) = 1
+		[Space(10)]
+		[Group(SheetAnimation)]
+		[GroupVectorSlider(SheetAnimation,RowCount ColumnCount,1_16 1_16,,int)]_MainTexSheet("_MainTexSheet",vector)=(1,1,1,1)
+		[GroupItem(SheetAnimation)]_MainTexSheetAnimSpeed("_MainTexSheetAnimSpeed",float) = 1
 		// [GroupToggle(_)]_MainTexSheetPlayOnce("_MainTexSheetPlayOnce",int) = 0
 // ==================================================		Alpha
 		[Header(Alpha Range)]
