@@ -28,7 +28,6 @@ v2f vert(appdata v)
     #endif
     o.vertex = UnityWorldToClipPos(worldPos);
 
-
     // uv.xy : main uv, zw : custom data1.xy
     float mainTexOffsetCdataX = customDatas[_MainTexOffset_CustomData_X];
     float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
@@ -83,7 +82,6 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     // setup mainUV, move to vs
     // float4 mainUV = MainTexOffset(i.uv);
     float4 mainUV = i.uv;
-
 /**  
     get particle system's custom data
 
@@ -99,7 +97,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     //use _CameraOpaqueTexture
     // float2 screenUV = i.projPos.xy;
     float2 screenUV = i.vertex.xy/_ScreenParams.xy;
-    mainUV.xy = _MainTexUseScreenColor == 0 ? mainUV.xy : screenUV;
+    mainUV.xy = lerp(mainUV.xy,screenUV,_MainTexUseScreenColor);
     
     float2 uvDistorted = mainUV.zw;
     #if defined(DISTORTION_ON)
@@ -189,7 +187,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     mainColor.a = saturate(mainColor.a );
     // apply fog
-    mainColor.xyz = MixFog(mainColor.xyz,i.fogCoord);
+    mainColor.xyz = MixFog(mainColor.xyz,i.fogCoord.x);
 
     return mainColor;
 }
