@@ -63,16 +63,17 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
     zw:vertex uv
 */
 float4 MainTexOffset(float4 uv){
-    RotateUV(_MainUVAngle,0.5,uv.xy/**/);
+    float2 mainUV = uv.xy;
+    RotateUV(_MainUVAngle,0.5,mainUV/**/);
 
     float2 mainTexOffset = UVOffset(_MainTex_ST.zw,_MainTexOffsetStop);
     mainTexOffset = lerp(mainTexOffset,uv.zw, _MainTexOffset_CustomData_On); // vertex uv0.z : particle customData1.xy
 
     //apply sheet
-    uv.xy = RectUV(_Time.y*_MainTexSheetAnimSpeed,uv.xy,_MainTexSheet,true,0);
+    mainUV = RectUV(_Time.y*_MainTexSheetAnimSpeed,uv.xy,_MainTexSheet,true,0);
 
     float4 scrollUV = (float4)0;
-    scrollUV.xy = uv.xy * _MainTex_ST.xy + mainTexOffset;
+    scrollUV.xy = mainUV * _MainTex_ST.xy + mainTexOffset;
     scrollUV.zw = uv.xy;
 
     return scrollUV;
@@ -118,7 +119,7 @@ float2 ApplyDistortion(float4 mainUV,float4 distortUV,float customDataIntensity)
     }
     #endif
     
-    float2 maskUV = _MainTexUseScreenColor == 0 ? mainUV.xy : mainUV.zw;
+    float2 maskUV = mainUV.zw;
     maskUV = maskUV * _DistortionMaskTex_ST.xy + _DistortionMaskTex_ST.zw;
     float4 maskTex = tex2D(_DistortionMaskTex,maskUV);
 
