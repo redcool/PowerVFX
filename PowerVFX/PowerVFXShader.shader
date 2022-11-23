@@ -264,7 +264,7 @@ Shader "FX/PowerVFX"
 		_Occlusion("_Occlusion",range(0,1)) = 0
 
 		[Header(Shadow)]
-		[GroupToggle(_,_RECEIVE_SHADOWS_ON)]_ReceiveShadowOn("_ReceiveShadowOn",int) = 0
+		[GroupToggle(_,_MAIN_LIGHT_SHADOWS)]_ReceiveShadowOn("_ReceiveShadowOn",int) = 0
 		[GroupToggle(_,_SHADOWS_SOFT)]_ShadowsSoft("_ShadowsSoft",int) = 0 
 		_MainLightSoftShadowScale("_MainLightSoftShadowScale",range(0,1))=0
 
@@ -272,7 +272,7 @@ Shader "FX/PowerVFX"
 		[GroupToggle(_,_ADDITIONAL_LIGHTS)]_AdditionalLightOn("_AdditionalLightOn",int)=0
 		[GroupToggle(_,_ADDITIONAL_LIGHT_SHADOWS)]_AdditionalLightShadowsOn("_AdditionalLightShadowsOn",int)=0
 		[GroupToggle(_,_ADDITIONAL_LIGHT_SHADOWS_SOFT)]_AdditionalLightShadowsSoftOn("_AdditionalLightShadowsSoftOn",int)=0
-		_AdditionalLightSoftShadowScale("_AdditionalLightSoftShadowScale",range(1,3)) = 1
+		_AdditionalLightSoftShadowScale("_AdditionalLightSoftShadowScale",range(1,10)) = 1
 	}
 	SubShader
 	{
@@ -292,34 +292,34 @@ Shader "FX/PowerVFX"
 
             // -------------------------------------
             // Material Keywords
-			#pragma shader_feature_local _ PBR_LIGHTING
-			#pragma shader_feature_local _RECEIVE_SHADOWS_ON
+			#pragma shader_feature_local  PBR_LIGHTING
+			// #pragma shader_feature_local _RECEIVE_SHADOWS_ON
 			#pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT
 
-			#pragma shader_feature_local_vertex _ VERTEX_WAVE_ON
-			#pragma shader_feature_local_fragment _ FRESNEL_ON
-			#pragma shader_feature_local_fragment _ ALPHA_TEST
-			#pragma shader_feature_local_fragment _ DISTORTION_ON
-			#pragma shader_feature_local_fragment _ DISSOLVE_ON
-			#pragma shader_feature_local_fragment _ OFFSET_ON
-			#pragma shader_feature_local_fragment _ ENV_REFLECT_ON
-			#pragma shader_feature_local_fragment _ ENV_REFRACTION_ON
-			#pragma shader_feature_local_fragment _ MATCAP_ON
-			#pragma shader_feature_local_fragment _ MATCAP_ROTATE_ON
-			#pragma shader_feature_local _ DEPTH_FADING_ON
-			#pragma shader_feature_local_fragment _ DOUBLE_EFFECT_ON
+			#pragma shader_feature_local_vertex  VERTEX_WAVE_ON
+			#pragma shader_feature_local_fragment  FRESNEL_ON
+			#pragma shader_feature_local_fragment  ALPHA_TEST
+			#pragma shader_feature_local_fragment  DISTORTION_ON
+			#pragma shader_feature_local_fragment  DISSOLVE_ON
+			#pragma shader_feature_local_fragment  OFFSET_ON
+			#pragma shader_feature_local_fragment  ENV_REFLECT_ON
+			#pragma shader_feature_local_fragment  ENV_REFRACTION_ON
+			#pragma shader_feature_local_fragment  MATCAP_ON
+			#pragma shader_feature_local_fragment  MATCAP_ROTATE_ON
+			#pragma shader_feature_local  DEPTH_FADING_ON
+			#pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON
 			#pragma shader_feature_local_fragment _OFFSET_BLEND_REPLACE_MODE
-			// #pragma shader_feature_local_fragment _ MAIN_TEX_USE_SCREEN_COLOR // unused yet
+			// #pragma shader_feature_local_fragment  MAIN_TEX_USE_SCREEN_COLOR // unused yet
 
 
 			// -------------------------------------
             // Universal Pipeline keywords
-            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
-            #pragma multi_compile _ _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
-            #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+            #pragma shader_feature_local _ _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
+            #pragma shader_feature_local _ _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
+            #pragma shader_feature_local_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             // #pragma multi_compile _ _REFLECTION_PROBE_BLENDING
             // #pragma multi_compile _ _REFLECTION_PROBE_BOX_PROJECTION
-            #pragma multi_compile_fragment _ _SHADOWS_SOFT
+            #pragma shader_feature_local_fragment _ _SHADOWS_SOFT
             // #pragma multi_compile _ _SCREEN_SPACE_OCCLUSION
             // #pragma multi_compile _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
             // #pragma multi_compile _ _LIGHT_LAYERS
@@ -329,9 +329,9 @@ Shader "FX/PowerVFX"
             // -------------------------------------
             // Unity defined keywords
             // #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
-            #pragma multi_compile _ SHADOWS_SHADOWMASK
+            // #pragma multi_compile _ SHADOWS_SHADOWMASK
             // #pragma multi_compile _ DIRLIGHTMAP_COMBINED
-            #pragma multi_compile _ LIGHTMAP_ON
+            // #pragma multi_compile _ LIGHTMAP_ON
             // #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             // #pragma multi_compile_fog
             // #pragma multi_compile _ DEBUG_DISPLAY

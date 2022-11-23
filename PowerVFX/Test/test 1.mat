@@ -11,10 +11,17 @@ Material:
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
   m_ValidKeywords:
   - ALPHA_TEST
+  - DISSOLVE_ON
+  - DISTORTION_ON
+  - DOUBLE_EFFECT_ON
+  - ENV_REFLECT_ON
+  - ENV_REFRACTION_ON
   - FRESNEL_ON
   - MATCAP_ON
   - MATCAP_ROTATE_ON
   - OFFSET_ON
+  - PBR_LIGHTING
+  - VERTEX_WAVE_ON
   - _OFFSET_BLEND_REPLACE_MODE
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -27,7 +34,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _DissolveTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: ebf5e9921fc906448b56a3fc01c82abc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortionMaskTex:
@@ -95,7 +102,7 @@ Material:
     - _DissolveByVertexColor: 0
     - _DissolveClipOn: 1
     - _DissolveCustomData: 2
-    - _DissolveCustomDataOn: 0
+    - _DissolveCustomDataOn: 1
     - _DissolveEdgeOn: 0
     - _DissolveEdgeWidthCustomData: 3
     - _DissolveEdgeWidthCustomDataOn: 0
@@ -103,7 +110,7 @@ Material:
     - _DissolveFadingMin: 0
     - _DissolveMaskChannel: 3
     - _DissolveMaskFromTexOn: 0
-    - _DissolveOn: 0
+    - _DissolveOn: 1
     - _DissolveTexChannel: 0
     - _DissolveTexOffsetStop: 0
     - _DistortionApplyToDissolve: 0
@@ -113,18 +120,18 @@ Material:
     - _DistortionCustomDataOn: 0
     - _DistortionIntensity: 0
     - _DistortionMaskChannel: 0
-    - _DistortionOn: 0
+    - _DistortionOn: 1
     - _DistortionRadialRot: 0
     - _DistortionRadialUVOn: 0
-    - _DoubleEffectOn: 0
+    - _DoubleEffectOn: 1
     - _DstMode: 0
     - _EdgeWidth: 0.1
     - _EnvIntensity: 1
     - _EnvMapMaskChannel: 0
     - _EnvMaskUseMainTexMask: 1
-    - _EnvReflectOn: 0
+    - _EnvReflectOn: 1
     - _EnvRefractionIOR: 1.33
-    - _EnvRefractionOn: 0
+    - _EnvRefractionOn: 1
     - _FresnelColorMode: 0
     - _FresnelOn: 1
     - _FresnelPowerMax: 1
@@ -166,7 +173,7 @@ Material:
     - _OffsetOn: 1
     - _OffsetRadialRot: 0
     - _OffsetRadialUVOn: 0
-    - _PbrLightOn: 0
+    - _PbrLightOn: 1
     - _PixelDissolveOn: 0
     - _PixelWidth: 10
     - _ReceiveShadowOn: 0
@@ -184,7 +191,7 @@ Material:
     - _VertexWaveDirAlongNormalOn: 0
     - _VertexWaveDirAtten_LocalSpaceOn: 0
     - _VertexWaveIntensity: 1
-    - _VertexWaveOn: 0
+    - _VertexWaveOn: 1
     - _VertexWaveSpeed: 1
     - _VertexWaveSpeedManual: 0
     - _ZTestMode: 4
