@@ -256,7 +256,7 @@ Shader "FX/PowerVFX"
 // ================================================== Light		
 		[Header(Light)]
 		[GroupToggle(_,PBR_LIGHTING)]_PbrLightOn("_PbrLightOn",int) = 0
-		_NormalMap("_NormalMap",2d)="bump"{}
+		[NoScaleOffset]_NormalMap("_NormalMap",2d)="bump"{}
 		_NormalMapScale("_NormalMapScale",range(0,5)) = 1
 		_PbrMask("_PbrMask(Metal,Smooth,Occ)",2d)="white"{}
 		_Metallic("_Metallic",range(0,1))=0.5

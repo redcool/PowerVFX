@@ -215,12 +215,12 @@ void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refr
     float4 envColor = (float4)0;
     #if defined(ENV_REFLECT_ON)
     // if(_EnvReflectOn)
-        envColor.xyz += SampleEnvMap(reflectDir) * _EnvReflectionColor;
+        envColor.xyz += SampleEnvMap(reflectDir) * _EnvReflectionColor.xyz;
     #endif
     
     #if defined(ENV_REFRACTION_ON)        
     // if(_EnvRefractionOn)
-        envColor.xyz += SampleEnvMap(refractDir) * _EnvRefractionColor;
+        envColor.xyz += SampleEnvMap(refractDir) * _EnvRefractionColor.xyz;
     #endif
     
     envColor *= _EnvIntensity * envMask;

@@ -120,7 +120,8 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     ApplyMainTexMask(mainColor/**/,mainTexMask/**/,_DistortionApplyToMainTexMask ? uvDistorted : mainUV.zw,mainTexMaskOffsetCustomData);
 
     #if defined(PBR_LIGHTING)
-        normal = SampleNormalMap(uvDistorted,i.tSpace0,i.tSpace1,i.tSpace2);
+        float2 normalUV = i.uv.xy * _MainTex_ST.xy+_MainTex_ST.zw;
+        normal = SampleNormalMap(normalUV,i.tSpace0,i.tSpace1,i.tSpace2);
         ApplyPbrLighting(mainColor.xyz/**/,worldPos,i.shadowCoord,uvDistorted,normal,viewDir);
 
     #endif //PBR_LIGHTING
