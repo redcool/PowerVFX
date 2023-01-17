@@ -333,7 +333,7 @@ Shader "FX/PowerVFX"
             // #pragma multi_compile _ DIRLIGHTMAP_COMBINED
             // #pragma multi_compile _ LIGHTMAP_ON
             // #pragma multi_compile _ DYNAMICLIGHTMAP_ON
-            // #pragma multi_compile_fog
+            #pragma multi_compile_fog
             // #pragma multi_compile _ DEBUG_DISPLAY
 			
 			#pragma target 3.0
