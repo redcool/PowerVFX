@@ -55,6 +55,7 @@ CBUFFER_START(UnityPerMaterial)
     float _MainTexUseScreenColor;
     half2 _MainTexSheet;
     half _MainTexSheetAnimSpeed;
+    bool _MainTexSheetAnimBlendOn;
     // int _MainTexSheetPlayOnce;
 // ==================================================_VertexWaveOn
     float _VertexWaveOn;

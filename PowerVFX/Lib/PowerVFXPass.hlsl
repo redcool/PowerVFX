@@ -12,7 +12,7 @@ v2f vert(appdata v)
 
     v2f o = (v2f)0;
     o.color = v.color;
-    o.viewDir = viewDir;
+    o.viewDir = float4(viewDir,0);
 
     // composite custom datas
     o.customData1 = float4(v.uv.zw,v.uv1.xy);// particle custom data (Custom1.zw)(Custom2.xy)
@@ -58,8 +58,8 @@ v2f vert(appdata v)
         TANGENT_SPACE_COMBINE_WORLD(worldPos,worldNormal,float4(worldTangent,v.tangent.w),o/**/);
     // }
     // #endif
-
-    o.fogCoord.x = ComputeFogFactor(o.vertex.z);
+    o.animBlendUVFactor_fogCoord.xyz = float3(v.uv2.zw,v.uv3.x);
+    o.animBlendUVFactor_fogCoord.w = ComputeFogFactor(o.vertex.z);
     // UNITY_TRANSFER_FOG(o,o.vertex);
 
     #if defined(MAIN_LIGHT_CALCULATE_SHADOWS)
@@ -75,7 +75,9 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     float3 reflectDir = i.reflectDir;
     float3 refractDir = i.refractDir;
-    float3 viewDir = normalize(i.viewDir);
+    float3 viewDir = normalize(i.viewDir.xyz);
+    float3 animBlendUVFactor = i.animBlendUVFactor_fogCoord.xyz;
+    float fogCoord = i.animBlendUVFactor_fogCoord.w;
 
     float4 mainColor = float4(0,0,0,1);
     float4 screenColor=0;
@@ -109,10 +111,10 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
             distortUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_DistortionRadialRot);
         }
         uvDistorted = ApplyDistortion(mainUV,distortUV,distortionCustomData);
-        SampleMainTex(mainColor/**/,screenColor/**/,uvDistorted,i.color,faceId);
+        SampleMainTex(mainColor/**/,screenColor/**/,uvDistorted,i.color,faceId,animBlendUVFactor);
     }
     #else
-        SampleMainTex(mainColor/**/,screenColor/**/,mainUV.xy,i.color,faceId);
+        SampleMainTex(mainColor/**/,screenColor/**/,mainUV.xy,i.color,faceId,animBlendUVFactor);
     #endif
 
     //-------- mainColor, screenColor prepared done
@@ -188,7 +190,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     mainColor.a = saturate(mainColor.a );
     // apply fog
-    mainColor.xyz = MixFog(mainColor.xyz,i.fogCoord.x);
+    mainColor.xyz = MixFog(mainColor.xyz,fogCoord);
 
     return mainColor;
 }

@@ -91,8 +91,8 @@ _DissolveTexChannel=溶解图通道
 _DissolveFadingOn = 溶解透明渐变?
 _DissolveFadingMin=透明Min
 _DissolveFadingMax=透明Max
-_DissolveByVertexColor=使用顶点颜色(A)控制?
-_DissolveCustomDataOn=使用(CustomData.z->uv1.x)控制?
+_DissolveByVertexColor=溶解使用顶点颜色(A)控制?
+_DissolveCustomDataOn=溶解使用(CustomData)控制?
 
 _DissolveClipOn=像素剔除?
 _Cutoff=镂空值

@@ -8,7 +8,7 @@ Shader "FX/PowerVFX"
 		[Group(MainTex Options)]
 		[GroupItem(MainTex Options)]_MainUVAngle("_MainUVAngle",float) = 0
 		[GroupToggle(MainTex Options)]_MainTexOffsetStop("_MainTexOffsetStop",int)=0
-		[GroupHeader(MainTex Options,Particle Custom Data)]
+		[GroupHeader(MainTex Options,MainTex Custom Data)]
 		[GroupToggle(MainTex Options)]_MainTexOffset_CustomData_On("_MainTexOffset_CustomData_On",int)=0
 		[GroupEnum(MainTex Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexOffset_CustomData_X("_MainTexOffset_CustomData_X",int) = 0
 		[GroupEnum(MainTex Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexOffset_CustomData_Y("_MainTexOffset_CustomData_Y",int) = 1
@@ -35,7 +35,7 @@ Shader "FX/PowerVFX"
 		[GroupToggle(MainTex Mask Options)]_MainTexMaskOffsetStop("_MainTexMaskOffsetStop",int)=0
 		[GroupEnum(MainTex Mask Options,R 0 G 1 B 2 A 3)]_MainTexMaskChannel("_MainTexMaskChannel",int) = 0
 
-		[GroupHeader(MainTex Mask Options,Particle Custom Data)]
+		[GroupHeader(MainTex Mask Options,MainTexMask Custom Data)]
 		[GroupToggle(MainTex Mask Options)]_MainTexMaskOffsetCustomDataOn("_MainTexMaskOffsetCustomDataOn",int)=0
 		[GroupEnum(MainTex Mask Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexMaskOffsetCustomDataX("_MainTexMaskOffsetCustomDataX",int) = 6
 		[GroupEnum(MainTex Mask Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexMaskOffsetCustomDataY("_MainTexMaskOffsetCustomDataY",int) = 7
@@ -48,6 +48,7 @@ Shader "FX/PowerVFX"
 		[Group(SheetAnimation)]
 		[GroupVectorSlider(SheetAnimation,RowCount ColumnCount,1_16 1_16,,int)]_MainTexSheet("_MainTexSheet",vector)=(1,1,1,1)
 		[GroupItem(SheetAnimation)]_MainTexSheetAnimSpeed("_MainTexSheetAnimSpeed",float) = 1
+		[GroupToggle(SheetAnimation)]_MainTexSheetAnimBlendOn("_MainTexSheetAnimBlendOn",int) = 0
 		// [GroupToggle(_)]_MainTexSheetPlayOnce("_MainTexSheetPlayOnce",int) = 0
 // ==================================================		Alpha
 		[Header(Alpha Range)]
@@ -99,7 +100,7 @@ Shader "FX/PowerVFX"
 		[Enum(R,0,G,1,B,2,A,3)]_VertexWaveAtten_MaskMapChannel("_VertexWaveAtten_MaskMapChannel",int) = 0
 		[GroupToggle]_VertexWaveAtten_MaskMapOffsetStopOn("_VertexWaveAtten_MaskMapOffsetStopOn",int) = 0
 
-		[Header(Particle Custom Data)]
+		[Header(VertexWave Custom Data)]
 		[GroupToggle]_VertexWaveAttenMaskOffsetCustomDataOn("_VertexWaveAttenMaskOffsetCustomDataOn",int) = 0
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_VertexWaveAttenMaskOffsetCustomData("_VertexWaveAttenMaskOffsetCustomData",int) = 4
 // ==================================================Distortion
@@ -113,7 +114,7 @@ Shader "FX/PowerVFX"
 
 		[Header(Distortion Intensity)]
 		_DistortionIntensity("Distortion Intensity",Range(0,2)) = 0.5
-		[Header(Particle Custom Data)]
+		[Header(Distortion Custom Data)]
 		[GroupToggle]_DistortionCustomDataOn("_DistortionCustomDataOn",int) = 0
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_DistortionCustomData("_DistortionCustomData",int) = 5
 
@@ -144,7 +145,7 @@ Shader "FX/PowerVFX"
 		[Header(DissolveType)]
 		[GroupToggle]_DissolveByVertexColor("Dissolve By Vertex Color ?",int)=0
 
-		[Header(Particle Custom Data)]
+		[Header(Dissolve Custom Data)]
 		[GroupToggle]_DissolveCustomDataOn("Dissolve By customData.z -> uv1.x ?",int)=0
 		//default custom1.z
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_DissolveCustomData("_DissolveCustomData",int) = 2
@@ -166,7 +167,7 @@ Shader "FX/PowerVFX"
 		[GroupToggle]_DissolveEdgeOn("Dissolve Edge On?",int)=0
 		_EdgeWidth("EdgeWidth",range(0,0.3)) = 0.1
 
-		[Header(Particle Custom Data)]
+		[Header(DissolveEdge Custom Data)]
 		[GroupToggle]_DissolveEdgeWidthCustomDataOn("_DissolveEdgeWidthCustomDataOn.w -> uv1.y",int) = 0
 		//default custom1.w
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_DissolveEdgeWidthCustomData("_DissolveEdgeWidthCustomData",int) = 3

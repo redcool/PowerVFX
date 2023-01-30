@@ -23,7 +23,8 @@ struct appdata
         uv2.x (_MainTexMask scroll.x)
         uv2.y(_MainTexMask scroll.y)
     */        
-    float4 uv2:TEXCOORD2; // particles customData Custom2.zw
+    float4 uv2:TEXCOORD2; // xy:(particles customData Custom2.zw) ,zw:(particle uv2)
+    float4 uv3:TEXCOORD3; // (x : particle AnimBlend)
 };
 
 struct v2f
@@ -40,8 +41,8 @@ struct v2f
     float4 customData1:TEXCOORD1;
     float4 customData2:TEXCOORD2;
     TANGENT_SPACE_DECLARE(3,4,5);
-    float fogCoord:TEXCOORD6;
-    float3 viewDir :TEXCOORD7;
+    float4 animBlendUVFactor_fogCoord:TEXCOORD6;
+    float4 viewDir :TEXCOORD7; //(xyz:ViewDir)(w:particle AnimBlend)
     float4 shadowCoord:TEXCOORD8;
     float4 projPos:TEXCOORD9;
 };

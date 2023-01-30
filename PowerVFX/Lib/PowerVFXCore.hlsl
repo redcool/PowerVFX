@@ -83,10 +83,17 @@ void ApplySaturate(inout float4 mainColor){
     mainColor.xyz = lerp(Gray(mainColor.xyz),mainColor.xyz,_MainTexSaturate);
 }
 
-void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,float4 vertexColor,float faceId ){
+void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,float4 vertexColor,float faceId ,float3 animBlendUVFactor){
     float4 color = _BackFaceOn ? lerp(_BackFaceColor,_Color,faceId) : _Color;
     
-    mainColor = _MainTexUseScreenColor ==0 ? tex2D(_MainTex,uv) : tex2D(_CameraOpaqueTexture,uv); 
+    mainColor = _MainTexUseScreenColor ? tex2D(_CameraOpaqueTexture,uv) : tex2D(_MainTex,uv);
+    if(_MainTexSheetAnimBlendOn){
+        mainColor = lerp(
+            mainColor,
+            _MainTexUseScreenColor ? tex2D(_CameraOpaqueTexture,animBlendUVFactor.xy) : tex2D(_MainTex,animBlendUVFactor.xy),
+            animBlendUVFactor.z
+            );
+    }
     
     ApplySaturate(mainColor);
 
