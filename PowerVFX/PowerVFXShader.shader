@@ -48,7 +48,7 @@ Shader "FX/PowerVFX"
 		[Group(SheetAnimation)]
 		[GroupVectorSlider(SheetAnimation,RowCount ColumnCount,1_16 1_16,,int)]_MainTexSheet("_MainTexSheet",vector)=(1,1,1,1)
 		[GroupItem(SheetAnimation)]_MainTexSheetAnimSpeed("_MainTexSheetAnimSpeed",float) = 1
-		[GroupToggle(SheetAnimation)]_MainTexSheetAnimBlendOn("_MainTexSheetAnimBlendOn",int) = 0
+		[GroupToggle(SheetAnimation,SHEET_ANIM_BLEND_ON)]_MainTexSheetAnimBlendOn("_MainTexSheetAnimBlendOn",int) = 0
 		// [GroupToggle(_)]_MainTexSheetPlayOnce("_MainTexSheetPlayOnce",int) = 0
 // ==================================================		Alpha
 		[Header(Alpha Range)]
@@ -303,13 +303,14 @@ Shader "FX/PowerVFX"
 			#pragma shader_feature_local_fragment  DISTORTION_ON
 			#pragma shader_feature_local_fragment  DISSOLVE_ON
 			#pragma shader_feature_local_fragment  OFFSET_ON
-			#pragma shader_feature_local_fragment  ENV_REFLECT_ON
-			#pragma shader_feature_local_fragment  ENV_REFRACTION_ON
+			#pragma shader_feature_local  ENV_REFLECT_ON
+			#pragma shader_feature_local  ENV_REFRACTION_ON
 			#pragma shader_feature_local_fragment  MATCAP_ON
 			#pragma shader_feature_local_fragment  MATCAP_ROTATE_ON
-			#pragma shader_feature_local  DEPTH_FADING_ON
+			#pragma shader_feature_local_fragment  DEPTH_FADING_ON
 			#pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON
 			#pragma shader_feature_local_fragment _OFFSET_BLEND_REPLACE_MODE
+			#pragma shader_feature_local_fragment SHEET_ANIM_BLEND_ON
 			// #pragma shader_feature_local_fragment  MAIN_TEX_USE_SCREEN_COLOR // unused yet
 
 
@@ -334,7 +335,8 @@ Shader "FX/PowerVFX"
             // #pragma multi_compile _ DIRLIGHTMAP_COMBINED
             // #pragma multi_compile _ LIGHTMAP_ON
             // #pragma multi_compile _ DYNAMICLIGHTMAP_ON
-            #pragma multi_compile_fog
+            // #pragma multi_compile_fog
+			#pragma multi_compile _ FOG_LINEAR
             // #pragma multi_compile _ DEBUG_DISPLAY
 			
 			#pragma target 3.0

@@ -44,8 +44,28 @@ struct v2f
     float4 animBlendUVFactor_fogCoord:TEXCOORD6;
     float4 viewDir :TEXCOORD7; //(xyz:ViewDir)(w:particle AnimBlend)
     float4 shadowCoord:TEXCOORD8;
-    float4 projPos:TEXCOORD9;
 };
 
+/*
+    particle system's sheet AnimBlend feature
+*/
+struct SheetAnimBlendParams
+{
+    bool isBlendOn;
+    float2 blendUV;
+    float blendRate;
+};
+
+SheetAnimBlendParams GetSheetAnimBlendParams(float3 animBlendUVFactor)
+{
+    SheetAnimBlendParams p;
+    p.blendUV = animBlendUVFactor.xy;
+    p.blendRate = animBlendUVFactor.z;
+    p.isBlendOn = false;
+    #if defined(SHEET_ANIM_BLEND_ON)
+        p.isBlendOn = true;
+    #endif
+    return p;
+}
 
 #endif //

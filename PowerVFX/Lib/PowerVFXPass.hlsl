@@ -33,23 +33,22 @@ v2f vert(appdata v)
     float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
     o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));
 
-    #if defined(DEPTH_FADING_ON)
-    o.projPos = o.vertex * 0.5; // [-0.5w,.5w]
-    o.projPos.xy = o.projPos.xy * float2(1,_ProjectionParams.x) + o.projPos.w; //[0,w]
-    o.projPos.zw = o.vertex.zw;
+    float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
+    #if defined(ENV_REFLECT_ON)
+    // if(_EnvReflectOn)
+        o.reflectDir = reflect(- viewDir,normalDistorted);
     #endif
 
-    float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
-    if(_EnvReflectOn)
-        o.reflectDir = reflect(- viewDir,normalDistorted);
-    if(_EnvRefractionOn)
+    #if defined(ENV_REFRACTION_ON)
+    // if(_EnvRefractionOn)
         o.refractDir = refract(viewDir,-normalDistorted,1/_EnvRefractionIOR);
+    #endif
 
     float3 viewNormal = normalize(mul((half3x3)UNITY_MATRIX_MV,v.normal));
     o.viewNormal = viewNormal.xy * 0.5 + 0.5;
 
     /* 
-        light, fresnel need nuormal
+        light, fresnel need normal
     */
 
     // #if defined(PBR_LIGHTING) 
@@ -81,6 +80,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     float4 mainColor = float4(0,0,0,1);
     float4 screenColor=0;
+
     // setup mainUV, move to vs
     // float4 mainUV = MainTexOffset(i.uv);
     float4 mainUV = i.uv;
@@ -95,9 +95,12 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     float distortionCustomData = customDatas[_DistortionCustomData];
     float2 mainTexMaskOffsetCustomData = float2(customDatas[_MainTexMaskOffsetCustomDataX] , customDatas[_MainTexMaskOffsetCustomDataY]);
     float2 offsetLayer1CData = float2(customDatas[_OffsetLayer1_CustomData_X],customDatas[_OffsetLayer1_CustomData_Y]);
-
+/**
+    particle system sheet animBlend
+*/
+    SheetAnimBlendParams animBlendParams = GetSheetAnimBlendParams(i.animBlendUVFactor_fogCoord.xyz);
+    
     //use _CameraOpaqueTexture
-    // float2 screenUV = i.projPos.xy;
     float2 screenUV = i.vertex.xy/_ScreenParams.xy;
     mainUV.xy = lerp(mainUV.xy,screenUV,_MainTexUseScreenColor);
     
@@ -111,10 +114,10 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
             distortUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_DistortionRadialRot);
         }
         uvDistorted = ApplyDistortion(mainUV,distortUV,distortionCustomData);
-        SampleMainTex(mainColor/**/,screenColor/**/,uvDistorted,i.color,faceId,animBlendUVFactor);
+        SampleMainTex(mainColor/**/,screenColor/**/,uvDistorted,i.color,faceId,animBlendParams);
     }
     #else
-        SampleMainTex(mainColor/**/,screenColor/**/,mainUV.xy,i.color,faceId,animBlendUVFactor);
+        SampleMainTex(mainColor/**/,screenColor/**/,mainUV.xy,i.color,faceId,animBlendParams);
     #endif
 
     //-------- mainColor, screenColor prepared done
@@ -181,10 +184,8 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #if defined(DEPTH_FADING_ON)
     // if(_DepthFadingOn)
     {
-        // float3 viewPos = mul(unity_MatrixV,worldPos);
-        float3 projPos = i.projPos.xyz/i.projPos.w;
-        float curZ = LinearEyeDepth(projPos.z,_ZBufferParams);
-        ApplySoftParticle(mainColor/**/,projPos.xy,curZ); // change vertex color
+        float curZ = IsOrthographicCamera() ? OrthographicDepthBufferToLinear(i.vertex.z) : i.vertex.w;
+        ApplySoftParticle(mainColor/**/,screenUV,curZ); // change vertex color
     }
     #endif
 

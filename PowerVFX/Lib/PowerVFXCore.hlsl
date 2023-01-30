@@ -3,7 +3,7 @@
 #define FRESNEL_COLOR_REPLACE 0
 #define FRESNEL_COLOR_MULTIPLY 1
 
-#include "CommonLib.cginc"
+#include "CommonLib.hlsl"
 #include "PowerVFXInput.hlsl"
 #include "PowerVFXData.hlsl"
 #include "../../PowerShaderLib/Lib/NodeLib.hlsl"
@@ -83,15 +83,16 @@ void ApplySaturate(inout float4 mainColor){
     mainColor.xyz = lerp(Gray(mainColor.xyz),mainColor.xyz,_MainTexSaturate);
 }
 
-void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,float4 vertexColor,float faceId ,float3 animBlendUVFactor){
+void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,float4 vertexColor,float faceId,SheetAnimBlendParams animBlendParams){
     float4 color = _BackFaceOn ? lerp(_BackFaceColor,_Color,faceId) : _Color;
     
     mainColor = _MainTexUseScreenColor ? tex2D(_CameraOpaqueTexture,uv) : tex2D(_MainTex,uv);
-    if(_MainTexSheetAnimBlendOn){
+    if(animBlendParams.isBlendOn)
+    {
         mainColor = lerp(
             mainColor,
-            _MainTexUseScreenColor ? tex2D(_CameraOpaqueTexture,animBlendUVFactor.xy) : tex2D(_MainTex,animBlendUVFactor.xy),
-            animBlendUVFactor.z
+            _MainTexUseScreenColor ? tex2D(_CameraOpaqueTexture,animBlendParams.blendUV) : tex2D(_MainTex,animBlendParams.blendUV),
+            animBlendParams.blendRate
             );
     }
     
@@ -255,11 +256,12 @@ void ApplyMatcap(inout float4 mainColor,float2 mainUV,float2 viewNormal){
 }
 
 void ApplySoftParticle(inout float4 mainColor,float2 screenUV,float curZ){
-    float sceneZ = LinearEyeDepth(tex2D(_CameraDepthTexture, screenUV).x,_ZBufferParams);
-    // float delta = (sceneZ-curZ);
-    // float fade = saturate (_DepthFadingWidth * delta + 0.12*delta);
-    float fade = saturate(_DepthFadingMax * (sceneZ - _DepthFadingWidth - curZ));
-    mainColor.a *= fade;
+    float sceneZ = tex2Dlod(_CameraDepthTexture, float4(screenUV,0,0)).x;
+    sceneZ = IsOrthographicCamera() ? OrthographicDepthBufferToLinear(sceneZ) : LinearEyeDepth(sceneZ,_ZBufferParams);
+
+    float delta = (sceneZ-curZ);
+    float fade = (delta - _DepthFadingWidth)/_DepthFadingMax;
+    mainColor.a *= saturate(fade);
 }
 
 
