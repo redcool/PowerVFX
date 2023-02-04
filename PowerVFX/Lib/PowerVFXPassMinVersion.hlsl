@@ -7,6 +7,7 @@
     2 mainTex sheet
     3 fog
     4 vertex color
+    5 alpha test
 */
 
 #include "../../PowerShaderLib/Lib/UnityLib.hlsl"

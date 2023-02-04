@@ -160,7 +160,7 @@ Shader "FX/PowerVFX"
 		[Header(Dissolve Progress)]
 		_Cutoff ("_Cutoff", Range(0,1)) = 0.5
 		[Header(Dissolve Clip)]
-		[Toggle(ALPHA_TEST)]_DissolveClipOn("_DissolveClipOn",int) = 1
+		[Toggle(ALPHA_TEST)]_DissolveClipOn("_DissolveClipOn",int) = 0
 
 		[Header(PixelDissolve)]
 		[GroupToggle]_PixelDissolveOn("_PixelDissolveOn",float) = 0
@@ -321,6 +321,13 @@ Shader "FX/PowerVFX"
 			// -------------------------------------
             // Universal Pipeline keywords
             #pragma shader_feature_local _ _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
+
+			/**
+			 	if object not show, 
+					can comment  _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
+					change shader_feature to multi_compile
+			*/
+
             #pragma shader_feature_local _ _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
             #pragma shader_feature_local_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             // #pragma multi_compile _ _REFLECTION_PROBE_BLENDING

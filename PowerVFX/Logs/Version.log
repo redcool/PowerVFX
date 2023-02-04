@@ -1,5 +1,10 @@
 
-2021/12/20
-    1 refactor editor gui
-    2 add _OffsetBlendMode
-    3 _PresetAlphaMode -> 设置
+
+v2.1.10
+add _MinVersion for massive little particles rendering.
+min version features:
+1 uv offset
+2 mainTex sheet
+3 fog
+4 vertex color
+5 alpha test

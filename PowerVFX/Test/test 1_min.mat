@@ -10,12 +10,7 @@ Material:
   m_Name: test 1_min
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
   m_ValidKeywords:
-  - ALPHA_TEST
   - DOUBLE_EFFECT_ON
-  - ENV_REFRACTION_ON
-  - MATCAP_ROTATE_ON
-  - MIN_VERSION
-  - _OFFSET_BLEND_REPLACE_MODE
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -93,9 +88,9 @@ Material:
     - _DepthFadingOn: 0
     - _DepthFadingWidth: 0.01
     - _DissolveByVertexColor: 0
-    - _DissolveClipOn: 1
+    - _DissolveClipOn: 0
     - _DissolveCustomData: 2
-    - _DissolveCustomDataOn: 1
+    - _DissolveCustomDataOn: 0
     - _DissolveEdgeOn: 0
     - _DissolveEdgeWidthCustomData: 3
     - _DissolveEdgeWidthCustomDataOn: 0
