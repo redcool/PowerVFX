@@ -7,13 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: test 1
+  m_Name: test 1_min
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
   m_ValidKeywords:
   - ALPHA_TEST
   - DOUBLE_EFFECT_ON
   - ENV_REFRACTION_ON
   - MATCAP_ROTATE_ON
+  - MIN_VERSION
   - _OFFSET_BLEND_REPLACE_MODE
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -151,7 +152,7 @@ Material:
     - _MatCapOn: 0
     - _MatCapRotateOn: 1
     - _Metallic: 0.5
-    - _MinVersion: 0
+    - _MinVersion: 1
     - _NoiseUseAttenMaskMap: 0
     - _NormalMapScale: 1
     - _Occlusion: 0

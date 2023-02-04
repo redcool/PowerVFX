@@ -78,6 +78,9 @@ Shader "FX/PowerVFX"
 		[Header(Color Mask)]
 		[GroupEnum(_,RGBA 15 RGB 14 RG 12 GB 6 RB 10 R 8 G 4 B 2 A 1 None 0)]
 		_ColorMask("_ColorMask",int) = 15
+
+		[Header(Versions)]
+		[GroupToggle(_,MIN_VERSION)]_MinVersion("_MinVersion",int) = 0
 // ==================================================_VertexWaveOn
 		[GroupToggle(_,VERTEX_WAVE_ON)]_VertexWaveOn("_VertexWaveOn ?",int) = 0
 		[Header(Noise Map)]
@@ -311,6 +314,7 @@ Shader "FX/PowerVFX"
 			#pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON
 			#pragma shader_feature_local_fragment _OFFSET_BLEND_REPLACE_MODE
 			#pragma shader_feature_local_fragment SHEET_ANIM_BLEND_ON
+			#pragma shader_feature_local MIN_VERSION
 			// #pragma shader_feature_local_fragment  MAIN_TEX_USE_SCREEN_COLOR // unused yet
 
 
@@ -342,7 +346,7 @@ Shader "FX/PowerVFX"
 			#pragma target 3.0
 			#pragma vertex vert
 			#pragma fragment frag
-			#include "Lib/PowerVFXPass.hlsl"
+			#include "Lib/PowerVFXPassVersion.hlsl"
 
 			ENDHLSL
 		}

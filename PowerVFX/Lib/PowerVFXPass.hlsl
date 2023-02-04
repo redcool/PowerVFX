@@ -4,6 +4,7 @@
 #include "../../PowerShaderLib/UrpLib/URP_Fog.hlsl"
 #include "PowerVFXCore.hlsl"
 #include "../../PowerShaderLib/UrpLib/URP_AdditionalLightShadows.hlsl"
+
 v2f vert(appdata v)
 {
     float3 worldPos = mul(unity_ObjectToWorld,v.vertex).xyz;

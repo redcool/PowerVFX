@@ -5,14 +5,16 @@
 struct appdata
 {
     float4 vertex : POSITION;
-    float3 normal:NORMAL;
-    float4 tangent:TANGENT;
     float4 color : COLOR;
     /**
         uv.xy : main uv
         uv.zw : mainTex scroll (particle's customData Custom1.xy)
     */
     float4 uv : TEXCOORD0; 
+
+    #if !defined(MIN_VERSION)
+    float3 normal:NORMAL;
+    float4 tangent:TANGENT;
     /**
         uv1.xy (x:dissolve,y:dissolveEdgeWidth (particle's customData Custom1.zw)
         uv1.z (_DistortionCustomData)(custom2.x)
@@ -25,25 +27,28 @@ struct appdata
     */        
     float4 uv2:TEXCOORD2; // xy:(particles customData Custom2.zw) ,zw:(particle uv2)
     float4 uv3:TEXCOORD3; // (x : particle AnimBlend)
+    #endif
 };
 
 struct v2f
 {
     float4 vertex : SV_POSITION;
-    
     float4 color : COLOR;
+    float4 uv : TEXCOORD0;
+    float4 animBlendUVFactor_fogCoord:TEXCOORD6;
+
+    #if !defined(MIN_VERSION)
     float3 reflectDir:COLOR1;
     float2 viewNormal:COLOR2;
     float3 refractDir:COLOR3;
 
-    float4 uv : TEXCOORD0;
     // x y:customData.x,z:_VertexWaveAttenMask_UseCustomeData2_X
     float4 customData1:TEXCOORD1;
     float4 customData2:TEXCOORD2;
     TANGENT_SPACE_DECLARE(3,4,5);
-    float4 animBlendUVFactor_fogCoord:TEXCOORD6;
     float4 viewDir :TEXCOORD7; //(xyz:ViewDir)(w:particle AnimBlend)
     float4 shadowCoord:TEXCOORD8;
+    #endif
 };
 
 /*
