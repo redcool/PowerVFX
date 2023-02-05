@@ -29,6 +29,11 @@ half4 frag(v2f i) : SV_Target
     float fogCoord = i.animBlendUVFactor_fogCoord.w;
     float4 mainTex = tex2D(_MainTex,i.uv);
     half4 mainColor = mainTex * _Color;
+    
+    #if defined(ALPHA_TEST)
+        clip(mainColor.a - _Cutoff - 0.0001);
+    #endif
+
     mainColor.xyz = MixFog(mainColor.xyz,fogCoord);
     return mainColor;
 }
