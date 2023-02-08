@@ -31,7 +31,7 @@ public class PowerVFXMinVersionChecker
     static bool IsValidMinVersion(Material m)
     {
         var needMinVersion = m.shaderKeywords.Length == 0||
-            m.IsKeywordEnabled("ALPHA_TEST")
+            (m.shaderKeywords.Length == 1 && m.IsKeywordEnabled("ALPHA_TEST"))
             ;
         return needMinVersion;
     }
