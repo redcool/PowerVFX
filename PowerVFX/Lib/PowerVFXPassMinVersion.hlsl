@@ -34,6 +34,9 @@ half4 frag(v2f i) : SV_Target
         clip(mainColor.a - _Cutoff - 0.0001);
     #endif
 
+    float4 mainTexMask=0;
+    ApplyMainTexMask(mainColor/**/,mainTexMask/**/,i.uv,0);
+
     mainColor.xyz = MixFog(mainColor.xyz,fogCoord);
     return mainColor;
 }
