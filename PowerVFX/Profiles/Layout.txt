@@ -3,7 +3,7 @@
 
 
 // Tabs
-tabNames =  Settings, Main,VertexWave, Distortion, Dissolve, Offset, Fresnel,EnvReflect,MatCap,Alpha,Light,CustomDatas,MinVersion
+tabNames =  Settings, Main,VertexWave, Distortion, Dissolve, Offset, Fresnel,EnvReflect,MatCap,Alpha,Light,CustomDatas
 
 // Tab's contents
 Settings = _DoubleEffectOn, _CullMode, _ZWriteMode,_ZTestMode,_BlendOp,_DepthFadingOn,_DepthFadingWidth,_DepthFadingMax,_ColorMask,_PresetBlendMode,_RenderQueue,_ToggleGroups
