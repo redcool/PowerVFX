@@ -4,161 +4,166 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-
-public class AfterTransparentRender : ScriptableRendererFeature
+namespace PowerUtilities
 {
-    [Serializable]
-    public class Settings
+    public class AfterTransparentRender : ScriptableRendererFeature
     {
-        [Header("Grab Pass")]
-        public bool enableGrabPass = true;
-        public RenderPassEvent grabPassEvent = RenderPassEvent.AfterRenderingTransparents;
-        public int grabPassEventOffset = 0;
+        [Serializable]
+        public class Settings
+        {
+            [Header("Grab Pass")]
+            public bool enableGrabPass = true;
+            public RenderPassEvent grabPassEvent = RenderPassEvent.AfterRenderingTransparents;
+            public int grabPassEventOffset = 0;
 
-        [Header("CameraOpaqueTexture")]
-        public string opaqueTextureName = "_CameraOpaqueTexture";
-        [Range(0,4)]public int opaqueTextureDownSample = 3;
+            [Header("CameraOpaqueTexture")]
+            public string opaqueTextureName = "_CameraOpaqueTexture";
+            [Range(0, 4)] public int opaqueTextureDownSample = 3;
 
-        public bool applyBlur;
-        [Range(0.01f,1f)]public float blurScale = 0.5f;
+            public bool applyBlur;
+            [Range(0.01f, 1f)] public float blurScale = 0.5f;
 
-        [Header("Render Pass")]
-        public bool enableRenderPass = true;
-        public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
-        public int renderPassEventOffset = 1;
-        public string[] additionalLightModes;
+            [Header("Render Pass")]
+            public bool enableRenderPass = true;
+            public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
+            public int renderPassEventOffset = 1;
+            public string[] additionalLightModes;
 
-        public LayerMask layer = 0;
-    }
+            public LayerMask layer = 0;
+        }
 
-    [SerializeField]Settings settings = new Settings();
-    AfterTransparentRenderPass renderAfterTransparentPass;
-    GrabTransparentPass grabTransparentPass;
-    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
-    {
-        grabTransparentPass.cameraColorTarget = renderer.cameraColorTarget;
+        [SerializeField] Settings settings = new Settings();
+        AfterTransparentRenderPass renderAfterTransparentPass;
+        GrabTransparentPass grabTransparentPass;
+        public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
+        {
+            grabTransparentPass.cameraColorTarget = renderer.cameraColorTarget;
 
-        if (settings.enableGrabPass)
-            renderer.EnqueuePass(grabTransparentPass);
+            if (settings.enableGrabPass)
+                renderer.EnqueuePass(grabTransparentPass);
 
-        if (settings.enableRenderPass)
-            renderer.EnqueuePass(renderAfterTransparentPass);
-    }
+            if (settings.enableRenderPass)
+                renderer.EnqueuePass(renderAfterTransparentPass);
+        }
 
-    public override void Create()
-    {
-        renderAfterTransparentPass = new AfterTransparentRenderPass(settings);
-        grabTransparentPass = new GrabTransparentPass(settings);
-    }
+        public override void Create()
+        {
+            renderAfterTransparentPass = new AfterTransparentRenderPass(settings);
+            grabTransparentPass = new GrabTransparentPass(settings);
+        }
 
 
-    public class AfterTransparentRenderPass : ScriptableRenderPass
-    {
-        FilteringSettings filterSettings;
-        List<ShaderTagId> shaderTags = new List<ShaderTagId> { 
+        public class AfterTransparentRenderPass : ScriptableRenderPass
+        {
+            FilteringSettings filterSettings;
+            List<ShaderTagId> shaderTags = new List<ShaderTagId> {
             new ShaderTagId("SRPDefaultUnlit"),
             new ShaderTagId("UniversalForward"),
             new ShaderTagId("UniversalForwardOnly"),
         };
 
-        public AfterTransparentRenderPass(Settings settings)
-        {
-            //renderPassEvent = RenderPassEvent.AfterRenderingTransparents + 1;
-            renderPassEvent = settings.renderPassEvent + settings.renderPassEventOffset;
-            filterSettings = new FilteringSettings(RenderQueueRange.all, settings.layer);
-
-            for (int i = 0; i < settings.additionalLightModes.Length; i++)
+            public AfterTransparentRenderPass(Settings settings)
             {
-                shaderTags.Add(new ShaderTagId(settings.additionalLightModes[i]));
+                //renderPassEvent = RenderPassEvent.AfterRenderingTransparents + 1;
+                renderPassEvent = settings.renderPassEvent + settings.renderPassEventOffset;
+                filterSettings = new FilteringSettings(RenderQueueRange.all, settings.layer);
+
+                if (settings.additionalLightModes != null)
+                {
+                    for (int i = 0; i < settings.additionalLightModes.Length; i++)
+                    {
+                        shaderTags.Add(new ShaderTagId(settings.additionalLightModes[i]));
+                    }
+                }
             }
-        }
-        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
-        {
-            // create draw settings.
-            var sortingSettings = new SortingSettings { criteria = SortingCriteria.CommonTransparent };
-            var drawingSettings = new DrawingSettings();
-            drawingSettings.sortingSettings = sortingSettings;
-            drawingSettings.perObjectData = renderingData.perObjectData;
-            drawingSettings.mainLightIndex = renderingData.lightData.mainLightIndex;
-
-            for (int i = 0; i < shaderTags.Count; i++)
+            public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
             {
-                drawingSettings.SetShaderPassName(i, shaderTags[i]);
-            }
+                // create draw settings.
+                var sortingSettings = new SortingSettings { criteria = SortingCriteria.CommonTransparent };
+                var drawingSettings = new DrawingSettings();
+                drawingSettings.sortingSettings = sortingSettings;
+                drawingSettings.perObjectData = renderingData.perObjectData;
+                drawingSettings.mainLightIndex = renderingData.lightData.mainLightIndex;
 
-            // or call CreateDrawingSettings
-            //var drawingSettings = CreateDrawingSettings(ShaderTagId.none, ref renderingData, SortingCriteria.CommonTransparent);
-            context.DrawRenderers(renderingData.cullResults, ref drawingSettings, ref filterSettings);
-        }
-        
-    }
+                for (int i = 0; i < shaderTags.Count; i++)
+                {
+                    drawingSettings.SetShaderPassName(i, shaderTags[i]);
+                }
 
-    public class GrabTransparentPass : ScriptableRenderPass
-    {
-        Settings settings;
-        RenderTargetHandle targetTextureHandle;
-
-        int _BlurTex = Shader.PropertyToID("_BlurTex");
-        Material blurMat;
-
-
-        public RenderTargetIdentifier cameraColorTarget;
-
-        public GrabTransparentPass(Settings settings)
-        {
-            this.settings = settings;
-            //renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
-            renderPassEvent = settings.grabPassEvent + settings.grabPassEventOffset;
-            targetTextureHandle.Init(settings.opaqueTextureName);
-        }
-        public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
-        {
-            if (!blurMat)
-            {
-                var s = Shader.Find("Hidden/GaussianBlur");
-                if(s)
-                    blurMat = new Material(s);
+                // or call CreateDrawingSettings
+                //var drawingSettings = CreateDrawingSettings(ShaderTagId.none, ref renderingData, SortingCriteria.CommonTransparent);
+                context.DrawRenderers(renderingData.cullResults, ref drawingSettings, ref filterSettings);
             }
 
-            var w = Mathf.Max(1,cameraTextureDescriptor.width >> settings.opaqueTextureDownSample);
-            var h = Mathf.Max(1,cameraTextureDescriptor.height >> settings.opaqueTextureDownSample);
-            
-            cmd.GetTemporaryRT(targetTextureHandle.id,w,h,cameraTextureDescriptor.depthBufferBits,FilterMode.Bilinear);
-            cmd.SetGlobalTexture(targetTextureHandle.id, targetTextureHandle.Identifier());
-
-            cmd.GetTemporaryRT(_BlurTex, w, h);
         }
-        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+
+        public class GrabTransparentPass : ScriptableRenderPass
         {
-            var cmd = CommandBufferPool.Get();
+            Settings settings;
+            RenderTargetHandle targetTextureHandle;
 
-            context.ExecuteCommandBuffer(cmd);
-            cmd.Clear();
+            int _BlurTex = Shader.PropertyToID("_BlurTex");
+            Material blurMat;
 
-            cmd.BeginSample(nameof(GrabTransparentPass));
 
-            Blit(cmd, cameraColorTarget, targetTextureHandle.id);
+            public RenderTargetIdentifier cameraColorTarget;
 
-            // execute blur pass
-            if (settings.applyBlur && blurMat)
+            public GrabTransparentPass(Settings settings)
             {
-                blurMat.SetFloat("_Scale",settings.blurScale);
-                Blit(cmd, targetTextureHandle.id, _BlurTex, blurMat,1);
-
-                //blurMat.SetFloat("_Scale", settings.blurRadius*1.2f);
-                Blit(cmd, _BlurTex, targetTextureHandle.id, blurMat,2);
+                this.settings = settings;
+                //renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
+                renderPassEvent = settings.grabPassEvent + settings.grabPassEventOffset;
+                targetTextureHandle.Init(settings.opaqueTextureName);
             }
+            public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
+            {
+                if (!blurMat)
+                {
+                    var s = Shader.Find("Hidden/GaussianBlur");
+                    if (s)
+                        blurMat = new Material(s);
+                }
 
-            cmd.EndSample(nameof(GrabTransparentPass));
-            context.ExecuteCommandBuffer(cmd);
+                var w = Mathf.Max(1, cameraTextureDescriptor.width >> settings.opaqueTextureDownSample);
+                var h = Mathf.Max(1, cameraTextureDescriptor.height >> settings.opaqueTextureDownSample);
 
-            CommandBufferPool.Release(cmd);
-            cmd.Clear();
-        }
-        public override void FrameCleanup(CommandBuffer cmd)
-        {
-            cmd.ReleaseTemporaryRT(targetTextureHandle.id);
-            cmd.ReleaseTemporaryRT(_BlurTex);
+                cmd.GetTemporaryRT(targetTextureHandle.id, w, h, cameraTextureDescriptor.depthBufferBits, FilterMode.Bilinear);
+                cmd.SetGlobalTexture(targetTextureHandle.id, targetTextureHandle.Identifier());
+
+                cmd.GetTemporaryRT(_BlurTex, w, h);
+            }
+            public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+            {
+                var cmd = CommandBufferPool.Get();
+
+                context.ExecuteCommandBuffer(cmd);
+                cmd.Clear();
+
+                cmd.BeginSample(nameof(GrabTransparentPass));
+
+                Blit(cmd, cameraColorTarget, targetTextureHandle.id);
+
+                // execute blur pass
+                if (settings.applyBlur && blurMat)
+                {
+                    blurMat.SetFloat("_Scale", settings.blurScale);
+                    Blit(cmd, targetTextureHandle.id, _BlurTex, blurMat, 1);
+
+                    //blurMat.SetFloat("_Scale", settings.blurRadius*1.2f);
+                    Blit(cmd, _BlurTex, targetTextureHandle.id, blurMat, 2);
+                }
+
+                cmd.EndSample(nameof(GrabTransparentPass));
+                context.ExecuteCommandBuffer(cmd);
+
+                CommandBufferPool.Release(cmd);
+                cmd.Clear();
+            }
+            public override void FrameCleanup(CommandBuffer cmd)
+            {
+                cmd.ReleaseTemporaryRT(targetTextureHandle.id);
+                cmd.ReleaseTemporaryRT(_BlurTex);
+            }
         }
     }
 }
