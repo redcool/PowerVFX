@@ -38,11 +38,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c976d8a33075a8849a4bf86786ffda1f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 700e466989412f64ca60abee3a687d22, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexMask:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6449cd275bde43b4ab6c406536774326, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCapTex:
@@ -112,7 +112,7 @@ Material:
     - _DistortionRadialRot: 0
     - _DistortionRadialUVOn: 0
     - _DoubleEffectOn: 1
-    - _DstMode: 0
+    - _DstMode: 10
     - _EdgeWidth: 0.1
     - _EnvIntensity: 1
     - _EnvMapMaskChannel: 0
@@ -147,7 +147,7 @@ Material:
     - _MatCapOn: 0
     - _MatCapRotateOn: 1
     - _Metallic: 0.5
-    - _MinVersion: 1
+    - _MinVersion: 0
     - _NoiseUseAttenMaskMap: 0
     - _NormalMapScale: 1
     - _Occlusion: 0
@@ -169,7 +169,7 @@ Material:
     - _ReceiveShadowOn: 0
     - _ShadowsSoft: 0
     - _Smoothness: 0.5
-    - _SrcMode: 1
+    - _SrcMode: 5
     - _StopAutoOffset: 1
     - _VertexWaveAttenMaskOffsetCustomData: 4
     - _VertexWaveAttenMaskOffsetCustomDataOn: 0
@@ -199,7 +199,7 @@ Material:
     - _EnvRefractionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _FresnelColor: {r: 0.7830189, g: 0.114498034, b: 0.114498034, a: 1}
     - _FresnelColor2: {r: 0.18444741, g: 1, b: 0, a: 1}
-    - _MainTexSheet: {r: 10, g: 9, b: 1, a: 1}
+    - _MainTexSheet: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OffsetDir: {r: 1.47, g: 0, b: 0, a: 0}
     - _OffsetRadialCenter_LenScale_LenOffset: {r: 0.5, g: 0.5, b: 1, a: 0}

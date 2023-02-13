@@ -314,7 +314,7 @@ Shader "FX/PowerVFX"
 			#pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON
 			#pragma shader_feature_local_fragment _OFFSET_BLEND_REPLACE_MODE
 			#pragma shader_feature_local_fragment SHEET_ANIM_BLEND_ON
-			// #pragma shader_feature_local MIN_VERSION
+			#pragma shader_feature_local MIN_VERSION
 			// #pragma shader_feature_local_fragment  MAIN_TEX_USE_SCREEN_COLOR // unused yet
 
 
