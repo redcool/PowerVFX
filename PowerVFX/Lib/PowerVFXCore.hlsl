@@ -70,7 +70,7 @@ float4 MainTexOffset(float4 uv){
     mainTexOffset = lerp(mainTexOffset,uv.zw, _MainTexOffset_CustomData_On); // vertex uv0.z : particle customData1.xy
 
     //apply sheet
-    mainUV = RectUV(_Time.y*_MainTexSheetAnimSpeed,uv.xy,_MainTexSheet,true,0);
+    mainUV = RectUV(_Time.y*_MainTexSheetAnimSpeed,mainUV,_MainTexSheet,true,0);
 
     float4 scrollUV = (float4)0;
     scrollUV.xy = mainUV * _MainTex_ST.xy + mainTexOffset;

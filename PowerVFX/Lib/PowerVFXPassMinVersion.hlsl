@@ -27,7 +27,7 @@ v2f vert(appdata v){
 half4 frag(v2f i) : SV_Target
 {
     float fogCoord = i.animBlendUVFactor_fogCoord.w;
-    float4 mainTex = tex2D(_MainTex,i.uv);
+    float4 mainTex = tex2D(_MainTex,i.uv.xy);
     half4 mainColor = mainTex * _Color;
     
     #if defined(ALPHA_TEST)
@@ -35,7 +35,7 @@ half4 frag(v2f i) : SV_Target
     #endif
 
     float4 mainTexMask=0;
-    ApplyMainTexMask(mainColor/**/,mainTexMask/**/,i.uv,0);
+    ApplyMainTexMask(mainColor/**/,mainTexMask/**/,i.uv.xy,0);
 
     mainColor.xyz = MixFog(mainColor.xyz,fogCoord);
     return mainColor;
