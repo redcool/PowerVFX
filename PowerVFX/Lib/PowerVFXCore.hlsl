@@ -8,6 +8,7 @@
 #include "PowerVFXData.hlsl"
 #include "../../PowerShaderLib/Lib/NodeLib.hlsl"
 #include "../../PowerShaderLib/Lib/UVMapping.hlsl"
+#include "../../PowerShaderLib/Lib/Colors.hlsl"
 #include "../../PowerShaderLib/UrpLib/Lighting.hlsl"
 
 float4 SampleAttenMap(float2 mainUV,float attenMaskCDATA){
@@ -83,17 +84,43 @@ void ApplySaturate(inout float4 mainColor){
     mainColor.xyz = lerp(Gray(mainColor.xyz),mainColor.xyz,_MainTexSaturate);
 }
 
+half4 SampleMainTex(float2 uv){
+    // #if defined(_SCREEN_TEX_ON)
+    if(_MainTexUseScreenColor)
+    {
+        return tex2D(_CameraOpaqueTexture,uv);
+    }
+    // #else
+    else
+    {
+        return tex2D(_MainTex,uv);
+    }
+    // #endif
+}
+
+void SampleMainTexWithGlitch(inout float4 mainColor,float2 uv){
+#if defined(_GLITCH_ON)
+    float4 glitchUV = GlitchUV(uv,_SnowFlakeIntensity,_JitterBlockSize,_JitterIntensity,_VerticalJumpIntensity,
+        _HorizontalShake,_ColorDriftSpeed,_ColorDriftIntensity,_HorizontalIntensity);
+    
+    half4 c1 = SampleMainTex(glitchUV.xy);
+    half4 c2 = SampleMainTex(glitchUV.zw);
+    mainColor = half4(c1.x,c2.y,c1.z,1);
+#else
+    mainColor = SampleMainTex(uv);
+#endif
+}
+
 void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,float4 vertexColor,float faceId,SheetAnimBlendParams animBlendParams){
     float4 color = _BackFaceOn ? lerp(_BackFaceColor,_Color,faceId) : _Color;
     
-    mainColor = _MainTexUseScreenColor ? tex2D(_CameraOpaqueTexture,uv) : tex2D(_MainTex,uv);
+    SampleMainTexWithGlitch(mainColor/**/,uv);
     if(animBlendParams.isBlendOn)
     {
-        mainColor = lerp(
-            mainColor,
-            _MainTexUseScreenColor ? tex2D(_CameraOpaqueTexture,animBlendParams.blendUV) : tex2D(_MainTex,animBlendParams.blendUV),
-            animBlendParams.blendRate
-            );
+        float4 nextColor = 0;
+        SampleMainTexWithGlitch(nextColor/**/,animBlendParams.blendUV);
+
+        mainColor = lerp(mainColor,nextColor,animBlendParams.blendRate);
     }
     
     ApplySaturate(mainColor);
@@ -349,4 +376,6 @@ float3 SampleNormalMap(float2 uv,float4 tSpace0,float4 tSpace1,float4 tSpace2){
     float3 tn = UnpackNormalScale(tex2D(_NormalMap,uv),_NormalMapScale);
     return TangentToWorld(tn,tSpace0,tSpace1,tSpace2);
 }
+
+
 #endif //POWER_VFX_CGINC

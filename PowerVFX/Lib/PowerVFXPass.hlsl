@@ -190,6 +190,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     }
     #endif
 
+
     mainColor.a = saturate(mainColor.a );
     // apply fog
     mainColor.xyz = MixFog(mainColor.xyz,fogCoord);

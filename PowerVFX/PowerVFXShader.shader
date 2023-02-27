@@ -42,7 +42,7 @@ Shader "FX/PowerVFX"
 
 		[Space(10)]
 		[GroupHeader(_,ScreenOpaqueTexture)]
-		[GroupToggle(_)]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
+		[GroupToggle(_,_SCREEN_TEX_ON)]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
 
 		[Space(10)]
 		[Group(SheetAnimation)]
@@ -277,6 +277,24 @@ Shader "FX/PowerVFX"
 		[GroupToggle(_,_ADDITIONAL_LIGHT_SHADOWS)]_AdditionalLightShadowsOn("_AdditionalLightShadowsOn",int)=0
 		[GroupToggle(_,_ADDITIONAL_LIGHT_SHADOWS_SOFT)]_AdditionalLightShadowsSoftOn("_AdditionalLightShadowsSoftOn",int)=0
 		_AdditionalLightSoftShadowScale("_AdditionalLightSoftShadowScale",range(1,10)) = 1
+// ================================================== Glitch
+		[GroupToggle(_,_GLITCH_ON)]_GlitchOn("_GlitchOn",int) = 0
+        _HorizontalIntensity("_HorizontalIntensity",range(0,1)) = 1
+		
+		[Header(Snow)]
+        _SnowFlakeIntensity("_SnowFlakeIntensity",float) = 1
+		
+		[Header(Jitter)]
+        _JitterBlockSize("_JitterBlockSize",range(0,1)) = 0.1
+        _JitterIntensity("_JitterIntensity",range(0,1)) = 1
+
+		[Header(VerticalJump)]
+        _VerticalJumpIntensity("_VerticalJumpIntensity",range(0,1)) = 1
+		[Header(HorizontalShake)]
+        _HorizontalShake("_HorizontalShake",float) = 1
+        [Header(ColorDrift)]
+        _ColorDriftSpeed("_ColorDriftSpeed",float) = 1
+        _ColorDriftIntensity("_ColorDriftIntensity",float) = 1
 	}
 	SubShader
 	{
@@ -315,6 +333,8 @@ Shader "FX/PowerVFX"
 			#pragma shader_feature_local_fragment _OFFSET_BLEND_REPLACE_MODE
 			#pragma shader_feature_local_fragment SHEET_ANIM_BLEND_ON
 			#pragma shader_feature_local MIN_VERSION
+			#pragma shader_feature_local _GLITCH_ON
+			#pragma shader_feature_local _SCREEN_TEX_ON
 			// #pragma shader_feature_local_fragment  MAIN_TEX_USE_SCREEN_COLOR // unused yet
 
 
