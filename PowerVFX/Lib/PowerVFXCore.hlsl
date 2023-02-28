@@ -105,7 +105,7 @@ void SampleMainTexWithGlitch(inout float4 mainColor,float2 uv){
     
     half4 c1 = SampleMainTex(glitchUV.xy);
     half4 c2 = SampleMainTex(glitchUV.zw);
-    mainColor = half4(c1.x,c2.y,c1.z,1);
+    mainColor = half4(c1.x,c2.y,c1.z,c1.w*c2.w);
 #else
     mainColor = SampleMainTex(uv);
 #endif
