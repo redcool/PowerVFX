@@ -5,38 +5,39 @@ Shader "Hidden/PowerVFX/GaussianBlur"
         _MainTex("_MainTex",2d) = ""{}
         _Scale("_Scale",range(1,10)) = 1
     }
+
+    CGINCLUDE
+        #include "UnityCG.cginc"
+        #include "BlurLib.hlsl"
+        struct appdata
+        {
+            float4 vertex : POSITION;
+            float4 uv : TEXCOORD0;
+        };
+
+        struct v2f
+        {
+            float2 uv:TEXCOORD;
+            float4 vertex : SV_POSITION;
+        };
+
+        sampler2D _MainTex;
+        float4 _MainTex_TexelSize;
+        float _Scale;
+
+        v2f vert (appdata v)
+        {
+            v2f o;
+            o.vertex = UnityObjectToClipPos(v.vertex);
+            o.uv = v.uv;
+            return o;
+        }
+    ENDCG
+
     SubShader
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
-
-        CGINCLUDE
-            #include "UnityCG.cginc"
-            #include "BlurLib.hlsl"
-            struct appdata
-            {
-                float4 vertex : POSITION;
-                float4 uv : TEXCOORD0;
-            };
-
-            struct v2f
-            {
-                float2 uv:TEXCOORD;
-                float4 vertex : SV_POSITION;
-            };
-
-            sampler2D _MainTex;
-            float4 _MainTex_TexelSize;
-            float _Scale;
-
-            v2f vert (appdata v)
-            {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
-                return o;
-            }
-        ENDCG
 
         // h+v 
         Pass
