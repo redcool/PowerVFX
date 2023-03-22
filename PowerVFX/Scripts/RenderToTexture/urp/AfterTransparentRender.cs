@@ -148,8 +148,6 @@ namespace PowerUtilities
 
                 cmd.BeginSample(nameof(GrabTransparentPass));
 
-                Blit(cmd, cameraData.renderer.cameraColorTarget, _CameraOpaqueTexture);
-
                 // execute blur pass
                 if (settings.applyBlur && blurMat)
                 {
@@ -158,6 +156,10 @@ namespace PowerUtilities
 
                     //blurMat.SetFloat("_Scale", settings.blurRadius*1.2f);
                     Blit(cmd, _BlurTex, _CameraOpaqueTexture, blurMat, 2);
+                }
+                else
+                {
+                    Blit(cmd, cameraData.renderer.cameraColorTarget, _CameraOpaqueTexture);
                 }
 
                 cmd.EndSample(nameof(GrabTransparentPass));
