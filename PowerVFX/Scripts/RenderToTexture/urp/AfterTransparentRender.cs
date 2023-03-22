@@ -27,6 +27,7 @@ namespace PowerUtilities
             public bool enableRenderPass = true;
             public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
             public int renderPassEventOffset = 1;
+            public bool isClearDepth;
             public string[] additionalLightModes;
 
             public LayerMask layer = 0;
@@ -55,13 +56,15 @@ namespace PowerUtilities
         {
             FilteringSettings filterSettings;
             List<ShaderTagId> shaderTags = new List<ShaderTagId> {
-            new ShaderTagId("SRPDefaultUnlit"),
-            new ShaderTagId("UniversalForward"),
-            new ShaderTagId("UniversalForwardOnly"),
-        };
+                new ShaderTagId("SRPDefaultUnlit"),
+                new ShaderTagId("UniversalForward"),
+                new ShaderTagId("UniversalForwardOnly"),
+            };
 
+            Settings settings;
             public AfterTransparentRenderPass(Settings settings)
             {
+                this.settings = settings;
                 //renderPassEvent = RenderPassEvent.AfterRenderingTransparents + 1;
                 renderPassEvent = settings.renderPassEvent + settings.renderPassEventOffset;
                 filterSettings = new FilteringSettings(RenderQueueRange.all, settings.layer);
@@ -77,6 +80,14 @@ namespace PowerUtilities
 
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
             {
+                var cmd = CommandBufferPool.Get();
+                if (settings.isClearDepth)
+                {
+                    cmd.ClearRenderTarget(true, false, Color.clear);
+                    context.ExecuteCommandBuffer(cmd);
+                    cmd.Clear();
+                }
+
                 // create draw settings.
                 var sortingSettings = new SortingSettings { criteria = SortingCriteria.CommonTransparent };
                 var drawingSettings = new DrawingSettings();
@@ -92,6 +103,8 @@ namespace PowerUtilities
                 // or call CreateDrawingSettings
                 //var drawingSettings = CreateDrawingSettings(ShaderTagId.none, ref renderingData, SortingCriteria.CommonTransparent);
                 context.DrawRenderers(renderingData.cullResults, ref drawingSettings, ref filterSettings);
+
+                CommandBufferPool.Release(cmd);
             }
 
         }
@@ -155,7 +168,7 @@ namespace PowerUtilities
             }
             public override void FrameCleanup(CommandBuffer cmd)
             {
-                cmd.ReleaseTemporaryRT(_CameraOpaqueTexture);
+                //cmd.ReleaseTemporaryRT(_CameraOpaqueTexture);
                 cmd.ReleaseTemporaryRT(_BlurTex);
             }
         }
