@@ -102,7 +102,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     SheetAnimBlendParams animBlendParams = GetSheetAnimBlendParams(i.animBlendUVFactor_fogCoord.xyz);
     
     //use _CameraOpaqueTexture
-    float2 screenUV = i.vertex.xy/_ScreenParams.xy;
+    float2 screenUV = i.vertex.xy/_ScaledScreenParams.xy;
     mainUV.xy = lerp(mainUV.xy,screenUV,_MainTexUseScreenColor);
     
     float2 uvDistorted = mainUV.zw;
