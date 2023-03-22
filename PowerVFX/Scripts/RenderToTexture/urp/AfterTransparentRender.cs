@@ -114,7 +114,7 @@ namespace PowerUtilities
             {
                 if (!blurMat)
                 {
-                    var s = Shader.Find("Hidden/GaussianBlur");
+                    var s = Shader.Find("Hidden/PowerVFX/GaussianBlur");
                     if (s)
                         blurMat = new Material(s);
                 }

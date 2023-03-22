@@ -1,4 +1,4 @@
-Shader "Hidden/GaussianBlur"
+Shader "Hidden/PowerVFX/GaussianBlur"
 {
     Properties
     {
