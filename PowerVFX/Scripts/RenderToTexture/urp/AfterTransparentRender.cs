@@ -12,18 +12,18 @@ namespace PowerUtilities
         public class Settings
         {
             [Header("Grab Pass")]
+            [Tooltip("Blit CameraColorTarget to _CameraOpaqueTexture,can holding transparent objects")]
             public bool enableGrabPass = true;
             public RenderPassEvent grabPassEvent = RenderPassEvent.AfterRenderingTransparents;
             public int grabPassEventOffset = 0;
 
-            [Header("CameraOpaqueTexture")]
-            public string opaqueTextureName = "_CameraOpaqueTexture";
-            [Range(0, 4)] public int opaqueTextureDownSample = 3;
-
+            [Header("Grab Pass Blur")]
             public bool applyBlur;
+            [Range(0, 4)] public int opaqueTextureDownSample = 3;
             [Range(0.01f, 1f)] public float blurScale = 0.5f;
 
             [Header("Render Pass")]
+            [Tooltip("render objects after grabpass, then can use new _CameraOpaqueTexture")]
             public bool enableRenderPass = true;
             public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
             public int renderPassEventOffset = 1;
@@ -37,8 +37,6 @@ namespace PowerUtilities
         GrabTransparentPass grabTransparentPass;
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
-            grabTransparentPass.cameraColorTarget = renderer.cameraColorTarget;
-
             if (settings.enableGrabPass)
                 renderer.EnqueuePass(grabTransparentPass);
 
@@ -76,6 +74,7 @@ namespace PowerUtilities
                     }
                 }
             }
+
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
             {
                 // create draw settings.
@@ -99,21 +98,17 @@ namespace PowerUtilities
 
         public class GrabTransparentPass : ScriptableRenderPass
         {
+            int _CameraOpaqueTexture = Shader.PropertyToID(nameof(_CameraOpaqueTexture));
+            int _BlurTex = Shader.PropertyToID(nameof(_BlurTex));
+            
             Settings settings;
-            RenderTargetHandle targetTextureHandle;
-
-            int _BlurTex = Shader.PropertyToID("_BlurTex");
             Material blurMat;
-
-
-            public RenderTargetIdentifier cameraColorTarget;
 
             public GrabTransparentPass(Settings settings)
             {
                 this.settings = settings;
                 //renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
                 renderPassEvent = settings.grabPassEvent + settings.grabPassEventOffset;
-                targetTextureHandle.Init(settings.opaqueTextureName);
             }
             public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
             {
@@ -127,13 +122,12 @@ namespace PowerUtilities
                 var w = Mathf.Max(1, cameraTextureDescriptor.width >> settings.opaqueTextureDownSample);
                 var h = Mathf.Max(1, cameraTextureDescriptor.height >> settings.opaqueTextureDownSample);
 
-                cmd.GetTemporaryRT(targetTextureHandle.id, w, h, cameraTextureDescriptor.depthBufferBits, FilterMode.Bilinear);
-                cmd.SetGlobalTexture(targetTextureHandle.id, targetTextureHandle.Identifier());
-
                 cmd.GetTemporaryRT(_BlurTex, w, h);
             }
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
             {
+                ref var cameraData = ref renderingData.cameraData;
+
                 var cmd = CommandBufferPool.Get();
 
                 context.ExecuteCommandBuffer(cmd);
@@ -141,16 +135,16 @@ namespace PowerUtilities
 
                 cmd.BeginSample(nameof(GrabTransparentPass));
 
-                Blit(cmd, cameraColorTarget, targetTextureHandle.id);
+                Blit(cmd, cameraData.renderer.cameraColorTarget, _CameraOpaqueTexture);
 
                 // execute blur pass
                 if (settings.applyBlur && blurMat)
                 {
                     blurMat.SetFloat("_Scale", settings.blurScale);
-                    Blit(cmd, targetTextureHandle.id, _BlurTex, blurMat, 1);
+                    Blit(cmd, _CameraOpaqueTexture, _BlurTex, blurMat, 1);
 
                     //blurMat.SetFloat("_Scale", settings.blurRadius*1.2f);
-                    Blit(cmd, _BlurTex, targetTextureHandle.id, blurMat, 2);
+                    Blit(cmd, _BlurTex, _CameraOpaqueTexture, blurMat, 2);
                 }
 
                 cmd.EndSample(nameof(GrabTransparentPass));
@@ -161,7 +155,7 @@ namespace PowerUtilities
             }
             public override void FrameCleanup(CommandBuffer cmd)
             {
-                cmd.ReleaseTemporaryRT(targetTextureHandle.id);
+                cmd.ReleaseTemporaryRT(_CameraOpaqueTexture);
                 cmd.ReleaseTemporaryRT(_BlurTex);
             }
         }
