@@ -1,6 +1,7 @@
 #if !defined(POWER_VFX_DATA_CGINC)
 #define POWER_VFX_DATA_CGINC
 #include "../../PowerShaderLib/Lib/TangentLib.hlsl"
+#include "../../PowerShaderLib/Lib/MaskLib.hlsl"
 
 struct appdata
 {
@@ -48,6 +49,7 @@ struct v2f
     TANGENT_SPACE_DECLARE(3,4,5);
     float4 viewDir :TEXCOORD7; //(xyz:ViewDir)(w:particle AnimBlend)
     float4 shadowCoord:TEXCOORD8;
+    half4  uiMask : TEXCOORD9;
     #endif
 };
 

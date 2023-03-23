@@ -66,6 +66,8 @@ v2f vert(appdata v)
         o.shadowCoord = TransformWorldToShadowCoord(worldPos.xyz); // move to frag
     #endif
 
+    o.uiMask = GetUIMask(v.vertex,o.vertex.w,_ClipRect,half2(_UIMaskSoftnessX,_UIMaskSoftnessY));
+
     return o;
 }
 
@@ -194,6 +196,12 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     mainColor.a = saturate(mainColor.a );
     // apply fog
     mainColor.xyz = MixFog(mainColor.xyz,fogCoord);
+
+    #ifdef UNITY_UI_CLIP_RECT
+        half2 m = saturate((_ClipRect.zw - _ClipRect.xy - abs(i.uiMask.xy)) * i.uiMask.zw);
+        mainColor.a *= m.x * m.y;
+        // clip(mainColor.a -0.001);
+    #endif
 
     return mainColor;
 }

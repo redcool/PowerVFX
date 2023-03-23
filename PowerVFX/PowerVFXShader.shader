@@ -295,11 +295,26 @@ Shader "FX/PowerVFX"
         [Header(ColorDrift)]
         _ColorDriftSpeed("_ColorDriftSpeed",range(0,1000)) = 1
         _ColorDriftIntensity("_ColorDriftIntensity",range(0,1)) = 0.1
+
+//-------UI
+		[Group(Stencil)]
+		[GroupEnum(Stencil,UnityEngine.Rendering.CompareFunction)]_StencilComp ("Stencil Comparison", Float) = 0
+        [GroupItem(Stencil)]_Stencil ("Stencil ID", int) = 0
+        [GroupEnum(Stencil,UnityEngine.Rendering.StencilOp)]_StencilOp ("Stencil Operation", Float) = 0
+        _StencilWriteMask ("Stencil Write Mask", Float) = 255
+        _StencilReadMask ("Stencil Read Mask", Float) = 255
 	}
 	SubShader
 	{
 		Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" }
-
+		Stencil
+		{
+			Ref [_Stencil]
+			Comp [_StencilComp]
+			Pass [_StencilOp]
+			ReadMask [_StencilReadMask]
+			WriteMask [_StencilWriteMask]
+		}
 		Pass
 		{
 			ZWrite[_ZWriteMode]
@@ -308,6 +323,7 @@ Shader "FX/PowerVFX"
 			Cull[_CullMode]
 			ztest[_ZTestMode]
 			ColorMask [_ColorMask]
+			
 
 			HLSLPROGRAM
             // #pragma multi_compile_instancing
