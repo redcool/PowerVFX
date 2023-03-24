@@ -144,7 +144,7 @@ void ApplyMainTexMask(inout float4 mainColor,inout float4 mainTexMask,float2 uv,
     mainColor.a *= mainTexMask[_MainTexMaskChannel];
 }
 
-float2 ApplyDistortion(float4 mainUV,float4 distortUV,float customDataIntensity){
+float2 GetDistortionUV(float2 maskUV,float4 distortUV,float customDataIntensity){
     float2 noise = (tex2D(_DistortionNoiseTex, distortUV.xy).xy -0.5) * 2;
     #if defined(DOUBLE_EFFECT_ON)
     // if(_DoubleEffectOn)
@@ -154,13 +154,12 @@ float2 ApplyDistortion(float4 mainUV,float4 distortUV,float customDataIntensity)
     }
     #endif
     
-    float2 maskUV = mainUV.zw;
     maskUV = maskUV * _DistortionMaskTex_ST.xy + _DistortionMaskTex_ST.zw;
     float4 maskTex = tex2D(_DistortionMaskTex,maskUV);
 
     // float intensity = _DistortionCustomDataOn ? customDataIntensity : _DistortionIntensity;
     float intensity = lerp(_DistortionIntensity,customDataIntensity,_DistortionCustomDataOn);
-    float2 duv = mainUV.xy + noise * 0.2  * intensity * maskTex[_DistortionMaskChannel];
+    float2 duv = noise * 0.2  * intensity * maskTex[_DistortionMaskChannel];
     return duv;
 }
 
@@ -224,11 +223,17 @@ void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 maskUV){
         1 : a+a*b
         2 : lerp(a,b,b.w)
     */
-    #if defined(_OFFSET_BLEND_REPLACE_MODE)
-    mainColor.rgb = lerp(mainColor.rgb,offsetColor.xyz,offsetColor[_OffsetBlendReplaceMode_Channel]);
-    #else
-    mainColor.rgb = mainColor.rgb * (_OffsetBlendMode + offsetColor.xyz);
-    #endif
+    // #if defined(_OFFSET_BLEND_REPLACE_MODE)
+    if(_OffsetBlendReplaceMode)
+    {
+        mainColor.rgb = lerp(mainColor.rgb,offsetColor.xyz,offsetColor[_OffsetBlendReplaceMode_Channel]);
+    }
+    // #else
+    else
+    {
+        mainColor.rgb = mainColor.rgb * (_OffsetBlendMode + offsetColor.xyz);
+    }
+    // #endif
 }
 
 void ApplyFresnal(inout float4 mainColor,float fresnel,float4 screenColor){
@@ -248,15 +253,15 @@ float3 SampleEnvMap(float3 dir){
 void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refractDir,float envMask){
 
     float4 envColor = (float4)0;
-    #if defined(ENV_REFLECT_ON)
-    // if(_EnvReflectOn)
+    // #if defined(ENV_REFLECT_ON)
+    if(_EnvReflectOn)
         envColor.xyz += SampleEnvMap(reflectDir) * _EnvReflectionColor.xyz;
-    #endif
+    // #endif
     
-    #if defined(ENV_REFRACTION_ON)        
-    // if(_EnvRefractionOn)
+    // #if defined(ENV_REFRACTION_ON)        
+    if(_EnvRefractionOn)
         envColor.xyz += SampleEnvMap(refractDir) * _EnvRefractionColor.xyz;
-    #endif
+    // #endif
     
     envColor *= _EnvIntensity * envMask;
     mainColor.rgb += envColor.rgb;

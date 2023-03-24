@@ -199,7 +199,7 @@ Shader "FX/PowerVFX"
 		_OffsetBlendIntensity("Blend Intensity",range(0,10)) = 0.5
 		_OffsetBlendMode("_OffsetBlendMode",range(0,1)) = 1
 		[Header(Replace Blend Mode)]
-		[GroupToggle(_,_OFFSET_BLEND_REPLACE_MODE)]_OffsetBlendReplaceMode("_OffsetBlendReplaceMode",int)=0
+		[GroupToggle()]_OffsetBlendReplaceMode("_OffsetBlendReplaceMode",int)=0
 		[Enum(R,0,G,1,B,2,A,3)]_OffsetBlendReplaceMode_Channel("_OffsetBlendReplaceMode_Channel",int) = 3
 
 		[Header(Offset Mask)]
@@ -228,7 +228,7 @@ Shader "FX/PowerVFX"
 		_EnvReflectionColor("_EnvReflectionColor",color) = (.5,.5,.5,.5)
 
 		[Header(EnvRefraction)]
-		[GroupToggle(_,ENV_REFRACTION_ON)]_EnvRefractionOn("_EnvRefractionOn",int) = 0
+		[GroupToggle(_,ENV_REFLECT_ON)]_EnvRefractionOn("_EnvRefractionOn",int) = 0
 		_EnvRefractionIOR("_EnvRefractionIOR",range(1,5)) = 1.33
 		_EnvRefractionColor("_EnvRefractionColor",color) = (.5,.5,.5,.5)
 
@@ -341,16 +341,16 @@ Shader "FX/PowerVFX"
 			#pragma shader_feature_local_fragment  DISSOLVE_ON
 			#pragma shader_feature_local_fragment  OFFSET_ON
 			#pragma shader_feature_local  ENV_REFLECT_ON
-			#pragma shader_feature_local  ENV_REFRACTION_ON
+			// #pragma shader_feature_local  ENV_REFRACTION_ON
 			#pragma shader_feature_local_fragment  MATCAP_ON
 			#pragma shader_feature_local_fragment  MATCAP_ROTATE_ON
 			#pragma shader_feature_local_fragment  DEPTH_FADING_ON
 			#pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON
-			#pragma shader_feature_local_fragment _OFFSET_BLEND_REPLACE_MODE
+			// #pragma shader_feature_local_fragment _OFFSET_BLEND_REPLACE_MODE
 			#pragma shader_feature_local_fragment SHEET_ANIM_BLEND_ON
 			#pragma shader_feature_local MIN_VERSION
 			#pragma shader_feature_local _GLITCH_ON
-			// #pragma shader_feature_local_fragment  MAIN_TEX_USE_SCREEN_COLOR // unused yet
+			// #pragma shader_feature_local_fragment _SCREEN_TEX_ON
 
 
 			// -------------------------------------

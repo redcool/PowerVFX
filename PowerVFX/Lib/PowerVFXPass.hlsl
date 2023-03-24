@@ -38,11 +38,8 @@ v2f vert(appdata v)
     #if defined(ENV_REFLECT_ON)
     // if(_EnvReflectOn)
         o.reflectDir = reflect(- viewDir,normalDistorted);
-    #endif
-
-    #if defined(ENV_REFRACTION_ON)
     // if(_EnvRefractionOn)
-        o.refractDir = refract(viewDir,-normalDistorted,1/_EnvRefractionIOR);
+        o.refractDir = refract(viewDir,-normalDistorted,1.0/_EnvRefractionIOR);
     #endif
 
     float3 viewNormal = normalize(mul((half3x3)UNITY_MATRIX_MV,v.normal));
@@ -84,8 +81,12 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     float4 mainColor = float4(0,0,0,1);
     float4 screenColor=0;
 
-    // setup mainUV, move to vs
-    // float4 mainUV = MainTexOffset(i.uv);
+    /* 
+        setup mainUV, move to vs
+        float4 mainUV = MainTexOffset(i.uv);
+        mainUV.xy : mainTex
+        mainUV.zw : vertex.uv
+    */
     float4 mainUV = i.uv;
 /**  
     get particle system's custom data
@@ -116,12 +117,13 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
             float4 p = _DistortionRadialCenter_LenScale_LenOffset;
             distortUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_DistortionRadialRot);
         }
-        uvDistorted = ApplyDistortion(mainUV,distortUV,distortionCustomData);
-        SampleMainTex(mainColor/**/,screenColor/**/,uvDistorted,i.color,faceId,animBlendParams);
+        float2 uvDistortion = GetDistortionUV(mainUV.zw,distortUV,distortionCustomData);
+        uvDistorted += uvDistortion;
+        mainUV.xy += uvDistortion;
     }
-    #else
-        SampleMainTex(mainColor/**/,screenColor/**/,mainUV.xy,i.color,faceId,animBlendParams);
     #endif
+    // sample main texture
+    SampleMainTex(mainColor/**/,screenColor/**/,mainUV.xy,i.color,faceId,animBlendParams);
 
     //-------- mainColor, screenColor prepared done
     float4 mainTexMask=0;
@@ -134,8 +136,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     #endif //PBR_LIGHTING
 
-    #if defined(ENV_REFRACTION_ON) || defined(ENV_REFLECT_ON)
-    // if(_EnvReflectOn || _EnvRefractionOn)
+    #if defined(ENV_REFLECT_ON) || defined(ENV_REFRACTION_ON)
     {
         float envMask = lerp(1,mainTexMask.w,_EnvMaskUseMainTexMask);
         ApplyEnv(mainColor,mainUV.zw,reflectDir,refractDir,envMask);

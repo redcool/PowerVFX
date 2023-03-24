@@ -3,7 +3,7 @@
 
     sampler2D _MainTex;
     sampler2D _MainTexMask;// (r,a)
-    sampler2D _DistortionNoiseTex;//(xy : layer1,zw : layer2)
+    sampler2D _DistortionNoiseTex;//FlowMap,(xy : layer1,zw : layer2)
     sampler2D _DistortionMaskTex;//(r,a)
     sampler2D _DissolveTex;
 
@@ -138,6 +138,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(float4,_OffsetDir)
     UNITY_DEFINE_INSTANCED_PROP(float,_OffsetBlendIntensity)
     UNITY_DEFINE_INSTANCED_PROP(float,_OffsetBlendMode)
+    UNITY_DEFINE_INSTANCED_PROP(half,_OffsetBlendReplaceMode)
     UNITY_DEFINE_INSTANCED_PROP(half,_OffsetBlendReplaceMode_Channel)
     // radial uv 
     UNITY_DEFINE_INSTANCED_PROP(int,_OffsetRadialUVOn)
@@ -311,6 +312,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _OffsetDir UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_OffsetDir)
     #define _OffsetBlendIntensity UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_OffsetBlendIntensity)
     #define _OffsetBlendMode UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_OffsetBlendMode)
+    #define _OffsetBlendReplaceMode UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_OffsetBlendReplaceMode)
     #define _OffsetBlendReplaceMode_Channel UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_OffsetBlendReplaceMode_Channel)
     // radial uv 
     #define _OffsetRadialUVOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_OffsetRadialUVOn)
