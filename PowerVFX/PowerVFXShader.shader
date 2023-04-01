@@ -85,10 +85,16 @@ Shader "FX/PowerVFX"
 		[GroupToggle(_,VERTEX_WAVE_ON)]_VertexWaveOn("_VertexWaveOn ?",int) = 0
 		[Header(Noise Map)]
 		[GroupToggle]_NoiseUseAttenMaskMap("_NoiseUseAttenMaskMap",float)=0
+		
 		[Header(Noise Params)]
 		_VertexWaveSpeed("_VertexWaveSpeed",float) = 1
 		[GroupToggle]_VertexWaveSpeedManual("_VertexWaveSpeedManual",int) = 0
 		_VertexWaveIntensity("_VertexWaveIntensity",float) = 1
+		
+		[Header(VertexWaveIntensity CustomDataOn)]
+		[GroupToggle]_VertexWaveIntensityCustomDataOn("_VertexWaveIntensityCustomDataOn",int) = 0
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_VertexWaveIntensityCustomData("_VertexWaveIntensityCustomData",int) = 7
+
 		[Header(Vertex Color Atten)]
 		[GroupToggle]_VertexWaveAtten_VertexColor("_VertexWaveAtten_VertexColor(rgb)",float) = 0
 		[Header(Vertex Wave Direction)]
@@ -103,7 +109,7 @@ Shader "FX/PowerVFX"
 		[Enum(R,0,G,1,B,2,A,3)]_VertexWaveAtten_MaskMapChannel("_VertexWaveAtten_MaskMapChannel",int) = 0
 		[GroupToggle]_VertexWaveAtten_MaskMapOffsetStopOn("_VertexWaveAtten_MaskMapOffsetStopOn",int) = 0
 
-		[Header(VertexWave Custom Data)]
+		[Header(VertexWaveAttenMaskOffset Custom Data)]
 		[GroupToggle]_VertexWaveAttenMaskOffsetCustomDataOn("_VertexWaveAttenMaskOffsetCustomDataOn",int) = 0
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_VertexWaveAttenMaskOffsetCustomData("_VertexWaveAttenMaskOffsetCustomData",int) = 4
 // ==================================================Distortion

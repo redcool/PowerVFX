@@ -11,27 +11,28 @@
 #include "../../PowerShaderLib/Lib/Colors.hlsl"
 #include "../../PowerShaderLib/UrpLib/Lighting.hlsl"
 
-float4 SampleAttenMap(float2 mainUV,float attenMaskCDATA){
+float4 SampleAttenMap(float2 mainUV,float attenMaskCData){
     // auto offset
     float2 uvOffset = UVOffset(_VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAtten_MaskMapOffsetStopOn);
     // offset by custom data
-    uvOffset = lerp(uvOffset,attenMaskCDATA + _VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAttenMaskOffsetCustomDataOn);
+    uvOffset = lerp(uvOffset,attenMaskCData + _VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAttenMaskOffsetCustomDataOn);
 
     float4 attenMapUV = float4(mainUV * _VertexWaveAtten_MaskMap_ST.xy + uvOffset,0,0);
     return tex2Dlod(_VertexWaveAtten_MaskMap,attenMapUV);
 }
 
-void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV,float attenMaskCDATA){
+void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV,float attenMaskCData,float waveIntensityCData){
     float2 worldUV = worldPos.xz + _VertexWaveSpeed * lerp(_Time.xx,1,_VertexWaveSpeedManual);
     float noise = 0;
     float4 attenMap=0;
+    float waveIntensity = _VertexWaveIntensityCustomDataOn ? waveIntensityCData : _VertexWaveIntensity;
 
     if(_NoiseUseAttenMaskMap){
-        attenMap = SampleAttenMap(mainUV,attenMaskCDATA);
+        attenMap = SampleAttenMap(mainUV,attenMaskCData);
 
         noise = attenMap.x;
     }else{
-        noise = Unity_GradientNoise(worldUV,_VertexWaveIntensity);
+        noise = Unity_GradientNoise(worldUV,waveIntensity);
     }
 
     //1 vertex color atten
@@ -50,7 +51,7 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
     //4 atten map
     if(_VertexWaveAtten_MaskMapOn){
         if(! _NoiseUseAttenMaskMap)
-            attenMap = SampleAttenMap(mainUV,attenMaskCDATA);
+            attenMap = SampleAttenMap(mainUV,attenMaskCData);
         atten *= attenMap[_VertexWaveAtten_MaskMapChannel];
     }
     worldPos.xyz +=  noise * atten;

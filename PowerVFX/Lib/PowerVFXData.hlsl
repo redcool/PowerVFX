@@ -3,31 +3,43 @@
 #include "../../PowerShaderLib/Lib/TangentLib.hlsl"
 #include "../../PowerShaderLib/Lib/MaskLib.hlsl"
 
+/*** Particle System need do:
+    1 Particle system add Custom1.xyzw
+    2 Particle system add Custom2.xyzw
+    3 Particle system add UV/UV2
+    4 Particle system add UV/AnimBlend
+*/
 struct appdata
 {
     float4 vertex : POSITION;
     float4 color : COLOR;
     /**
-        uv.xy : main uv
-        uv.zw : mainTex scroll (particle's customData Custom1.xy)
+        uv.xy : main uv or(particle's uv)
+        uv.zw : (particle's customData Custom1.xy)
+
     */
     float4 uv : TEXCOORD0; 
 
     #if !defined(MIN_VERSION)
     float3 normal:NORMAL;
     float4 tangent:TANGENT;
-    /**
-        uv1.xy (x:dissolve,y:dissolveEdgeWidth (particle's customData Custom1.zw)
-        uv1.z (_DistortionCustomData)(custom2.x)
-        uv1.w(_VertexWaveAttenMaskOffsetCustomData) (particle's customData Custom2.y)
+    /** 
+        uv1.xy (particle's customData Custom1.zw)
+        uv1.zw (particle's customData Custom2.xy)
+
     */
     float4 uv1:TEXCOORD1;
     /**
-        uv2.x (_MainTexMask scroll.x)
-        uv2.y(_MainTexMask scroll.y)
+        uv2.xy (particle's customData Custom2.zw)
+        uv2.zw:(particle uv2)
+
     */        
-    float4 uv2:TEXCOORD2; // xy:(particles customData Custom2.zw) ,zw:(particle uv2)
-    float4 uv3:TEXCOORD3; // (x : particle AnimBlend)
+    float4 uv2:TEXCOORD2;
+    /**
+        uv3.x (particle AnimBlend)
+
+    */
+    float4 uv3:TEXCOORD3;
     #endif
 };
 

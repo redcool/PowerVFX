@@ -67,6 +67,10 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(float,_VertexWaveSpeed)
     UNITY_DEFINE_INSTANCED_PROP(int,_VertexWaveSpeedManual)
     UNITY_DEFINE_INSTANCED_PROP(float,_VertexWaveIntensity)
+  
+    UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveIntensityCustomDataOn)
+    UNITY_DEFINE_INSTANCED_PROP(float,_VertexWaveIntensityCustomData)
+
     // vertex wave attenuations
     UNITY_DEFINE_INSTANCED_PROP(float,_VertexWaveAtten_VertexColor)
     UNITY_DEFINE_INSTANCED_PROP(float4,_VertexWaveDirAtten)
@@ -241,6 +245,9 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _VertexWaveSpeed UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveSpeed)
     #define _VertexWaveSpeedManual UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveSpeedManual)
     #define _VertexWaveIntensity UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveIntensity)
+    #define _VertexWaveIntensityCustomDataOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveIntensityCustomDataOn)
+    #define _VertexWaveIntensityCustomData UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveIntensityCustomData)
+    
     // vertex wave attenuations
     #define _VertexWaveAtten_VertexColor UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveAtten_VertexColor)
     #define _VertexWaveDirAtten UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveDirAtten)

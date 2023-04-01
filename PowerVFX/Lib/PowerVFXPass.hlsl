@@ -23,8 +23,9 @@ v2f vert(appdata v)
     #if defined(VERTEX_WAVE_ON)
     // if(_VertexWaveOn)
     {
-        float attemMaskCDATA = customDatas[_VertexWaveAttenMaskOffsetCustomData];
-        ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv,attemMaskCDATA);
+        float attenMaskCData = customDatas[_VertexWaveAttenMaskOffsetCustomData];
+        float waveIntensityCData = customDatas[_VertexWaveIntensityCustomData];
+        ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv,attenMaskCData,waveIntensityCData);
     }
     #endif
     o.vertex = UnityWorldToClipPos(worldPos);
@@ -102,7 +103,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 /**
     particle system sheet animBlend
 */
-    SheetAnimBlendParams animBlendParams = GetSheetAnimBlendParams(i.animBlendUVFactor_fogCoord.xyz);
+    SheetAnimBlendParams animBlendParams = GetSheetAnimBlendParams(animBlendUVFactor);
     
     //use _CameraOpaqueTexture
     float2 screenUV = i.vertex.xy/_ScaledScreenParams.xy;
