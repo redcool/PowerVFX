@@ -4,10 +4,10 @@
 #include "../../PowerShaderLib/Lib/MaskLib.hlsl"
 
 /*** Particle System need do:
-    1 Particle system add Custom1.xyzw
-    2 Particle system add Custom2.xyzw
-    3 Particle system add UV/UV2
-    4 Particle system add UV/AnimBlend
+    1 Renderer/CustomVertexStreams add Custom1.xyzw
+    2 Renderer/CustomVertexStreams add Custom2.xyzw
+    3 Renderer/CustomVertexStreams add UV/UV2
+    4 Renderer/CustomVertexStreams add UV/AnimBlend
 */
 struct appdata
 {
