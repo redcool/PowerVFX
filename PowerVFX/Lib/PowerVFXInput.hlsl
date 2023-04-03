@@ -206,9 +206,9 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(float,_ColorDriftIntensity)
     UNITY_DEFINE_INSTANCED_PROP(float,_HorizontalIntensity)
 // ================================================== UI
-    UNITY_DEFINE_INSTANCED_PROP(float4, _ClipRect);
-    UNITY_DEFINE_INSTANCED_PROP(float, _UIMaskSoftnessX);
-    UNITY_DEFINE_INSTANCED_PROP(float, _UIMaskSoftnessY);
+    // UNITY_DEFINE_INSTANCED_PROP(float4, _ClipRect);
+    // UNITY_DEFINE_INSTANCED_PROP(float, _UIMaskSoftnessX);
+    // UNITY_DEFINE_INSTANCED_PROP(float, _UIMaskSoftnessY);
 UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
 
     #define _MainUVAngle UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainUVAngle)
@@ -383,7 +383,10 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _ColorDriftIntensity UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_ColorDriftIntensity)
     #define _HorizontalIntensity UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_HorizontalIntensity)
 // ================================================== UI
-    #define _ClipRect UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_ClipRect)
-    #define _UIMaskSoftnessX UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_UIMaskSoftnessX)
-    #define _UIMaskSoftnessY UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_UIMaskSoftnessY)
+    // #define _ClipRect UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_ClipRect)
+    // #define _UIMaskSoftnessX UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_UIMaskSoftnessX)
+    // #define _UIMaskSoftnessY UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_UIMaskSoftnessY)
+// ================================================== Global Varables
+float4 _ClipRect;
+float _UIMaskSoftnessX,_UIMaskSoftnessY;
 #endif //POWER_VFX_INPUT_CGINC
