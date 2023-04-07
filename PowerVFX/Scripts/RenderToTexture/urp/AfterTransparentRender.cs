@@ -8,6 +8,8 @@ namespace PowerUtilities
 {
     public class AfterTransparentRender : ScriptableRendererFeature
     {
+
+
         [Serializable]
         public class Settings
         {
@@ -36,6 +38,7 @@ namespace PowerUtilities
         [SerializeField] Settings settings = new Settings();
         AfterTransparentRenderPass renderAfterTransparentPass;
         GrabTransparentPass grabTransparentPass;
+
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
             if (settings.enableGrabPass)
@@ -80,13 +83,18 @@ namespace PowerUtilities
 
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
             {
+                ref var cameraData = ref renderingData.cameraData;
+                var renderer = cameraData.renderer;
+
                 var cmd = CommandBufferPool.Get();
+                cmd.ExecuteCommand(context);
+
+                cmd.SetRenderTarget(renderer.cameraColorTarget, renderer.cameraDepthTarget);
                 if (settings.isClearDepth)
                 {
                     cmd.ClearRenderTarget(true, false, Color.clear);
-                    context.ExecuteCommandBuffer(cmd);
-                    cmd.Clear();
                 }
+                cmd.ExecuteCommand(context);
 
                 // create draw settings.
                 var sortingSettings = new SortingSettings { criteria = SortingCriteria.CommonTransparent };
