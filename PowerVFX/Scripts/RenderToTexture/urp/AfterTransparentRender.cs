@@ -89,7 +89,10 @@ namespace PowerUtilities
                 var cmd = CommandBufferPool.Get();
                 cmd.ExecuteCommand(context);
 
-                cmd.SetRenderTarget(renderer.cameraColorTarget, renderer.cameraDepthTarget);
+                //------
+                if(renderer.cameraColorTarget != renderer.cameraDepthTarget)
+                    cmd.SetRenderTarget(renderer.cameraColorTarget, renderer.cameraDepthTarget);
+
                 if (settings.isClearDepth)
                 {
                     cmd.ClearRenderTarget(true, false, Color.clear);
