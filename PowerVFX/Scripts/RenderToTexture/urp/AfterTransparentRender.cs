@@ -90,7 +90,7 @@ namespace PowerUtilities
                 cmd.ExecuteCommand(context);
 
                 //------
-                if(UniversalRenderPipeline.asset.supportsCameraDepthTexture)
+                if(renderer.cameraColorTarget == renderer.cameraDepthTarget)
                     cmd.SetRenderTarget(renderer.cameraColorTarget, renderer.cameraDepthTarget);
 
                 if (settings.isClearDepth)
