@@ -87,7 +87,7 @@ namespace PowerUtilities
                 var renderer = cameraData.renderer;
 
                 var cmd = CommandBufferPool.Get();
-                cmd.ExecuteCommand(context);
+                cmd.Execute(ref context);
 
                 //------
                 if(renderer.cameraColorTarget == renderer.cameraDepthTarget)
@@ -97,7 +97,7 @@ namespace PowerUtilities
                 {
                     cmd.ClearRenderTarget(true, false, Color.clear);
                 }
-                cmd.ExecuteCommand(context);
+                cmd.Execute(ref context);
 
                 // create draw settings.
                 var sortingSettings = new SortingSettings { criteria = SortingCriteria.CommonTransparent };
