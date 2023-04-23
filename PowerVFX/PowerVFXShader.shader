@@ -76,7 +76,7 @@ Shader "FX/PowerVFX"
 		[Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode("_ZTestMode",float) = 4
 
 		[Header(Color Mask)]
-		[GroupEnum(_,RGBA 15 RGB 14 RG 12 GB 6 RB 10 R 8 G 4 B 2 A 1 None 0)]
+		[GroupEnum(_,RGBA 16 RGB 15 RG 12 GB 6 RB 10 R 8 G 4 B 2 A 1 None 0)]
 		_ColorMask("_ColorMask",int) = 15
 
 		[Header(Versions)]
@@ -302,7 +302,7 @@ Shader "FX/PowerVFX"
         _ColorDriftSpeed("_ColorDriftSpeed",range(0,1000)) = 1
         _ColorDriftIntensity("_ColorDriftIntensity",range(0,1)) = 0.1
 
-//-------UI
+// ================================================== stencil settings
 		[Group(Stencil)]
 		[GroupEnum(Stencil,UnityEngine.Rendering.CompareFunction)]_StencilComp ("Stencil Comparison", Float) = 0
         [GroupItem(Stencil)]_Stencil ("Stencil ID", int) = 0
