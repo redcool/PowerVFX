@@ -48,7 +48,7 @@ public class PowerVFXMinVersionChecker
     [MenuItem("PowerUtilities/PowerVFX/Check MinVersion")]
     static void CheckMinVersion()
     {
-        var folders = AssetDatabaseTools.GetSelectedFolders();
+        var folders = SelectionTools.GetSelectedFolders();
         var list = AssetDatabaseTools.FindAssetsInProject<Material>("t:material", folders);
         var q = list.Where(m => m.shader.name.Contains("PowerVFX"));
         var count = 0;
