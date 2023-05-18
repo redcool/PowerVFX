@@ -42,7 +42,7 @@ Shader "FX/PowerVFX"
 
 		[Space(10)]
 		[GroupHeader(_,ScreenOpaqueTexture)]
-		[GroupToggle(_,_SCREEN_TEX_ON)]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
+		[GroupToggle(_,)]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
 
 		[Space(10)]
 		[Group(SheetAnimation)]
