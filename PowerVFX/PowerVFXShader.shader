@@ -322,6 +322,7 @@
 		}
 		Pass
 		{
+			name "PowerVFX"
 			ZWrite[_ZWriteMode]
 			Blend [_SrcMode][_DstMode]
 			// BlendOp[_BlendOp]
@@ -411,17 +412,18 @@
 
             //--------------------------------------
             // GPU Instancing
-            // #pragma multi_compile_instancing
+            #pragma multi_compile_instancing
 
             #pragma vertex vert
             #pragma fragment frag
 
             // -------------------------------------
             // Material Keywords
-            #pragma multi_compile_local_fragment _ ALPHA_TEST
+            #pragma shader_feature_local_fragment ALPHA_TEST
 
 			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
 			#include "Lib/PowerVFXInput.hlsl"
+			#define USE_SAMPLER2D
 			#include "../../PowerShaderLib/UrpLib/ShadowCasterPass.hlsl"
 
             ENDHLSL
@@ -438,18 +440,23 @@
             HLSLPROGRAM
             //--------------------------------------
             // GPU Instancing
-            // #pragma multi_compile_instancing
+            #pragma multi_compile_instancing
 
             #pragma vertex vert
             #pragma fragment frag
 
             // -------------------------------------
             // Material Keywords
-            #pragma multi_compile_local_fragment _ ALPHA_TEST
+            #pragma shader_feature_local_fragment ALPHA_TEST
 
 			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
 			#include "Lib/PowerVFXInput.hlsl"
 			#define SHADOW_PASS
+			#define USE_SAMPLER2D
+			#define _MainTex _DissolveTex
+			#undef _MainTexChannel
+			#define _MainTexChannel _DissolveTexChannel
+			#define _CutOff _Cutoff
 			#include "../../PowerShaderLib/UrpLib/ShadowCasterPass.hlsl"
 
             ENDHLSL
