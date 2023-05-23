@@ -1,5 +1,4 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-Shader "FX/PowerVFX"
+﻿Shader "FX/PowerVFX"
 {
 	Properties
 	{
@@ -421,7 +420,10 @@ Shader "FX/PowerVFX"
             // Material Keywords
             #pragma multi_compile_local_fragment _ ALPHA_TEST
 
-            #include "Lib/ShadowCasterPass.hlsl"
+			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
+			#include "Lib/PowerVFXInput.hlsl"
+			#include "../../PowerShaderLib/UrpLib/ShadowCasterPass.hlsl"
+
             ENDHLSL
         }
 		Pass
@@ -444,8 +446,12 @@ Shader "FX/PowerVFX"
             // -------------------------------------
             // Material Keywords
             #pragma multi_compile_local_fragment _ ALPHA_TEST
+
+			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
+			#include "Lib/PowerVFXInput.hlsl"
 			#define SHADOW_PASS
-            #include "Lib/ShadowCasterPass.hlsl"
+			#include "../../PowerShaderLib/UrpLib/ShadowCasterPass.hlsl"
+
             ENDHLSL
         }
 	}
