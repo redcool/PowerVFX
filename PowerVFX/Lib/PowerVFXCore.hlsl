@@ -363,11 +363,7 @@ void ApplyPbrLighting(inout float3 mainColor,float3 worldPos,float4 shadowCoord,
     mainColor = giColor;
 
     Light mainLight = GetMainLight();
-
-    #if defined(MAIN_LIGHT_CALCULATE_SHADOWS)
-        // shadowCoord = TransformWorldToShadowCoord(worldPos.xyz);
-        mainLight.shadowAttenuation = CalcShadow(shadowCoord,worldPos,_MainLightSoftShadowScale);
-    #endif
+    mainLight.shadowAttenuation = CalcShadow(shadowCoord,worldPos,_MainLightSoftShadowScale);
 
     half3 lightColor = CalcLight(mainLight,diffColor,specColor,n,v,a,a2);
     mainColor += lightColor;
