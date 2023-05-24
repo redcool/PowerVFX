@@ -454,9 +454,9 @@
 			#define SHADOW_PASS
 			#define USE_SAMPLER2D
 			#define _MainTex _DissolveTex
+			
 			#undef _MainTexChannel
 			#define _MainTexChannel _DissolveTexChannel
-			#define _CutOff _Cutoff
 			#include "../../PowerShaderLib/UrpLib/ShadowCasterPass.hlsl"
 
             ENDHLSL

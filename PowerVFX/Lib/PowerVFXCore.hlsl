@@ -357,7 +357,7 @@ void ApplyPbrLighting(inout float3 mainColor,float3 worldPos,float4 shadowCoord,
     float3 reflectDirOffset = 0;
     float reflectIntensity = 1;
     float3 giDiff = CalcGIDiff(n,diffColor);
-    float3 giSpec = CalcGISpec(_EnvMap,sampler_EnvMap,_EnvMap_HDR,specColor,n,v,reflectDirOffset,reflectIntensity,nv,a,a2,smoothness,metallic);
+    float3 giSpec = CalcGISpec(_EnvMap,sampler_EnvMap,_EnvMap_HDR,specColor,worldPos,n,v,reflectDirOffset,reflectIntensity,nv,a,a2,smoothness,metallic);
     half3 giColor = (giDiff + giSpec)*occlusion;
     
     mainColor = giColor;
