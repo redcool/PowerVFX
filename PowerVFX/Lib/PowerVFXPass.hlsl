@@ -21,7 +21,7 @@ v2f vert(appdata v)
     float customDatas[8] = {o.customData1,o.customData2};
 
     #if defined(VERTEX_WAVE_ON)
-    // if(_VertexWaveOn)
+    // branch_if(_VertexWaveOn)
     {
         float attenMaskCData = customDatas[_VertexWaveAttenMaskOffsetCustomData];
         float waveIntensityCData = customDatas[_VertexWaveIntensityCustomData];
@@ -37,9 +37,9 @@ v2f vert(appdata v)
 
     float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
     #if defined(ENV_REFLECT_ON)
-    // if(_EnvReflectOn)
+    // branch_if(_EnvReflectOn)
         o.reflectDir = reflect(- viewDir,normalDistorted);
-    // if(_EnvRefractionOn)
+    // branch_if(_EnvRefractionOn)
         o.refractDir = refract(viewDir,-normalDistorted,1.0/_EnvRefractionIOR);
     #endif
 
@@ -51,7 +51,7 @@ v2f vert(appdata v)
     */
 
     // #if defined(PBR_LIGHTING) 
-    // if(_PbrLightOn){
+    // branch_if(_PbrLightOn){
         float3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
         TANGENT_SPACE_COMBINE_WORLD(worldPos,worldNormal,float4(worldTangent,v.tangent.w),o/**/);
     // }
@@ -111,10 +111,10 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     
     float2 uvDistorted = mainUV.zw;
     #if defined(DISTORTION_ON)
-    // if(_DistortionOn)
+    // branch_if(_DistortionOn)
     {
         float4 distortUV = mainUV.zwzw * _DistortTile + frac(_DistortDir * _Time.xxxx);
-        if(_DistortionRadialUVOn){
+        branch_if(_DistortionRadialUVOn){
             float4 p = _DistortionRadialCenter_LenScale_LenOffset;
             distortUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_DistortionRadialRot);
         }
@@ -145,12 +145,12 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #endif
 
     #if defined(OFFSET_ON)
-    // if(_OffsetOn)
+    // branch_if(_OffsetOn)
     {
         half4 offsetDir = lerp(_Time.xxxx,1,_StopAutoOffset) * _OffsetDir;
         offsetDir.xy = lerp(offsetDir.xy,offsetLayer1CData,_OffsetCustomDataOn);
         float4 offsetUV = (_DistortionApplyToOffset ? uvDistorted.xyxy : mainUV.zwzw) * _OffsetTile + (offsetDir); //暂时去除 frac
-        if(_OffsetRadialUVOn){
+        branch_if(_OffsetRadialUVOn){
             float4 p = _OffsetRadialCenter_LenScale_LenOffset;
             offsetUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_OffsetRadialRot);
         }
@@ -163,7 +163,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     //------------- dissolve
     #if defined(DISSOLVE_ON)
-    // if(_DissolveOn)
+    // branch_if(_DissolveOn)
     {
         float2 dissolveUVOffset = UVOffset(_DissolveTex_ST.zw,_DissolveTexOffsetStop);
         float2 dissolveUV = (_DistortionApplyToDissolve ? uvDistorted : mainUV.zw) * _DissolveTex_ST.xy + dissolveUVOffset;
@@ -172,7 +172,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #endif 
 
     #if defined(FRESNEL_ON)
-    // if(_FresnelOn)
+    // branch_if(_FresnelOn)
     {
         float fresnel = 1 - dot(normal,viewDir);
         ApplyFresnal(mainColor,fresnel,screenColor);
@@ -180,14 +180,14 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #endif
     
     #if defined(MATCAP_ON)
-    // if(_MatCapOn)
+    // branch_if(_MatCapOn)
     {
         ApplyMatcap(mainColor,mainUV.zw,i.viewNormal);
     }
     #endif
 
     #if defined(DEPTH_FADING_ON)
-    // if(_DepthFadingOn)
+    // branch_if(_DepthFadingOn)
     {
         float curZ = IsOrthographicCamera() ? OrthographicDepthBufferToLinear(i.vertex.z) : i.vertex.w;
         ApplySoftParticle(mainColor/**/,screenUV,curZ); // change vertex color

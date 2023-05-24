@@ -188,6 +188,9 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
 // ==================================================   Light
     // UNITY_DEFINE_INSTANCED_PROP(float,_PbrLightOn)
     UNITY_DEFINE_INSTANCED_PROP(half,_MainLightSoftShadowScale)
+    UNITY_DEFINE_INSTANCED_PROP(half,_CustomShadowNormalBias)
+    UNITY_DEFINE_INSTANCED_PROP(half,_CustomShadowDepthBias)
+
     UNITY_DEFINE_INSTANCED_PROP(float,_Metallic)
     UNITY_DEFINE_INSTANCED_PROP(float,_Smoothness)
     UNITY_DEFINE_INSTANCED_PROP(float,_Occlusion)
@@ -365,6 +368,9 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
 // ==================================================   Light
     // #define _PbrLightOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_PbrLightOn)
     #define _MainLightSoftShadowScale UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainLightSoftShadowScale)
+    #define _CustomShadowNormalBias UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_CustomShadowNormalBias)
+    #define _CustomShadowDepthBias UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_CustomShadowDepthBias)
+
     #define _Metallic UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_Metallic)
     #define _Smoothness UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_Smoothness)
     #define _Occlusion UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_Occlusion)

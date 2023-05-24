@@ -277,6 +277,10 @@
 		[GroupToggle(_,_SHADOWS_SOFT)]_ShadowsSoft("_ShadowsSoft",int) = 0 
 		_MainLightSoftShadowScale("_MainLightSoftShadowScale",range(0,1))=0
 
+		// [GroupHeader(Shadow,custom bias)]
+        // [GroupSlider(Shadow)]_CustomShadowNormalBias("_CustomShadowNormalBias",range(-1,1)) = 0.5
+        // [GroupSlider(Shadow)]_CustomShadowDepthBias("_CustomShadowDepthBias",range(-1,1)) = 0.5
+
 		[Header(Additional Lights)]
 		[GroupToggle(_,_ADDITIONAL_LIGHTS)]_AdditionalLightOn("_AdditionalLightOn",int)=0
 		[GroupToggle(_,_ADDITIONAL_LIGHT_SHADOWS)]_AdditionalLightShadowsOn("_AdditionalLightShadowsOn",int)=0
@@ -446,6 +450,8 @@
             #pragma fragment frag
 
             // -------------------------------------
+            // This is used during shadow map generation to differentiate between directional and punctual light shadows, as they use different formulas to apply Normal Bias
+            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW			
             // Material Keywords
             #pragma shader_feature_local_fragment ALPHA_TEST
 
@@ -454,7 +460,7 @@
 			#define SHADOW_PASS
 			#define USE_SAMPLER2D
 			#define _MainTex _DissolveTex
-			
+
 			#undef _MainTexChannel
 			#define _MainTexChannel _DissolveTexChannel
 			#include "../../PowerShaderLib/UrpLib/ShadowCasterPass.hlsl"

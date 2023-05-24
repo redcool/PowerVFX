@@ -27,7 +27,7 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
     float4 attenMap=0;
     float waveIntensity = _VertexWaveIntensityCustomDataOn ? waveIntensityCData : _VertexWaveIntensity;
 
-    if(_NoiseUseAttenMaskMap){
+    branch_if(_NoiseUseAttenMaskMap){
         attenMap = SampleAttenMap(mainUV,attenMaskCData);
 
         noise = attenMap.x;
@@ -40,7 +40,7 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
     float3 dir = SafeNormalize(_VertexWaveDirAtten.xyz) * _VertexWaveDirAtten.w;
     dir *= lerp(1,normal,_VertexWaveDirAlongNormalOn);
     
-    if(_VertexWaveDirAtten_LocalSpaceOn)
+    branch_if(_VertexWaveDirAtten_LocalSpaceOn)
         dir = mul(unity_ObjectToWorld,float4(dir,1)).xyz;
 
     float3 vcAtten = _VertexWaveAtten_VertexColor? vertexColor : 1;
@@ -49,8 +49,8 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
     atten *= lerp(1 , saturate(dot(dir,normal)) , _VertexWaveAtten_NormalAttenOn);
 
     //4 atten map
-    if(_VertexWaveAtten_MaskMapOn){
-        if(! _NoiseUseAttenMaskMap)
+    branch_if(_VertexWaveAtten_MaskMapOn){
+        branch_if(! _NoiseUseAttenMaskMap)
             attenMap = SampleAttenMap(mainUV,attenMaskCData);
         atten *= attenMap[_VertexWaveAtten_MaskMapChannel];
     }
@@ -87,7 +87,7 @@ void ApplySaturate(inout float4 mainColor){
 
 half4 SampleMainTex(float2 uv){
     // #if defined(_SCREEN_TEX_ON)
-    if(_MainTexUseScreenColor)
+    branch_if(_MainTexUseScreenColor)
     {
         return tex2D(_CameraOpaqueTexture,uv);
     }
@@ -116,7 +116,7 @@ void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,fl
     float4 color = _BackFaceOn ? lerp(_BackFaceColor,_Color,faceId) : _Color;
     
     SampleMainTexWithGlitch(mainColor/**/,uv);
-    if(animBlendParams.isBlendOn)
+    branch_if(animBlendParams.isBlendOn)
     {
         float4 nextColor = 0;
         SampleMainTexWithGlitch(nextColor/**/,animBlendParams.blendUV);
@@ -148,7 +148,7 @@ void ApplyMainTexMask(inout float4 mainColor,inout float4 mainTexMask,float2 uv,
 float2 GetDistortionUV(float2 maskUV,float4 distortUV,float customDataIntensity){
     float2 noise = (tex2D(_DistortionNoiseTex, distortUV.xy).xy -0.5) * 2;
     #if defined(DOUBLE_EFFECT_ON)
-    // if(_DoubleEffectOn)
+    // branch_if(_DoubleEffectOn)
     {
         noise += (tex2D(_DistortionNoiseTex, distortUV.zw).xy -0.5)*2;
         noise *= 0.5;
@@ -166,7 +166,7 @@ float2 GetDistortionUV(float2 maskUV,float4 distortUV,float customDataIntensity)
 
 void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float dissolveCDATA,float edgeWidthCDATA){
     
-    if(_PixelDissolveOn){
+    branch_if(_PixelDissolveOn){
         dissolveUV = abs( dissolveUV - 0.5);
         dissolveUV = round(dissolveUV * _PixelWidth)/max(0.0001,_PixelWidth);
     }
@@ -179,10 +179,10 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
 
     // remap cutoff
     float cutoff = _Cutoff;
-    if(_DissolveByVertexColor)
+    branch_if(_DissolveByVertexColor)
         cutoff =  1 - color.a; // slider or vertex color
 
-    // if(_DissolveCustomDataOn)
+    // branch_if(_DissolveCustomDataOn)
     //     cutoff = 1- dissolveCDATA; // slider or particle's custom data
     cutoff = lerp(cutoff,1- dissolveCDATA,_DissolveCustomDataOn);
     
@@ -192,13 +192,13 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
     dissolve = saturate(smoothstep(_DissolveFadingMin,_DissolveFadingMax,dissolve));
 
     #if defined(ALPHA_TEST)
-    // if(_DissolveClipOn)
+    // branch_if(_DissolveClipOn)
         clip(dissolve-0.01);
     #endif
     
     mainColor.a *= dissolve;
 
-    if(_DissolveEdgeOn){
+    branch_if(_DissolveEdgeOn){
         float edgeWidth = lerp(_EdgeWidth,edgeWidthCDATA,_DissolveEdgeWidthCustomDataOn);
         float edge = saturate(smoothstep(edgeWidth-0.1,edgeWidth+0.1,dissolve));
         float4 edgeColor = lerp(_EdgeColor,_EdgeColor2,edge);
@@ -225,7 +225,7 @@ void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 maskUV){
         2 : lerp(a,b,b.w)
     */
     // #if defined(_OFFSET_BLEND_REPLACE_MODE)
-    if(_OffsetBlendReplaceMode)
+    branch_if(_OffsetBlendReplaceMode)
     {
         mainColor.rgb = lerp(mainColor.rgb,offsetColor.xyz,offsetColor[_OffsetBlendReplaceMode_Channel]);
     }
@@ -255,12 +255,12 @@ void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refr
 
     float4 envColor = (float4)0;
     // #if defined(ENV_REFLECT_ON)
-    if(_EnvReflectOn)
+    branch_if(_EnvReflectOn)
         envColor.xyz += SampleEnvMap(reflectDir) * _EnvReflectionColor.xyz;
     // #endif
     
     // #if defined(ENV_REFRACTION_ON)        
-    if(_EnvRefractionOn)
+    branch_if(_EnvRefractionOn)
         envColor.xyz += SampleEnvMap(refractDir) * _EnvRefractionColor.xyz;
     // #endif
     
@@ -269,7 +269,7 @@ void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refr
 }
 
 void ApplyMatcap(inout float4 mainColor,float2 mainUV,float2 viewNormal){
-    // if(_MatCapRotateOn)
+    // branch_if(_MatCapRotateOn)
     #if defined(MATCAP_ROTATE_ON)
     {
         // rotate tex by center
