@@ -9,6 +9,7 @@
 #include "../../PowerShaderLib/Lib/NodeLib.hlsl"
 #include "../../PowerShaderLib/Lib/UVMapping.hlsl"
 #include "../../PowerShaderLib/Lib/Colors.hlsl"
+#include "../../PowerShaderLib/Lib/MathLib.hlsl"
 #include "../../PowerShaderLib/UrpLib/Lighting.hlsl"
 
 float4 SampleAttenMap(float2 mainUV,float attenMaskCData){
@@ -56,8 +57,6 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
     }
     worldPos.xyz +=  noise * atten;
 }
-
-
 
 /**
     return : float4
@@ -251,17 +250,30 @@ float3 SampleEnvMap(float3 dir){
     return DecodeHDREnvironment(c,_EnvMap_HDR);
 }
 
-void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refractDir,float envMask){
+void RotateReflectDir(inout float3 reflectDir,half3 axis,half rotateSpeed,bool autoStop){
+    branch_if(!rotateSpeed)
+        return;
 
+    float rotSpeed = rotateSpeed * (autoStop ? 1 : _Time.y);
+    half3x3 rotMat = AngleAxis3x3(rotSpeed,axis);
+    reflectDir = mul(rotMat , reflectDir);
+}
+
+void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refractDir,float envMask){
     float4 envColor = (float4)0;
+
     // #if defined(ENV_REFLECT_ON)
     branch_if(_EnvReflectOn)
+    {
         envColor.xyz += SampleEnvMap(reflectDir) * _EnvReflectionColor.xyz;
+    }
     // #endif
     
     // #if defined(ENV_REFRACTION_ON)        
     branch_if(_EnvRefractionOn)
+    {
         envColor.xyz += SampleEnvMap(refractDir) * _EnvRefractionColor.xyz;
+    }
     // #endif
     
     envColor *= _EnvIntensity * envMask;

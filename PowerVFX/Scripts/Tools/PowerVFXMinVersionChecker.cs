@@ -45,7 +45,7 @@ public class PowerVFXMinVersionChecker
         return isPropValid && IsKeywordsValid(m.shaderKeywords);
     }
 
-    [MenuItem("PowerUtilities/PowerVFX/Check MinVersion")]
+    [MenuItem("PowerUtilities/PowerVFX/Check MinVersion (selected folder)")]
     static void CheckMinVersion()
     {
         var folders = SelectionTools.GetSelectedFolders();

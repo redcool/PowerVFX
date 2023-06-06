@@ -230,17 +230,26 @@
 // ==================================================	EnvReflection	
 		[Header(EnvReflection)]
 		[GroupToggle(_,ENV_REFLECT_ON)]_EnvReflectOn("EnvReflect On?",int)=0
-		_EnvReflectionColor("_EnvReflectionColor",color) = (.5,.5,.5,.5)
+		[hdr]_EnvReflectionColor("_EnvReflectionColor",color) = (.5,.5,.5,.5)
+		[Header(Env Rotate)]
+		[GroupVectorSlider(,Axis Speed,0_10,,slider)]_EnvRotateInfo("_EnvRotateInfo",vector) = (0,1,0,0) // (axis, speed)
+		[GroupToggle]_EnvRotateAutoStop("_EnvRotateAutoStop",float) = 0
 
 		[Header(EnvRefraction)]
 		[GroupToggle(_,ENV_REFLECT_ON)]_EnvRefractionOn("_EnvRefractionOn",int) = 0
 		_EnvRefractionIOR("_EnvRefractionIOR",range(1,5)) = 1.33
-		_EnvRefractionColor("_EnvRefractionColor",color) = (.5,.5,.5,.5)
+		[hdr]_EnvRefractionColor("_EnvRefractionColor",color) = (.5,.5,.5,.5)
+
+		[Header(Env Refract Rotate)]
+		[GroupVectorSlider(,Axis Speed,0_10,,slider)]_EnvRefractRotateInfo("_EnvRefractRotateInfo",vector) = (0,1,0,0) // (axis, speed)
+		[GroupToggle]_EnvRefractRotateAutoStop("_EnvRefractRotateAutoStop",float) = 0
 
 		[Header(Env Params)]
 		[NoScaleOffset]_EnvMap("Env Map",Cube) = ""{}
 		_EnvIntensity("Env intensity",float) = 1
 		_EnvOffset("EnvOffset",vector) = (0,0,0,0)
+
+
 
 		[Header(Env Mask)]
 		[GroupToggle]_EnvMaskUseMainTexMask("_EnvMaskUseMainTexMask",int)=3

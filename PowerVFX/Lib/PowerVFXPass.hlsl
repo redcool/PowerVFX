@@ -35,12 +35,20 @@ v2f vert(appdata v)
     float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
     o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));
 
-    float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
+    // calc env reflect and refract
     #if defined(ENV_REFLECT_ON)
-    // branch_if(_EnvReflectOn)
-        o.reflectDir = reflect(- viewDir,normalDistorted);
-    // branch_if(_EnvRefractionOn)
-        o.refractDir = refract(viewDir,-normalDistorted,1.0/_EnvRefractionIOR);
+        float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
+        branch_if(_EnvReflectOn)
+        {
+            o.reflectDir = reflect(- viewDir,normalDistorted);
+            RotateReflectDir(o.reflectDir/**/,_EnvRotateInfo.xyz,_EnvRotateInfo.w,_EnvRotateAutoStop);
+        }
+        branch_if(_EnvRefractionOn)
+        {
+            // ior  https://en.wikipedia.org/wiki/Refractive_index
+            o.refractDir = refract(-viewDir,normalDistorted,1/_EnvRefractionIOR);
+            RotateReflectDir(o.refractDir/**/,_EnvRefractRotateInfo.xyz,_EnvRefractRotateInfo.w,_EnvRefractRotateAutoStop);
+        }
     #endif
 
     float3 viewNormal = normalize(mul((half3x3)UNITY_MATRIX_MV,v.normal));
@@ -73,8 +81,6 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 {
     TANGENT_SPACE_SPLIT(i);
 
-    float3 reflectDir = i.reflectDir;
-    float3 refractDir = i.refractDir;
     float3 viewDir = normalize(i.viewDir.xyz);
     float3 animBlendUVFactor = i.animBlendUVFactor_fogCoord.xyz;
     float fogCoord = i.animBlendUVFactor_fogCoord.w;
@@ -82,6 +88,8 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     float4 mainColor = float4(0,0,0,1);
     float4 screenColor=0;
 
+    float3 reflectDir = i.reflectDir;
+    float3 refractDir = i.refractDir;
     /* 
         setup mainUV, move to vs
         float4 mainUV = MainTexOffset(i.uv);
