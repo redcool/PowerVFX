@@ -236,7 +236,7 @@
 		[GroupToggle]_EnvRotateAutoStop("_EnvRotateAutoStop",float) = 0
 
 		[Header(EnvRefraction)]
-		[GroupToggle(_,ENV_REFLECT_ON)]_EnvRefractionOn("_EnvRefractionOn",int) = 0
+		[GroupToggle(_)]_EnvRefractionOn("_EnvRefractionOn",int) = 0
 		_EnvRefractionIOR("_EnvRefractionIOR",range(1,5)) = 1.33
 		[hdr]_EnvRefractionColor("_EnvRefractionColor",color) = (.5,.5,.5,.5)
 
