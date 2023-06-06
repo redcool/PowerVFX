@@ -147,7 +147,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     #if defined(ENV_REFLECT_ON) || defined(ENV_REFRACTION_ON)
     {
-        float envMask = lerp(1,mainTexMask.w,_EnvMaskUseMainTexMask);
+        float envMask = lerp(1,mainTexMask[_EnvMapMaskChannel],_EnvMaskUseMainTexMask);
         ApplyEnv(mainColor,mainUV.zw,reflectDir,refractDir,envMask);
     }
     #endif
