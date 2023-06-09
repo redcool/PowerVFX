@@ -2,8 +2,12 @@
 #define POWERVFX_PASS_MIN_VERSION_HLSL
 
 /**
+    click menu: PowerUtilities/PowerVFX/CheckMinVersion
+
     min version features:
-    1 uv offset
+    1 mainTex 
+        uv offset
+        color
     2 mainTex sheet
     3 fog
     4 vertex color
@@ -28,7 +32,7 @@ half4 frag(v2f i) : SV_Target
 {
     float fogCoord = i.animBlendUVFactor_fogCoord.w;
     float4 mainTex = tex2D(_MainTex,i.uv.xy);
-    half4 mainColor = mainTex * _Color;
+    half4 mainColor = mainTex * _Color * i.color;
     
     #if defined(ALPHA_TEST)
         clip(mainColor.a - _Cutoff - 0.0001);
