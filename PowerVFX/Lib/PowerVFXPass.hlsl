@@ -36,7 +36,7 @@ v2f vert(appdata v)
     o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));
 
     // calc env reflect and refract
-    #if defined(ENV_REFLECT_ON)
+    // #if defined(ENV_REFLECT_ON)
         float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
         branch_if(_EnvReflectOn)
         {
@@ -49,7 +49,7 @@ v2f vert(appdata v)
             o.refractDir = refract(-viewDir,normalDistorted,1/_EnvRefractionIOR);
             RotateReflectDir(o.refractDir/**/,_EnvRefractRotateInfo.xyz,_EnvRefractRotateInfo.w,_EnvRefractRotateAutoStop);
         }
-    #endif
+    // #endif
 
     float3 viewNormal = normalize(mul((half3x3)UNITY_MATRIX_MV,v.normal));
     o.viewNormal = viewNormal.xy * 0.5 + 0.5;
@@ -145,12 +145,13 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     #endif //PBR_LIGHTING
 
-    #if defined(ENV_REFLECT_ON) || defined(ENV_REFRACTION_ON)
+    // #if defined(ENV_REFLECT_ON) || defined(ENV_REFRACTION_ON)
+    branch_if(_EnvReflectOn || _EnvRefractionOn)
     {
         float envMask = lerp(1,mainTexMask[_EnvMapMaskChannel],_EnvMaskUseMainTexMask);
         ApplyEnv(mainColor,mainUV.zw,reflectDir,refractDir,envMask);
     }
-    #endif
+    // #endif
 
     #if defined(OFFSET_ON)
     // branch_if(_OffsetOn)

@@ -229,10 +229,10 @@
 		_BlendScreenColor("_BlendScreenColor",range(0,1)) = 0
 // ==================================================	EnvReflection	
 		[Header(EnvReflection)]
-		[GroupToggle(_,ENV_REFLECT_ON)]_EnvReflectOn("EnvReflect On?",int)=0
+		[GroupToggle(_)]_EnvReflectOn("EnvReflect On?",int)=0
 		[hdr]_EnvReflectionColor("_EnvReflectionColor",color) = (.5,.5,.5,.5)
 		[Header(Env Rotate)]
-		[GroupVectorSlider(,Axis Speed,0_10,,slider)]_EnvRotateInfo("_EnvRotateInfo",vector) = (0,1,0,0) // (axis, speed)
+		[GroupVectorSlider(,Axis Speed,m10_10,,float)]_EnvRotateInfo("_EnvRotateInfo",vector) = (0,1,0,0) // (axis, speed)
 		[GroupToggle]_EnvRotateAutoStop("_EnvRotateAutoStop",float) = 0
 
 		[Header(EnvRefraction)]
@@ -241,7 +241,7 @@
 		[hdr]_EnvRefractionColor("_EnvRefractionColor",color) = (.5,.5,.5,.5)
 
 		[Header(Env Refract Rotate)]
-		[GroupVectorSlider(,Axis Speed,0_10,,slider)]_EnvRefractRotateInfo("_EnvRefractRotateInfo",vector) = (0,1,0,0) // (axis, speed)
+		[GroupVectorSlider(,Axis Speed,m10_10,,float)]_EnvRefractRotateInfo("_EnvRefractRotateInfo",vector) = (0,1,0,0) // (axis, speed)
 		[GroupToggle]_EnvRefractRotateAutoStop("_EnvRefractRotateAutoStop",float) = 0
 
 		[Header(Env Params)]
@@ -359,7 +359,7 @@
 			#pragma shader_feature_local_fragment  DISTORTION_ON
 			#pragma shader_feature_local_fragment  DISSOLVE_ON
 			#pragma shader_feature_local_fragment  OFFSET_ON
-			#pragma shader_feature_local  ENV_REFLECT_ON
+			// #pragma shader_feature_local  ENV_REFLECT_ON
 			// #pragma shader_feature_local  ENV_REFRACTION_ON
 			#pragma shader_feature_local_fragment  MATCAP_ON
 			#pragma shader_feature_local_fragment  MATCAP_ROTATE_ON
