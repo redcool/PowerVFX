@@ -2,7 +2,7 @@
 
 //Help行,约定 | 为换行字符
 // 版本号: vx.y.z.w (x:基础架构,y:功能,z:功能update或fixed,w:提交序号)
-Help=PowerVFX 特效渲染 |多选,按住Control键 |(v2.1.16.5)
+Help=PowerVFX 特效渲染 |多选,按住Control键 |(v2.1.16.9)
 Settings = 设置
 ShowOriginalPage = 显示原始页面
 Main = 基础

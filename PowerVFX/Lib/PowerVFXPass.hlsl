@@ -178,6 +178,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
         float2 dissolveUV = (_DistortionApplyToDissolve ? uvDistorted : mainUV.zw) * _DissolveTex_ST.xy + dissolveUVOffset;
         ApplyDissolve(mainColor,dissolveUV,i.color,dissolveCustomData,dissolveEdgeWidthCustomData);
     }
+    return mainColor;
     #endif 
 
     #if defined(FRESNEL_ON)

@@ -10,14 +10,16 @@ Material:
   m_Name: testUI
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
   m_ValidKeywords:
-  - ALPHA_TEST
   - DEPTH_FADING_ON
+  - DISSOLVE_ON
   - PBR_LIGHTING
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - 
+  - 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 5000
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -100,19 +102,21 @@ Material:
     - _BlendIntensity: 3.58
     - _BlendOp: 0
     - _BlendScreenColor: 0
+    - _ColorDriftIntensity: 0.1
+    - _ColorDriftSpeed: 1
     - _ColorMask: 15
-    - _ColorScale: 1.18
+    - _ColorScale: 1.386
     - _CullMode: 2
-    - _Cutoff: 0.133
+    - _Cutoff: 0.072
     - _DepthFadingMax: 1
     - _DepthFadingOn: 1
     - _DepthFadingWidth: 1
     - _DissolveByCustomData: 0
     - _DissolveByVertexColor: 0
-    - _DissolveClipOn: 1
+    - _DissolveClipOn: 0
     - _DissolveCustomData: 2
     - _DissolveCustomDataOn: 0
-    - _DissolveEdgeOn: 0
+    - _DissolveEdgeOn: 1
     - _DissolveEdgeWidthBy_Custom1: 0
     - _DissolveEdgeWidthCustomData: 3
     - _DissolveEdgeWidthCustomDataOn: 0
@@ -123,7 +127,7 @@ Material:
     - _DissolveFadingWidth: 0.149
     - _DissolveMaskChannel: 3
     - _DissolveMaskFromTexOn: 0
-    - _DissolveOn: 0
+    - _DissolveOn: 1
     - _DissolveRevert: 0
     - _DissolveTexChannel: 0
     - _DissolveTexOffsetStop: 1
@@ -142,14 +146,16 @@ Material:
     - _DoubleEffectOn: 0
     - _DstMode: 10
     - _EdgeColorIntensity: 1.3
-    - _EdgeWidth: 0.276
+    - _EdgeWidth: 0.231
     - _EnvIntensity: 7.38
     - _EnvMapMaskChannel: 0
     - _EnvMapMaskUseR: 0
     - _EnvMaskUseMainTexMask: 1
     - _EnvReflectOn: 0
+    - _EnvRefractRotateAutoStop: 0
     - _EnvRefractionIOR: 1.58
     - _EnvRefractionOn: 0
+    - _EnvRotateAutoStop: 0
     - _FresnalOn: 0
     - _FresnalPower: 0.222
     - _FresnalTransparent: 0.002
@@ -162,6 +168,11 @@ Material:
     - _FresnelPowerMin: 0.292
     - _FresnelTransparent: 0
     - _FresnelTransparentOn: 1
+    - _GlitchOn: 0
+    - _HorizontalIntensity: 0.2
+    - _HorizontalShake: 0.1
+    - _JitterBlockSize: 0.1
+    - _JitterIntensity: 0.1
     - _Language: 0
     - _MainLightSoftShadowScale: 0
     - _MainTexChannel: 0
@@ -210,10 +221,16 @@ Material:
     - _ReceiveShadowOn: 0
     - _ShadowsSoft: 0
     - _Smoothness: 0.835
+    - _SnowFlakeIntensity: 0.1
     - _SoftParticle: 1
     - _SoftParticleOn: 1
     - _SoftParticleWidth: 0.75
     - _SrcMode: 5
+    - _Stencil: 0
+    - _StencilComp: 0
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
     - _StopAutoOffset: 0
     - _VertexDistortionIntensity: 1
     - _VertexDistortionOn: 0
@@ -234,6 +251,8 @@ Material:
     - _VertexWaveDirAtten_LocalSpaceOn: 0
     - _VertexWaveForawdLength: 0.82
     - _VertexWaveIntensity: 5.33
+    - _VertexWaveIntensityCustomData: 7
+    - _VertexWaveIntensityCustomDataOn: 0
     - _VertexWaveLength: 1
     - _VertexWaveOn: 0
     - _VertexWaveSpeed: 0.1
@@ -241,19 +260,22 @@ Material:
     - _VertexWave_NoiseScale: 1
     - _VertexWave_NoiseSpeed: 1
     - _VertgexWaveAtten_MapOn: 0
+    - _VerticalJumpIntensity: 0.1
     - _ZTestMode: 4
     - _ZWriteMode: 1
     m_Colors:
     - _BackFaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DistortDir: {r: 0, g: -1, b: 0, a: 1}
     - _DistortTile: {r: 1, g: 1, b: 2, a: 2}
     - _DistortionRadialCenter_LenScale_LenOffset: {r: 0.5, g: 0.5, b: 1, a: 2.4}
-    - _EdgeColor: {r: 1.1486983, g: 0, b: 0, a: 0.7176471}
-    - _EdgeColor2: {r: 0.06897471, g: 0.5849056, b: 0.06897471, a: 0.13333334}
+    - _EdgeColor: {r: 1.1486983, g: 0, b: 0, a: 1}
+    - _EdgeColor2: {r: 0.06897471, g: 0.5849056, b: 0.06897471, a: 1}
     - _EnvOffset: {r: -3.33, g: 0.08, b: 0, a: 0}
     - _EnvReflectionColor: {r: 0.72535765, g: 0.9622642, b: 0, a: 0.5}
+    - _EnvRefractRotateInfo: {r: 0, g: 1, b: 0, a: 0}
     - _EnvRefractionColor: {r: 1, g: 1, b: 1, a: 0.5}
+    - _EnvRotateInfo: {r: 0, g: 1, b: 0, a: 0}
     - _FresnalColor: {r: 1, g: 1, b: 1, a: 1}
     - _FresnelColor: {r: 17.148375, g: 0, b: 0, a: 1}
     - _FresnelColor2: {r: 1, g: 1, b: 1, a: 1}

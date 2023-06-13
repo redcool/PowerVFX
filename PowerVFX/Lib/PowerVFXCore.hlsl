@@ -199,11 +199,15 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
 
     branch_if(_DissolveEdgeOn){
         float edgeWidth = lerp(_EdgeWidth,edgeWidthCDATA,_DissolveEdgeWidthCustomDataOn);
-        float edge = saturate(smoothstep(edgeWidth-0.1,edgeWidth+0.1,dissolve));
-        float4 edgeColor = lerp(_EdgeColor,_EdgeColor2,edge);
-        // edgeColor.a *= edge;
-        edge = saturate(smoothstep(0.,.6,1-dissolve));
-        mainColor.xyz = lerp(mainColor.xyz,(mainColor.xyz*0.5+ edgeColor.xyz)*1.5,edge);
+
+        // dissolve side's rate
+        float edge = (smoothstep(edgeWidth-0.1,edgeWidth+0.1,dissolve));
+        float4 edgeColor = lerp(_EdgeColor,_EdgeColor2,edge)*2;
+
+        // not dissolve side's rate
+        edge = (smoothstep(0.,.4,1-dissolve));
+
+        mainColor.xyz = lerp(mainColor.xyz,edgeColor.xyz,edge);
     }
     
 }
