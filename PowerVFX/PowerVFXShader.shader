@@ -11,18 +11,22 @@
 		[GroupToggle(MainTex Options)]_MainTexOffset_CustomData_On("_MainTexOffset_CustomData_On",int)=0
 		[GroupEnum(MainTex Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexOffset_CustomData_X("_MainTexOffset_CustomData_X",int) = 0
 		[GroupEnum(MainTex Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexOffset_CustomData_Y("_MainTexOffset_CustomData_Y",int) = 1
-		[Group(MainTex Color Options)]
-		[GroupHeader(MainTex Color Options,Saturate)]
-		[GroupItem(MainTex Color Options)]_MainTexSaturate("_MainTexSaturate",float) = 1
-		[GroupHeader(MainTex Color Options,Main Color)]
-		[GroupItem(MainTex Color Options)][HDR]_Color("Main Color",Color) = (1,1,1,1)
-		[GroupItem(MainTex Color Options)]_ColorScale("ColorScale",range(1,3)) = 1
-		[GroupToggle(MainTex Color Options)]_MainTexMultiAlpha("_MainTexMultiAlpha",int) = 0
 
-		[GroupHeader(MainTex Color Options,Single Channel MainTex)]
-		[GroupToggle(MainTex Color Options)]_MainTexSingleChannelOn("_MainTexSingleChannelOn?",int) = 0
-		[GroupEnum(MainTex Color Options,R 0 G 1 B 2 A 3)]_MainTexChannel("_MainTexChannel",int)=0
+		[GroupHeader(MainTex Options,Saturate)]
+		[GroupItem(MainTex Options)]_MainTexSaturate("_MainTexSaturate",float) = 1
+		
+		[GroupHeader(MainTex Options,Single Channel MainTex)]
+		[GroupToggle(MainTex Options)]_MainTexSingleChannelOn("_MainTexSingleChannelOn?",int) = 0
+		[GroupEnum(MainTex Options,R 0 G 1 B 2 A 3)]_MainTexChannel("_MainTexChannel",int)=0
+		[GroupToggle(MainTex Options)]_MainTexMultiAlpha("_MainTexMultiAlpha",int) = 0
 
+		// mainTex Color
+		[Group(Main Color Options)]
+		[GroupHeader(Main Color Options,Main Color)]
+		[GroupItem(Main Color Options)][HDR]_Color("Main Color",Color) = (1,1,1,1)
+		[GroupItem(Main Color Options)]_ColorScale("ColorScale",range(1,3)) = 1
+
+		// back face
 		[Group(Back Face)]
 		[GroupToggle(Back Face)]_BackFaceOn("_BackFaceOn",int) = 0
 		[GroupItem(Back Face)][HDR]_BackFaceColor("BackFace Color",Color) = (0.5,0.5,.5,1)
@@ -359,6 +363,8 @@
 			#pragma shader_feature_local_fragment  DISTORTION_ON
 			#pragma shader_feature_local_fragment  DISSOLVE_ON
 			#pragma shader_feature_local_fragment  OFFSET_ON
+
+			// cubemaps are small generally, use uniform if instead of #if
 			// #pragma shader_feature_local  ENV_REFLECT_ON
 			// #pragma shader_feature_local  ENV_REFRACTION_ON
 			#pragma shader_feature_local_fragment  MATCAP_ON
