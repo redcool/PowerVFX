@@ -231,33 +231,37 @@
 		_FresnelPowerMax("_FresnelPowerMax",range(0,1)) = 0.5
 		[Header(BlendScreenColor)]
 		_BlendScreenColor("_BlendScreenColor",range(0,1)) = 0
-// ==================================================	EnvReflection	
-		[Header(EnvReflection)]
-		[GroupToggle(_)]_EnvReflectOn("EnvReflect On?",int)=0
-		[hdr]_EnvReflectionColor("_EnvReflectionColor",color) = (.5,.5,.5,.5)
-		[Header(Env Rotate)]
-		[GroupVectorSlider(,Axis Speed,m10_10,,float)]_EnvRotateInfo("_EnvRotateInfo",vector) = (0,1,0,0) // (axis, speed)
-		[GroupToggle]_EnvRotateAutoStop("_EnvRotateAutoStop",float) = 0
+// ==================================================	EnvReflection
+		[Group(EnvReflection)]
+		[GroupHeader(EnvReflection,Reflect)]
+		[GroupToggle(EnvReflection)]_EnvReflectOn("EnvReflect On?",int)=0
+		[GroupItem(EnvReflection)][hdr]_EnvReflectionColor("_EnvReflectionColor",color) = (.5,.5,.5,.5)
 
-		[Header(EnvRefraction)]
-		[GroupToggle(_)]_EnvRefractionOn("_EnvRefractionOn",int) = 0
-		_EnvRefractionIOR("_EnvRefractionIOR",range(1,5)) = 1.33
-		[hdr]_EnvRefractionColor("_EnvRefractionColor",color) = (.5,.5,.5,.5)
+		[GroupHeader(EnvReflection,Env Rotate)]
+		[GroupVectorSlider(EnvReflection,Axis Speed,m10_10,,float)]_EnvRotateInfo("_EnvRotateInfo",vector) = (0,1,0,0) // (axis, speed)
+		[GroupToggle(EnvReflection)]_EnvRotateAutoStop("_EnvRotateAutoStop",float) = 0
+		
+// ==================================================	EnvRefraction		
+		[Group(EnvRefraction)]
+		[GroupHeader(EnvRefraction,Refraction)]
+		[GroupToggle(EnvRefraction)]_EnvRefractionOn("_EnvRefractionOn",int) = 0
+		[GroupItem(EnvRefraction)]_EnvRefractionIOR("_EnvRefractionIOR",range(1,5)) = 1.33
+		[GroupItem(EnvRefraction)][hdr]_EnvRefractionColor("_EnvRefractionColor",color) = (.5,.5,.5,.5)
 
-		[Header(Env Refract Rotate)]
-		[GroupVectorSlider(,Axis Speed,m10_10,,float)]_EnvRefractRotateInfo("_EnvRefractRotateInfo",vector) = (0,1,0,0) // (axis, speed)
-		[GroupToggle]_EnvRefractRotateAutoStop("_EnvRefractRotateAutoStop",float) = 0
+		[GroupHeader(EnvRefraction,Env Refract Rotate)]
+		[GroupVectorSlider(EnvRefraction,Axis Speed,m10_10,,float)]_EnvRefractRotateInfo("_EnvRefractRotateInfo",vector) = (0,1,0,0) // (axis, speed)
+		[GroupToggle(EnvRefraction)]_EnvRefractRotateAutoStop("_EnvRefractRotateAutoStop",float) = 0
 
-		[Header(Env Params)]
-		[NoScaleOffset]_EnvMap("Env Map",Cube) = ""{}
-		_EnvIntensity("Env intensity",float) = 1
-		_EnvOffset("EnvOffset",vector) = (0,0,0,0)
+// ==================================================	Env params
+		[Group(EnvOptions)]
+		[GroupHeader(EnvOptions,EnvOptions)]
+		[GroupItem(EnvOptions)][NoScaleOffset]_EnvMap("Env Map",Cube) = ""{}
+		[GroupItem(EnvOptions)]_EnvIntensity("Env intensity",float) = 1
+		[GroupVectorSlider(EnvOptions,X Y Z,m1_1 m1_1 m1_1,,float)]_EnvOffset("EnvOffset",vector) = (0,0,0,0)
 
-
-
-		[Header(Env Mask)]
-		[GroupToggle]_EnvMaskUseMainTexMask("_EnvMaskUseMainTexMask",int)=3
-		[Enum(R,0,G,1,B,2,A,3)]_EnvMapMaskChannel("_EnvMapMaskChannel",int)=0
+		[GroupHeader(EnvOptions,Env Mask)]
+		[GroupToggle(EnvOptions)]_EnvMaskUseMainTexMask("_EnvMaskUseMainTexMask",int)=3
+		[GroupEnum(EnvOptions,R G B A,0 1 2 3)]_EnvMapMaskChannel("_EnvMapMaskChannel",int)=0
 
 // ==================================================MatCap
 		[Header(MatCap)]

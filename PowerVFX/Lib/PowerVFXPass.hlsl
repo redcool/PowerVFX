@@ -35,35 +35,39 @@ v2f vert(appdata v)
     float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
     o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));
 
-    // calc env reflect and refract
-    // #if defined(ENV_REFLECT_ON)
-        float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
-        branch_if(_EnvReflectOn)
-        {
-            o.reflectDir = reflect(- viewDir,normalDistorted);
-            RotateReflectDir(o.reflectDir/**/,_EnvRotateInfo.xyz,_EnvRotateInfo.w,_EnvRotateAutoStop);
-        }
-        branch_if(_EnvRefractionOn)
-        {
-            // ior  https://en.wikipedia.org/wiki/Refractive_index
-            o.refractDir = refract(-viewDir,normalDistorted,1/_EnvRefractionIOR);
-            RotateReflectDir(o.refractDir/**/,_EnvRefractRotateInfo.xyz,_EnvRefractRotateInfo.w,_EnvRefractRotateAutoStop);
-        }
-    // #endif
-
     float3 viewNormal = normalize(mul((half3x3)UNITY_MATRIX_MV,v.normal));
     o.viewNormal = viewNormal.xy * 0.5 + 0.5;
 
     /* 
+        Calc tangent space
         light, fresnel need normal
     */
-
     // #if defined(PBR_LIGHTING) 
-    // branch_if(_PbrLightOn){
-        float3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
-        TANGENT_SPACE_COMBINE_WORLD(worldPos,worldNormal,float4(worldTangent,v.tangent.w),o/**/);
-    // }
+    float3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
+    TANGENT_SPACE_COMBINE_WORLD(worldPos,worldNormal,float4(worldTangent,v.tangent.w),o/**/);
     // #endif
+
+    // calc env reflect and refract
+
+    float3 viewDirTS = WorldToTangent(viewDir,o.tSpace0,o.tSpace1,o.tSpace2);
+
+    // #if defined(ENV_REFLECT_ON)
+    float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
+    branch_if(_EnvReflectOn)
+    {
+        o.reflectDir = reflect(- viewDir,normalDistorted);
+        RotateReflectDir(o.reflectDir/**/,_EnvRotateInfo.xyz,_EnvRotateInfo.w,_EnvRotateAutoStop);
+    }
+    branch_if(_EnvRefractionOn)
+    {
+        // ior  https://en.wikipedia.org/wiki/Refractive_index
+        o.refractDir = refract(-viewDir,normalDistorted,1/_EnvRefractionIOR);
+        // o.refractDir = CalcInteriorMapReflectDir(viewDirTS,o.uv.xy);
+        RotateReflectDir(o.refractDir/**/,_EnvRefractRotateInfo.xyz,_EnvRefractRotateInfo.w,_EnvRefractRotateAutoStop);
+    }
+    // #endif
+
+    // fog 
     o.animBlendUVFactor_fogCoord.xyz = float3(v.uv2.zw,v.uv3.x);
     o.animBlendUVFactor_fogCoord.w = ComputeFogFactor(o.vertex.z);
     // UNITY_TRANSFER_FOG(o,o.vertex);
@@ -72,6 +76,7 @@ v2f vert(appdata v)
         o.shadowCoord = TransformWorldToShadowCoord(worldPos.xyz); // move to frag
     #endif
 
+    // for ugui
     o.uiMask = GetUIMask(v.vertex,o.vertex.w,_ClipRect,half2(_UIMaskSoftnessX,_UIMaskSoftnessY));
 
     return o;
