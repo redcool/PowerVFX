@@ -15,7 +15,7 @@ v2f vert(appdata v)
     o.color = v.color;
     o.viewDir = float4(viewDir,0);
 
-    // composite custom datas
+    // --------------  composite custom datas
     o.customData1 = float4(v.uv.zw,v.uv1.xy);// particle custom data (Custom1.zw)(Custom2.xy)
     o.customData2 = float4(v.uv1.zw,v.uv2.xy); // particle custom data (Custom2.xy)
     float customDatas[8] = {o.customData1,o.customData2};
@@ -30,7 +30,7 @@ v2f vert(appdata v)
     #endif
     o.vertex = UnityWorldToClipPos(worldPos);
 
-    // uv.xy : main uv, zw : custom data1.xy
+    // --------------  uv.xy : main uv, zw : custom data1.xy
     float mainTexOffsetCdataX = customDatas[_MainTexOffset_CustomData_X];
     float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
     o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));
@@ -47,27 +47,27 @@ v2f vert(appdata v)
     TANGENT_SPACE_COMBINE_WORLD(worldPos,worldNormal,float4(worldTangent,v.tangent.w),o/**/);
     // #endif
 
-    // calc env reflect and refract
+    // -------------- calc env reflect and refract
+    o.viewDirTS.xyz = WorldToTangent(viewDir,o.tSpace0,o.tSpace1,o.tSpace2);
 
-    float3 viewDirTS = WorldToTangent(viewDir,o.tSpace0,o.tSpace1,o.tSpace2);
-
-    // #if defined(ENV_REFLECT_ON)
     float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
+    // #if defined(ENV_REFLECT_ON)
     branch_if(_EnvReflectOn)
     {
         o.reflectDir = reflect(- viewDir,normalDistorted);
         RotateReflectDir(o.reflectDir/**/,_EnvRotateInfo.xyz,_EnvRotateInfo.w,_EnvRotateAutoStop);
     }
+    // #endif
+
     branch_if(_EnvRefractionOn)
     {
         // ior  https://en.wikipedia.org/wiki/Refractive_index
         o.refractDir = refract(-viewDir,normalDistorted,1/_EnvRefractionIOR);
-        // o.refractDir = CalcInteriorMapReflectDir(viewDirTS,o.uv.xy);
         RotateReflectDir(o.refractDir/**/,_EnvRefractRotateInfo.xyz,_EnvRefractRotateInfo.w,_EnvRefractRotateAutoStop);
     }
     // #endif
 
-    // fog 
+    // --------------  fog 
     o.animBlendUVFactor_fogCoord.xyz = float3(v.uv2.zw,v.uv3.x);
     o.animBlendUVFactor_fogCoord.w = ComputeFogFactor(o.vertex.z);
     // UNITY_TRANSFER_FOG(o,o.vertex);
@@ -76,7 +76,7 @@ v2f vert(appdata v)
         o.shadowCoord = TransformWorldToShadowCoord(worldPos.xyz); // move to frag
     #endif
 
-    // for ugui
+    // --------------  for ugui
     o.uiMask = GetUIMask(v.vertex,o.vertex.w,_ClipRect,half2(_UIMaskSoftnessX,_UIMaskSoftnessY));
 
     return o;
@@ -95,6 +95,9 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     float3 reflectDir = i.reflectDir;
     float3 refractDir = i.refractDir;
+
+
+
     /* 
         setup mainUV, move to vs
         float4 mainUV = MainTexOffset(i.uv);
@@ -116,7 +119,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 /**
     particle system sheet animBlend
 */
-    SheetAnimBlendParams animBlendParams = GetSheetAnimBlendParams(animBlendUVFactor);
+    SheetAnimBlendParams animBlendParams = GetSheetAnimBlendParams(animBlendUVFactor,_MainTexSheetAnimBlendOn);
     
     //use _CameraOpaqueTexture
     float2 screenUV = i.vertex.xy/_ScaledScreenParams.xy;
@@ -154,7 +157,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     branch_if(_EnvReflectOn || _EnvRefractionOn)
     {
         float envMask = lerp(1,mainTexMask[_EnvMapMaskChannel],_EnvMaskUseMainTexMask);
-        ApplyEnv(mainColor,mainUV.zw,reflectDir,refractDir,envMask);
+        ApplyEnv(mainColor/**/,mainUV,reflectDir,refractDir,envMask,i.viewDirTS);
     }
     // #endif
 

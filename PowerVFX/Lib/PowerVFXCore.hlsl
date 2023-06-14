@@ -263,7 +263,8 @@ void RotateReflectDir(inout float3 reflectDir,half3 axis,half rotateSpeed,bool a
     reflectDir = mul(rotMat , reflectDir);
 }
 
-void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refractDir,float envMask){
+
+void ApplyEnv(inout float4 mainColor,float4 mainUV,float3 reflectDir,float3 refractDir,float envMask,float3 viewDirTS){
     float4 envColor = (float4)0;
 
     // #if defined(ENV_REFLECT_ON)
@@ -276,6 +277,12 @@ void ApplyEnv(inout float4 mainColor,float2 mainUV,float3 reflectDir,float3 refr
     // #if defined(ENV_REFRACTION_ON)        
     branch_if(_EnvRefractionOn)
     {
+        // refract interiorMap
+        branch_if(_RefractMode == 1)
+        {
+            refractDir = CalcInteriorMapReflectDir(viewDirTS,mainUV.xy);
+            RotateReflectDir(refractDir/**/,_EnvRefractRotateInfo.xyz,_EnvRefractRotateInfo.w,_EnvRefractRotateAutoStop);
+        }
         envColor.xyz += SampleEnvMap(refractDir) * _EnvRefractionColor.xyz;
     }
     // #endif

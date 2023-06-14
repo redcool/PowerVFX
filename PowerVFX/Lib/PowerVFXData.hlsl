@@ -54,6 +54,7 @@ struct v2f
     float3 reflectDir:COLOR1;
     float2 viewNormal:COLOR2;
     float3 refractDir:COLOR3;
+    half3 viewDirTS:COLOR4;
 
     // x y:customData.x,z:_VertexWaveAttenMask_UseCustomeData2_X
     float4 customData1:TEXCOORD1;
@@ -75,15 +76,15 @@ struct SheetAnimBlendParams
     float blendRate;
 };
 
-SheetAnimBlendParams GetSheetAnimBlendParams(float3 animBlendUVFactor)
+SheetAnimBlendParams GetSheetAnimBlendParams(float3 animBlendUVFactor,bool isBlendOn)
 {
     SheetAnimBlendParams p;
     p.blendUV = animBlendUVFactor.xy;
     p.blendRate = animBlendUVFactor.z;
-    p.isBlendOn = false;
-    #if defined(SHEET_ANIM_BLEND_ON)
-        p.isBlendOn = true;
-    #endif
+    p.isBlendOn = isBlendOn;
+    // #if defined(SHEET_ANIM_BLEND_ON)
+    //     p.isBlendOn = true;
+    // #endif
     return p;
 }
 

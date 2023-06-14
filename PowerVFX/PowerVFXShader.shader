@@ -51,7 +51,7 @@
 		[Group(SheetAnimation)]
 		[GroupVectorSlider(SheetAnimation,RowCount ColumnCount,1_16 1_16,,int)]_MainTexSheet("_MainTexSheet",vector)=(1,1,1,1)
 		[GroupItem(SheetAnimation)]_MainTexSheetAnimSpeed("_MainTexSheetAnimSpeed",float) = 1
-		[GroupToggle(SheetAnimation,SHEET_ANIM_BLEND_ON)]_MainTexSheetAnimBlendOn("_MainTexSheetAnimBlendOn",int) = 0
+		[GroupToggle(SheetAnimation)]_MainTexSheetAnimBlendOn("_MainTexSheetAnimBlendOn",int) = 0 //SHEET_ANIM_BLEND_ON
 		// [GroupToggle(_)]_MainTexSheetPlayOnce("_MainTexSheetPlayOnce",int) = 0
 // ==================================================		Alpha
 		[Header(Alpha Range)]
@@ -252,6 +252,8 @@
 		[GroupVectorSlider(EnvRefraction,Axis Speed,m10_10,,float)]_EnvRefractRotateInfo("_EnvRefractRotateInfo",vector) = (0,1,0,0) // (axis, speed)
 		[GroupToggle(EnvRefraction)]_EnvRefractRotateAutoStop("_EnvRefractRotateAutoStop",float) = 0
 
+		[GroupHeader(EnvRefraction,Mode)]
+		[GroupEnum(EnvRefraction,Refract InteriorMap,0 1)]_RefractMode("_RefractMode",int) = 0
 // ==================================================	Env params
 		[Group(EnvOptions)]
 		[GroupHeader(EnvOptions,EnvOptions)]
@@ -368,7 +370,6 @@
 			#pragma shader_feature_local_fragment  DISSOLVE_ON
 			#pragma shader_feature_local_fragment  OFFSET_ON
 
-			// cubemaps are small generally, use uniform if instead of #if
 			// #pragma shader_feature_local  ENV_REFLECT_ON
 			// #pragma shader_feature_local  ENV_REFRACTION_ON
 			#pragma shader_feature_local_fragment  MATCAP_ON
@@ -376,7 +377,7 @@
 			#pragma shader_feature_local_fragment  DEPTH_FADING_ON
 			#pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON
 			// #pragma shader_feature_local_fragment _OFFSET_BLEND_REPLACE_MODE
-			#pragma shader_feature_local_fragment SHEET_ANIM_BLEND_ON
+			// #pragma shader_feature_local_fragment SHEET_ANIM_BLEND_ON
 			#pragma shader_feature_local MIN_VERSION
 			#pragma shader_feature_local _GLITCH_ON
 			// #pragma shader_feature_local_fragment _SCREEN_TEX_ON
