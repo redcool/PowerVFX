@@ -124,7 +124,8 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     
     //use _CameraOpaqueTexture
     float2 screenUV = i.vertex.xy/_ScaledScreenParams.xy;
-    mainUV.xy = lerp(mainUV.xy,screenUV,_MainTexUseScreenColor);
+    screenUV = lerp(screenUV,screenUV.xy * _MainTex_ST.xy + _MainTex_ST.zw,_MainTexUseScreenUV);
+    mainUV.xy = lerp(mainUV.xy,screenUV,saturate(_MainTexUseScreenColor + _MainTexUseScreenUV));
     
     float2 uvDistorted = mainUV.zw;
     #if defined(DISTORTION_ON)

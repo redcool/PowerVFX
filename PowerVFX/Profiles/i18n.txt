@@ -43,6 +43,7 @@ _MainTexMaskOffsetCustomDataX=主纹理遮罩uv.x 的cdata槽
 _MainTexMaskOffsetCustomDataY=主纹理遮罩uv.y 的cdata槽
 
 _MainTexUseScreenColor=主纹理使用屏幕颜色(需_CameraOpaqueTexture)
+_MainTexUseScreenUV=用screenUV采样MainTex
 
 _MainTexSheet=序列帧动画
 _MainTexSheetAnimSpeed=播放速度
