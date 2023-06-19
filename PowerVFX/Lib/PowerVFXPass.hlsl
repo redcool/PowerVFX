@@ -1,7 +1,6 @@
 #if !defined(POWER_VFX_PASS_CGINC)
 #define POWER_VFX_PASS_CGINC
 #include "../../PowerShaderLib/Lib/UnityLib.hlsl"
-#include "../../PowerShaderLib/UrpLib/URP_Fog.hlsl"
 #include "PowerVFXCore.hlsl"
 #include "../../PowerShaderLib/UrpLib/URP_AdditionalLightShadows.hlsl"
 
@@ -13,7 +12,6 @@ v2f vert(appdata v)
 
     v2f o = (v2f)0;
     o.color = v.color;
-    o.viewDir = float4(viewDir,0);
 
     // --------------  composite custom datas
     o.customData1 = float4(v.uv.zw,v.uv1.xy);// particle custom data (Custom1.zw)(Custom2.xy)
@@ -68,13 +66,16 @@ v2f vert(appdata v)
     // #endif
 
     // --------------  fog 
-    o.animBlendUVFactor_fogCoord.xyz = float3(v.uv2.zw,v.uv3.x);
-    o.animBlendUVFactor_fogCoord.w = ComputeFogFactor(o.vertex.z);
+    o.animBlendUV_fogCoord.xy = v.uv2.zw; // particle anim blend uv
+    o.animBlendUV_fogCoord.zw = CalcFogFactor(worldPos);
     // UNITY_TRANSFER_FOG(o,o.vertex);
+
+    o.viewDir_AnimBlendFactor = float4(viewDir,v.uv3.x);// viewDir and particle anim blend factor
 
     #if defined(MAIN_LIGHT_CALCULATE_SHADOWS)
         o.shadowCoord = TransformWorldToShadowCoord(worldPos.xyz); // move to frag
     #endif
+
 
     // --------------  for ugui
     o.uiMask = GetUIMask(v.vertex,o.vertex.w,_ClipRect,half2(_UIMaskSoftnessX,_UIMaskSoftnessY));
@@ -86,9 +87,9 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 {
     TANGENT_SPACE_SPLIT(i);
 
-    float3 viewDir = normalize(i.viewDir.xyz);
-    float3 animBlendUVFactor = i.animBlendUVFactor_fogCoord.xyz;
-    float fogCoord = i.animBlendUVFactor_fogCoord.w;
+    float3 viewDir = normalize(i.viewDir_AnimBlendFactor.xyz);
+    float3 animBlendUVFactor = float3(i.animBlendUV_fogCoord.xy,i.viewDir_AnimBlendFactor.w);
+    float2 fogCoord = i.animBlendUV_fogCoord.zw;
 
     float4 mainColor = float4(0,0,0,1);
     float4 screenColor=0;
@@ -186,7 +187,6 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
         float2 dissolveUV = (_DistortionApplyToDissolve ? uvDistorted : mainUV.zw) * _DissolveTex_ST.xy + dissolveUVOffset;
         ApplyDissolve(mainColor,dissolveUV,i.color,dissolveCustomData,dissolveEdgeWidthCustomData);
     }
-    return mainColor;
     #endif 
 
     #if defined(FRESNEL_ON)
@@ -213,9 +213,9 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #endif
 
 
-    mainColor.a = saturate(mainColor.a );
     // apply fog
-    mainColor.xyz = MixFog(mainColor.xyz,fogCoord);
+    // mainColor.xyz = MixFog(mainColor.xyz,fogCoord);
+    ApplyFog(mainColor.xyz/**/,worldPos,fogCoord);
 
     #ifdef UNITY_UI_CLIP_RECT
         half2 m = saturate((_ClipRect.zw - _ClipRect.xy - abs(i.uiMask.xy)) * i.uiMask.zw);
@@ -223,6 +223,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
         // clip(mainColor.a -0.001);
     #endif
 
+    mainColor.a = saturate(mainColor.a );
     return mainColor;
 }
 

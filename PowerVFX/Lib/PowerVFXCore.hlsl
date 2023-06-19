@@ -11,6 +11,7 @@
 #include "../../PowerShaderLib/Lib/Colors.hlsl"
 #include "../../PowerShaderLib/Lib/MathLib.hlsl"
 #include "../../PowerShaderLib/UrpLib/Lighting.hlsl"
+#include "../../PowerShaderLib/Lib/FogLib.hlsl"
 
 float4 SampleAttenMap(float2 mainUV,float attenMaskCData){
     // auto offset
@@ -402,5 +403,11 @@ float3 SampleNormalMap(float2 uv,float4 tSpace0,float4 tSpace1,float4 tSpace2){
     return TangentToWorld(tn,tSpace0,tSpace1,tSpace2);
 }
 
+void ApplyFog(inout float3 mainColor/**/,float3 worldPos,float2 fogCoord){
+    #if defined(FOG_LINEAR)
+        float fogNoise = 0;
+        BlendFogSphereKeyword(mainColor.xyz,worldPos,fogCoord,_HeightFogOn,fogNoise,_DepthFogOn);
+    #endif
+}
 
 #endif //POWER_VFX_CGINC

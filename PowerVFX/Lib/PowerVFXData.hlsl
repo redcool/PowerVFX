@@ -48,7 +48,7 @@ struct v2f
     float4 vertex : SV_POSITION;
     float4 color : COLOR;
     float4 uv : TEXCOORD0;
-    float4 animBlendUVFactor_fogCoord:TEXCOORD6;
+    float4 animBlendUV_fogCoord:TEXCOORD6; //(xy : particle animBlend'uv),(zw: sphere for coord)
 
     #if !defined(MIN_VERSION)
     float3 reflectDir:COLOR1;
@@ -60,9 +60,13 @@ struct v2f
     float4 customData1:TEXCOORD1;
     float4 customData2:TEXCOORD2;
     TANGENT_SPACE_DECLARE(3,4,5);
-    float4 viewDir :TEXCOORD7; //(xyz:ViewDir)(w:particle AnimBlend)
+    float4 viewDir_AnimBlendFactor :TEXCOORD7; //(xyz:ViewDir)(w:particle AnimBlend's factor)
     float4 shadowCoord:TEXCOORD8;
     half4  uiMask : TEXCOORD9;
+    #endif
+
+    #if defined(MIN_VERSION)
+    float4 worldPos:TEXCOORD1;
     #endif
 };
 

@@ -3,8 +3,8 @@
 
 
 // Tabs
-tabNames =  MinVersion
+tabNames =  Settings,MinVersion
 
 // Tab's contents
-
-MinVersion=_MainTex, _MainUVAngle,_MainTexOffsetStop,_Color, _MainTexMask,_MainTexMaskOffsetStop,_MainTexMaskChannel,_MainTexSheet,_MainTexSheetAnimSpeed, _DissolveClipOn,_Cutoff,_PresetBlendMode,_RenderQueue
+Settings= _CullMode, _ZWriteMode,_ZTestMode,_PresetBlendMode,_RenderQueue,_FogOn
+MinVersion=_MainTex, _MainUVAngle,_MainTexOffsetStop,_Color, _MainTexMask,_MainTexMaskOffsetStop,_MainTexMaskChannel,_MainTexSheet,_MainTexSheetAnimSpeed, _DissolveClipOn,_Cutoff,

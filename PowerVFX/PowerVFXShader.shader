@@ -334,6 +334,13 @@
         [GroupEnum(Stencil,UnityEngine.Rendering.StencilOp)]_StencilOp ("Stencil Operation", Float) = 0
         _StencilWriteMask ("Stencil Write Mask", Float) = 255
         _StencilReadMask ("Stencil Read Mask", Float) = 255
+
+// ================================================== fog
+        [Header(Fog)]
+        [GroupToggle(_,FOG_LINEAR)]_FogOn("_FogOn",int) = 1
+        // [GroupToggle(_,_DEPTH_FOG_NOISE_ON)]_FogNoiseOn("_FogNoiseOn",int) = 0
+        [GroupToggle(_)]_DepthFogOn("_DepthFogOn",int) = 1
+        [GroupToggle(_)]_HeightFogOn("_HeightFogOn",int) = 1
 	}
 	SubShader
 	{
@@ -383,6 +390,7 @@
 			// #pragma shader_feature_local_fragment SHEET_ANIM_BLEND_ON
 			#pragma shader_feature_local MIN_VERSION
 			#pragma shader_feature_local _GLITCH_ON
+			// #pragma shader_feature_local _DEPTH_FOG_NOISE_ON
 			// #pragma shader_feature_local_fragment _SCREEN_TEX_ON
 
 
@@ -415,7 +423,7 @@
             // #pragma multi_compile _ LIGHTMAP_ON
             // #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             // #pragma multi_compile_fog
-			#pragma multi_compile _ FOG_LINEAR
+			#pragma shader_feature_local FOG_LINEAR
             // #pragma multi_compile _ DEBUG_DISPLAY
 			
 			#pragma target 3.0
