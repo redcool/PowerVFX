@@ -232,9 +232,10 @@
 		[Header(BlendScreenColor)]
 		_BlendScreenColor("_BlendScreenColor",range(0,1)) = 0
 // ==================================================	EnvReflection
+		[GroupHeader(,Reflect)]
+		[GroupToggle()]_EnvReflectOn("EnvReflect On?",int)=0
+
 		[Group(EnvReflection)]
-		[GroupHeader(EnvReflection,Reflect)]
-		[GroupToggle(EnvReflection)]_EnvReflectOn("EnvReflect On?",int)=0
 		[GroupItem(EnvReflection)][hdr]_EnvReflectionColor("_EnvReflectionColor",color) = (.5,.5,.5,.5)
 
 		[GroupHeader(EnvReflection,Env Rotate)]
@@ -242,9 +243,10 @@
 		[GroupToggle(EnvReflection)]_EnvRotateAutoStop("_EnvRotateAutoStop",float) = 0
 		
 // ==================================================	EnvRefraction		
+		[GroupHeader(,Refraction)]
+		[GroupToggle()]_EnvRefractionOn("_EnvRefractionOn",int) = 0
+
 		[Group(EnvRefraction)]
-		[GroupHeader(EnvRefraction,Refraction)]
-		[GroupToggle(EnvRefraction)]_EnvRefractionOn("_EnvRefractionOn",int) = 0
 		[GroupItem(EnvRefraction)]_EnvRefractionIOR("_EnvRefractionIOR",range(1,5)) = 1.33
 		[GroupItem(EnvRefraction)][hdr]_EnvRefractionColor("_EnvRefractionColor",color) = (.5,.5,.5,.5)
 
@@ -255,9 +257,10 @@
 		[GroupHeader(EnvRefraction,Mode)]
 		[GroupEnum(EnvRefraction,Refract InteriorMap,0 1)]_RefractMode("_RefractMode",int) = 0
 // ==================================================	Env params
+		[GroupHeader(,EnvOptions)]
+		[GroupItem()][NoScaleOffset]_EnvMap("Env Map",Cube) = ""{}
+
 		[Group(EnvOptions)]
-		[GroupHeader(EnvOptions,EnvOptions)]
-		[GroupItem(EnvOptions)][NoScaleOffset]_EnvMap("Env Map",Cube) = ""{}
 		[GroupItem(EnvOptions)]_EnvIntensity("Env intensity",float) = 1
 		[GroupVectorSlider(EnvOptions,X Y Z,m1_1 m1_1 m1_1,,float)]_EnvOffset("EnvOffset",vector) = (0,0,0,0)
 
@@ -281,7 +284,7 @@
 		_DepthFadingWidth("_DepthFadingWidth",range(0.01,3)) = 0.33
 		_DepthFadingMax("_DepthFadingMax",range(0.01,3)) = 1
 
-// ================================================== Light		
+// ================================================== Light
 		[Header(Light)]
 		[GroupToggle(_,PBR_LIGHTING)]_PbrLightOn("_PbrLightOn",int) = 0
 		[NoScaleOffset]_NormalMap("_NormalMap",2d)="bump"{}
