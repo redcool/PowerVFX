@@ -334,6 +334,10 @@
         [GroupEnum(Stencil,UnityEngine.Rendering.StencilOp)]_StencilOp ("Stencil Operation", Float) = 0
         _StencilWriteMask ("Stencil Write Mask", Float) = 255
         _StencilReadMask ("Stencil Read Mask", Float) = 255
+
+// ================================================== fog
+		[Group(Fog)]
+		[GroupToggle(Fog,FOG_LINEAR)]_FogOn("_FogOn",int) = 1
 	}
 	SubShader
 	{
@@ -415,7 +419,7 @@
             // #pragma multi_compile _ LIGHTMAP_ON
             // #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             // #pragma multi_compile_fog
-			#pragma multi_compile _ FOG_LINEAR
+			#pragma shader_feature _ FOG_LINEAR
             // #pragma multi_compile _ DEBUG_DISPLAY
 			
 			#pragma target 3.0
