@@ -122,9 +122,12 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 */
     SheetAnimBlendParams animBlendParams = GetSheetAnimBlendParams(animBlendUVFactor,_MainTexSheetAnimBlendOn);
     
-    //use _CameraOpaqueTexture
+/** 
+    Screen Space UV and mainUV
+*/
     float2 screenUV = i.vertex.xy/_ScaledScreenParams.xy;
-    screenUV = lerp(screenUV,screenUV.xy * _MainTex_ST.xy + _MainTex_ST.zw,_MainTexUseScreenUV);
+    float2 mainTexOffset = UVOffset(_MainTex_ST.zw,_MainTexOffsetStop);
+    screenUV = lerp(screenUV,screenUV.xy * _MainTex_ST.xy + mainTexOffset,_MainTexUseScreenUV);
     mainUV.xy = lerp(mainUV.xy,screenUV,saturate(_MainTexUseScreenColor + _MainTexUseScreenUV));
     
     float2 uvDistorted = mainUV.zw;
