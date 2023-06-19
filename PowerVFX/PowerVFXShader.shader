@@ -337,7 +337,7 @@
 
 // ================================================== fog
         [Header(Fog)]
-        [GroupToggle(_,FOG_LINEAR)]_FogOn("_FogOn",int) = 1
+        [GroupToggle(_,FOG_LINEAR)]_FogOn("_FogOn",int) = 0
         // [GroupToggle(_,_DEPTH_FOG_NOISE_ON)]_FogNoiseOn("_FogNoiseOn",int) = 0
         [GroupToggle(_)]_DepthFogOn("_DepthFogOn",int) = 1
         [GroupToggle(_)]_HeightFogOn("_HeightFogOn",int) = 1
