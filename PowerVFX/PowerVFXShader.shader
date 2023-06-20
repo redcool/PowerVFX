@@ -424,7 +424,7 @@
             // #pragma multi_compile _ LIGHTMAP_ON
             // #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             // #pragma multi_compile_fog
-			#pragma shader_feature_local FOG_LINEAR
+			#pragma multi_compile_local FOG_LINEAR
             // #pragma multi_compile _ DEBUG_DISPLAY
 			
 			#pragma target 3.0
