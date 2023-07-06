@@ -5,10 +5,17 @@
 //     #define MIN_VERSION
 // #endif
 
-#if defined(MIN_VERSION)
-    #include "PowerVFXPassMinVersion.hlsl"
+/**
+    uncomments this, if you wanna use custom min version
+*/
+// #define CUSTOM_MIN_VERSION
+
+#if defined(CUSTOM_MIN_VERSION)
+    #include "PowerVFXPassMinVersionCustom.hlsl"    // custom min version
+#elif defined(MIN_VERSION)
+    #include "PowerVFXPassMinVersion.hlsl"  // standard min version
 #else
-    #include "PowerVFXPass.hlsl"
+    #include "PowerVFXPass.hlsl"    //standard version
 #endif
 
 #endif //POWER_VFX_PASS_VERSION_HLSL
