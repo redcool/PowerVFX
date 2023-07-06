@@ -3,8 +3,10 @@
 
 
 // Tabs
-tabNames =  Settings,MinVersion
+tabNames =  Settings,Main,Distortion,Dissolve
 
 // Tab's contents
 Settings= _CullMode, _ZWriteMode,_ZTestMode,_PresetBlendMode,_RenderQueue,_FogOn
-MinVersion=_MainTex, _MainUVAngle,_MainTexOffsetStop,_Color, _MainTexMask,_MainTexMaskOffsetStop,_MainTexMaskChannel,_MainTexSheet,_MainTexSheetAnimSpeed, _DissolveClipOn,_Cutoff,
+Main=_MainTex, _MainUVAngle,_MainTexOffsetStop,_Color, _MainTexMask,_MainTexMaskOffsetStop,_MainTexMaskChannel,_MainTexSheet,_MainTexSheetAnimSpeed, _DissolveClipOn,_Cutoff,
+Distortion = _DistortionOn, _DistortionNoiseTex, _DistortionIntensity,_DistortionCustomDataOn,_DistortionCustomData, _DistortTile, _DistortDir,_DistortionApplyToMainTexMask,_DistortionApplyToDissolve
+Dissolve = _DissolveOn,_DissolveRevert, _DissolveTex,_DissolveTexOffsetStop, _DissolveTexChannel,_DissolveMaskFromTexOn,_DissolveMaskChannel,  _DissolveCustomDataOn,_DissolveCustomData,_DissolveFadingMin,_DissolveFadingMax, _DissolveClipOn,_Cutoff, _DissolveEdgeOn,_DissolveEdgeWidthCustomDataOn,_DissolveEdgeWidthCustomData, _EdgeWidth, _EdgeColor,_EdgeColor2

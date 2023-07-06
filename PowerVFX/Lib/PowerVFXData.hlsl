@@ -19,10 +19,6 @@ struct appdata
 
     */
     float4 uv : TEXCOORD0; 
-
-    #if !defined(MIN_VERSION)
-    float3 normal:NORMAL;
-    float4 tangent:TANGENT;
     /** 
         uv1.xy (particle's customData Custom1.zw)
         uv1.zw (particle's customData Custom2.xy)
@@ -35,6 +31,11 @@ struct appdata
 
     */        
     float4 uv2:TEXCOORD2;
+
+    #if !defined(MIN_VERSION)
+    float3 normal:NORMAL;
+    float4 tangent:TANGENT;
+
     /**
         uv3.x (particle AnimBlend)
 
@@ -50,6 +51,9 @@ struct v2f
     float4 uv : TEXCOORD0;
     float4 animBlendUV_fogCoord:TEXCOORD6; //(xy : particle animBlend'uv),(zw: sphere for coord)
 
+    float4 customData1:TEXCOORD1;
+    float4 customData2:TEXCOORD2;
+
     #if !defined(MIN_VERSION)
     float3 reflectDir:COLOR1;
     float2 viewNormal:COLOR2;
@@ -57,8 +61,6 @@ struct v2f
     half3 viewDirTS:COLOR4;
 
     // x y:customData.x,z:_VertexWaveAttenMask_UseCustomeData2_X
-    float4 customData1:TEXCOORD1;
-    float4 customData2:TEXCOORD2;
     TANGENT_SPACE_DECLARE(3,4,5);
     float4 viewDir_AnimBlendFactor :TEXCOORD7; //(xyz:ViewDir)(w:particle AnimBlend's factor)
     float4 shadowCoord:TEXCOORD8;
@@ -66,7 +68,7 @@ struct v2f
     #endif
 
     #if defined(MIN_VERSION)
-    float4 worldPos:TEXCOORD1;
+    float4 worldPos:TEXCOORD3;
     #endif
 };
 
