@@ -26,6 +26,13 @@
 		[GroupItem(Main Color Options)][HDR]_Color("Main Color",Color) = (1,1,1,1)
 		[GroupItem(Main Color Options)]_ColorScale("ColorScale",range(1,3)) = 1
 
+		// mainTex channel
+		[GroupHeader(Main Color Options,Per Channel)]
+		[GroupToggle(Main Color Options)]_PerChannelColorOn("_PerChannelColorOn",float) = 0
+		[GroupItem(Main Color Options)][HDR]_ColorX("Color_X",Color) = (1,1,1,1)
+		[GroupItem(Main Color Options)][HDR]_ColorY("Color_Y",Color) = (1,1,1,1)
+		[GroupItem(Main Color Options)][HDR]_ColorZ("Color_Z",Color) = (1,1,1,1)
+
 		// back face
 		[Group(Back Face)]
 		[GroupToggle(Back Face)]_BackFaceOn("_BackFaceOn",int) = 0
