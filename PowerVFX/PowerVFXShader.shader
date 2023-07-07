@@ -21,17 +21,17 @@
 		[GroupToggle(MainTex Options)]_MainTexMultiAlpha("_MainTexMultiAlpha",int) = 0
 
 		// mainTex Color
-		[Group(Main Color Options)]
-		[GroupHeader(Main Color Options,Main Color)]
-		[GroupItem(Main Color Options)][HDR]_Color("Main Color",Color) = (1,1,1,1)
-		[GroupItem(Main Color Options)]_ColorScale("ColorScale",range(1,3)) = 1
+		[Group(MainColorOptions)]
+		[GroupHeader(MainColorOptions,Main Color)]
+		[GroupItem(MainColorOptions)][HDR]_Color("Main Color",Color) = (1,1,1,1)
+		[GroupItem(MainColorOptions)]_ColorScale("ColorScale",range(1,3)) = 1
 
 		// mainTex channel
-		[GroupHeader(Main Color Options,Per Channel)]
-		[GroupToggle(Main Color Options)]_PerChannelColorOn("_PerChannelColorOn",float) = 0
-		[GroupItem(Main Color Options)][HDR]_ColorX("Color_X",Color) = (1,1,1,1)
-		[GroupItem(Main Color Options)][HDR]_ColorY("Color_Y",Color) = (1,1,1,1)
-		[GroupItem(Main Color Options)][HDR]_ColorZ("Color_Z",Color) = (1,1,1,1)
+		[GroupHeader(MainColorOptions,Per Channel Color)]
+		[GroupToggle(MainColorOptions)]_PerChannelColorOn("_PerChannelColorOn",float) = 0
+		[GroupItem(MainColorOptions)][HDR]_ColorX("Color_X",Color) = (1,1,1,1)
+		[GroupItem(MainColorOptions)][HDR]_ColorY("Color_Y",Color) = (1,1,1,1)
+		[GroupItem(MainColorOptions)][HDR]_ColorZ("Color_Z",Color) = (1,1,1,1)
 
 		// back face
 		[Group(Back Face)]
