@@ -108,7 +108,7 @@ _EdgeWidth=边宽度
 _EdgeColor=边1颜色
 _EdgeColor2=边2颜色
 
-_DissolveMaskFromTexOn=用溶解图控制mask
+_DissolveMaskFromTexOn=溶解图作为溶解mask
 _DissolveMaskChannel=溶解mask的通道
 
 _OffsetOn=开启流光

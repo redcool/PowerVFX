@@ -38,8 +38,8 @@
 		[GroupToggle(Back Face)]_BackFaceOn("_BackFaceOn",int) = 0
 		[GroupItem(Back Face)][HDR]_BackFaceColor("BackFace Color",Color) = (0.5,0.5,.5,1)
 
-		// [GroupHeader(MainTex Mask Options)]
 		[Space(10)]
+		[GroupHeader(MainTex Mask)]
 		_MainTexMask("Main Texture Mask(R)", 2D) = "white" {}
 		[Group(MainTex Mask Options)]
 		[GroupToggle(MainTex Mask Options)]_MainTexMaskOffsetStop("_MainTexMaskOffsetStop",int)=0

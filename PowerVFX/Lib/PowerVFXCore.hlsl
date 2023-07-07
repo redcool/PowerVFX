@@ -143,11 +143,18 @@ void ApplyMainTexMask(inout float4 mainColor,inout float4 mainTexMask,float2 uv,
     // float2 maskTexOffset = _MainTexMask_ST.zw * ( 1+ _Time.xx *(1-_MainTexMaskOffsetStop) );
     float2 maskTexOffset = UVOffset(_MainTexMask_ST.zw,_MainTexMaskOffsetStop);
     maskTexOffset = lerp(maskTexOffset,maskOffsetCDATA,_MainTexMaskOffsetCustomDataOn);
+    
     mainTexMask = tex2D(_MainTexMask,uv*_MainTexMask_ST.xy + maskTexOffset);// fp opearate mask uv.
     mainColor.a *= mainTexMask[_MainTexMaskChannel];
 }
 
-float2 GetDistortionUV(float2 maskUV,float4 distortUV,float customDataIntensity){
+half GetDistortionMask(float2 mainUV){
+    float2 maskUV = mainUV * _DistortionMaskTex_ST.xy + _DistortionMaskTex_ST.zw;
+    float4 maskTex = tex2D(_DistortionMaskTex,maskUV);
+    return maskTex[_DistortionMaskChannel];
+}
+
+float2 GetDistortionUV(float2 mainUV,float4 distortUV,float customDataIntensity){
     float2 noise = (tex2D(_DistortionNoiseTex, distortUV.xy).xy -0.5) * 2;
     #if defined(DOUBLE_EFFECT_ON)
     // branch_if(_DoubleEffectOn)
@@ -157,21 +164,48 @@ float2 GetDistortionUV(float2 maskUV,float4 distortUV,float customDataIntensity)
     }
     #endif
     
-    maskUV = maskUV * _DistortionMaskTex_ST.xy + _DistortionMaskTex_ST.zw;
-    float4 maskTex = tex2D(_DistortionMaskTex,maskUV);
+    half duvMask = 1;
+    #if !defined(MIN_VERSION)
+        duvMask = GetDistortionMask(mainUV);
+    #endif
 
-    // float intensity = _DistortionCustomDataOn ? customDataIntensity : _DistortionIntensity;
     float intensity = lerp(_DistortionIntensity,customDataIntensity,_DistortionCustomDataOn);
-    float2 duv = noise * 0.2  * intensity * maskTex[_DistortionMaskChannel];
+    float2 duv = noise * 0.2  * intensity * duvMask;
     return duv;
 }
 
+void ApplyPixelDissolve(inout float2 dissolveUV,half pixelWidth){
+    dissolveUV = abs( dissolveUV - 0.5);
+    dissolveUV = round(dissolveUV * pixelWidth)/max(0.0001,pixelWidth);
+}
+/**
+    need external varables
+    half _EdgeWidth
+    half4 _EdgeColor1,_EdgeColor2
+    half _DissolveEdgeWidthCustomDataOn
+*/
+void ApplyDissolveEdgeColor(inout float4 mainColor,float dissolve,float edgeWidthCDATA){
+    float edgeWidth = lerp(_EdgeWidth,edgeWidthCDATA,_DissolveEdgeWidthCustomDataOn);
+
+    // dissolve side's rate
+    float edge = (smoothstep(edgeWidth-0.1,edgeWidth+0.1,dissolve));
+    float4 edgeColor = lerp(_EdgeColor,_EdgeColor2,edge)*2;
+
+    // not dissolve side's rate
+    edge = (smoothstep(0.,.4,1-dissolve));
+
+    mainColor.xyz = lerp(mainColor.xyz,edgeColor.xyz,edge);
+}
+
 void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float dissolveCDATA,float edgeWidthCDATA){
-    
-    branch_if(_PixelDissolveOn){
-        dissolveUV = abs( dissolveUV - 0.5);
-        dissolveUV = round(dissolveUV * _PixelWidth)/max(0.0001,_PixelWidth);
+    #if ! defined(MIN_VERSION)
+    branch_if(_PixelDissolveOn)
+    {
+        // dissolveUV = abs( dissolveUV - 0.5);
+        // dissolveUV = round(dissolveUV * _PixelWidth)/max(0.0001,_PixelWidth);
+        ApplyPixelDissolve(dissolveUV/**/,_PixelWidth);
     }
+    #endif
 
     float4 dissolveTex = tex2D(_DissolveTex,dissolveUV.xy);
     float refDissolve = dissolveTex[_DissolveTexChannel];
@@ -181,11 +215,11 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
 
     // remap cutoff
     float cutoff = _Cutoff;
-    branch_if(_DissolveByVertexColor)
-        cutoff =  1 - color.a; // slider or vertex color
 
-    // branch_if(_DissolveCustomDataOn)
-    //     cutoff = 1- dissolveCDATA; // slider or particle's custom data
+    // slider or vertex color
+    cutoff = lerp(cutoff, 1 - color.a,_DissolveByVertexColor);
+
+     // slider or particle's custom data
     cutoff = lerp(cutoff,1- dissolveCDATA,_DissolveCustomDataOn);
     
     cutoff = lerp(-0.15,1.01,cutoff);
@@ -200,19 +234,12 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
     
     mainColor.a *= dissolve;
 
-    branch_if(_DissolveEdgeOn){
-        float edgeWidth = lerp(_EdgeWidth,edgeWidthCDATA,_DissolveEdgeWidthCustomDataOn);
-
-        // dissolve side's rate
-        float edge = (smoothstep(edgeWidth-0.1,edgeWidth+0.1,dissolve));
-        float4 edgeColor = lerp(_EdgeColor,_EdgeColor2,edge)*2;
-
-        // not dissolve side's rate
-        edge = (smoothstep(0.,.4,1-dissolve));
-
-        mainColor.xyz = lerp(mainColor.xyz,edgeColor.xyz,edge);
+    #if ! defined(MIN_VERSION)
+    branch_if(_DissolveEdgeOn)
+    {
+        ApplyDissolveEdgeColor(mainColor/**/,dissolve,edgeWidthCDATA);
     }
-    
+    #endif
 }
 
 void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 maskUV){

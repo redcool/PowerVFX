@@ -68,7 +68,10 @@ half4 frag(v2f i) : SV_Target
     // #if defined(ALPHA_TEST)
     //     clip(mainColor.a - _Cutoff - 0.0001);
     // #endif
-
+    
+    float4 mainTexMask=0;
+    ApplyMainTexMask(mainColor/**/,mainTexMask/**/,_DistortionApplyToMainTexMask ? uvDistorted : mainUV.zw,0);
+    
     //------------- dissolve
     #if defined(DISSOLVE_ON)
     // branch_if(_DissolveOn)
@@ -79,8 +82,6 @@ half4 frag(v2f i) : SV_Target
     }
     #endif 
 
-    float4 mainTexMask=0;
-    ApplyMainTexMask(mainColor/**/,mainTexMask/**/,i.uv.xy,0);
 
     // mainColor.xyz = MixFog(mainColor.xyz,fogCoord);
     ApplyFog(mainColor.xyz/**/,worldPos,fogCoord);

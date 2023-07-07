@@ -135,7 +135,8 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     // branch_if(_DistortionOn)
     {
         float4 distortUV = mainUV.zwzw * _DistortTile + frac(_DistortDir * _Time.xxxx);
-        branch_if(_DistortionRadialUVOn){
+        branch_if(_DistortionRadialUVOn)
+        {
             float4 p = _DistortionRadialCenter_LenScale_LenOffset;
             distortUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_DistortionRadialRot);
         }
