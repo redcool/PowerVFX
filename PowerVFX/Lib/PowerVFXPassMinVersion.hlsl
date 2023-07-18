@@ -19,14 +19,19 @@
 #include "PowerVFXCore.hlsl"
 
 v2f vert(appdata v){
+
     v2f o = (v2f)0;
-    // o.uv.xy = TRANSFORM_TEX(v.uv,_MainTex);
-    o.uv = MainTexOffset(float4(v.uv.xy,0,0));
     o.color = v.color;
 
     // --------------  composite custom datas
     o.customData1 = float4(v.uv.zw,v.uv1.xy);// particle custom data (Custom1.zw)(Custom2.xy)
     o.customData2 = float4(v.uv1.zw,v.uv2.xy); // particle custom data (Custom2.xy)
+    float customDatas[8] = {o.customData1,o.customData2};
+
+    // --------------  uv.xy : main uv, zw : custom data1.xy
+    float mainTexOffsetCdataX = customDatas[_MainTexOffset_CustomData_X];
+    float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
+    o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));    
 
     o.vertex = mul(UNITY_MATRIX_MVP,v.vertex);
     o.worldPos.xyz = TransformObjectToWorld(v.vertex.xyz);
@@ -50,6 +55,7 @@ half4 frag(v2f i) : SV_Target
     float dissolveCustomData = customDatas[_DissolveCustomData];
     float dissolveEdgeWidthCustomData = customDatas[_DissolveEdgeWidthCustomData];
     float distortionCustomData = customDatas[_DistortionCustomData];
+    float2 mainTexMaskOffsetCustomData = float2(customDatas[_MainTexMaskOffsetCustomDataX] , customDatas[_MainTexMaskOffsetCustomDataY]);
 
     float2 uvDistorted = mainUV.zw;
     #if defined(DISTORTION_ON)
@@ -61,10 +67,14 @@ half4 frag(v2f i) : SV_Target
         mainUV.xy += uvDistortion;
     }
     #endif
-
+    
+    // Sample MainTex
     float4 mainTex = tex2D(_MainTex,mainUV.xy);
     half4 mainColor = mainTex * _Color * i.color;
+    //select a channel
+    mainColor = lerp(mainColor, mainColor[_MainTexChannel] ,_MainTexSingleChannelOn);
 
+    
     // #if defined(ALPHA_TEST)
     //     clip(mainColor.a - _Cutoff - 0.0001);
     // #endif
