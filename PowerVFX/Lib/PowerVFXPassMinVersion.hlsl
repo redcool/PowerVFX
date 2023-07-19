@@ -73,8 +73,9 @@ half4 frag(v2f i) : SV_Target
     half4 mainColor = mainTex * _Color * i.color;
     //select a channel
     mainColor = lerp(mainColor, mainColor[_MainTexChannel] ,_MainTexSingleChannelOn);
+    // per channel tint
+    mainColor.xyz = lerp(mainColor,mainColor.x * _ColorX + mainColor.y * _ColorY + mainColor.z * _ColorZ,_PerChannelColorOn).xyz;
 
-    
     // #if defined(ALPHA_TEST)
     //     clip(mainColor.a - _Cutoff - 0.0001);
     // #endif
