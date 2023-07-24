@@ -221,7 +221,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(float,_HorizontalIntensity)
 //--------------------------------- Fog
     UNITY_DEFINE_INSTANCED_PROP(half ,_FogOn)
-    UNITY_DEFINE_INSTANCED_PROP(half ,_FogNoiseOn)
+    // UNITY_DEFINE_INSTANCED_PROP(half ,_FogNoiseOn)
     UNITY_DEFINE_INSTANCED_PROP(half ,_DepthFogOn)
     UNITY_DEFINE_INSTANCED_PROP(half ,_HeightFogOn)
 
@@ -416,7 +416,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _HorizontalIntensity UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_HorizontalIntensity)
 //--------------------------------- Fog
     #define _FogOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_FogOn)
-    #define _FogNoiseOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_FogNoiseOn)
+    // #define _FogNoiseOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_FogNoiseOn)
     #define _DepthFogOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DepthFogOn)
     #define _HeightFogOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_HeightFogOn)
 
