@@ -177,7 +177,7 @@
 		[Header(Dissolve Progress)]
 		_Cutoff ("_Cutoff", Range(0,1)) = 0.5
 		[Header(Dissolve Clip)]
-		[Toggle(ALPHA_TEST)]_DissolveClipOn("_DissolveClipOn",int) = 0
+		[GroupToggle(,ALPHA_TEST)]_DissolveClipOn("_DissolveClipOn",int) = 0
 
 		[Header(PixelDissolve)]
 		[GroupToggle]_PixelDissolveOn("_PixelDissolveOn",float) = 0
