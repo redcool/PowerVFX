@@ -3,3 +3,6 @@
 
 _DissolveClipOn=#FF0000
 // new features #88ff88
+_MultiVertexColor = #00ff00
+_VertexColorChannelOn=#00ff00
+_VertexColorChannel=#00ff00
