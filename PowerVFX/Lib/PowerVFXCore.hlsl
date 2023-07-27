@@ -112,6 +112,11 @@ void SampleMainTexWithGlitch(inout float4 mainColor,float2 uv){
 #endif
 }
 
+half4 CalcVertexColor(half4 vertexColor,half vertexColorOn,half vertexColorChannelOn,half vertexColorChannel){
+    half4 vc = lerp(vertexColor,vertexColor[vertexColorChannel],vertexColorChannelOn);
+    return lerp(1,vc,vertexColorOn);
+}
+
 void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,float4 vertexColor,float faceId,SheetAnimBlendParams animBlendParams){
     float4 color = _BackFaceOn ? lerp(_BackFaceColor,_Color,faceId) : _Color;
     
@@ -131,7 +136,7 @@ void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,fl
     // multiply alpha
     mainColor.xyz *= lerp(1,mainColor.a * vertexColor.a * color.a,_MainTexMultiAlpha);
     // color tint (mainColor,colorScale,vertexColor)
-    mainColor *= color * _ColorScale * lerp(1,vertexColor,_MultiVertexColor);
+    mainColor *= color * _ColorScale * CalcVertexColor(vertexColor,_MultiVertexColor,_VertexColorChannelOn,_VertexColorChannel);
     // per channel tint
     mainColor.xyz = lerp(mainColor,mainColor.x * _ColorX + mainColor.y * _ColorY + mainColor.z * _ColorZ,_PerChannelColorOn).xyz;
     // for alpha
