@@ -130,8 +130,8 @@ void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,fl
     mainColor = lerp(mainColor, mainColor[_MainTexChannel] ,_MainTexSingleChannelOn);
     // multiply alpha
     mainColor.xyz *= lerp(1,mainColor.a * vertexColor.a * color.a,_MainTexMultiAlpha);
-    // color tint
-    mainColor *= color * vertexColor * _ColorScale;
+    // color tint (mainColor,colorScale,vertexColor)
+    mainColor *= color * _ColorScale * lerp(1,vertexColor,_MultiVertexColor);
     // per channel tint
     mainColor.xyz = lerp(mainColor,mainColor.x * _ColorX + mainColor.y * _ColorY + mainColor.z * _ColorZ,_PerChannelColorOn).xyz;
     // for alpha

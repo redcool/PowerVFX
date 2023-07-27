@@ -17,13 +17,13 @@ MonoBehaviour:
     enableGrabPass: 0
     grabPassEvent: 500
     grabPassEventOffset: 0
-    opaqueTextureName: _CameraOpaqueTexture
-    opaqueTextureDownSample: 3
     applyBlur: 0
+    opaqueTextureDownSample: 3
     blurScale: 0.5
     enableRenderPass: 1
     renderPassEvent: 1000
     renderPassEventOffset: 2
+    isClearDepth: 0
     additionalLightModes: []
     layer:
       serializedVersion: 2
@@ -78,7 +78,7 @@ MonoBehaviour:
     coreBlitColorAndDepthPS: {fileID: 4800000, guid: d104b2fc1ca6445babb8e90b0758136b, type: 3}
     cameraMotionVector: {fileID: 4800000, guid: c56b7e0d4c7cb484e959caeeedae9bbf, type: 3}
     objectMotionVector: {fileID: 4800000, guid: 7b3ede40266cd49a395def176e1bc486, type: 3}
-  m_AssetVersion: 1
+  m_AssetVersion: 2
   m_OpaqueLayerMask:
     serializedVersion: 2
     m_Bits: 23
@@ -95,6 +95,7 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
   m_DepthPrimingMode: 0
+  m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_ClusteredRendering: 0
   m_TileSize: 32
@@ -137,7 +138,9 @@ MonoBehaviour:
     layerMask:
       serializedVersion: 2
       m_Bits: 32
+    cameraTag: UICamera
     createFullsizeGammaTex: 1
+    useStencilBuffer: 1
     stencilStateData:
       overrideStencilState: 0
       stencilReference: 0
@@ -145,9 +148,8 @@ MonoBehaviour:
       passOperation: 0
       failOperation: 0
       zFailOperation: 0
-    cameraTag: UICamera
     reset: 0
-    removeLayerMaskFromRendererData: 0
+    logs: 
 --- !u!114 &5905785725660338890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,13 +184,13 @@ MonoBehaviour:
     enableGrabPass: 1
     grabPassEvent: 500
     grabPassEventOffset: 0
-    opaqueTextureName: _CameraOpaqueTexture
-    opaqueTextureDownSample: 3
     applyBlur: 0
+    opaqueTextureDownSample: 3
     blurScale: 0.5
     enableRenderPass: 1
     renderPassEvent: 500
     renderPassEventOffset: 1
+    isClearDepth: 0
     additionalLightModes: []
     layer:
       serializedVersion: 2

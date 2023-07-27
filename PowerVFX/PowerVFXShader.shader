@@ -18,6 +18,8 @@
 		[GroupHeader(MainTex Options,Single Channel MainTex)]
 		[GroupToggle(MainTex Options)]_MainTexSingleChannelOn("_MainTexSingleChannelOn?",int) = 0
 		[GroupEnum(MainTex Options,R 0 G 1 B 2 A 3)]_MainTexChannel("_MainTexChannel",int)=0
+
+		[GroupHeader(MainTex Options,Premulti Alpha)]
 		[GroupToggle(MainTex Options)]_MainTexMultiAlpha("_MainTexMultiAlpha",int) = 0
 
 		// mainTex Color
@@ -25,6 +27,7 @@
 		[GroupHeader(MainColorOptions,Main Color)]
 		[GroupItem(MainColorOptions)][HDR]_Color("Main Color",Color) = (1,1,1,1)
 		[GroupItem(MainColorOptions)]_ColorScale("ColorScale",range(1,3)) = 1
+		[GroupToggle(MainColorOptions)]_MultiVertexColor("_MultiVertexColor",int) = 0
 
 		// mainTex channel
 		[GroupHeader(MainColorOptions,Per Channel Color)]

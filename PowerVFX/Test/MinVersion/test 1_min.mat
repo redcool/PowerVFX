@@ -11,6 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
   m_ValidKeywords:
   - DOUBLE_EFFECT_ON
+  - MATCAP_ROTATE_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -38,11 +39,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 700e466989412f64ca60abee3a687d22, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 6c42ae8456c7a724e9d2105f597b5e70, type: 3}
+        m_Scale: {x: 10, y: 10}
         m_Offset: {x: 0, y: 0}
     - _MainTexMask:
-        m_Texture: {fileID: 2800000, guid: 6449cd275bde43b4ab6c406536774326, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCapTex:
@@ -80,6 +81,8 @@ Material:
     - _AlphaScale: 1
     - _BackFaceOn: 0
     - _BlendScreenColor: 0.532
+    - _ColorDriftIntensity: 0.1
+    - _ColorDriftSpeed: 1
     - _ColorMask: 15
     - _ColorScale: 1
     - _CullMode: 2
@@ -87,6 +90,7 @@ Material:
     - _DepthFadingMax: 1
     - _DepthFadingOn: 0
     - _DepthFadingWidth: 0.01
+    - _DepthFogOn: 1
     - _DissolveByVertexColor: 0
     - _DissolveClipOn: 0
     - _DissolveCustomData: 2
@@ -118,12 +122,21 @@ Material:
     - _EnvMapMaskChannel: 0
     - _EnvMaskUseMainTexMask: 1
     - _EnvReflectOn: 0
+    - _EnvRefractRotateAutoStop: 0
     - _EnvRefractionIOR: 1.33
     - _EnvRefractionOn: 1
+    - _EnvRotateAutoStop: 0
+    - _FogOn: 0
     - _FresnelColorMode: 0
     - _FresnelOn: 0
     - _FresnelPowerMax: 1
     - _FresnelPowerMin: 0
+    - _GlitchOn: 0
+    - _HeightFogOn: 1
+    - _HorizontalIntensity: 0.2
+    - _HorizontalShake: 0.1
+    - _JitterBlockSize: 0.1
+    - _JitterIntensity: 0.1
     - _MainLightSoftShadowScale: 0
     - _MainTexChannel: 0
     - _MainTexMaskChannel: 0
@@ -140,7 +153,8 @@ Material:
     - _MainTexSheetAnimBlendOn: 0
     - _MainTexSheetAnimSpeed: 1
     - _MainTexSingleChannelOn: 0
-    - _MainTexUseScreenColor: 0
+    - _MainTexUseScreenColor: 1
+    - _MainTexUseScreenUV: 0
     - _MainUVAngle: 0.17
     - _MatCapAngle: 8.14
     - _MatCapIntensity: 1
@@ -164,12 +178,20 @@ Material:
     - _OffsetRadialRot: 0
     - _OffsetRadialUVOn: 0
     - _PbrLightOn: 0
+    - _PerChannelColorOn: 0
     - _PixelDissolveOn: 0
     - _PixelWidth: 10
     - _ReceiveShadowOn: 0
+    - _RefractMode: 0
     - _ShadowsSoft: 0
     - _Smoothness: 0.5
+    - _SnowFlakeIntensity: 0.1
     - _SrcMode: 5
+    - _Stencil: 0
+    - _StencilComp: 0
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
     - _StopAutoOffset: 1
     - _VertexWaveAttenMaskOffsetCustomData: 4
     - _VertexWaveAttenMaskOffsetCustomDataOn: 0
@@ -181,14 +203,20 @@ Material:
     - _VertexWaveDirAlongNormalOn: 0
     - _VertexWaveDirAtten_LocalSpaceOn: 0
     - _VertexWaveIntensity: 1
+    - _VertexWaveIntensityCustomData: 7
+    - _VertexWaveIntensityCustomDataOn: 0
     - _VertexWaveOn: 0
     - _VertexWaveSpeed: 1
     - _VertexWaveSpeedManual: 0
+    - _VerticalJumpIntensity: 0.1
     - _ZTestMode: 4
     - _ZWriteMode: 0
     m_Colors:
     - _BackFaceColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorX: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorY: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorZ: {r: 1, g: 1, b: 1, a: 1}
     - _DistortDir: {r: 0, g: 1, b: 0, a: -1}
     - _DistortTile: {r: 1, g: 1, b: 1, a: 1}
     - _DistortionRadialCenter_LenScale_LenOffset: {r: 0.5, g: 0.5, b: 1, a: 0}
@@ -196,7 +224,9 @@ Material:
     - _EdgeColor2: {r: 0, g: 1, b: 0, a: 1}
     - _EnvOffset: {r: 0, g: 0, b: 0, a: 0}
     - _EnvReflectionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _EnvRefractRotateInfo: {r: 0, g: 1, b: 0, a: 0}
     - _EnvRefractionColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _EnvRotateInfo: {r: 0, g: 1, b: 0, a: 0}
     - _FresnelColor: {r: 0.7830189, g: 0.114498034, b: 0.114498034, a: 1}
     - _FresnelColor2: {r: 0.18444741, g: 1, b: 0, a: 1}
     - _MainTexSheet: {r: 1, g: 1, b: 1, a: 1}

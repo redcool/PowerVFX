@@ -29,6 +29,7 @@ _MainTexOffset_CustomData_Y=主uv.y 的cdata槽
 
 _MainTexSaturate=主纹理饱和度
 _Color=主纹理颜色
+_MultiVertexColor=预乘顶点色(rgba)
 
 _PerChannelColorOn=逐通道调色
 _ColorX=R通道调色
