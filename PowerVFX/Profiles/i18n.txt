@@ -89,8 +89,10 @@ _DistortionCustomDataOn=强度由customData(vector2.x)控制
 _DistortTile=平铺(xy:1层,zw:2层)
 _DistortDir=方向(xy:1层,zw:2层)
 _DistortionRadialUVOn=径向?
-_DistortionRadialCenter_LenScale_LenOffset=(xy)径向位置_(z)缩放_(w)偏移量
+_DistortionRadialCenter_Scale=(xy)径向位置_(zw)缩放
 _DistortionRadialRot=径向扭曲角度
+_DistortionRadialUVOffset=径向平移
+
 _DistortionApplyToOffset= 应用到流光
 _DistortionApplyToMainTexMask=应用到主纹理遮罩
 _DistortionApplyToDissolve=应用到溶解
@@ -132,9 +134,9 @@ _OffsetDir=方向(xy:1层,zw:2层)
 _OffsetBlendIntensity=混合强度
 
 _OffsetRadialUVOn=径向?
-_OffsetRadialCenter_LenScale_LenOffset=(xy)径向位置_(z)缩放_(w)偏移量
+_OffsetRadialCenter_Scale=(xy)径向位置_(zw)缩放
 _OffsetRadialRot=径向扭曲角度
-
+_OffsetRadialUVOffset=径向平移
 _OffsetBlendMode=流光混合模式
 _OffsetMaskPanStop=停止遮罩滚动
 

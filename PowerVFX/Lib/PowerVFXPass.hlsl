@@ -137,8 +137,8 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
         float4 distortUV = mainUV.zwzw * _DistortTile + frac(_DistortDir * _Time.xxxx);
         branch_if(_DistortionRadialUVOn)
         {
-            float4 p = _DistortionRadialCenter_LenScale_LenOffset;
-            distortUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_DistortionRadialRot);
+            float4 p = _DistortionRadialCenter_Scale;
+            distortUV.xy = PolarUV(mainUV.zw,p.xy,p.zw,_DistortionRadialRot,_DistortionRadialUVOffset);
         }
         float2 uvDistortion = GetDistortionUV(mainUV.zw,distortUV,distortionCustomData);
         uvDistorted += uvDistortion;
@@ -173,9 +173,12 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
         half4 offsetDir = lerp(_Time.xxxx,1,_StopAutoOffset) * _OffsetDir;
         offsetDir.xy = lerp(offsetDir.xy,offsetLayer1CData,_OffsetCustomDataOn);
         float4 offsetUV = (_DistortionApplyToOffset ? uvDistorted.xyxy : mainUV.zwzw) * _OffsetTile + (offsetDir); //暂时去除 frac
-        branch_if(_OffsetRadialUVOn){
-            float4 p = _OffsetRadialCenter_LenScale_LenOffset;
-            offsetUV.xy = PolarUV(mainUV.zw,p.xy,p.z,p.w*_Time.x,_OffsetRadialRot);
+
+        // to polar
+        branch_if(_OffsetRadialUVOn)
+        {
+            float4 p = _OffsetRadialCenter_Scale;
+            offsetUV.xy = PolarUV(mainUV.xy,p.xy,p.zw,_OffsetRadialRot,_OffsetRadialUVOffset*_Time.x);
         }
         // float2 maskUVOffset = _OffsetMaskTex_ST.zw * (1 + _Time.xx *(1- _OffsetMaskPanStop) );
         float2 maskUVOffset = UVOffset(_OffsetMaskTex_ST.zw, _OffsetMaskPanStop);

@@ -150,15 +150,17 @@
 		_DistortTile("Distort Tile",vector) = (1,1,1,1)
 		_DistortDir("Distort Dir",vector) = (0,1,0,-1)
 
-		[Header(Radial UV)]
-		[GroupToggle]_DistortionRadialUVOn("_DistortionRadialUVOn",int) = 0
-		_DistortionRadialCenter_LenScale_LenOffset("_DistortionRadialCenter_LenScale_LenOffset",vector) = (.5,.5,1,0)
-		_DistortionRadialRot("_DistortionRadialRot",float) = 0
+		[Group(RadialUV)]
+		[GroupHeader(RadialUV,RadialUV)]
+		[GroupToggle(RadialUV)]_DistortionRadialUVOn("_DistortionRadialUVOn",int) = 0
+		[GroupVectorSlider(RadialUV,CenterX CenterY ScaleX ScaleY,0_1 0_1 0_1 0_1,,float float field field)]_DistortionRadialCenter_Scale("_DistortionRadialCenter_Scale",vector) = (.5,.5,1,1)
+		[GroupItem(RadialUV)]_DistortionRadialRot("_DistortionRadialRot",float) = 0
+		[GroupItem(RadialUV)]_DistortionRadialUVOffset("_DistortionRadialUVOffset",float) = 0
 
-		[Header(Distortion Where)]
-		[GroupToggle]_DistortionApplyToOffset("_DistortionApplyToOffset",int) = 0
-		[GroupToggle]_DistortionApplyToMainTexMask("_DistortionApplyToMainTexMask",int) = 0
-		[GroupToggle]_DistortionApplyToDissolve("_DistortionApplyToDissolve",int) = 0
+		[Group(DistortionWhere)]
+		[GroupToggle(DistortionWhere)]_DistortionApplyToOffset("_DistortionApplyToOffset",int) = 0
+		[GroupToggle(DistortionWhere)]_DistortionApplyToMainTexMask("_DistortionApplyToMainTexMask",int) = 0
+		[GroupToggle(DistortionWhere)]_DistortionApplyToDissolve("_DistortionApplyToDissolve",int) = 0
 // ==================================================Dissolve
 		[Header(Dissolve)]
 		[GroupToggle(_,DISSOLVE_ON)]_DissolveOn("Dissolve On?",int)=0
@@ -191,17 +193,19 @@
 		[GroupToggle]_PixelDissolveOn("_PixelDissolveOn",float) = 0
 		_PixelWidth("_PixelWidth",float) = 10
 
-		[Header(DissolveEdge)]
-		[GroupToggle]_DissolveEdgeOn("Dissolve Edge On?",int)=0
-		_EdgeWidth("EdgeWidth",range(0,1)) = 0.1
+// ================================================== dissolve edge
+		[Group(DissolveEdge)]
+		[GroupHeader(DissolveEdge,Dissolve Edge)]
+		[GroupToggle(DissolveEdge)]_DissolveEdgeOn("Dissolve Edge On?",int)=0
+		[GroupItem(DissolveEdge)]_EdgeWidth("EdgeWidth",range(0,1)) = 0.1
 
-		[Header(DissolveEdge Custom Data)]
-		[GroupToggle]_DissolveEdgeWidthCustomDataOn("_DissolveEdgeWidthCustomDataOn.w -> uv1.y",int) = 0
+		[GroupHeader(DissolveEdge, Custom Data)]
+		[GroupToggle(DissolveEdge)]_DissolveEdgeWidthCustomDataOn("_DissolveEdgeWidthCustomDataOn.w -> uv1.y",int) = 0
 		//default custom1.w
-		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_DissolveEdgeWidthCustomData("_DissolveEdgeWidthCustomData",int) = 3
+		[GroupEnum(DissolveEdge,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_DissolveEdgeWidthCustomData("_DissolveEdgeWidthCustomData",int) = 3
 
-		[HDR]_EdgeColor("EdgeColor",color) = (1,0,0,1)
-		[HDR]_EdgeColor2("EdgeColor2",color) = (0,1,0,1)
+		[GroupItem(DissolveEdge)][HDR]_EdgeColor("EdgeColor",color) = (1,0,0,1)
+		[GroupItem(DissolveEdge)][HDR]_EdgeColor2("EdgeColor2",color) = (0,1,0,1)
 // ==================================================Offset
 		[Header(Offset)] 
 		[GroupToggle(_,OFFSET_ON)] _OffsetOn("Offset On?",int) = 0
@@ -219,23 +223,28 @@
 		[Header(Offset Color)]
 		[HDR]_OffsetTexColorTint("OffsetTex Color",color) = (1,1,1,1)
 		[HDR]_OffsetTexColorTint2("OffsetTex Color 2",color) = (1,1,1,1)
-
-		[Header(Blend Ops)]
-		_OffsetBlendIntensity("Blend Intensity",range(0,10)) = 0.5
-		_OffsetBlendMode("_OffsetBlendMode",range(0,1)) = 1
-		[Header(Replace Blend Mode)]
-		[GroupToggle()]_OffsetBlendReplaceMode("_OffsetBlendReplaceMode",int)=0
-		[Enum(R,0,G,1,B,2,A,3)]_OffsetBlendReplaceMode_Channel("_OffsetBlendReplaceMode_Channel",int) = 3
-
+		//==================================== offset blend
+		[Group(OffsetBlendMode)]
+		[GroupHeader(OffsetBlendMode,Blend Ops)]
+		[GroupItem(OffsetBlendMode)]_OffsetBlendIntensity("Blend Intensity",range(0,10)) = 0.5
+		// left : multiply(blend), mainColor * (1+offsetColor)
+		[GroupItem(OffsetBlendMode)]_OffsetBlendMode("_OffsetBlendMode",range(0,1)) = 1
+		// replace mode
+		[GroupHeader(OffsetBlendMode,Replace Blend Mode)]
+		[GroupToggle(OffsetBlendMode)]_OffsetBlendReplaceMode("_OffsetBlendReplaceMode",int)=0
+		[GroupEnum(OffsetBlendMode,R 0 G 1 B 2 A 3)]_OffsetBlendReplaceMode_Channel("_OffsetBlendReplaceMode_Channel",int) = 3
+		
 		[Header(Offset Mask)]
 		_OffsetMaskTex("Offset Mask (R)",2d) = "white"{}
 		[GroupToggle]_OffsetMaskPanStop("_OffsetMaskPanStop",float) = 0
 		[Enum(R,0,G,1,B,2,A,3)]_OffsetMaskChannel("_OffsetMaskChannel",int) = 0
-
-		[Header(Radial UV)]
-		[GroupToggle]_OffsetRadialUVOn("_OffsetRadialUVOn",int) = 0
-		_OffsetRadialCenter_LenScale_LenOffset("_OffsetRadialCenter_LenScale_LenOffset",vector) = (.5,.5,1,0)
-		_OffsetRadialRot("_OffsetRadialRot",float) = 0
+		//==================================== offset polar
+		[Group(OffsetRadial)]
+		[GroupHeader(OffsetRadial,Radial UV)]
+		[GroupToggle(OffsetRadial)]_OffsetRadialUVOn("_OffsetRadialUVOn",int) = 0
+		[GroupVectorSlider(OffsetRadial,CenterX CenterY ScaleX ScaleY,0_1 0_1 0_1 0_1,,float float field field)]_OffsetRadialCenter_Scale("_OffsetRadialCenter_Scale",vector) = (.5,.5,1,1)
+		[GroupItem(OffsetRadial)]_OffsetRadialRot("_OffsetRadialRot",float) = 0
+		[GroupItem(OffsetRadial)]_OffsetRadialUVOffset("_OffsetRadialUVOffset",float) = 0
 // ==================================================Fresnal
 		[Header(Fresnal)]
 		[GroupToggle(_,FRESNEL_ON)]_FresnelOn("_FresnelOn?",int)=0
