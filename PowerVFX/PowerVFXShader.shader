@@ -29,7 +29,7 @@
 		[GroupItem(MainColorOptions)]_ColorScale("ColorScale",range(1,3)) = 1
 
 		[GroupHeader(MainColorOptions,Vertex Color)]
-		[GroupToggle(MainColorOptions)]_MultiVertexColor("_MultiVertexColor",int) = 0
+		[GroupToggle(MainColorOptions)]_PremultiVertexColor("_PremultiVertexColor",int) = 1
 		[GroupHeader(MainColorOptions,Vertex Color Channel)]
 		[GroupToggle(MainColorOptions)]_VertexColorChannelOn("_VertexColorChannelOn",int) = 0
 		[GroupEnum(MainColorOptions,R 0 G 1 B 2 A 3)]_VertexColorChannel("_VertexColorChannel",int) = 0
