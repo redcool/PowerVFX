@@ -62,6 +62,7 @@
 		[GroupHeader(_,ScreenTexture)]
 		[GroupToggle(_,)]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
 		[GroupToggle()]_MainTexUseScreenUV("_MainTexUseScreenUV",int) = 0
+		[GroupToggle()]_FullScreenMode("_FullScreenMode",int) = 0
 
 		[Space(10)]
 		[Group(SheetAnimation)]

@@ -68,6 +68,8 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(float,_MainTexMaskOffsetCustomDataY) // default Custom2.zw
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexUseScreenColor)
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexUseScreenUV)
+    UNITY_DEFINE_INSTANCED_PROP(half,_FullScreenMode)
+    
     UNITY_DEFINE_INSTANCED_PROP(half2,_MainTexSheet)
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexSheetAnimSpeed)
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexSheetAnimBlendOn)
@@ -272,6 +274,8 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _MainTexMaskOffsetCustomDataY UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainTexMaskOffsetCustomDataY) // default Custom2.zw
     #define _MainTexUseScreenColor UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainTexUseScreenColor)
     #define _MainTexUseScreenUV UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainTexUseScreenUV)
+    #define _FullScreenMode UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_FullScreenMode)
+    
     #define _MainTexSheet UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainTexSheet)
     #define _MainTexSheetAnimSpeed UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainTexSheetAnimSpeed)
     #define _MainTexSheetAnimBlendOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainTexSheetAnimBlendOn)

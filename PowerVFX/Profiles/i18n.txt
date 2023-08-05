@@ -2,7 +2,7 @@
 
 //Help行,约定 | 为换行字符
 // 版本号: vx.y.z.w (x:基础架构,y:功能,z:功能update或fixed,w:提交序号)
-Help=PowerVFX 特效渲染 |多选,按住Control键 |(v2.1.18.14)
+Help=PowerVFX 特效渲染 |多选,按住Control键 |(v2.1.19)
 Settings = 设置
 ShowOriginalPage = 显示原始页面
 Main = 基础
@@ -53,6 +53,7 @@ _MainTexMaskOffsetCustomDataY=主纹理遮罩uv.y 的cdata槽
 
 _MainTexUseScreenColor=主纹理使用屏幕颜色(需_CameraOpaqueTexture)
 _MainTexUseScreenUV=用screenUV采样MainTex
+_FullScreenMode=全屏渲染[-0.5,0.5]
 
 _MainTexSheet=序列帧动画
 _MainTexSheetAnimSpeed=播放速度
