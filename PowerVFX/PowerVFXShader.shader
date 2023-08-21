@@ -342,7 +342,7 @@
         _SnowFlakeIntensity("_SnowFlakeIntensity",range(0,9)) = 0.1
 		
 		[Header(Jitter)]
-        _JitterBlockSize("_JitterBlockSize",range(0,2000)) = 0.1
+        _JitterBlockSize("_JitterBlockSize",range(0,3)) = 0.1
         _JitterIntensity("_JitterIntensity",range(0,1)) = 0.1
 
 		[Header(VerticalJump)]
