@@ -101,12 +101,12 @@ half4 SampleMainTex(float2 uv){
 
 void SampleMainTexWithGlitch(inout float4 mainColor,float2 uv){
 #if defined(_GLITCH_ON)
-    float4 glitchUV = GlitchUV(uv,_SnowFlakeIntensity,_JitterBlockSize,_JitterIntensity,_VerticalJumpIntensity,
-        _HorizontalShake,_ColorDriftSpeed,_ColorDriftIntensity,_HorizontalIntensity);
+    // float4 glitchUV = GlitchUV(uv,_SnowFlakeIntensity,_JitterBlockSize,_JitterIntensity,_VerticalJumpIntensity,
+    //     _HorizontalShake,_ColorDriftSpeed,_ColorDriftIntensity,_HorizontalIntensity);
     
-    half4 c1 = SampleMainTex(glitchUV.xy);
-    half4 c2 = SampleMainTex(glitchUV.zw);
-    mainColor = half4(c1.x,c2.y,c1.z,c1.w*c2.w);
+    // half4 c1 = SampleMainTex(glitchUV.xy);
+    // half4 c2 = SampleMainTex(glitchUV.zw);
+    // mainColor = half4(c1.x,c2.y,c1.z,c1.w*c2.w);
 #else
     mainColor = SampleMainTex(uv);
 #endif
@@ -327,21 +327,15 @@ void ApplyEnv(inout float4 mainColor,float4 mainUV,float3 reflectDir,float3 refr
 }
 
 void ApplyMatcap(inout float4 mainColor,float2 mainUV,float2 viewNormal){
-    // branch_if(_MatCapRotateOn)
-    #if defined(MATCAP_ROTATE_ON)
+    branch_if(_MatCapRotateOn)
+    // #if defined(MATCAP_ROTATE_ON)
     {
-        // rotate tex by center
-        float theta = radians(_MatCapAngle);
-        viewNormal = (viewNormal-0.5 )* 2;
-        viewNormal = float2(
-            dot(float2(cos(theta),sin(theta)),viewNormal),
-            dot(float2(-sin(theta),cos(theta)),viewNormal)
-        );
-        viewNormal = viewNormal * 0.5+0.5;
+        RotateUV(_MatCapAngle,float2(0,0),viewNormal);
     }
-    #endif
+    // #endif
+    float2 matUV = viewNormal.xy * 0.5 + 0.5;//[-1,1] -> [0,1]
     
-    float4 matCapMap = tex2D(_MatCapTex,viewNormal.xy) * _MatCapColor;
+    float4 matCapMap = tex2D(_MatCapTex,matUV) * _MatCapColor;
     matCapMap *= _MatCapIntensity;
     mainColor.rgb += matCapMap.xyz;
 }

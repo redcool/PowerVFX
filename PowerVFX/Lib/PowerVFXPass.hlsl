@@ -1,16 +1,20 @@
 #if !defined(POWER_VFX_PASS_CGINC)
 #define POWER_VFX_PASS_CGINC
-#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
+
 #include "PowerVFXCore.hlsl"
 #include "../../PowerShaderLib/UrpLib/URP_AdditionalLightShadows.hlsl"
 
 v2f vert(appdata v)
 {
-    float3 worldPos = mul(unity_ObjectToWorld,v.vertex).xyz;
-    float3 viewDir = normalize(_WorldSpaceCameraPos.xyz - worldPos.xyz);
-    float3 worldNormal = normalize(mul(v.normal,(float3x3)unity_WorldToObject));
-
     v2f o = (v2f)0;
+    UNITY_SETUP_INSTANCE_ID(v);
+    UNITY_TRANSFER_INSTANCE_ID(v,o);
+
+    float3 worldPos = TransformObjectToWorld(v.vertex.xyz);
+    float3 viewDir = normalize(_WorldSpaceCameraPos.xyz - worldPos.xyz);
+    float3 worldNormal = TransformObjectToWorldNormal(v.normal);
+
+
     o.color = v.color;
 
     // --------------  composite custom datas
@@ -26,8 +30,7 @@ v2f vert(appdata v)
         ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv,attenMaskCData,waveIntensityCData);
     }
     #endif
-    o.vertex = UnityWorldToClipPos(worldPos);
-    
+    o.vertex = TransformWorldToHClip(worldPos);
     // project to fullscreen [-0.5 ,0.5]
     if(_FullScreenMode)
         o.vertex = float4(v.vertex.xy*2,UNITY_NEAR_CLIP_VALUE,1);
@@ -37,8 +40,8 @@ v2f vert(appdata v)
     float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
     o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));
 
-    float3 viewNormal = normalize(mul((half3x3)UNITY_MATRIX_MV,v.normal));
-    o.viewNormal = viewNormal.xy * 0.5 + 0.5;
+    // float3 viewNormal = (mul((half3x3)UNITY_MATRIX_MV,v.normal));
+    // o.viewNormal = viewNormal.xy;
 
     /* 
         Calc tangent space
@@ -53,13 +56,11 @@ v2f vert(appdata v)
     o.viewDirTS.xyz = WorldToTangent(viewDir,o.tSpace0,o.tSpace1,o.tSpace2);
 
     float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
-    // #if defined(ENV_REFLECT_ON)
     branch_if(_EnvReflectOn)
     {
         o.reflectDir = reflect(- viewDir,normalDistorted);
         RotateReflectDir(o.reflectDir/**/,_EnvRotateInfo.xyz,_EnvRotateInfo.w,_EnvRotateAutoStop);
     }
-    // #endif
 
     branch_if(_EnvRefractionOn)
     {
@@ -67,7 +68,6 @@ v2f vert(appdata v)
         o.refractDir = refract(-viewDir,normalDistorted,1/_EnvRefractionIOR);
         RotateReflectDir(o.refractDir/**/,_EnvRefractRotateInfo.xyz,_EnvRefractRotateInfo.w,_EnvRefractRotateAutoStop);
     }
-    // #endif
 
     // --------------  fog 
     o.animBlendUV_fogCoord.xy = v.uv2.zw; // particle anim blend uv
@@ -89,6 +89,9 @@ v2f vert(appdata v)
 
 half4 frag(v2f i,half faceId:VFACE) : SV_Target
 {
+    UNITY_SETUP_INSTANCE_ID(i);
+    UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
+
     TANGENT_SPACE_SPLIT(i);
 
     float3 viewDir = normalize(i.viewDir_AnimBlendFactor.xyz);
@@ -212,7 +215,8 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #if defined(MATCAP_ON)
     // branch_if(_MatCapOn)
     {
-        ApplyMatcap(mainColor,mainUV.zw,i.viewNormal);
+        float3 viewNormal = mul(UNITY_MATRIX_V,normal);
+        ApplyMatcap(mainColor,mainUV.zw,viewNormal);
     }
     #endif
 

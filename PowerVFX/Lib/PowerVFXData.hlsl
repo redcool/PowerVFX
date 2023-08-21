@@ -42,6 +42,7 @@ struct appdata
     */
     float4 uv3:TEXCOORD3;
     #endif
+    UNITY_VERTEX_INPUT_INSTANCE_ID    
 };
 
 struct v2f
@@ -56,8 +57,8 @@ struct v2f
 
     #if !defined(MIN_VERSION)
     float3 reflectDir:COLOR1;
-    float2 viewNormal:COLOR2;
     float3 refractDir:COLOR3;
+    // float2 viewNormal:COLOR2;
     half3 viewDirTS:COLOR4;
 
     // x y:customData.x,z:_VertexWaveAttenMask_UseCustomeData2_X
@@ -65,11 +66,13 @@ struct v2f
     float4 viewDir_AnimBlendFactor :TEXCOORD7; //(xyz:ViewDir)(w:particle AnimBlend's factor)
     float4 shadowCoord:TEXCOORD8;
     half4  uiMask : TEXCOORD9;
+    UNITY_VERTEX_INPUT_INSTANCE_ID
     #endif
 
     #if defined(MIN_VERSION)
     float4 worldPos:TEXCOORD3;
     #endif
+
 };
 
 /*

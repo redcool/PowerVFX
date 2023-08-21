@@ -196,7 +196,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     // UNITY_DEFINE_INSTANCED_PROP(half,_MatCapOn) // to keyword MATCAP_ON
     UNITY_DEFINE_INSTANCED_PROP(float4,_MatCapColor)
     UNITY_DEFINE_INSTANCED_PROP(float,_MatCapIntensity)
-    // UNITY_DEFINE_INSTANCED_PROP(half,_MatCapRotateOn) // to keyword MATCAP_ROTATE_ON
+    UNITY_DEFINE_INSTANCED_PROP(half,_MatCapRotateOn) // 
     UNITY_DEFINE_INSTANCED_PROP(float,_MatCapAngle)
 // ==================================================    _DepthFadingOn
     UNITY_DEFINE_INSTANCED_PROP(half,_DepthFadingOn)
@@ -237,9 +237,9 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half ,_HeightFogOn)
 
 // ================================================== UI
-    // UNITY_DEFINE_INSTANCED_PROP(float4, _ClipRect);
-    // UNITY_DEFINE_INSTANCED_PROP(float, _UIMaskSoftnessX);
-    // UNITY_DEFINE_INSTANCED_PROP(float, _UIMaskSoftnessY);
+    // UNITY_DEFINE_INSTANCED_PROP(float4, _ClipRect)
+    // UNITY_DEFINE_INSTANCED_PROP(float, _UIMaskSoftnessX)
+    // UNITY_DEFINE_INSTANCED_PROP(float, _UIMaskSoftnessY)
 UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _MainUVAngle UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainUVAngle)
     #define _Color UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_Color)
@@ -401,7 +401,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     // #define _MatCapOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MatCapOn) // to keyword MATCAP_ON
     #define _MatCapColor UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MatCapColor)
     #define _MatCapIntensity UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MatCapIntensity)
-    // #define _MatCapRotateOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MatCapRotateOn) // to keyword MATCAP_ROTATE_ON
+    #define _MatCapRotateOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MatCapRotateOn) // to keyword MATCAP_ROTATE_ON
     #define _MatCapAngle UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MatCapAngle)
 // ==================================================    _DepthFadingOn
     #define _DepthFadingOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DepthFadingOn)

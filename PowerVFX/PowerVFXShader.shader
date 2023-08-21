@@ -302,7 +302,7 @@
 		_MatCapIntensity("_MatCapIntensity",float) = 1
 
 		[Header(Matcap UV Rotate)]
-		[GroupToggle(_,MATCAP_ROTATE_ON)]_MatCapRotateOn("_MatCapRotateOn",float) = 0
+		[GroupToggle(_)]_MatCapRotateOn("_MatCapRotateOn",float) = 0
 		_MatCapAngle("_MapCatAngle",float) = 0
 // ==================================================_DepthFading
 		[Header(_DepthFading)]
@@ -321,7 +321,7 @@
 		_Occlusion("_Occlusion",range(0,1)) = 0
 
 		[Header(Shadow)]
-		[GroupToggle(_,_MAIN_LIGHT_SHADOWS)]_ReceiveShadowOn("_ReceiveShadowOn",int) = 0
+		[GroupToggle(_,MAIN_LIGHT_CALCULATE_SHADOWS)]_ReceiveShadowOn("_ReceiveShadowOn",int) = 0
 		[GroupToggle(_,_SHADOWS_SOFT)]_ShadowsSoft("_ShadowsSoft",int) = 0 
 		_MainLightSoftShadowScale("_MainLightSoftShadowScale",range(0,1))=0
 
@@ -391,13 +391,12 @@
 			
 
 			HLSLPROGRAM
-            // #pragma multi_compile_instancing
-
+            #pragma multi_compile_instancing
+            #pragma instancing_options forcemaxcount:40
             // -------------------------------------
             // Material Keywords
 			#pragma shader_feature_local  PBR_LIGHTING
 			// #pragma shader_feature_local _RECEIVE_SHADOWS_ON
-			#pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT
 
 			#pragma shader_feature_local_vertex  VERTEX_WAVE_ON
 			#pragma shader_feature_local_fragment  FRESNEL_ON
@@ -409,20 +408,14 @@
 			// #pragma shader_feature_local  ENV_REFLECT_ON
 			// #pragma shader_feature_local  ENV_REFRACTION_ON
 			#pragma shader_feature_local_fragment  MATCAP_ON
-			#pragma shader_feature_local_fragment  MATCAP_ROTATE_ON
 			#pragma shader_feature_local_fragment  DEPTH_FADING_ON
-			#pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON
-			// #pragma shader_feature_local_fragment _OFFSET_BLEND_REPLACE_MODE
-			// #pragma shader_feature_local_fragment SHEET_ANIM_BLEND_ON
+			// #pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON // low frequency
 			#pragma shader_feature_local MIN_VERSION
 			#pragma shader_feature_local _GLITCH_ON
-			// #pragma shader_feature_local _DEPTH_FOG_NOISE_ON
-			// #pragma shader_feature_local_fragment _SCREEN_TEX_ON
-
 
 			// -------------------------------------
             // Universal Pipeline keywords
-            #pragma shader_feature_local _ _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
+            #pragma shader_feature_local MAIN_LIGHT_CALCULATE_SHADOWS // _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
 
 			/**
 			 	if object not show, 
@@ -430,16 +423,13 @@
 					change shader_feature to multi_compile
 			*/
 
-            #pragma shader_feature_local _ _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
-            #pragma shader_feature_local_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+            #pragma shader_feature_local _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
+            // #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS  //low frequency
+			// #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT // low frequency
+
             // #pragma multi_compile _ _REFLECTION_PROBE_BLENDING
             // #pragma multi_compile _ _REFLECTION_PROBE_BOX_PROJECTION
-            #pragma shader_feature_local_fragment _ _SHADOWS_SOFT
-            // #pragma multi_compile _ _SCREEN_SPACE_OCCLUSION
-            // #pragma multi_compile _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
-            // #pragma multi_compile _ _LIGHT_LAYERS
-            // #pragma multi_compile _ _LIGHT_COOKIES
-            // #pragma multi_compile _ _CLUSTERED_RENDERING
+            // #pragma shader_feature_local_fragment _ _SHADOWS_SOFT
 
             // -------------------------------------
             // Unity defined keywords

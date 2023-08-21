@@ -4,6 +4,9 @@
 // ---- custom symbols
 #define branch_if UNITY_BRANCH if
 #define for UNITY_LOOP for
+
+// #define USE_URP
+#include "../../../PowerShaderLib/Lib/UnityLib.hlsl"
 #include "../../../PowerShaderLib/Lib/MathLib.hlsl"
 #include "../../../PowerShaderLib/Lib/PowerUtils.hlsl"
 // #include "../../../PowerShaderLib/Lib/Fragment.hlsl"
