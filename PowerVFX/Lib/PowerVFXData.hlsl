@@ -56,16 +56,16 @@ struct v2f
     float4 customData2:TEXCOORD2;
 
     #if !defined(MIN_VERSION)
-    float3 reflectDir:COLOR1;
-    float3 refractDir:COLOR3;
-    // float2 viewNormal:COLOR2;
-    half3 viewDirTS:COLOR4;
 
     // x y:customData.x,z:_VertexWaveAttenMask_UseCustomeData2_X
     TANGENT_SPACE_DECLARE(3,4,5);
     float4 viewDir_AnimBlendFactor :TEXCOORD7; //(xyz:ViewDir)(w:particle AnimBlend's factor)
     float4 shadowCoord:TEXCOORD8;
-    half4  uiMask : TEXCOORD9;
+    float4  uiMask : TEXCOORD9;
+    float4 reflectRefractDir:TEXCOORD10;
+    // float3 reflectDir:TEXCOORD10;
+    // float3 refractDir:TEXCOORD11;
+    half3 viewDirTS:TEXCOORD12;
     UNITY_VERTEX_INPUT_INSTANCE_ID
     #endif
 

@@ -58,15 +58,17 @@ v2f vert(appdata v)
     float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
     branch_if(_EnvReflectOn)
     {
-        o.reflectDir = reflect(- viewDir,normalDistorted);
-        RotateReflectDir(o.reflectDir/**/,_EnvRotateInfo.xyz,_EnvRotateInfo.w,_EnvRotateAutoStop);
+        float3 reflectDir = reflect(- viewDir,normalDistorted);
+        RotateReflectDir(reflectDir/**/,_EnvRotateInfo.xyz,_EnvRotateInfo.w,_EnvRotateAutoStop);
+        o.reflectRefractDir.xy = reflectDir.xy;
     }
 
     branch_if(_EnvRefractionOn)
     {
         // ior  https://en.wikipedia.org/wiki/Refractive_index
-        o.refractDir = refract(-viewDir,normalDistorted,1/_EnvRefractionIOR);
-        RotateReflectDir(o.refractDir/**/,_EnvRefractRotateInfo.xyz,_EnvRefractRotateInfo.w,_EnvRefractRotateAutoStop);
+        float3 refractDir = refract(-viewDir,normalDistorted,1/_EnvRefractionIOR);
+        RotateReflectDir(refractDir/**/,_EnvRefractRotateInfo.xyz,_EnvRefractRotateInfo.w,_EnvRefractRotateAutoStop);
+        o.reflectRefractDir.zw = refractDir.xy;
     }
 
     // --------------  fog 
@@ -101,10 +103,9 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     float4 mainColor = float4(0,0,0,1);
     float4 screenColor=0;
 
-    float3 reflectDir = i.reflectDir;
-    float3 refractDir = i.refractDir;
-
-
+    
+    float3 reflectDir = ConstructVector(i.reflectRefractDir.xy);
+    float3 refractDir = ConstructVector(i.reflectRefractDir.zw);
 
     /* 
         setup mainUV, move to vs
