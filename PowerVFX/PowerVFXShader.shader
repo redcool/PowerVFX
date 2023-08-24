@@ -342,8 +342,8 @@
         _SnowFlakeIntensity("_SnowFlakeIntensity",range(0,9)) = 0.1
 		
 		[Header(Jitter)]
-        _JitterBlockSize("_JitterBlockSize",range(0,1)) = 0.1
-        _JitterIntensity("_JitterIntensity",range(0,1)) = 0.1
+		[GroupVectorSlider(,blockSize intensity horizontalIntensity verticalIntensity,m0_1000 m0_1 m0_1 m0_1,,remap remap int int)]
+		_JitterInfo("_JitterInfo",vector) = (.1,.1,1,0)
 
 		[Header(VerticalJump)]
         _VerticalJumpIntensity("_VerticalJumpIntensity",range(0,1)) = 0.1

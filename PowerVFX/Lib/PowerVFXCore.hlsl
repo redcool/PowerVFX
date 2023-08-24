@@ -101,8 +101,13 @@ half4 SampleMainTex(float2 uv){
 
 void SampleMainTexWithGlitch(inout float4 mainColor,float2 uv){
 #if defined(_GLITCH_ON)
+    #define _JitterBlockSize _JitterInfo.x
+    #define _JitterIntensity _JitterInfo.y
+    #define _JitterHorizontalIntensity _JitterInfo.z
+    #define _JitterVerticalIntensity _JitterInfo.w
+
     float4 glitchUV = GlitchUV(uv,_SnowFlakeIntensity,_JitterBlockSize,_JitterIntensity,_VerticalJumpIntensity,
-        _HorizontalShake,_ColorDriftSpeed,_ColorDriftIntensity,_HorizontalIntensity);
+        _HorizontalShake,_ColorDriftSpeed,_ColorDriftIntensity,_HorizontalIntensity,_JitterHorizontalIntensity,_JitterVerticalIntensity);
     
     half4 c1 = SampleMainTex(glitchUV.xy);
     half4 c2 = SampleMainTex(glitchUV.zw);

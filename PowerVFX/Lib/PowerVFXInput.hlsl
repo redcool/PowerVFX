@@ -222,8 +222,8 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
 // ==================================================   Glitch
     UNITY_DEFINE_INSTANCED_PROP(float,_SnowFlakeIntensity)
 
-    UNITY_DEFINE_INSTANCED_PROP(float,_JitterBlockSize)
-    UNITY_DEFINE_INSTANCED_PROP(float,_JitterIntensity)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_JitterInfo)
+    
     UNITY_DEFINE_INSTANCED_PROP(float,_VerticalJumpIntensity)
     UNITY_DEFINE_INSTANCED_PROP(float,_HorizontalShake)
     
@@ -427,8 +427,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
 // ==================================================   Glitch
     #define _SnowFlakeIntensity UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_SnowFlakeIntensity)
 
-    #define _JitterBlockSize UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_JitterBlockSize)
-    #define _JitterIntensity UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_JitterIntensity)
+    #define _JitterInfo UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_JitterInfo)
     #define _VerticalJumpIntensity UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VerticalJumpIntensity)
     #define _HorizontalShake UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_HorizontalShake)
     
