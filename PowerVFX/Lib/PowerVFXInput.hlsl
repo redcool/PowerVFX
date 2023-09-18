@@ -18,6 +18,7 @@
     sampler2D _VertexWaveAtten_MaskMap;//r
     sampler2D _CameraDepthTexture;
     sampler2D _NormalMap;
+    TEXTURE2D(_ParallaxMap);SAMPLER(sampler_ParallaxMap);
 
     // float4 _MainLightPosition;
     // float4 _MainLightColor;
@@ -236,6 +237,13 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half ,_DepthFogOn)
     UNITY_DEFINE_INSTANCED_PROP(half ,_HeightFogOn)
 
+//--------------------------------- Parallax
+//#if defined(_PARALLAX)
+    UNITY_DEFINE_INSTANCED_PROP(half ,_ParallaxIterate)
+    UNITY_DEFINE_INSTANCED_PROP(half ,_ParallaxHeight)
+    UNITY_DEFINE_INSTANCED_PROP(half ,_ParallaxMapChannel)
+//#endif
+
 // ================================================== UI
     // UNITY_DEFINE_INSTANCED_PROP(float4, _ClipRect)
     // UNITY_DEFINE_INSTANCED_PROP(float, _UIMaskSoftnessX)
@@ -439,6 +447,12 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     // #define _FogNoiseOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_FogNoiseOn)
     #define _DepthFogOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DepthFogOn)
     #define _HeightFogOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_HeightFogOn)
+
+//--------------------------------- Parallax
+    #define _ParallaxIterate UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_ParallaxIterate)
+    #define _ParallaxInVSOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_ParallaxInVSOn)
+    #define _ParallaxHeight UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_ParallaxHeight)
+    #define _ParallaxMapChannel UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_ParallaxMapChannel)
 
 // ================================================== UI
     // #define _ClipRect UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_ClipRect)

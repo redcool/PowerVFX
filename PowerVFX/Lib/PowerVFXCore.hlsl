@@ -12,6 +12,7 @@
 #include "../../PowerShaderLib/Lib/MathLib.hlsl"
 #include "../../PowerShaderLib/UrpLib/Lighting.hlsl"
 #include "../../PowerShaderLib/Lib/FogLib.hlsl"
+#include "../../PowerShaderLib/Lib/ParallaxMapping.hlsl"
 
 float4 SampleAttenMap(float2 mainUV,float attenMaskCData){
     // auto offset
@@ -443,4 +444,15 @@ void ApplyFog(inout float3 mainColor/**/,float3 worldPos,float2 fogCoord){
     #endif
 }
 
+// #if defined(_PARALLAX)
+void ApplyParallax(inout float2 uv,float3 viewTS){
+    float size = 1.0/_ParallaxIterate;
+    // branch_if(_ParallaxOn)
+    UNITY_LOOP for(int i=0;i<_ParallaxIterate;i++)
+    {
+        float height = SAMPLE_TEXTURE2D(_ParallaxMap,sampler_ParallaxMap,uv)[_ParallaxMapChannel];
+        uv += ParallaxMapOffset(_ParallaxHeight,viewTS,height) * height * size;
+    }
+}
+// #endif
 #endif //POWER_VFX_CGINC

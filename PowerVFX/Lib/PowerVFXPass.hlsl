@@ -102,11 +102,13 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     float4 mainColor = float4(0,0,0,1);
     float4 screenColor=0;
-
     
     float3 reflectDir = ConstructVector(i.reflectRefractDir.xy);
     float3 refractDir = ConstructVector(i.reflectRefractDir.zw);
 
+    #if defined(_PARALLAX)
+        ApplyParallax(i.uv.xy/**/,i.viewDirTS.xyz); // move to vs
+    #endif
     /* 
         setup mainUV, move to vs
         float4 mainUV = MainTexOffset(i.uv);

@@ -3,7 +3,7 @@
 
 
 // Tabs
-tabNames =  Settings, Main,VertexWave, Distortion, Dissolve, Offset, Fresnel,EnvReflect,MatCap,Alpha,Light,Glitch,Fog,CustomDatas
+tabNames =  Settings, Main,VertexWave, Distortion, Dissolve, Offset, Fresnel,EnvReflect,MatCap,Alpha,Light,Glitch,Fog,Parallax,CustomDatas
 
 // Tab's contents
 Settings =  _CullMode, _ZWriteMode,_ZTestMode,_BlendOp,_DepthFadingOn,_DepthFadingWidth,_DepthFadingMax,_ColorMask,_PresetBlendMode,_RenderQueue,_ToggleGroups,_StencilComp,_Stencil,_StencilOp,_ZFail,_Version
@@ -21,3 +21,4 @@ CustomDatas=_MainTexOffset_CustomData_On,_MainTexOffset_CustomData_X,_MainTexOff
 MinVersion=_MinVersion,_MainTex, _MainUVAngle,_MainTexOffsetStop,_MainTexMask,_MainTexMaskOffsetStop,_MainTexMaskChannel,_MainTexSheet,_MainTexSheetAnimSpeed,_DissolveClipOn,_AlphaMin,_AlphaMax,_AlphaScale,_PresetBlendMode,_RenderQueue
 Glitch=_GlitchOn,_HorizontalIntensity,_SnowFlakeIntensity,_JitterInfo,_VerticalJumpIntensity,_HorizontalShake,_ColorDriftSpeed,_ColorDriftIntensity,
 Fog = _FogOn,_FogNoiseOn,_DepthFogOn,_HeightFogOn
+Parallax=_ParallaxOn,_ParallaxIterate,_ParallaxMap,_ParallaxMapChannel,_ParallaxHeight

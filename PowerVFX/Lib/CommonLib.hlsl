@@ -3,7 +3,7 @@
 #define FLT_MIN  1.175494351e-38
 // ---- custom symbols
 #define branch_if UNITY_BRANCH if
-#define for UNITY_LOOP for
+#define loop_for UNITY_LOOP for
 
 // #define USE_URP
 #include "../../../PowerShaderLib/Lib/UnityLib.hlsl"
