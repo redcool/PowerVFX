@@ -102,11 +102,16 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     float4 mainColor = float4(0,0,0,1);
     float4 screenColor=0;
-
     
     float3 reflectDir = ConstructVector(i.reflectRefractDir.xy);
     float3 refractDir = ConstructVector(i.reflectRefractDir.zw);
 
+    float parallaxWeight = 1;
+    #if defined(_PARALLAX)
+        float heightValue = ApplyParallax(i.uv.xy/**/,i.viewDirTS.xyz); // move to vs
+        
+        parallaxWeight = 1- heightValue > _ParallaxWeightOffset;
+    #endif
     /* 
         setup mainUV, move to vs
         float4 mainUV = MainTexOffset(i.uv);
@@ -178,8 +183,8 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #if defined(OFFSET_ON)
     // branch_if(_OffsetOn)
     {
-        half4 offsetDir = lerp(_Time.xxxx,1,_StopAutoOffset) * _OffsetDir;
-        offsetDir.xy = lerp(offsetDir.xy,offsetLayer1CData,_OffsetCustomDataOn);
+        half4 offsetDir = _OffsetDir * _StopAutoOffset? 1:_Time.xxxx; // lerp(_Time.xxxx,1,_StopAutoOffset) * _OffsetDir;
+        offsetDir.xy = _OffsetCustomDataOn ? offsetLayer1CData : offsetDir.xy; ///lerp(offsetDir.xy,offsetLayer1CData,_OffsetCustomDataOn);
         float4 offsetUV = (_DistortionApplyToOffset ? uvDistorted.xyxy : mainUV.zwzw) * _OffsetTile + (offsetDir); //暂时去除 frac
 
         // to polar
@@ -188,10 +193,9 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
             float4 p = _OffsetRadialCenter_Scale;
             offsetUV.xy = PolarUV(mainUV.xy,p.xy,p.zw,_OffsetRadialRot,_OffsetRadialUVOffset*_Time.x);
         }
-        // float2 maskUVOffset = _OffsetMaskTex_ST.zw * (1 + _Time.xx *(1- _OffsetMaskPanStop) );
         float2 maskUVOffset = UVOffset(_OffsetMaskTex_ST.zw, _OffsetMaskPanStop);
         float2 maskUV = mainUV.zw * _OffsetMaskTex_ST.xy + maskUVOffset;
-        ApplyOffset(mainColor,offsetUV,maskUV);
+        ApplyOffset(mainColor,offsetUV,maskUV,parallaxWeight);
     }
     #endif
 

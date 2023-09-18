@@ -367,6 +367,17 @@
         // [GroupToggle(_,_DEPTH_FOG_NOISE_ON)]_FogNoiseOn("_FogNoiseOn",int) = 0
         [GroupToggle(_)]_DepthFogOn("_DepthFogOn",int) = 1
         [GroupToggle(_)]_HeightFogOn("_HeightFogOn",int) = 1
+//================================================= Parallax
+        [Group(Parallax)]
+        [GroupToggle(Parallax,_PARALLAX)]_ParallaxOn("_ParallaxOn",int) = 0
+        [GroupSlider(Parallax,iterate count,int)]_ParallaxIterate("_ParallaxIterate",range(1,3)) = 1
+        // [GroupToggle(Parallax,run in vertex shader)]_ParallaxInVSOn("_ParallaxInVSOn",int) = 0
+        [noscaleoffset]
+        [GroupItem(Parallax)]_ParallaxMap("_ParallaxMap",2d) = "white"{}
+        [GroupEnum(Parallax,R 0 G 1 B 2 A 3)]_ParallaxMapChannel("_ParallaxMapChannel",int) = 3
+        [GroupSlider(Parallax)]_ParallaxHeight("_ParallaxHeight",range(0.005,0.3)) = 0.01
+		[GroupHeader(Parallax,Offset)]
+		[GroupSlider(Parallax)]_ParallaxWeightOffset("_ParallaxWeightOffset",range(0,1)) = 0
 	}
 	SubShader
 	{
@@ -404,6 +415,8 @@
 			#pragma shader_feature_local_fragment  DISTORTION_ON
 			#pragma shader_feature_local_fragment  DISSOLVE_ON
 			#pragma shader_feature_local_fragment  OFFSET_ON
+			#pragma shader_feature_local_fragment  _PARALLAX
+			
 
 			// #pragma shader_feature_local  ENV_REFLECT_ON
 			// #pragma shader_feature_local  ENV_REFRACTION_ON

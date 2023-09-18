@@ -12,6 +12,7 @@
 #include "../../PowerShaderLib/Lib/MathLib.hlsl"
 #include "../../PowerShaderLib/UrpLib/Lighting.hlsl"
 #include "../../PowerShaderLib/Lib/FogLib.hlsl"
+#include "../../PowerShaderLib/Lib/ParallaxMapping.hlsl"
 
 float4 SampleAttenMap(float2 mainUV,float attenMaskCData){
     // auto offset
@@ -252,7 +253,7 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
     #endif
 }
 
-void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 maskUV){
+void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 maskUV,float parallaxWeight){
     float4 offsetColor = tex2D(_OffsetTex,offsetUV.xy) * _OffsetTexColorTint;
     #if defined(DOUBLE_EFFECT_ON)
         offsetColor += tex2D(_OffsetTex,offsetUV.zw) * _OffsetTexColorTint2;
@@ -260,7 +261,7 @@ void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 maskUV){
 
     float mask = tex2D(_OffsetMaskTex,maskUV)[_OffsetMaskChannel];
 
-    offsetColor = offsetColor * _OffsetBlendIntensity * mask * 2; //unity_ColorSpaceDouble
+    offsetColor = offsetColor * _OffsetBlendIntensity * mask * 2 * parallaxWeight; //unity_ColorSpaceDouble
     
     /** offset blend mode
         0 : a*b
@@ -443,4 +444,18 @@ void ApplyFog(inout float3 mainColor/**/,float3 worldPos,float2 fogCoord){
     #endif
 }
 
+// #if defined(_PARALLAX)
+float ApplyParallax(inout float2 uv,float3 viewTS){
+    float size = 1.0/_ParallaxIterate;
+    float heightValue = 0;
+    // branch_if(_ParallaxOn)
+    UNITY_LOOP for(int i=0;i<_ParallaxIterate;i++)
+    {
+        float height = SAMPLE_TEXTURE2D(_ParallaxMap,sampler_ParallaxMap,uv)[_ParallaxMapChannel];
+        uv += ParallaxMapOffset(_ParallaxHeight,viewTS,height) * height * size;
+        heightValue = height;
+    }
+    return heightValue;
+}
+// #endif
 #endif //POWER_VFX_CGINC
