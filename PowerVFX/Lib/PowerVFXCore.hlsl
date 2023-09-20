@@ -308,14 +308,14 @@ void RotateReflectDir(inout float3 reflectDir,half3 axis,half rotateSpeed,bool a
 void ApplyEnv(inout float4 mainColor,float4 mainUV,float3 reflectDir,float3 refractDir,float envMask,float3 viewDirTS){
     float4 envColor = (float4)0;
 
-    // #if defined(ENV_REFLECT_ON)
+    #if defined(ENV_REFLECT_ON)
     branch_if(_EnvReflectOn)
     {
         envColor.xyz += SampleEnvMap(reflectDir) * _EnvReflectionColor.xyz;
     }
-    // #endif
+    #endif
     
-    // #if defined(ENV_REFRACTION_ON)        
+    #if defined(ENV_REFRACTION_ON)        
     branch_if(_EnvRefractionOn)
     {
         // refract interiorMap
@@ -326,7 +326,7 @@ void ApplyEnv(inout float4 mainColor,float4 mainUV,float3 reflectDir,float3 refr
         }
         envColor.xyz += SampleEnvMap(refractDir) * _EnvRefractionColor.xyz;
     }
-    // #endif
+    #endif
     
     envColor *= _EnvIntensity * envMask;
     mainColor.rgb += envColor.rgb;

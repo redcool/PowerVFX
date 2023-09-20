@@ -56,13 +56,16 @@ v2f vert(appdata v)
     o.viewDirTS.xyz = WorldToTangent(viewDir,o.tSpace0,o.tSpace1,o.tSpace2);
 
     float3 normalDistorted = SafeNormalize(worldNormal + _EnvOffset.xyz);
+    #if defined(ENV_REFLECT_ON)
     branch_if(_EnvReflectOn)
     {
         float3 reflectDir = reflect(- viewDir,normalDistorted);
         RotateReflectDir(reflectDir/**/,_EnvRotateInfo.xyz,_EnvRotateInfo.w,_EnvRotateAutoStop);
         o.reflectRefractDir.xy = reflectDir.xy;
     }
+    #endif
 
+    #if defined(ENV_REFRACTION_ON)
     branch_if(_EnvRefractionOn)
     {
         // ior  https://en.wikipedia.org/wiki/Refractive_index
@@ -70,6 +73,7 @@ v2f vert(appdata v)
         RotateReflectDir(refractDir/**/,_EnvRefractRotateInfo.xyz,_EnvRefractRotateInfo.w,_EnvRefractRotateAutoStop);
         o.reflectRefractDir.zw = refractDir.xy;
     }
+    #endif
 
     // --------------  fog 
     o.animBlendUV_fogCoord.xy = v.uv2.zw; // particle anim blend uv
@@ -172,13 +176,13 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
     #endif //PBR_LIGHTING
 
-    // #if defined(ENV_REFLECT_ON) || defined(ENV_REFRACTION_ON)
+    #if defined(ENV_REFLECT_ON) || defined(ENV_REFRACTION_ON)
     branch_if(_EnvReflectOn || _EnvRefractionOn)
     {
         float envMask = lerp(1,mainTexMask[_EnvMapMaskChannel],_EnvMaskUseMainTexMask);
         ApplyEnv(mainColor/**/,mainUV,reflectDir,refractDir,envMask,i.viewDirTS);
     }
-    // #endif
+    #endif
 
     #if defined(OFFSET_ON)
     // branch_if(_OffsetOn)
@@ -207,7 +211,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
         float2 dissolveUV = (_DistortionApplyToDissolve ? uvDistorted : mainUV.zw) * _DissolveTex_ST.xy + dissolveUVOffset;
         ApplyDissolve(mainColor,dissolveUV,i.color,dissolveCustomData,dissolveEdgeWidthCustomData);
     }
-    #endif 
+    #endif
 
     #if defined(FRESNEL_ON)
     // branch_if(_FresnelOn)
@@ -235,8 +239,10 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
 
     // apply fog
-    // mainColor.xyz = MixFog(mainColor.xyz,fogCoord);
-    ApplyFog(mainColor.xyz/**/,worldPos,fogCoord);
+    #if defined(FOG_LINEAR)
+        // mainColor.xyz = MixFog(mainColor.xyz,fogCoord);
+        ApplyFog(mainColor.xyz/**/,worldPos,fogCoord);
+    #endif
 
     #ifdef UNITY_UI_CLIP_RECT
         half2 m = saturate((_ClipRect.zw - _ClipRect.xy - abs(i.uiMask.xy)) * i.uiMask.zw);

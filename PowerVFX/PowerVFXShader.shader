@@ -259,7 +259,7 @@
 		_BlendScreenColor("_BlendScreenColor",range(0,1)) = 0
 // ==================================================	EnvReflection
 		[GroupHeader(,Reflect)]
-		[GroupToggle()]_EnvReflectOn("EnvReflect On?",int)=0
+		[GroupToggle(,ENV_REFLECT_ON)]_EnvReflectOn("EnvReflect On?",int)=0
 
 		[Group(EnvReflection)]
 		[GroupItem(EnvReflection)][hdr]_EnvReflectionColor("_EnvReflectionColor",color) = (.5,.5,.5,.5)
@@ -270,7 +270,7 @@
 		
 // ==================================================	EnvRefraction		
 		[GroupHeader(,Refraction)]
-		[GroupToggle()]_EnvRefractionOn("_EnvRefractionOn",int) = 0
+		[GroupToggle(,ENV_REFRACTION_ON)]_EnvRefractionOn("_EnvRefractionOn",int) = 0
 
 		[Group(EnvRefraction)]
 		[GroupItem(EnvRefraction)]_EnvRefractionIOR("_EnvRefractionIOR",range(1,5)) = 1.33
@@ -418,8 +418,8 @@
 			#pragma shader_feature_local_fragment  _PARALLAX
 			
 
-			// #pragma shader_feature_local  ENV_REFLECT_ON
-			// #pragma shader_feature_local  ENV_REFRACTION_ON
+			#pragma shader_feature_local  ENV_REFLECT_ON
+			#pragma shader_feature_local  ENV_REFRACTION_ON
 			#pragma shader_feature_local_fragment  MATCAP_ON
 			#pragma shader_feature_local_fragment  DEPTH_FADING_ON
 			// #pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON // low frequency
