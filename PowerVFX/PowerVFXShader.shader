@@ -88,7 +88,7 @@
 		[GroupToggle(_,DOUBLE_EFFECT_ON)]_DoubleEffectOn("双重效果?",int)=0
 		
 		[Header(CullMode)]
-		[Enum(UnityEngine.Rendering.CullMode)]_CullMode("Cull Mode",float) = 0
+		[Enum(UnityEngine.Rendering.CullMode)]_CullMode("Cull Mode",float) = 2
 		[GroupToggle]_ZWriteMode("ZWriteMode",int) = 0
 		/*
 		Disabled,Never,Less,Equal,LessEqual,Greater,NotEqual,GreaterEqual,Always
