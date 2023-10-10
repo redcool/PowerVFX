@@ -187,7 +187,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #if defined(OFFSET_ON)
     // branch_if(_OffsetOn)
     {
-        half4 offsetDir = _OffsetDir * _StopAutoOffset? 1:_Time.xxxx; // lerp(_Time.xxxx,1,_StopAutoOffset) * _OffsetDir;
+        half4 offsetDir = _OffsetDir * (_StopAutoOffset? 1:_Time.xxxx); // lerp(_Time.xxxx,1,_StopAutoOffset) * _OffsetDir;
         offsetDir.xy = _OffsetCustomDataOn ? offsetLayer1CData : offsetDir.xy; ///lerp(offsetDir.xy,offsetLayer1CData,_OffsetCustomDataOn);
         float4 offsetUV = (_DistortionApplyToOffset ? uvDistorted.xyxy : mainUV.zwzw) * _OffsetTile + (offsetDir); //暂时去除 frac
 
