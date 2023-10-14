@@ -1,8 +1,20 @@
 // PowerVFX 颜色配置文件
 // 为注释行
 
-_DissolveClipOn=#FF0000
 // new features #88ff88
-_PremultiVertexColor = #00ff00
-_VertexColorChannelOn=#00ff00
-_VertexColorChannel=#00ff00
+
+
+//macros color
+_PbrLightOn=#ff8800
+_VertexWaveOn=#ff8800
+_FresnelOn=#ff8800
+_DissolveClipOn=#ff8800
+_DistortionOn=#ff8800
+_DissolveOn=#ff8800
+_OffsetOn=#ff8800
+_ParallaxOn=#ff8800
+_EnvReflectOn=#ff8800
+_EnvRefractionOn=#ff8800
+_MatCapOn=#ff8800
+_DepthFadingOn=#ff8800
+_GlitchOn=#ff8800
