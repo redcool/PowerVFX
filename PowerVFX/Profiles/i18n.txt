@@ -2,7 +2,7 @@
 
 //Help行,约定 | 为换行字符
 // 版本号: vx.y.z.w (x:基础架构,y:功能,z:功能update或fixed,w:提交序号)
-Help=PowerVFX 特效渲染 |多选,按住Control键 |(v2.1.20.5)
+Help=PowerVFX 特效渲染 |多选,按住Control键 |(v2.1.21.8)
 Settings = 设置
 ShowOriginalPage = 显示原始页面
 Main = 基础
@@ -70,6 +70,9 @@ _VertexWaveIntensityCustomData=customData数据槽
 
 //===== vertex wave atten
 _VertexWaveDirAtten=方向衰减(xyz:dir,w:len)
+_VertexWaveDirAttenCustomDataOn=方向衰减用(customData)
+_VertexWaveDirAttenCustomData=customData数据槽
+
 _VertexWaveDirAlongNormalOn=沿法线运动?
 _VertexWaveDirAtten_LocalSpaceOn=本地空间方向?
 _VertexWaveAtten_VertexColor=顶点色衰减(rgb)
@@ -80,6 +83,7 @@ _VertexWaveAtten_MaskMap=衰减图
 _VertexWaveAtten_MaskMapOffsetStopOn=停止衰减uv自动滚动
 _VertexWaveAtten_MaskMapChannel=衰减图通道
 _VertexWaveAttenMaskOffsetCustomDataOn=衰减图offset使用粒子customData控制
+_VertexWaveAttenMaskOffsetCustomData=customData数据槽
 
 _DistortionOn=开启扭曲?
 _DistortionNoiseTex=杂点图(xy:layer1,zw:layer2)
@@ -125,14 +129,25 @@ _DissolveMaskChannel=溶解mask的通道
 
 _OffsetOn=开启流光
 _OffsetTex=纹理
-_OffsetMaskTex=遮罩
+_OffsetMaskTex=流光遮罩
 _OffsetMaskChannel=遮罩通道
+
+_OffsetMaskApplyMainTexAlpha=流光遮罩影响MainColor.a
 
 _OffsetTexColorTint=层1 颜色
 _OffsetTexColorTint2=层2 颜色
 _OffsetTile=平铺(xy:1层,zw:2层)
 _OffsetDir=方向(xy:1层,zw:2层)
+_StopAutoOffset=自动滚动停止
+
+_OffsetCustomDataOn=流光方向使用customData
+_OffsetLayer1_CustomData_X=x方向数据槽
+_OffsetLayer1_CustomData_Y=y方向数据槽
+
 _OffsetBlendIntensity=混合强度
+
+_OffsetBlendReplaceMode=使用替换模式
+_OffsetBlendReplaceMode_Channel=使用流光图通道
 
 _OffsetRadialUVOn=径向?
 _OffsetRadialCenter_Scale=(xy)径向位置_(zw)缩放

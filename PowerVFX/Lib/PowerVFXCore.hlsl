@@ -24,7 +24,7 @@ float4 SampleAttenMap(float2 mainUV,float attenMaskCData){
     return tex2Dlod(_VertexWaveAtten_MaskMap,attenMapUV);
 }
 
-void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV,float attenMaskCData,float waveIntensityCData){
+void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV,float attenMaskCData,float waveIntensityCData,float waveDirAttenCData){
     float2 worldUV = worldPos.xz + _VertexWaveSpeed * lerp(_Time.xx,1,_VertexWaveSpeedManual);
     float noise = 0;
     float4 attenMap=0;
@@ -40,7 +40,8 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
 
     //1 vertex color atten
     //2 uniform dir atten
-    float3 dir = SafeNormalize(_VertexWaveDirAtten.xyz) * _VertexWaveDirAtten.w;
+    float dirAtten = _VertexWaveDirAttenCustomDataOn ? waveDirAttenCData : _VertexWaveDirAtten.w;
+    float3 dir = normalize(_VertexWaveDirAtten.xyz+0.0001) * dirAtten;
     dir *= lerp(1,normal,_VertexWaveDirAlongNormalOn);
     
     branch_if(_VertexWaveDirAtten_LocalSpaceOn)
@@ -278,6 +279,8 @@ void ApplyOffset(inout float4 mainColor,float4 offsetUV,float2 maskUV,float para
     {
         mainColor.rgb = mainColor.rgb * (_OffsetBlendMode + offsetColor.xyz);
     }
+    // offset Mask apply mainColor.a
+    mainColor.a *= _OffsetMaskApplyMainTexAlpha ? mask : 1;
     // #endif
 }
 

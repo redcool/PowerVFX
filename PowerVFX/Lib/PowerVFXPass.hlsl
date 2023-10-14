@@ -27,7 +27,8 @@ v2f vert(appdata v)
     {
         float attenMaskCData = customDatas[_VertexWaveAttenMaskOffsetCustomData];
         float waveIntensityCData = customDatas[_VertexWaveIntensityCustomData];
-        ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv,attenMaskCData,waveIntensityCData);
+        float waveDirAttenCData = customDatas[_VertexWaveDirAttenCustomData];
+        ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv,attenMaskCData,waveIntensityCData,waveDirAttenCData);
     }
     #endif
     o.vertex = TransformWorldToHClip(worldPos);

@@ -118,7 +118,13 @@
 		[Header(Vertex Color Atten)]
 		[GroupToggle]_VertexWaveAtten_VertexColor("_VertexWaveAtten_VertexColor(rgb)",float) = 0
 		[Header(Vertex Wave Direction)]
-		_VertexWaveDirAtten("_VertexWaveDirAtten(xyz:dir,w:len)",vector) = (1,1,1,1)
+		[GroupVectorSlider(,dir len,0_1,_VertexWaveDir and atten,field)]_VertexWaveDirAtten("_VertexWaveDirAtten(xyz:dir,w:len)",vector) = (1,1,1,1)
+
+		[Header(Vertex Wave Dir CustomData)]
+		[GroupToggle]_VertexWaveDirAttenCustomDataOn("_VertexWaveDirAttenCustomDataOn",int) = 0
+		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_VertexWaveDirAttenCustomData("_VertexWaveDirAttenCustomData",int) = 0
+
+		[Header(Atten Options)]
 		[GroupToggle]_VertexWaveDirAlongNormalOn("_VertexWaveDirAlongNormalOn?",int) = 0
 		[GroupToggle]_VertexWaveDirAtten_LocalSpaceOn("_VertexWaveDirAtten_LocalSpaceOn",int) = 0
 		[GroupToggle]_VertexWaveAtten_NormalAttenOn("_VertexWaveAtten_NormalAttenOn",float) = 0
@@ -239,6 +245,8 @@
 		_OffsetMaskTex("Offset Mask (R)",2d) = "white"{}
 		[GroupToggle]_OffsetMaskPanStop("_OffsetMaskPanStop",float) = 0
 		[Enum(R,0,G,1,B,2,A,3)]_OffsetMaskChannel("_OffsetMaskChannel",int) = 0
+
+		[GroupToggle()]_OffsetMaskApplyMainTexAlpha("_OffsetMaskApplyMainTexAlpha",int) = 0
 		//==================================== offset polar
 		[Group(OffsetRadial)]
 		[GroupHeader(OffsetRadial,Radial UV)]
