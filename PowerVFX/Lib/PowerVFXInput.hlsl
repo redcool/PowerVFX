@@ -93,7 +93,8 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveDirAlongNormalOn)
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveDirAtten_LocalSpaceOn)
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveAtten_NormalAttenOn)
-
+    UNITY_DEFINE_INSTANCED_PROP(half,_UVCircleDist2)
+    
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveAtten_MaskMapOn)
     UNITY_DEFINE_INSTANCED_PROP(float4,_VertexWaveAtten_MaskMap_ST)
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveAtten_MaskMapOffsetStopOn)
@@ -313,6 +314,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _VertexWaveDirAlongNormalOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveDirAlongNormalOn)
     #define _VertexWaveDirAtten_LocalSpaceOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveDirAtten_LocalSpaceOn)
     #define _VertexWaveAtten_NormalAttenOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveAtten_NormalAttenOn)
+    #define _UVCircleDist2 UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_UVCircleDist2)
 
     #define _VertexWaveAtten_MaskMapOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveAtten_MaskMapOn)
     #define _VertexWaveAtten_MaskMap_ST UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveAtten_MaskMap_ST)

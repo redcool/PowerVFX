@@ -96,7 +96,11 @@ v2f vert(appdata v)
 
 half4 frag(v2f i,half faceId:VFACE) : SV_Target
 {
-    // return float4(frac(_VertexWaveAtten_MaskMap_ST.xy * i.uv.zw),0,1);
+    // return length(i.uv.xy-0.5)-0.5;
+    float _UVCircleDist2 = 1;
+    float2 uvCircleDist = i.uv.zw - _UVCircleDist2;
+    float atten = dot(uvCircleDist,uvCircleDist) * 0.5 < _UVCircleDist2;
+    return atten;
 
     UNITY_SETUP_INSTANCE_ID(i);
     UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);

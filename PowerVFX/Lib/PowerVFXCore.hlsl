@@ -60,6 +60,13 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
 
         atten *= attenMap[_VertexWaveAtten_MaskMapChannel];
     }
+    //5 uv circle distance atten
+    branch_if(_UVCircleDist2){
+        float2 uvDist = (mainUV - 0.5);
+        float dist = dot(uvDist,uvDist);
+        atten *= (dist < _UVCircleDist2);
+    }
+
     worldPos.xyz +=  noise * atten;
 }
 

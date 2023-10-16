@@ -99,11 +99,10 @@
 		[GroupEnum(_,RGBA 16 RGB 15 RG 12 GB 6 RB 10 R 8 G 4 B 2 A 1 None 0)]
 		_ColorMask("_ColorMask",int) = 15
 
-		[Header(Versions)]
-		// [GroupToggle(_,MIN_VERSION)]_MinVersion("_MinVersion",int) = 0
 // ==================================================_VertexWaveOn
+		[Header(VertexWave)]
 		[GroupToggle(_,VERTEX_WAVE_ON)]_VertexWaveOn("_VertexWaveOn",int) = 0
-		[Header(Noise From Map)]
+		[GroupHeader(Noise From Map)]
 		[GroupToggle]_NoiseUseAttenMaskMap("_NoiseUseAttenMaskMap",float)=0
 		
 		[Header(Noise From Params)]
@@ -115,21 +114,25 @@
 		[GroupToggle]_VertexWaveIntensityCustomDataOn("_VertexWaveIntensityCustomDataOn",int) = 0
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_VertexWaveIntensityCustomData("_VertexWaveIntensityCustomData",int) = 7
 
-		[Header(Vertex Color Atten)]
+		[GroupHeader(VertexColor Atten)]
 		[GroupToggle]_VertexWaveAtten_VertexColor("_VertexWaveAtten_VertexColor(rgb)",float) = 0
-		[Header(Vertex Wave Direction)]
+
+		[GroupHeader(VertexWave Direction)]
 		[GroupVectorSlider(,dir len,0_1,_VertexWaveDir and atten,field)]_VertexWaveDirAtten("_VertexWaveDirAtten(xyz:dir,w:len)",vector) = (1,1,1,1)
 
-		[Header(Vertex Wave Dir CustomData)]
+		[Header(VertexWaveDir CustomData)]
 		[GroupToggle]_VertexWaveDirAttenCustomDataOn("_VertexWaveDirAttenCustomDataOn",int) = 0
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_VertexWaveDirAttenCustomData("_VertexWaveDirAttenCustomData",int) = 0
 
-		[Header(Atten Options)]
+		[GroupHeader(Atten Options)]
 		[GroupToggle]_VertexWaveDirAlongNormalOn("_VertexWaveDirAlongNormalOn?",int) = 0
 		[GroupToggle]_VertexWaveDirAtten_LocalSpaceOn("_VertexWaveDirAtten_LocalSpaceOn",int) = 0
 		[GroupToggle]_VertexWaveAtten_NormalAttenOn("_VertexWaveAtten_NormalAttenOn",float) = 0
 
-		[Header(Vertex Wava Atten Map)]
+		[GroupHeader(VertexWave Dist Atten)]
+		[gamma]_UVCircleDist2("_UVCircleDist2",range(0,2)) = 0
+
+		[GroupHeader(VertexWava Atten Map)]
 		[GroupToggle]_VertexWaveAtten_MaskMapOn("_VertexWaveAtten_MaskMapOn",int) = 0
 		_VertexWaveAtten_MaskMap("_VertexWaveAtten_MaskMap",2d) = "white"{}
 		[Enum(R,0,G,1,B,2,A,3)]_VertexWaveAtten_MaskMapChannel("_VertexWaveAtten_MaskMapChannel",int) = 0
