@@ -101,7 +101,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveAttenMaskOffsetCustomDataOn)
     UNITY_DEFINE_INSTANCED_PROP(float,_VertexWaveAttenMaskOffsetCustomData)//default custom2.y
 // ==================================================_DistortionOn
-    UNITY_DEFINE_INSTANCED_PROP(float,_DistortionOn)
+    // UNITY_DEFINE_INSTANCED_PROP(float,_DistortionOn) //DISTORTION_ON
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionMaskChannel)
     UNITY_DEFINE_INSTANCED_PROP(float4,_DistortionMaskTex_ST)
     UNITY_DEFINE_INSTANCED_PROP(float,_DistortionIntensity)
@@ -118,7 +118,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionApplyToMainTexMask)
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionApplyToDissolve)
 // ==================================================_DissolveOn
-    UNITY_DEFINE_INSTANCED_PROP(float,_DissolveOn)
+    // UNITY_DEFINE_INSTANCED_PROP(float,_DissolveOn) //DISSOLVE_ON
     UNITY_DEFINE_INSTANCED_PROP(float,_DissolveByVertexColor)
     UNITY_DEFINE_INSTANCED_PROP(half,_DissolveCustomDataOn)
     UNITY_DEFINE_INSTANCED_PROP(float,_DissolveCustomData) // default uv1.x(Custom1.z)
@@ -129,7 +129,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
 
     UNITY_DEFINE_INSTANCED_PROP(float4,_DissolveTex_ST)
     UNITY_DEFINE_INSTANCED_PROP(float,_DissolveTexOffsetStop)
-    UNITY_DEFINE_INSTANCED_PROP(float,_DissolveClipOn)
+    // UNITY_DEFINE_INSTANCED_PROP(float,_DissolveClipOn) //ALPHA_TEST
     UNITY_DEFINE_INSTANCED_PROP(float,_Cutoff)
 
     UNITY_DEFINE_INSTANCED_PROP(float,_PixelDissolveOn)
@@ -145,7 +145,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(float,_DissolveFadingMin)
     UNITY_DEFINE_INSTANCED_PROP(float,_DissolveFadingMax)
 // ==================================================_OffsetOn
-    UNITY_DEFINE_INSTANCED_PROP(float,_OffsetOn)
+    // UNITY_DEFINE_INSTANCED_PROP(float,_OffsetOn) //OFFSET_ON
     UNITY_DEFINE_INSTANCED_PROP(half,_StopAutoOffset)
     UNITY_DEFINE_INSTANCED_PROP(half,_OffsetCustomDataOn)
     UNITY_DEFINE_INSTANCED_PROP(float,_OffsetLayer1_CustomData_X)
@@ -171,7 +171,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_OffsetRadialUVOffset)
     
 // ==================================================_FresnelOn
-    UNITY_DEFINE_INSTANCED_PROP(float,_FresnelOn)
+    // UNITY_DEFINE_INSTANCED_PROP(float,_FresnelOn) //FRESNEL_ON
     UNITY_DEFINE_INSTANCED_PROP(half,_FresnelColorMode)
     UNITY_DEFINE_INSTANCED_PROP(float4,_FresnelColor)
     UNITY_DEFINE_INSTANCED_PROP(float4,_FresnelColor2)
@@ -204,7 +204,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_MatCapRotateOn) // 
     UNITY_DEFINE_INSTANCED_PROP(float,_MatCapAngle)
 // ==================================================    _DepthFadingOn
-    UNITY_DEFINE_INSTANCED_PROP(half,_DepthFadingOn)
+    // UNITY_DEFINE_INSTANCED_PROP(half,_DepthFadingOn) //DEPTH_FADING_ON
     UNITY_DEFINE_INSTANCED_PROP(float,_DepthFadingWidth)
     UNITY_DEFINE_INSTANCED_PROP(float,_DepthFadingMax)
 // ==================================================   _Alpha 
@@ -296,7 +296,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _MainTexSheetAnimBlendOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainTexSheetAnimBlendOn)
     // #define _MainTexSheetPlayOnce UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainTexSheetPlayOnce)
 // ==================================================_VertexWaveOn
-    #define _VertexWaveOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveOn)
+    // #define _VertexWaveOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveOn) // use VERTEX_WAVE_ON
     #define _NoiseUseAttenMaskMap UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_NoiseUseAttenMaskMap)
     #define _VertexWaveSpeed UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveSpeed)
     #define _VertexWaveSpeedManual UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveSpeedManual)

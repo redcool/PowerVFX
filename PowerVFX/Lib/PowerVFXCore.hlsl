@@ -18,9 +18,9 @@ float4 SampleAttenMap(float2 mainUV,float attenMaskCData){
     // auto offset
     float2 uvOffset = UVOffset(_VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAtten_MaskMapOffsetStopOn);
     // offset by custom data
-    uvOffset = lerp(uvOffset,attenMaskCData + _VertexWaveAtten_MaskMap_ST.zw,_VertexWaveAttenMaskOffsetCustomDataOn);
+    uvOffset = _VertexWaveAttenMaskOffsetCustomDataOn ? attenMaskCData + _VertexWaveAtten_MaskMap_ST.zw : uvOffset;
 
-    float4 attenMapUV = float4(mainUV * _VertexWaveAtten_MaskMap_ST.xy + uvOffset,0,0);
+    float4 attenMapUV = float4(frac(mainUV * _VertexWaveAtten_MaskMap_ST.xy + uvOffset),0,0);
     return tex2Dlod(_VertexWaveAtten_MaskMap,attenMapUV);
 }
 
@@ -30,9 +30,9 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
     float4 attenMap=0;
     float waveIntensity = _VertexWaveIntensityCustomDataOn ? waveIntensityCData : _VertexWaveIntensity;
 
+    //calc noise 
     branch_if(_NoiseUseAttenMaskMap){
         attenMap = SampleAttenMap(mainUV,attenMaskCData);
-
         noise = attenMap.x;
     }else{
         noise = Unity_GradientNoise(worldUV,waveIntensity);
@@ -54,8 +54,10 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
 
     //4 atten map
     branch_if(_VertexWaveAtten_MaskMapOn){
+        // not sample attenMap
         branch_if(! _NoiseUseAttenMaskMap)
             attenMap = SampleAttenMap(mainUV,attenMaskCData);
+
         atten *= attenMap[_VertexWaveAtten_MaskMapChannel];
     }
     worldPos.xyz +=  noise * atten;

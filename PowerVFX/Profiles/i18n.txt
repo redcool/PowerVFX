@@ -61,9 +61,9 @@ _MainTexSheetAnimSpeed=播放速度
 //====== vertex wave
 
 _VertexWaveOn=开启顶点摆动?
-_NoiseUseAttenMaskMap=噪波采样衰减图?
+_NoiseUseAttenMaskMap=噪波采样衰减图(r)
 _VertexWaveSpeed=速度
-_VertexWaveSpeedManual=手动速度?
+_VertexWaveSpeedManual=手动速度
 _VertexWaveIntensity=强度
 _VertexWaveIntensityCustomDataOn=强度使用(CustomData)控制
 _VertexWaveIntensityCustomData=customData数据槽

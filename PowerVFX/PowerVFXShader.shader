@@ -102,11 +102,11 @@
 		[Header(Versions)]
 		// [GroupToggle(_,MIN_VERSION)]_MinVersion("_MinVersion",int) = 0
 // ==================================================_VertexWaveOn
-		[GroupToggle(_,VERTEX_WAVE_ON)]_VertexWaveOn("_VertexWaveOn ?",int) = 0
-		[Header(Noise Map)]
+		[GroupToggle(_,VERTEX_WAVE_ON)]_VertexWaveOn("_VertexWaveOn",int) = 0
+		[Header(Noise From Map)]
 		[GroupToggle]_NoiseUseAttenMaskMap("_NoiseUseAttenMaskMap",float)=0
 		
-		[Header(Noise Params)]
+		[Header(Noise From Params)]
 		_VertexWaveSpeed("_VertexWaveSpeed",float) = 1
 		[GroupToggle]_VertexWaveSpeedManual("_VertexWaveSpeedManual",int) = 0
 		_VertexWaveIntensity("_VertexWaveIntensity",float) = 1
