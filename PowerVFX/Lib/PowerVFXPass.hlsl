@@ -100,6 +100,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
 
     TANGENT_SPACE_SPLIT(i);
+    normal *= faceId<= 0 ? -1 : 1;
 
     float3 viewDir = normalize(i.viewDir_AnimBlendFactor.xyz);
     float3 animBlendUVFactor = float3(i.animBlendUV_fogCoord.xy,i.viewDir_AnimBlendFactor.w);
@@ -217,6 +218,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #if defined(FRESNEL_ON)
     // branch_if(_FresnelOn)
     {
+        
         float fresnel = 1 - dot(normal,viewDir);
         ApplyFresnal(mainColor,fresnel,screenColor);
     }

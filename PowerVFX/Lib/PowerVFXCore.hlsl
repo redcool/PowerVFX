@@ -297,7 +297,7 @@ void ApplyFresnal(inout float4 mainColor,float fresnel,float4 screenColor){
     float f = smoothstep(_FresnelPowerMin,_FresnelPowerMax,fresnel);
     float4 fresnelColor = f * lerp(_FresnelColor,_FresnelColor2,f);
     mainColor.xyz += (_FresnelColorMode == FRESNEL_COLOR_MULTIPLY? mainColor.xyz : 1 ) * fresnelColor.xyz;
-    mainColor.a *= fresnelColor.a;
+    mainColor.a *= fresnelColor.a + _FresnelAlphaBase;
 
     mainColor.xyz = lerp(mainColor,screenColor,_BlendScreenColor * f).xyz;
 }

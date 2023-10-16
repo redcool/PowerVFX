@@ -179,6 +179,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(float,_FresnelPowerMin)
     UNITY_DEFINE_INSTANCED_PROP(float,_FresnelPowerMax)
     UNITY_DEFINE_INSTANCED_PROP(float,_BlendScreenColor)
+    UNITY_DEFINE_INSTANCED_PROP(float,_FresnelAlphaBase)
     
 // ==================================================_EnvReflectOn
     // UNITY_DEFINE_INSTANCED_PROP(float,_EnvReflectOn)
@@ -400,6 +401,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _FresnelPowerMin UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_FresnelPowerMin)
     #define _FresnelPowerMax UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_FresnelPowerMax)
     #define _BlendScreenColor UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_BlendScreenColor)
+    #define _FresnelAlphaBase UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_FresnelAlphaBase)
     
 // ==================================================_EnvReflectOn
     #define _EnvReflectOn 1 //UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_EnvReflectOn)

@@ -263,9 +263,11 @@
 		[Enum(Replace,0,Multiply,1)]_FresnelColorMode("_FresnelColorMode",int) = 0
 		[HDR]_FresnelColor("_FresnelColor",color) = (1,1,1,1)
 		[HDR]_FresnelColor2("_FresnelColor2",color) = (1,1,1,1)
-		[Header(Range)]
+		[Header(FresnelRange)]
 		_FresnelPowerMin("_FresnelPowerMin",range(0,1)) = 0.4
 		_FresnelPowerMax("_FresnelPowerMax",range(0,1)) = 0.5
+		[Header(FresnelAlpha)]
+		_FresnelAlphaBase("_FresnelAlphaBase",range(0,1)) = 0
 		[Header(BlendScreenColor)]
 		_BlendScreenColor("_BlendScreenColor",range(0,1)) = 0
 // ==================================================	EnvReflection
