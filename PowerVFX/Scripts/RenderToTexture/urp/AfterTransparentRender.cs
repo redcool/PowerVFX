@@ -65,6 +65,7 @@ namespace PowerUtilities
             };
 
             Settings settings;
+
             public AfterTransparentRenderPass(Settings settings)
             {
                 this.settings = settings;
@@ -87,17 +88,20 @@ namespace PowerUtilities
                 var renderer = cameraData.renderer;
 
                 var cmd = CommandBufferPool.Get();
-                cmd.Execute(ref context);
-
+                cmd.BeginSampleExecute(nameof(AfterTransparentRender),ref context);
                 //------
+#if UNITY_2023_1_OR_NEWER
+                if (renderer.cameraColorTargetHandle == renderer.cameraDepthTargetHandle)
+                    cmd.SetRenderTarget(renderer.cameraColorTargetHandle, renderer.cameraDepthTargetHandle);
+#elif UNITY_2021_1_OR_NEWER
                 if(renderer.cameraColorTarget == renderer.cameraDepthTarget)
                     cmd.SetRenderTarget(renderer.cameraColorTarget, renderer.cameraDepthTarget);
+#endif
 
                 if (settings.isClearDepth)
                 {
                     cmd.ClearRenderTarget(true, false, Color.clear);
                 }
-                cmd.Execute(ref context);
 
                 // create draw settings.
                 var sortingSettings = new SortingSettings { criteria = SortingCriteria.CommonTransparent };
@@ -111,10 +115,9 @@ namespace PowerUtilities
                     drawingSettings.SetShaderPassName(i, shaderTags[i]);
                 }
 
-                // or call CreateDrawingSettings
-                //var drawingSettings = CreateDrawingSettings(ShaderTagId.none, ref renderingData, SortingCriteria.CommonTransparent);
-                context.DrawRenderers(renderingData.cullResults, ref drawingSettings, ref filterSettings);
+                context.DrawRenderers(cmd,renderingData.cullResults, ref drawingSettings, ref filterSettings);
 
+                cmd.EndSampleExecute(nameof(AfterTransparentRender), ref context);
                 CommandBufferPool.Release(cmd);
             }
 
@@ -124,7 +127,10 @@ namespace PowerUtilities
         {
             int _CameraOpaqueTexture = Shader.PropertyToID(nameof(_CameraOpaqueTexture));
             int _BlurTex = Shader.PropertyToID(nameof(_BlurTex));
-            
+
+            RTHandle _CameraOpaqueTextureH;
+            RTHandle _CameraActive;
+
             Settings settings;
             Material blurMat;
 
@@ -147,7 +153,14 @@ namespace PowerUtilities
                 var h = Mathf.Max(1, cameraTextureDescriptor.height >> settings.opaqueTextureDownSample);
 
                 cmd.GetTemporaryRT(_BlurTex, w, h);
+
             }
+
+            public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
+            {
+                RTHandleTools.TryGetRTHandle(ref _CameraOpaqueTextureH, renderingData.cameraData.renderer, URPRTHandleNames.m_OpaqueColor);
+            }
+
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
             {
                 ref var cameraData = ref renderingData.cameraData;
@@ -163,14 +176,18 @@ namespace PowerUtilities
                 if (settings.applyBlur && blurMat)
                 {
                     blurMat.SetFloat("_Scale", settings.blurScale);
-                    Blit(cmd, _CameraOpaqueTexture, _BlurTex, blurMat, 1);
+                    cmd.Blit(_CameraOpaqueTextureH, _BlurTex, blurMat, 1);
 
                     //blurMat.SetFloat("_Scale", settings.blurRadius*1.2f);
-                    Blit(cmd, _BlurTex, _CameraOpaqueTexture, blurMat, 2);
+                    cmd.Blit(_BlurTex, _CameraOpaqueTextureH, blurMat, 2);
                 }
                 else
                 {
-                    Blit(cmd, cameraData.renderer.cameraColorTarget, _CameraOpaqueTexture);
+                    //cmd.SetRenderTarget(_CameraOpaqueTexture);
+                    //cmd.SetGlobalTexture("_SourceTex", BuiltinRenderTextureType.CurrentActive);
+                    cmd.Blit(BuiltinRenderTextureType.CurrentActive, _CameraOpaqueTextureH);
+
+                    //Blit(cmd, cameraData.renderer.cameraColorTargetHandle, _CameraOpaqueTextureH);
                 }
 
                 cmd.EndSample(nameof(GrabTransparentPass));
