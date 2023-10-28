@@ -13,6 +13,9 @@ namespace PowerUtilities
         [Serializable]
         public class Settings
         {
+            [Header("Options")]
+            public string gameCameraTag = "MainCamera";
+
             [Header("Grab Pass")]
             [Tooltip("Blit CameraColorTarget to _CameraOpaqueTexture,can holding transparent objects")]
             public bool enableGrabPass = true;
@@ -41,6 +44,13 @@ namespace PowerUtilities
 
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
+            ref var cameraData = ref renderingData.cameraData;
+
+            if(!string.IsNullOrEmpty(settings.gameCameraTag) && !cameraData.camera.CompareTag(settings.gameCameraTag))
+            {
+                return;
+            }
+
             if (settings.enableGrabPass)
                 renderer.EnqueuePass(grabTransparentPass);
 
@@ -91,16 +101,17 @@ namespace PowerUtilities
                 cmd.BeginSampleExecute(nameof(AfterTransparentRender),ref context);
                 //------
 #if UNITY_2023_1_OR_NEWER
-                if (renderer.cameraColorTargetHandle == renderer.cameraDepthTargetHandle)
+                //if (renderer.cameraColorTargetHandle == renderer.cameraDepthTargetHandle)
                     cmd.SetRenderTarget(renderer.cameraColorTargetHandle, renderer.cameraDepthTargetHandle);
-#elif UNITY_2021_1_OR_NEWER
-                if(renderer.cameraColorTarget == renderer.cameraDepthTarget)
-                    cmd.SetRenderTarget(renderer.cameraColorTarget, renderer.cameraDepthTarget);
+#else
+                //if (renderer.cameraColorTarget == renderer.cameraDepthTarget)
+                cmd.SetRenderTarget(renderer.cameraColorTarget, renderer.cameraDepthTarget);
 #endif
 
                 if (settings.isClearDepth)
                 {
                     cmd.ClearRenderTarget(true, false, Color.clear);
+                    cmd.Execute(ref context);
                 }
 
                 // create draw settings.
@@ -158,7 +169,9 @@ namespace PowerUtilities
 
             public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
             {
-                RTHandleTools.GetRTHandle(ref _CameraOpaqueTextureH, renderingData.cameraData.renderer, URPRTHandleNames.m_OpaqueColor);
+                //RTHandleTools.GetRTHandle(ref _CameraOpaqueTextureH, renderingData.cameraData.renderer, URPRTHandleNames.m_OpaqueColor);
+
+                _CameraOpaqueTextureH = RTHandles.Alloc(ShaderPropertyIds._CameraOpaqueTexture);
             }
 
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
@@ -183,11 +196,7 @@ namespace PowerUtilities
                 }
                 else
                 {
-                    //cmd.SetRenderTarget(_CameraOpaqueTexture);
-                    //cmd.SetGlobalTexture("_SourceTex", BuiltinRenderTextureType.CurrentActive);
                     cmd.Blit(BuiltinRenderTextureType.CurrentActive, _CameraOpaqueTextureH);
-
-                    //Blit(cmd, cameraData.renderer.cameraColorTargetHandle, _CameraOpaqueTextureH);
                 }
 
                 cmd.EndSample(nameof(GrabTransparentPass));
@@ -198,7 +207,6 @@ namespace PowerUtilities
             }
             public override void FrameCleanup(CommandBuffer cmd)
             {
-                //cmd.ReleaseTemporaryRT(_CameraOpaqueTexture);
                 cmd.ReleaseTemporaryRT(_BlurTex);
             }
         }
