@@ -158,7 +158,7 @@ namespace PowerUtilities
 
             public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
             {
-                RTHandleTools.TryGetRTHandle(ref _CameraOpaqueTextureH, renderingData.cameraData.renderer, URPRTHandleNames.m_OpaqueColor);
+                RTHandleTools.GetRTHandle(ref _CameraOpaqueTextureH, renderingData.cameraData.renderer, URPRTHandleNames.m_OpaqueColor);
             }
 
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
