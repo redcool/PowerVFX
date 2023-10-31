@@ -136,11 +136,8 @@ namespace PowerUtilities
 
         public class GrabTransparentPass : ScriptableRenderPass
         {
-            int _CameraOpaqueTexture = Shader.PropertyToID(nameof(_CameraOpaqueTexture));
             int _BlurTex = Shader.PropertyToID(nameof(_BlurTex));
-
-            RTHandle _CameraOpaqueTextureH;
-            RTHandle _CameraActive;
+            RenderTargetIdentifier currentActiveId,opaqueTextureId;
 
             Settings settings;
             Material blurMat;
@@ -153,6 +150,14 @@ namespace PowerUtilities
             }
             public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
             {
+                if (settings.applyBlur)
+                {
+                    SetupBlurTarget(cmd, cameraTextureDescriptor);
+                }
+            }
+
+            private void SetupBlurTarget(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
+            {
                 if (!blurMat)
                 {
                     var s = Shader.Find("Hidden/PowerVFX/GaussianBlur");
@@ -164,14 +169,14 @@ namespace PowerUtilities
                 var h = Mathf.Max(1, cameraTextureDescriptor.height >> settings.opaqueTextureDownSample);
 
                 cmd.GetTemporaryRT(_BlurTex, w, h);
-
             }
 
             public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
             {
-                //RTHandleTools.GetRTHandle(ref _CameraOpaqueTextureH, renderingData.cameraData.renderer, URPRTHandleNames.m_OpaqueColor);
+                var renderer = (UniversalRenderer)renderingData.cameraData.renderer;
 
-                _CameraOpaqueTextureH = RTHandles.Alloc(ShaderPropertyIds._CameraOpaqueTexture);
+                currentActiveId = renderer.GetRenderTargetId(URPRTHandleNames.m_ActiveCameraColorAttachment);
+                opaqueTextureId = renderer.GetRenderTargetId(URPRTHandleNames.m_OpaqueColor);
             }
 
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
@@ -189,14 +194,14 @@ namespace PowerUtilities
                 if (settings.applyBlur && blurMat)
                 {
                     blurMat.SetFloat("_Scale", settings.blurScale);
-                    cmd.Blit(_CameraOpaqueTextureH, _BlurTex, blurMat, 1);
+                    cmd.Blit(currentActiveId, _BlurTex, blurMat, 1);
 
                     //blurMat.SetFloat("_Scale", settings.blurRadius*1.2f);
-                    cmd.Blit(_BlurTex, _CameraOpaqueTextureH, blurMat, 2);
+                    cmd.Blit(_BlurTex, opaqueTextureId, blurMat, 2);
                 }
                 else
                 {
-                    cmd.Blit(BuiltinRenderTextureType.CurrentActive, _CameraOpaqueTextureH);
+                    cmd.Blit(currentActiveId, opaqueTextureId);
                 }
 
                 cmd.EndSample(nameof(GrabTransparentPass));
