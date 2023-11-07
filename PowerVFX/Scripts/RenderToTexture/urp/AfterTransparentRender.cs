@@ -100,7 +100,7 @@ namespace PowerUtilities
                 var cmd = CommandBufferPool.Get();
                 cmd.BeginSampleExecute(nameof(AfterTransparentRender),ref context);
                 //------
-#if UNITY_2023_1_OR_NEWER
+#if UNITY_2022_1_OR_NEWER
                 //if (renderer.cameraColorTargetHandle == renderer.cameraDepthTargetHandle)
                     cmd.SetRenderTarget(renderer.cameraColorTargetHandle, renderer.cameraDepthTargetHandle);
 #else
@@ -171,17 +171,13 @@ namespace PowerUtilities
                 cmd.GetTemporaryRT(_BlurTex, w, h);
             }
 
-            public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
-            {
-                var renderer = (UniversalRenderer)renderingData.cameraData.renderer;
-
-                currentActiveId = renderer.GetRenderTargetId(URPRTHandleNames.m_ActiveCameraColorAttachment);
-                opaqueTextureId = renderer.GetRenderTargetId(URPRTHandleNames.m_OpaqueColor);
-            }
-
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
             {
                 ref var cameraData = ref renderingData.cameraData;
+                var renderer = (UniversalRenderer)cameraData.renderer;
+                currentActiveId = renderer.GetRenderTargetId(URPRTHandleNames.m_ActiveCameraColorAttachment);
+                opaqueTextureId = renderer.GetRenderTargetId(URPRTHandleNames.m_OpaqueColor);
+
 
                 var cmd = CommandBufferPool.Get();
 
