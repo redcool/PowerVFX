@@ -326,13 +326,23 @@
 
 // ================================================== Light
 		[Header(Light)]
-		[GroupToggle(_,PBR_LIGHTING)]_PbrLightOn("_PbrLightOn",int) = 0
+		[GroupToggle(,PBR_LIGHTING)]_PbrLightOn("_PbrLightOn",int) = 0
+
+		[GroupHeader(,Surface Info)]
+		[GroupToggle]_NormalMapOn("_NormalMapOn",float) = 0
 		[NoScaleOffset]_NormalMap("_NormalMap",2d)="bump"{}
 		_NormalMapScale("_NormalMapScale",range(0,5)) = 1
 		_PbrMask("_PbrMask(Metal,Smooth,Occ)",2d)="white"{}
 		_Metallic("_Metallic",range(0,1))=0.5
 		_Smoothness("_Smoothness",range(0,1))=0.5
 		_Occlusion("_Occlusion",range(0,1)) = 0
+
+		[Group(Env)]
+		[GroupHeader(Env,Custom Light)]
+        [GroupToggle(Env)]_CustomLightOn("_CustomLightOn",float) = 0
+        [GroupItem(Env)][LightInfo(Env,direction)]_CustomLightDir("_CustomLightDir",vector) = (0,1,0,0)
+        [GroupItem(Env)][hdr][LightInfo(Env,Color)]_CustomLightColor("_CustomLightColor",color) = (0,0,0,0)
+        [GroupEnum(Env,LightColor 0 SpecularColor 1)]_CustomLightColorUsage("_CustomLightColorUsage",int) = 0
 
 		[Header(Shadow)]
 		[GroupToggle(_,MAIN_LIGHT_CALCULATE_SHADOWS)]_ReceiveShadowOn("_ReceiveShadowOn",int) = 0

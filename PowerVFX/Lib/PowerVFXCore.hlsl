@@ -437,6 +437,12 @@ void ApplyPbrLighting(inout float3 mainColor,float3 worldPos,float4 shadowCoord,
     mainColor = giColor;
 
     Light mainLight = GetMainLight();
+    branch_if(_CustomLightOn)
+    {
+        OffsetLight(mainLight/**/,specColor/**/,_CustomLightColorUsage,_CustomLightDir.xyz,_CustomLightColor.xyz);    
+    }
+
+
     mainLight.shadowAttenuation = CalcShadow(shadowCoord,worldPos,_MainLightSoftShadowScale);
 
     half3 lightColor = CalcLight(mainLight,diffColor,specColor,n,v,a,a2);

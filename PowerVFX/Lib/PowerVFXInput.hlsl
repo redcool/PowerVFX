@@ -20,8 +20,8 @@
     sampler2D _NormalMap;
     TEXTURE2D(_ParallaxMap);SAMPLER(sampler_ParallaxMap);
 
-    // float4 _MainLightPosition;
-    // float4 _MainLightColor;
+    // half4 _MainLightPosition;
+    // half4 _MainLightColor;
 
 /**
     Particle system custom data
@@ -34,15 +34,15 @@
 */
 
 UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
-    UNITY_DEFINE_INSTANCED_PROP(float,_MainUVAngle)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_Color)
-    UNITY_DEFINE_INSTANCED_PROP(float,_ColorScale)
+    UNITY_DEFINE_INSTANCED_PROP(half,_MainUVAngle)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_Color)
+    UNITY_DEFINE_INSTANCED_PROP(half,_ColorScale)
     UNITY_DEFINE_INSTANCED_PROP(half,_PerChannelColorOn)
     UNITY_DEFINE_INSTANCED_PROP(half4,_ColorX)
     UNITY_DEFINE_INSTANCED_PROP(half4,_ColorY)
     UNITY_DEFINE_INSTANCED_PROP(half4,_ColorZ)
 
-    UNITY_DEFINE_INSTANCED_PROP(float,_MainTexSaturate)
+    UNITY_DEFINE_INSTANCED_PROP(half,_MainTexSaturate)
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexSingleChannelOn)
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexChannel)
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexMultiAlpha)
@@ -52,21 +52,21 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     
     
     UNITY_DEFINE_INSTANCED_PROP(half,_BackFaceOn)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_BackFaceColor)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_MainTex_ST)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_MainTex_TexelSize)
-    UNITY_DEFINE_INSTANCED_PROP(float,_MainTexOffsetStop)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_BackFaceColor)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_MainTex_ST)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_MainTex_TexelSize)
+    UNITY_DEFINE_INSTANCED_PROP(half,_MainTexOffsetStop)
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexOffset_CustomData_On)
-    UNITY_DEFINE_INSTANCED_PROP(float,_MainTexOffset_CustomData_X)
-    UNITY_DEFINE_INSTANCED_PROP(float,_MainTexOffset_CustomData_Y) // default Custom1.xy
+    UNITY_DEFINE_INSTANCED_PROP(half,_MainTexOffset_CustomData_X)
+    UNITY_DEFINE_INSTANCED_PROP(half,_MainTexOffset_CustomData_Y) // default Custom1.xy
 
-    UNITY_DEFINE_INSTANCED_PROP(float,_DoubleEffectOn) //2层效果,
-    UNITY_DEFINE_INSTANCED_PROP(float4,_MainTexMask_ST)
-    UNITY_DEFINE_INSTANCED_PROP(float,_MainTexMaskOffsetStop)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DoubleEffectOn) //2层效果,
+    UNITY_DEFINE_INSTANCED_PROP(half4,_MainTexMask_ST)
+    UNITY_DEFINE_INSTANCED_PROP(half,_MainTexMaskOffsetStop)
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexMaskChannel)
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexMaskOffsetCustomDataOn)
-    UNITY_DEFINE_INSTANCED_PROP(float,_MainTexMaskOffsetCustomDataX)
-    UNITY_DEFINE_INSTANCED_PROP(float,_MainTexMaskOffsetCustomDataY) // default Custom2.zw
+    UNITY_DEFINE_INSTANCED_PROP(half,_MainTexMaskOffsetCustomDataX)
+    UNITY_DEFINE_INSTANCED_PROP(half,_MainTexMaskOffsetCustomDataY) // default Custom2.zw
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexUseScreenColor)
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexUseScreenUV)
     UNITY_DEFINE_INSTANCED_PROP(half,_FullScreenMode)
@@ -76,18 +76,18 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_MainTexSheetAnimBlendOn)
     // UNITY_DEFINE_INSTANCED_PROP(half,_MainTexSheetPlayOnce)
 // ==================================================_VertexWaveOn
-    UNITY_DEFINE_INSTANCED_PROP(float,_VertexWaveOn)
-    UNITY_DEFINE_INSTANCED_PROP(float,_NoiseUseAttenMaskMap)
-    UNITY_DEFINE_INSTANCED_PROP(float,_VertexWaveSpeed)
+    UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveOn)
+    UNITY_DEFINE_INSTANCED_PROP(half,_NoiseUseAttenMaskMap)
+    UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveSpeed)
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveSpeedManual)
-    UNITY_DEFINE_INSTANCED_PROP(float,_VertexWaveIntensity)
+    UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveIntensity)
   
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveIntensityCustomDataOn)
-    UNITY_DEFINE_INSTANCED_PROP(float,_VertexWaveIntensityCustomData)
+    UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveIntensityCustomData)
 
     // vertex wave attenuations
-    UNITY_DEFINE_INSTANCED_PROP(float,_VertexWaveAtten_VertexColor)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_VertexWaveDirAtten)
+    UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveAtten_VertexColor)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_VertexWaveDirAtten)
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveDirAttenCustomDataOn)
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveDirAttenCustomData)
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveDirAlongNormalOn)
@@ -96,74 +96,74 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_UVCircleDist2)
     
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveAtten_MaskMapOn)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_VertexWaveAtten_MaskMap_ST)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_VertexWaveAtten_MaskMap_ST)
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveAtten_MaskMapOffsetStopOn)
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveAtten_MaskMapChannel)
     UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveAttenMaskOffsetCustomDataOn)
-    UNITY_DEFINE_INSTANCED_PROP(float,_VertexWaveAttenMaskOffsetCustomData)//default custom2.y
+    UNITY_DEFINE_INSTANCED_PROP(half,_VertexWaveAttenMaskOffsetCustomData)//default custom2.y
 // ==================================================_DistortionOn
-    // UNITY_DEFINE_INSTANCED_PROP(float,_DistortionOn) //DISTORTION_ON
+    // UNITY_DEFINE_INSTANCED_PROP(half,_DistortionOn) //DISTORTION_ON
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionMaskChannel)
     UNITY_DEFINE_INSTANCED_PROP(half,_DissolveMaskResampleOn) 
-    UNITY_DEFINE_INSTANCED_PROP(float4,_DistortionMaskTex_ST)
-    UNITY_DEFINE_INSTANCED_PROP(float,_DistortionIntensity)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_DistortionMaskTex_ST)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DistortionIntensity)
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionCustomDataOn)
-    UNITY_DEFINE_INSTANCED_PROP(float,_DistortionCustomData) // default uv1.z(Custom2.x)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_DistortTile)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_DistortDir)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DistortionCustomData) // default uv1.z(Custom2.x)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_DistortTile)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_DistortDir)
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionRadialUVOn)
     UNITY_DEFINE_INSTANCED_PROP(half4,_DistortionRadialCenter_Scale)
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionRadialUVOffset)
     
-    UNITY_DEFINE_INSTANCED_PROP(float,_DistortionRadialRot)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DistortionRadialRot)
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionApplyToOffset)
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionApplyToMainTexMask)
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionApplyToDissolve)
 // ==================================================_DissolveOn
-    // UNITY_DEFINE_INSTANCED_PROP(float,_DissolveOn) //DISSOLVE_ON
-    UNITY_DEFINE_INSTANCED_PROP(float,_DissolveByVertexColor)
+    // UNITY_DEFINE_INSTANCED_PROP(half,_DissolveOn) //DISSOLVE_ON
+    UNITY_DEFINE_INSTANCED_PROP(half,_DissolveByVertexColor)
     UNITY_DEFINE_INSTANCED_PROP(half,_DissolveCustomDataOn)
-    UNITY_DEFINE_INSTANCED_PROP(float,_DissolveCustomData) // default uv1.x(Custom1.z)
-    UNITY_DEFINE_INSTANCED_PROP(float,_DissolveTexChannel)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DissolveCustomData) // default uv1.x(Custom1.z)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DissolveTexChannel)
 
-    UNITY_DEFINE_INSTANCED_PROP(float,_DissolveMaskFromTexOn)
-    UNITY_DEFINE_INSTANCED_PROP(float,_DissolveMaskChannel)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DissolveMaskFromTexOn)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DissolveMaskChannel)
 
-    UNITY_DEFINE_INSTANCED_PROP(float4,_DissolveTex_ST)
-    UNITY_DEFINE_INSTANCED_PROP(float,_DissolveTexOffsetStop)
-    // UNITY_DEFINE_INSTANCED_PROP(float,_DissolveClipOn) //ALPHA_TEST
-    UNITY_DEFINE_INSTANCED_PROP(float,_Cutoff)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_DissolveTex_ST)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DissolveTexOffsetStop)
+    // UNITY_DEFINE_INSTANCED_PROP(half,_DissolveClipOn) //ALPHA_TEST
+    UNITY_DEFINE_INSTANCED_PROP(half,_Cutoff)
 
-    UNITY_DEFINE_INSTANCED_PROP(float,_PixelDissolveOn)
-    UNITY_DEFINE_INSTANCED_PROP(float,_PixelWidth)
+    UNITY_DEFINE_INSTANCED_PROP(half,_PixelDissolveOn)
+    UNITY_DEFINE_INSTANCED_PROP(half,_PixelWidth)
 
-    UNITY_DEFINE_INSTANCED_PROP(float,_DissolveEdgeOn)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DissolveEdgeOn)
     UNITY_DEFINE_INSTANCED_PROP(half,_DissolveEdgeWidthCustomDataOn)
-    UNITY_DEFINE_INSTANCED_PROP(float,_DissolveEdgeWidthCustomData) // default uv1.y(Custom1.w)
-    UNITY_DEFINE_INSTANCED_PROP(float,_EdgeWidth)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_EdgeColor)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_EdgeColor2)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DissolveEdgeWidthCustomData) // default uv1.y(Custom1.w)
+    UNITY_DEFINE_INSTANCED_PROP(half,_EdgeWidth)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_EdgeColor)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_EdgeColor2)
 
-    UNITY_DEFINE_INSTANCED_PROP(float,_DissolveFadingMin)
-    UNITY_DEFINE_INSTANCED_PROP(float,_DissolveFadingMax)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DissolveFadingMin)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DissolveFadingMax)
 // ==================================================_OffsetOn
-    // UNITY_DEFINE_INSTANCED_PROP(float,_OffsetOn) //OFFSET_ON
+    // UNITY_DEFINE_INSTANCED_PROP(half,_OffsetOn) //OFFSET_ON
     UNITY_DEFINE_INSTANCED_PROP(half,_StopAutoOffset)
     UNITY_DEFINE_INSTANCED_PROP(half,_OffsetCustomDataOn)
-    UNITY_DEFINE_INSTANCED_PROP(float,_OffsetLayer1_CustomData_X)
-    UNITY_DEFINE_INSTANCED_PROP(float,_OffsetLayer1_CustomData_Y)
+    UNITY_DEFINE_INSTANCED_PROP(half,_OffsetLayer1_CustomData_X)
+    UNITY_DEFINE_INSTANCED_PROP(half,_OffsetLayer1_CustomData_Y)
 
-    UNITY_DEFINE_INSTANCED_PROP(float4,_OffsetMaskTex_ST)
-    UNITY_DEFINE_INSTANCED_PROP(float,_OffsetMaskPanStop)
-    UNITY_DEFINE_INSTANCED_PROP(float,_OffsetMaskChannel)
-    UNITY_DEFINE_INSTANCED_PROP(float,_OffsetMaskApplyMainTexAlpha)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_OffsetMaskTex_ST)
+    UNITY_DEFINE_INSTANCED_PROP(half,_OffsetMaskPanStop)
+    UNITY_DEFINE_INSTANCED_PROP(half,_OffsetMaskChannel)
+    UNITY_DEFINE_INSTANCED_PROP(half,_OffsetMaskApplyMainTexAlpha)
     
-    UNITY_DEFINE_INSTANCED_PROP(float4,_OffsetTexColorTint)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_OffsetTexColorTint2)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_OffsetTile)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_OffsetDir)
-    UNITY_DEFINE_INSTANCED_PROP(float,_OffsetBlendIntensity)
-    UNITY_DEFINE_INSTANCED_PROP(float,_OffsetBlendMode)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_OffsetTexColorTint)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_OffsetTexColorTint2)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_OffsetTile)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_OffsetDir)
+    UNITY_DEFINE_INSTANCED_PROP(half,_OffsetBlendIntensity)
+    UNITY_DEFINE_INSTANCED_PROP(half,_OffsetBlendMode)
     UNITY_DEFINE_INSTANCED_PROP(half,_OffsetBlendReplaceMode)
     UNITY_DEFINE_INSTANCED_PROP(half,_OffsetBlendReplaceMode_Channel)
     // radial uv 
@@ -173,71 +173,77 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_OffsetRadialUVOffset)
     
 // ==================================================_FresnelOn
-    // UNITY_DEFINE_INSTANCED_PROP(float,_FresnelOn) //FRESNEL_ON
+    // UNITY_DEFINE_INSTANCED_PROP(half,_FresnelOn) //FRESNEL_ON
     UNITY_DEFINE_INSTANCED_PROP(half,_FresnelColorMode)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_FresnelColor)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_FresnelColor2)
-    UNITY_DEFINE_INSTANCED_PROP(float,_FresnelPowerMin)
-    UNITY_DEFINE_INSTANCED_PROP(float,_FresnelPowerMax)
-    UNITY_DEFINE_INSTANCED_PROP(float,_BlendScreenColor)
-    UNITY_DEFINE_INSTANCED_PROP(float,_FresnelAlphaBase)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_FresnelColor)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_FresnelColor2)
+    UNITY_DEFINE_INSTANCED_PROP(half,_FresnelPowerMin)
+    UNITY_DEFINE_INSTANCED_PROP(half,_FresnelPowerMax)
+    UNITY_DEFINE_INSTANCED_PROP(half,_BlendScreenColor)
+    UNITY_DEFINE_INSTANCED_PROP(half,_FresnelAlphaBase)
     
 // ==================================================_EnvReflectOn
-    // UNITY_DEFINE_INSTANCED_PROP(float,_EnvReflectOn)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_EnvReflectionColor)
-    // UNITY_DEFINE_INSTANCED_PROP(float4,_EnvMapMask_ST)
+    // UNITY_DEFINE_INSTANCED_PROP(half,_EnvReflectOn)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_EnvReflectionColor)
+    // UNITY_DEFINE_INSTANCED_PROP(half4,_EnvMapMask_ST)
     UNITY_DEFINE_INSTANCED_PROP(half,_EnvMaskUseMainTexMask)
-    UNITY_DEFINE_INSTANCED_PROP(float,_EnvMapMaskChannel)
-    UNITY_DEFINE_INSTANCED_PROP(float,_EnvIntensity)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_EnvOffset)
+    UNITY_DEFINE_INSTANCED_PROP(half,_EnvMapMaskChannel)
+    UNITY_DEFINE_INSTANCED_PROP(half,_EnvIntensity)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_EnvOffset)
     UNITY_DEFINE_INSTANCED_PROP(half4,_EnvRotateInfo)
     UNITY_DEFINE_INSTANCED_PROP(half,_EnvRotateAutoStop)
     UNITY_DEFINE_INSTANCED_PROP(half4,_EnvRefractRotateInfo)
     UNITY_DEFINE_INSTANCED_PROP(half,_EnvRefractRotateAutoStop)    
 
     // UNITY_DEFINE_INSTANCED_PROP(half,_EnvRefractionOn)
-    UNITY_DEFINE_INSTANCED_PROP(float,_EnvRefractionIOR)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_EnvRefractionColor)
-    UNITY_DEFINE_INSTANCED_PROP(float4,_EnvMap_HDR)
-     UNITY_DEFINE_INSTANCED_PROP(half,_RefractMode)
+    UNITY_DEFINE_INSTANCED_PROP(half,_EnvRefractionIOR)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_EnvRefractionColor)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_EnvMap_HDR)
+    UNITY_DEFINE_INSTANCED_PROP(half,_RefractMode)
 // ==================================================_MatCapOn
     // UNITY_DEFINE_INSTANCED_PROP(half,_MatCapOn) // to keyword MATCAP_ON
-    UNITY_DEFINE_INSTANCED_PROP(float4,_MatCapColor)
-    UNITY_DEFINE_INSTANCED_PROP(float,_MatCapIntensity)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_MatCapColor)
+    UNITY_DEFINE_INSTANCED_PROP(half,_MatCapIntensity)
     UNITY_DEFINE_INSTANCED_PROP(half,_MatCapRotateOn) // 
-    UNITY_DEFINE_INSTANCED_PROP(float,_MatCapAngle)
+    UNITY_DEFINE_INSTANCED_PROP(half,_MatCapAngle)
 // ==================================================    _DepthFadingOn
     // UNITY_DEFINE_INSTANCED_PROP(half,_DepthFadingOn) //DEPTH_FADING_ON
-    UNITY_DEFINE_INSTANCED_PROP(float,_DepthFadingWidth)
-    UNITY_DEFINE_INSTANCED_PROP(float,_DepthFadingMax)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DepthFadingWidth)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DepthFadingMax)
 // ==================================================   _Alpha 
-    UNITY_DEFINE_INSTANCED_PROP(float,_AlphaMax)
-    UNITY_DEFINE_INSTANCED_PROP(float,_AlphaMin)
-    UNITY_DEFINE_INSTANCED_PROP(float,_AlphaScale)
+    UNITY_DEFINE_INSTANCED_PROP(half,_AlphaMax)
+    UNITY_DEFINE_INSTANCED_PROP(half,_AlphaMin)
+    UNITY_DEFINE_INSTANCED_PROP(half,_AlphaScale)
 
 // ==================================================   Light
-    // UNITY_DEFINE_INSTANCED_PROP(float,_PbrLightOn)
+    // UNITY_DEFINE_INSTANCED_PROP(half,_PbrLightOn)
+    UNITY_DEFINE_INSTANCED_PROP(half,_CustomLightOn)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_CustomLightDir) 
+    UNITY_DEFINE_INSTANCED_PROP(half4,_CustomLightColor) 
+    UNITY_DEFINE_INSTANCED_PROP(half,_CustomLightColorUsage)
+
     UNITY_DEFINE_INSTANCED_PROP(half,_MainLightSoftShadowScale)
     // UNITY_DEFINE_INSTANCED_PROP(half,_CustomShadowNormalBias)
     // UNITY_DEFINE_INSTANCED_PROP(half,_CustomShadowDepthBias)
 
-    UNITY_DEFINE_INSTANCED_PROP(float,_Metallic)
-    UNITY_DEFINE_INSTANCED_PROP(float,_Smoothness)
-    UNITY_DEFINE_INSTANCED_PROP(float,_Occlusion)
-    UNITY_DEFINE_INSTANCED_PROP(float,_NormalMapScale)
-    // UNITY_DEFINE_INSTANCED_PROP(float4,_NormalMap_ST)
+    UNITY_DEFINE_INSTANCED_PROP(half,_Metallic)
+    UNITY_DEFINE_INSTANCED_PROP(half,_Smoothness)
+    UNITY_DEFINE_INSTANCED_PROP(half,_Occlusion)
+    UNITY_DEFINE_INSTANCED_PROP(half,_NormalMapOn) 
+    UNITY_DEFINE_INSTANCED_PROP(half,_NormalMapScale)
+    // UNITY_DEFINE_INSTANCED_PROP(half4,_NormalMap_ST)
     UNITY_DEFINE_INSTANCED_PROP(half,_AdditionalLightSoftShadowScale)
 // ==================================================   Glitch
-    UNITY_DEFINE_INSTANCED_PROP(float,_SnowFlakeIntensity)
+    UNITY_DEFINE_INSTANCED_PROP(half,_SnowFlakeIntensity)
 
     UNITY_DEFINE_INSTANCED_PROP(half4,_JitterInfo)
     
-    UNITY_DEFINE_INSTANCED_PROP(float,_VerticalJumpIntensity)
-    UNITY_DEFINE_INSTANCED_PROP(float,_HorizontalShake)
+    UNITY_DEFINE_INSTANCED_PROP(half,_VerticalJumpIntensity)
+    UNITY_DEFINE_INSTANCED_PROP(half,_HorizontalShake)
     
-    UNITY_DEFINE_INSTANCED_PROP(float,_ColorDriftSpeed)
-    UNITY_DEFINE_INSTANCED_PROP(float,_ColorDriftIntensity)
-    UNITY_DEFINE_INSTANCED_PROP(float,_HorizontalIntensity)
+    UNITY_DEFINE_INSTANCED_PROP(half,_ColorDriftSpeed)
+    UNITY_DEFINE_INSTANCED_PROP(half,_ColorDriftIntensity)
+    UNITY_DEFINE_INSTANCED_PROP(half,_HorizontalIntensity)
 //--------------------------------- Fog
     UNITY_DEFINE_INSTANCED_PROP(half ,_FogOn)
     // UNITY_DEFINE_INSTANCED_PROP(half ,_FogNoiseOn)
@@ -255,9 +261,9 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
 //#endif
 
 // ================================================== UI
-    // UNITY_DEFINE_INSTANCED_PROP(float4, _ClipRect)
-    // UNITY_DEFINE_INSTANCED_PROP(float, _UIMaskSoftnessX)
-    // UNITY_DEFINE_INSTANCED_PROP(float, _UIMaskSoftnessY)
+    // UNITY_DEFINE_INSTANCED_PROP(half4, _ClipRect)
+    // UNITY_DEFINE_INSTANCED_PROP(half, _UIMaskSoftnessX)
+    // UNITY_DEFINE_INSTANCED_PROP(half, _UIMaskSoftnessY)
 UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _MainUVAngle UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainUVAngle)
     #define _Color UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_Color)
@@ -440,6 +446,11 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
 
 // ==================================================   Light
     // #define _PbrLightOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_PbrLightOn)
+    #define _CustomLightOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_CustomLightOn)
+    #define _CustomLightDir UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_CustomLightDir)
+    #define _CustomLightColor UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_CustomLightColor)
+    #define _CustomLightColorUsage UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_CustomLightColorUsage)
+
     #define _MainLightSoftShadowScale UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainLightSoftShadowScale)
     // #define _CustomShadowNormalBias UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_CustomShadowNormalBias)
     // #define _CustomShadowDepthBias UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_CustomShadowDepthBias)
@@ -447,6 +458,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _Metallic UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_Metallic)
     #define _Smoothness UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_Smoothness)
     #define _Occlusion UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_Occlusion)
+    #define _NormalMapOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_NormalMapOn) 
     #define _NormalMapScale UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_NormalMapScale)
     // #define _NormalMap_ST UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_NormalMap_ST)
     #define _AdditionalLightSoftShadowScale UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_AdditionalLightSoftShadowScale)
@@ -478,6 +490,6 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     // #define _UIMaskSoftnessX UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_UIMaskSoftnessX)
     // #define _UIMaskSoftnessY UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_UIMaskSoftnessY)
 // ================================================== Global Varables
-float4 _ClipRect;
-float _UIMaskSoftnessX,_UIMaskSoftnessY;
+half4 _ClipRect;
+half _UIMaskSoftnessX,_UIMaskSoftnessY;
 #endif //POWER_VFX_INPUT_CGINC
