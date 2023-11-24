@@ -5,6 +5,7 @@
 _DissolveMaskResampleOn = #88ff88
 _CustomLightOn = #88ff88
 _NormalMapOn = #88ff88
+_GIDiffuseOn=#88ff88
 
 //macros color
 _PbrLightOn=#ff8800

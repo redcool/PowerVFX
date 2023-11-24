@@ -336,13 +336,17 @@
 		_Metallic("_Metallic",range(0,1))=0.5
 		_Smoothness("_Smoothness",range(0,1))=0.5
 		_Occlusion("_Occlusion",range(0,1)) = 0
-
+		
 		[Group(Env)]
 		[GroupHeader(Env,Custom Light)]
         [GroupToggle(Env)]_CustomLightOn("_CustomLightOn",float) = 0
         [GroupItem(Env)][LightInfo(Env,direction)]_CustomLightDir("_CustomLightDir",vector) = (0,1,0,0)
         [GroupItem(Env)][hdr][LightInfo(Env,Color)]_CustomLightColor("_CustomLightColor",color) = (0,0,0,0)
         [GroupEnum(Env,LightColor 0 SpecularColor 1)]_CustomLightColorUsage("_CustomLightColorUsage",int) = 0
+
+		[GroupHeader(Env,Custom GI)]
+		[GroupToggle(Env)]_GIDiffuseOn("_GIDiffuseOn",float)=0
+		[GroupItem(Env)][hdr]_GIColorColor("_GIColorColor",color) = (0,0,0,0)
 
 		[Header(Shadow)]
 		[GroupToggle(_,MAIN_LIGHT_CALCULATE_SHADOWS)]_ReceiveShadowOn("_ReceiveShadowOn",int) = 0

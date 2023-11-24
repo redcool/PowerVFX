@@ -415,6 +415,7 @@ void ApplyPbrLighting_(inout float3 mainColor,float3 worldPos,float2 uv,float3 n
 */
 
 void ApplyPbrLighting(inout float3 mainColor,float3 worldPos,float4 shadowCoord,float2 uv,float3 n,float3 v){
+//======= surface    
     float4 pbrMask = tex2D(_PbrMask,uv);
     float metallic = _Metallic * pbrMask.x;
     float smoothness = _Smoothness * pbrMask.y;
@@ -427,25 +428,30 @@ void ApplyPbrLighting(inout float3 mainColor,float3 worldPos,float4 shadowCoord,
     float3 specColor = lerp(0.04,mainColor,metallic);
 
     float nv = saturate(dot(n,v));
-
-    float3 reflectDirOffset = 0;
-    float reflectIntensity = 1;
-    float3 giDiff = CalcGIDiff(n,diffColor);
-    float3 giSpec = CalcGISpec(_EnvMap,sampler_EnvMap,_EnvMap_HDR,specColor,worldPos,n,v,reflectDirOffset,reflectIntensity,nv,a,a2,smoothness,metallic);
-    half3 giColor = (giDiff + giSpec)*occlusion;
-    
-    mainColor = giColor;
-
+//======= main light
     Light mainLight = GetMainLight();
     branch_if(_CustomLightOn)
     {
         OffsetLight(mainLight/**/,specColor/**/,_CustomLightColorUsage,_CustomLightDir.xyz,_CustomLightColor.xyz);    
     }
 
-
     mainLight.shadowAttenuation = CalcShadow(shadowCoord,worldPos,_MainLightSoftShadowScale);
+    float nl,nh,lh;
+    CalcBRDFWeights(nl/**/,nh/**/,lh/**/,mainLight.direction,n,v);
 
-    half3 lightColor = CalcLight(mainLight,diffColor,specColor,n,v,a,a2);
+    half3 lightColor = CalcLight(mainLight,diffColor,specColor,nl,nh,lh,a,a2);
+//======= gi
+    float3 reflectDirOffset = 0;
+    float reflectIntensity = 1;
+    float3 giDiff = CalcGIDiff(n,diffColor);
+//======= apply backLightColor
+    giDiff = lerp(giDiff,_GIColorColor,_GIDiffuseOn * (1-nl));
+
+    float3 giSpec = CalcGISpec(_EnvMap,sampler_EnvMap,_EnvMap_HDR,specColor,worldPos,n,v,reflectDirOffset,reflectIntensity,nv,a,a2,smoothness,metallic);
+    half3 giColor = (giDiff + giSpec)*occlusion;
+
+//======= final color
+    mainColor = giColor;
     mainColor += lightColor;
 
     #if defined(_ADDITIONAL_LIGHTS)
