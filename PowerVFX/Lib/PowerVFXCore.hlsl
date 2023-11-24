@@ -237,6 +237,8 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
         float4 dissolveMask = _DissolveMaskResampleOn ? tex2D(_DissolveTex,mainUV) : dissolveTex;
         refDissolve *= dissolveMask[_DissolveMaskChannel];
     }
+    #else
+        refDissolve *= _DissolveMaskFromTexOn ? dissolveTex[_DissolveMaskChannel] : 1;
     #endif
     // refDissolve = _DissolveRevert > 0 ? refDissolve : 1 - refDissolve;
 
