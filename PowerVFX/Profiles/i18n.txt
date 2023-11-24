@@ -2,7 +2,7 @@
 
 //Help行,约定 | 为换行字符
 // 版本号: vx.y.z.w (x:基础架构,y:功能,z:功能update或fixed,w:提交序号)
-Help=PowerVFX 特效渲染 |多选,按住Control键 |(v2.1.21.8)
+Help=PowerVFX 特效渲染 |多选,按住Control键 |(v2.1.21.18)
 Settings = 设置
 ShowOriginalPage = 显示原始页面
 Main = 基础
@@ -125,6 +125,7 @@ _EdgeColor=边1颜色
 _EdgeColor2=边2颜色
 
 _DissolveMaskFromTexOn=溶解图作为溶解mask
+_DissolveMaskResampleOn= Mask新采样
 _DissolveMaskChannel=溶解mask的通道
 
 _OffsetOn=开启流光

@@ -218,20 +218,24 @@ void ApplyDissolveEdgeColor(inout float4 mainColor,float dissolve,float edgeWidt
     mainColor.xyz = lerp(mainColor.xyz,edgeColor.xyz,edge);
 }
 
-void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float dissolveCDATA,float edgeWidthCDATA){
+void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float dissolveCDATA,float edgeWidthCDATA,float2 mainUV){
     #if ! defined(MIN_VERSION)
     branch_if(_PixelDissolveOn)
     {
         // dissolveUV = abs( dissolveUV - 0.5);
         // dissolveUV = round(dissolveUV * _PixelWidth)/max(0.0001,_PixelWidth);
-        ApplyPixelDissolve(dissolveUV/**/,_PixelWidth);
+        ApplyPixelDissolve(dissolveUV.xy/**/,_PixelWidth);
     }
     #endif
 
     float4 dissolveTex = tex2D(_DissolveTex,dissolveUV.xy);
     float refDissolve = dissolveTex[_DissolveTexChannel];
+
     // dissolveTex.a as mask
-    refDissolve *= lerp(1,dissolveTex[_DissolveMaskChannel],_DissolveMaskFromTexOn);
+    branch_if(_DissolveMaskFromTexOn){
+        float4 dissolveMask = _DissolveMaskResampleOn ? tex2D(_DissolveTex,mainUV) : dissolveTex;
+        refDissolve *= dissolveMask[_DissolveMaskChannel];
+    }
     // refDissolve = _DissolveRevert > 0 ? refDissolve : 1 - refDissolve;
 
     // remap cutoff

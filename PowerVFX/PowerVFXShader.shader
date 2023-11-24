@@ -180,6 +180,7 @@
 
 		[Header(DissolveMask)]
 		[GroupToggle]_DissolveMaskFromTexOn("_DissolveMaskFromTexOn",int) = 0
+		[GroupToggle]_DissolveMaskResampleOn("_DissolveMaskResampleOn",int) = 0
 		[Enum(R,0,G,1,B,2,A,3)]_DissolveMaskChannel("_DissolveMaskChannel",int)=3
 		
 		[Header(DissolveType)]
@@ -391,6 +392,37 @@
         [GroupSlider(Parallax)]_ParallaxHeight("_ParallaxHeight",range(0.005,0.3)) = 0.01
 		[GroupHeader(Parallax,Offset)]
 		[GroupSlider(Parallax)]_ParallaxWeightOffset("_ParallaxWeightOffset",range(0,1)) = 0
+//================================================= future function variables,dont use these when dont know
+        [HideInInpector]_Reserve0("_Reserve0",vector)=(0,0,0,0)
+        [HideInInpector]_Reserve1("_Reserve1",vector)=(0,0,0,0)
+        [HideInInpector]_Reserve2("_Reserve2",vector)=(0,0,0,0)
+        [HideInInpector]_Reserve3("_Reserve3",vector)=(0,0,0,0)
+        [HideInInpector]_Reserve4("_Reserve4",vector)=(0,0,0,0)
+        [HideInInpector]_Reserve5("_Reserve5",vector)=(0,0,0,0)
+        [HideInInpector]_Reserve6("_Reserve6",vector)=(0,0,0,0)
+        [HideInInpector]_Reserve7("_Reserve7",vector)=(0,0,0,0)
+        [HideInInpector]_Reserve8("_Reserve8",vector)=(0,0,0,0)
+        [HideInInpector]_Reserve9("_Reserve9",vector)=(0,0,0,0)
+        [HideInInpector]_ReserveTex0("_ReserveTex0",2d)="white"{}
+        [HideInInpector]_ReserveTex1("_ReserveTex1",2d)="white"{}
+        [HideInInpector]_ReserveTex2("_ReserveTex2",2d)="white"{}
+        [HideInInpector]_ReserveTex4("_ReserveTex3",2d)="white"{}
+		[HideInInpector]_ReserveTexArr0("_ReserveTexArr0",2darray)="white"{}
+		[HideInInpector]_ReserveTexArr1("_ReserveTexArr1",2darray)="white"{}
+		[HideInInpector]_ReserveTexArr2("_ReserveTexArr2",2darray)="white"{}
+		[HideInInpector]_ReserveTexArr3("_ReserveTexArr3",2darray)="white"{}
+		[HideInInpector]_ReserveTex3D0("_ReserveTex3D0",3d)="white"{}
+		[HideInInpector]_ReserveTex3D1("_ReserveTex3D1",3d)="white"{}
+		[HideInInpector]_ReserveTex3D2("_ReserveTex3D2",3d)="white"{}
+		[HideInInpector]_ReserveTex3D3("_ReserveTex3D3",3d)="white"{}
+		[HideInInpector]_ReserveTexCube0("_ReserveTexCube0",cube)="white"{}
+		[HideInInpector]_ReserveTexCube1("_ReserveTexCube1",cube)="white"{}
+		[HideInInpector]_ReserveTexCube2("_ReserveTexCube2",cube)="white"{}
+		[HideInInpector]_ReserveTexCube3("_ReserveTexCube3",cube)="white"{}
+		[HideInInpector]_ReserveTexCubeArr0("_ReserveTexCubeArr0",cubearray)="white"{}
+		[HideInInpector]_ReserveTexCubeArr1("_ReserveTexCubeArr1",cubearray)="white"{}
+		[HideInInpector]_ReserveTexCubeArr2("_ReserveTexCubeArr2",cubearray)="white"{}
+		[HideInInpector]_ReserveTexCubeArr3("_ReserveTexCubeArr3",cubearray)="white"{}
 	}
 	SubShader
 	{

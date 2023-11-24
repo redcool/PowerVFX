@@ -2,7 +2,7 @@
 // 为注释行
 
 // new features #88ff88
-
+_DissolveMaskResampleOn = #88ff88
 
 //macros color
 _PbrLightOn=#ff8800
