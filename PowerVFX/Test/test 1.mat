@@ -10,8 +10,10 @@ Material:
   m_Name: test 1
   m_Shader: {fileID: 4800000, guid: 8cf021abb8a27644490ac2f7e882470a, type: 3}
   m_ValidKeywords:
-  - ALPHA_TEST
+  - DISSOLVE_ON
   - ENV_REFRACTION_ON
+  - FRESNEL_ON
+  - MIN_VERSION
   - OFFSET_ON
   m_InvalidKeywords:
   - DOUBLE_EFFECT_ON
@@ -74,6 +76,86 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ReserveTex0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTex1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTex2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTex3D0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTex3D1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTex3D2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTex3D3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTex4:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTexArr0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTexArr1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTexArr2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTexArr3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTexCube0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTexCube1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTexCube2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTexCube3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTexCubeArr0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTexCubeArr1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTexCubeArr2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReserveTexCubeArr3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _VertexWaveAtten_MaskMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -94,13 +176,15 @@ Material:
     - _ColorMask: 15
     - _ColorScale: 1
     - _CullMode: 2
+    - _CustomLightColorUsage: 0
+    - _CustomLightOn: 0
     - _Cutoff: 0.5
     - _DepthFadingMax: 1
     - _DepthFadingOn: 0
     - _DepthFadingWidth: 0.01
     - _DepthFogOn: 1
     - _DissolveByVertexColor: 0
-    - _DissolveClipOn: 1
+    - _DissolveClipOn: 0
     - _DissolveCustomData: 2
     - _DissolveCustomDataOn: 1
     - _DissolveEdgeOn: 0
@@ -108,9 +192,10 @@ Material:
     - _DissolveEdgeWidthCustomDataOn: 0
     - _DissolveFadingMax: 0.2
     - _DissolveFadingMin: 0
-    - _DissolveMaskChannel: 3
+    - _DissolveMaskChannel: 0
     - _DissolveMaskFromTexOn: 0
-    - _DissolveOn: 0
+    - _DissolveMaskResampleOn: 0
+    - _DissolveOn: 1
     - _DissolveTexChannel: 0
     - _DissolveTexOffsetStop: 0
     - _DistortionApplyToDissolve: 0
@@ -136,11 +221,13 @@ Material:
     - _EnvRefractionOn: 1
     - _EnvRotateAutoStop: 0
     - _FogOn: 0
+    - _FresnelAlphaBase: 0
     - _FresnelColorMode: 0
-    - _FresnelOn: 0
+    - _FresnelOn: 1
     - _FresnelPowerMax: 1
     - _FresnelPowerMin: 0
     - _FullScreenMode: 0
+    - _GIDiffuseOn: 0
     - _GlitchOn: 0
     - _HeightFogOn: 1
     - _HorizontalIntensity: 0.2
@@ -171,6 +258,7 @@ Material:
     - _Metallic: 0.5
     - _MinVersion: 0
     - _NoiseUseAttenMaskMap: 0
+    - _NormalMapOn: 0
     - _NormalMapScale: 1
     - _Occlusion: 0
     - _OffsetBlendIntensity: 1
@@ -209,6 +297,7 @@ Material:
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
     - _StopAutoOffset: 0
+    - _UVCircleDist2: 0
     - _VertexColorChannel: 0
     - _VertexColorChannelOn: 0
     - _VertexWaveAttenMaskOffsetCustomData: 4
@@ -219,6 +308,8 @@ Material:
     - _VertexWaveAtten_NormalAttenOn: 0
     - _VertexWaveAtten_VertexColor: 0
     - _VertexWaveDirAlongNormalOn: 0
+    - _VertexWaveDirAttenCustomData: 0
+    - _VertexWaveDirAttenCustomDataOn: 0
     - _VertexWaveDirAtten_LocalSpaceOn: 0
     - _VertexWaveIntensity: 1
     - _VertexWaveIntensityCustomData: 7
@@ -235,6 +326,8 @@ Material:
     - _ColorX: {r: 1, g: 1, b: 1, a: 1}
     - _ColorY: {r: 1, g: 1, b: 1, a: 1}
     - _ColorZ: {r: 1, g: 1, b: 1, a: 1}
+    - _CustomLightColor: {r: 0, g: 0, b: 0, a: 0}
+    - _CustomLightDir: {r: 0, g: 1, b: 0, a: 0}
     - _DistortDir: {r: 0, g: 1, b: 0, a: -1}
     - _DistortTile: {r: 1, g: 1, b: 1, a: 1}
     - _DistortionRadialCenter_LenScale_LenOffset: {r: 0.5, g: 0.5, b: 1, a: 0}
@@ -248,6 +341,7 @@ Material:
     - _EnvRotateInfo: {r: 0, g: 1, b: 0, a: 0}
     - _FresnelColor: {r: 0.7830189, g: 0.114498034, b: 0.114498034, a: 1}
     - _FresnelColor2: {r: 0.18444741, g: 1, b: 0, a: 1}
+    - _GIColorColor: {r: 0, g: 0, b: 0, a: 0}
     - _JitterInfo: {r: 0.1, g: 0.1, b: 1, a: 0}
     - _MainTexSheet: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
@@ -257,5 +351,15 @@ Material:
     - _OffsetTexColorTint: {r: 1, g: 1, b: 1, a: 1}
     - _OffsetTexColorTint2: {r: 1, g: 1, b: 1, a: 1}
     - _OffsetTile: {r: 1, g: 1, b: 1, a: 1}
+    - _Reserve0: {r: 0, g: 0, b: 0, a: 0}
+    - _Reserve1: {r: 0, g: 0, b: 0, a: 0}
+    - _Reserve2: {r: 0, g: 0, b: 0, a: 0}
+    - _Reserve3: {r: 0, g: 0, b: 0, a: 0}
+    - _Reserve4: {r: 0, g: 0, b: 0, a: 0}
+    - _Reserve5: {r: 0, g: 0, b: 0, a: 0}
+    - _Reserve6: {r: 0, g: 0, b: 0, a: 0}
+    - _Reserve7: {r: 0, g: 0, b: 0, a: 0}
+    - _Reserve8: {r: 0, g: 0, b: 0, a: 0}
+    - _Reserve9: {r: 0, g: 0, b: 0, a: 0}
     - _VertexWaveDirAtten: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

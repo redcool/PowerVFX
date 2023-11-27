@@ -235,7 +235,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
 
     UNITY_DEFINE_INSTANCED_PROP(half,_NormalMapOn) 
     UNITY_DEFINE_INSTANCED_PROP(half,_NormalMapScale)
-    // UNITY_DEFINE_INSTANCED_PROP(half4,_NormalMap_ST)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_NormalMap_ST)
     UNITY_DEFINE_INSTANCED_PROP(half,_AdditionalLightSoftShadowScale)
 // ==================================================   Glitch
     UNITY_DEFINE_INSTANCED_PROP(half,_SnowFlakeIntensity)

@@ -196,7 +196,7 @@
 		_DissolveFadingMax("_DissolveFadingMax",range(0,1)) = .2
 
 		[Header(Dissolve Progress)]
-		_Cutoff ("_Cutoff", Range(0,1)) = 0.5
+		_Cutoff ("_Cutoff", Range(-2,2)) = 0.5
 		[Header(Dissolve Clip)]
 		[GroupToggle(,ALPHA_TEST)]_DissolveClipOn("_DissolveClipOn",int) = 0
 
@@ -330,7 +330,7 @@
 
 		[GroupHeader(,Surface Info)]
 		[GroupToggle]_NormalMapOn("_NormalMapOn",float) = 0
-		[NoScaleOffset]_NormalMap("_NormalMap",2d)="bump"{}
+		_NormalMap("_NormalMap",2d)="bump"{}
 		_NormalMapScale("_NormalMapScale",range(0,5)) = 1
 		_PbrMask("_PbrMask(Metal,Smooth,Occ)",2d)="white"{}
 		_Metallic("_Metallic",range(0,1))=0.5
