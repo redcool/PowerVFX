@@ -58,13 +58,12 @@
 		[GroupEnum(MainTex Mask Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexMaskOffsetCustomDataX("_MainTexMaskOffsetCustomDataX",int) = 6
 		[GroupEnum(MainTex Mask Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexMaskOffsetCustomDataY("_MainTexMaskOffsetCustomDataY",int) = 7
 
-		[Space(10)]
-		[GroupHeader(_,ScreenTexture)]
-		[GroupToggle(_,)]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
-		[GroupToggle()]_MainTexUseScreenUV("_MainTexUseScreenUV",int) = 0
-		[GroupToggle()]_FullScreenMode("_FullScreenMode",int) = 0
+		[Group(ScreenTextures)]
+		[GroupHeader(ScreenTextures,ScreenTexture)]
+		[GroupToggle(ScreenTextures,)]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
+		[GroupToggle(ScreenTextures)]_MainTexUseScreenUV("_MainTexUseScreenUV",int) = 0
+		[GroupToggle(ScreenTextures)]_FullScreenMode("_FullScreenMode",int) = 0
 
-		[Space(10)]
 		[Group(SheetAnimation)]
 		[GroupVectorSlider(SheetAnimation,RowCount ColumnCount,1_16 1_16,,int)]_MainTexSheet("_MainTexSheet",vector)=(1,1,1,1)
 		[GroupItem(SheetAnimation)]_MainTexSheetAnimSpeed("_MainTexSheetAnimSpeed",float) = 1
@@ -588,5 +587,5 @@
         }
 	}
 
-	CustomEditor "PowerUtilities.PowerVFXInspector"
+	CustomEditor "PowerUtilities.PowerShaderInspector"
 }

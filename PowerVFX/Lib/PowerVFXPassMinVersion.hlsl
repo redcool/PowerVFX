@@ -72,10 +72,12 @@ half4 frag(v2f i) : SV_Target
     float4 mainTex = tex2D(_MainTex,mainUV.xy);
     half4 mainColor = mainTex;
     //select a channel
-    mainColor = lerp(mainColor, mainColor[_MainTexChannel] ,_MainTexSingleChannelOn);
-    mainColor *= _Color * lerp(1,i.color,_PremultiVertexColor);
+    // mainColor = lerp(mainColor, mainColor[_MainTexChannel] ,_MainTexSingleChannelOn);
+    mainColor = _MainTexSingleChannelOn ? mainColor[_MainTexChannel] : mainColor;
+    mainColor *= _Color * (_PremultiVertexColor ? i.color : 1);
+
     // per channel tint
-    mainColor.xyz = lerp(mainColor,mainColor.x * _ColorX + mainColor.y * _ColorY + mainColor.z * _ColorZ,_PerChannelColorOn).xyz;
+    mainColor.xyz = _PerChannelColorOn ? (mainColor.x * _ColorX + mainColor.y * _ColorY + mainColor.z * _ColorZ) : mainColor.xyz;
 
     // #if defined(ALPHA_TEST)
     //     clip(mainColor.a - _Cutoff - 0.0001);

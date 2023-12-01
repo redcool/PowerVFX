@@ -129,8 +129,8 @@ void SampleMainTexWithGlitch(inout float4 mainColor,float2 uv){
 }
 
 half4 CalcVertexColor(half4 vertexColor,half vertexColorOn,half vertexColorChannelOn,half vertexColorChannel){
-    half4 vc = lerp(vertexColor,vertexColor[vertexColorChannel],vertexColorChannelOn);
-    return lerp(1,vc,vertexColorOn);
+    half4 vc = vertexColorChannelOn ? vertexColor[vertexColorChannel] : vertexColor;
+    return vertexColorOn ? vc : 1;
 }
 
 void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,float4 vertexColor,float faceId,SheetAnimBlendParams animBlendParams){
@@ -148,13 +148,13 @@ void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,fl
     ApplySaturate(mainColor);
 
     //select a channel
-    mainColor = lerp(mainColor, mainColor[_MainTexChannel] ,_MainTexSingleChannelOn);
+    mainColor = _MainTexSingleChannelOn ? mainColor[_MainTexChannel] : mainColor;
     // multiply alpha
-    mainColor.xyz *= lerp(1,mainColor.a * vertexColor.a * color.a,_MainTexMultiAlpha);
+    mainColor.xyz *= _MainTexMultiAlpha ? (mainColor.a * vertexColor.a * color.a) : 1;
     // color tint (mainColor,colorScale,vertexColor)
     mainColor *= color * _ColorScale * CalcVertexColor(vertexColor,_PremultiVertexColor,_VertexColorChannelOn,_VertexColorChannel);
     // per channel tint
-    mainColor.xyz = lerp(mainColor,mainColor.x * _ColorX + mainColor.y * _ColorY + mainColor.z * _ColorZ,_PerChannelColorOn).xyz;
+    mainColor.xyz = _PerChannelColorOn ? (mainColor.x * _ColorX + mainColor.y * _ColorY + mainColor.z * _ColorZ).xyz : mainColor.xyz;
     // for alpha
     mainColor.w *= _AlphaScale;
     mainColor.w = smoothstep(_AlphaMin,_AlphaMax,mainColor.w);
@@ -206,7 +206,8 @@ void ApplyPixelDissolve(inout float2 dissolveUV,half pixelWidth){
     half _DissolveEdgeWidthCustomDataOn
 */
 void ApplyDissolveEdgeColor(inout float4 mainColor,float dissolve,float edgeWidthCDATA){
-    float edgeWidth = lerp(_EdgeWidth,edgeWidthCDATA,_DissolveEdgeWidthCustomDataOn);
+    // float edgeWidth = lerp(_EdgeWidth,edgeWidthCDATA,_DissolveEdgeWidthCustomDataOn);
+    float edgeWidth = _DissolveEdgeWidthCustomDataOn ? edgeWidthCDATA : _EdgeWidth;
 
     // dissolve side's rate
     float edge = (smoothstep(edgeWidth-0.1,edgeWidth+0.1,dissolve));
@@ -246,10 +247,12 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
     float cutoff = _Cutoff;
 
     // slider or vertex color
-    cutoff = lerp(cutoff, 1 - color.a,_DissolveByVertexColor);
+    // cutoff = lerp(cutoff, 1 - color.a,_DissolveByVertexColor);
+    cutoff = _DissolveByVertexColor ? (1 - color.a) : cutoff;
 
      // slider or particle's custom data
-    cutoff = lerp(cutoff,1- dissolveCDATA,_DissolveCustomDataOn);
+    // cutoff = lerp(cutoff,1- dissolveCDATA,_DissolveCustomDataOn);
+    cutoff = _DissolveCustomDataOn ? (1- dissolveCDATA) : cutoff;
     
     cutoff = lerp(-0.15,1.01,cutoff);
 
