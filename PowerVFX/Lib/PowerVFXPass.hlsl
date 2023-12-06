@@ -199,7 +199,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
         branch_if(_OffsetRadialUVOn)
         {
             float4 p = _OffsetRadialCenter_Scale;
-            offsetUV.xy = PolarUV(mainUV.xy,p.xy,p.zw,_OffsetRadialRot,_OffsetRadialUVOffset*_Time.x);
+            offsetUV.xy = PolarUV(mainUV.xy,p.xy,p.zw,_OffsetRadialRot * offsetDir.x,_OffsetRadialUVOffset*offsetDir.y);
         }
         float2 maskUVOffset = UVOffset(_OffsetMaskTex_ST.zw, _OffsetMaskPanStop);
         float2 maskUV = mainUV.zw * _OffsetMaskTex_ST.xy + maskUVOffset;

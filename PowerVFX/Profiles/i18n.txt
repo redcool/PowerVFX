@@ -95,7 +95,7 @@ _DistortTile=平铺(xy:1层,zw:2层)
 _DistortDir=方向(xy:1层,zw:2层)
 _DistortionRadialUVOn=径向?
 _DistortionRadialCenter_Scale=(xy)径向位置_(zw)缩放
-_DistortionRadialRot=径向扭曲角度
+_DistortionRadialRot=径向旋转角度
 _DistortionRadialUVOffset=径向平移
 
 _DistortionApplyToOffset= 应用到流光
@@ -152,7 +152,7 @@ _OffsetBlendReplaceMode_Channel=使用流光图通道
 
 _OffsetRadialUVOn=径向?
 _OffsetRadialCenter_Scale=(xy)径向位置_(zw)缩放
-_OffsetRadialRot=径向扭曲角度
+_OffsetRadialRot=径向旋转角度
 _OffsetRadialUVOffset=径向平移
 _OffsetBlendMode=流光混合模式
 _OffsetMaskPanStop=停止遮罩滚动
