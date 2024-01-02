@@ -46,6 +46,9 @@ half4 frag(v2f i) : SV_Target
     float2 fogCoord = i.animBlendUV_fogCoord.zw;
     float3 worldPos= i.worldPos.xyz;
     float4 mainUV = i.uv;
+    
+    // for sprite
+    mainUV.xy = UVRepeat(mainUV.xy,_MainTex_ST.xy,_SpriteUVStart);
 /**  
     get particle system's custom data
 

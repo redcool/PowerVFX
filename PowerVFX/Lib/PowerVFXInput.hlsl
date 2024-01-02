@@ -263,6 +263,8 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half ,_ParallaxWeightOffset)
     
 //#endif
+// ================================================== sprite
+    UNITY_DEFINE_INSTANCED_PROP(float2, _SpriteUVStart)
 
 // ================================================== UI
     // UNITY_DEFINE_INSTANCED_PROP(half4, _ClipRect)
@@ -490,6 +492,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _ParallaxHeight UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_ParallaxHeight)
     #define _ParallaxMapChannel UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_ParallaxMapChannel)
     #define _ParallaxWeightOffset UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_ParallaxWeightOffset)
+    #define _SpriteUVStart UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_SpriteUVStart)    
 
 // ================================================== UI
     // #define _ClipRect UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_ClipRect)
@@ -498,4 +501,5 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
 // ================================================== Global Varables
 half4 _ClipRect;
 half _UIMaskSoftnessX,_UIMaskSoftnessY;
+// float2 _SpriteUVStart;
 #endif //POWER_VFX_INPUT_CGINC

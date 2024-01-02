@@ -68,6 +68,9 @@
 		[GroupVectorSlider(SheetAnimation,RowCount ColumnCount,1_16 1_16,,int)]_MainTexSheet("_MainTexSheet",vector)=(1,1,1,1)
 		[GroupItem(SheetAnimation)]_MainTexSheetAnimSpeed("_MainTexSheetAnimSpeed",float) = 1
 		[GroupToggle(SheetAnimation)]_MainTexSheetAnimBlendOn("_MainTexSheetAnimBlendOn",int) = 0 //SHEET_ANIM_BLEND_ON
+
+		[Group(Sprite)]
+		[GroupVectorSlider(Sprite,x y,0_1 0_1,,field)]_SpriteUVStart("_SpriteUVStart",vector) = (0,0,0,0)
 		// [GroupToggle(_)]_MainTexSheetPlayOnce("_MainTexSheetPlayOnce",int) = 0
 // ==================================================		Alpha
 		[Header(Alpha Range)]
