@@ -48,7 +48,7 @@ half4 frag(v2f i) : SV_Target
     float4 mainUV = i.uv;
     
     // for sprite
-    mainUV.xy = UVRepeat(mainUV.xy,_MainTex_ST.xy,_SpriteUVStart);
+    mainUV.xy = _SpriteUVStart.z?UVRepeat(mainUV.xy,_MainTex_ST.xy,_SpriteUVStart.xy) : mainUV.xy;
 /**  
     get particle system's custom data
 

@@ -70,7 +70,7 @@
 		[GroupToggle(SheetAnimation)]_MainTexSheetAnimBlendOn("_MainTexSheetAnimBlendOn",int) = 0 //SHEET_ANIM_BLEND_ON
 
 		[Group(Sprite)]
-		[GroupVectorSlider(Sprite,x y,0_1 0_1,,field)]_SpriteUVStart("_SpriteUVStart",vector) = (0,0,0,0)
+		[GroupVectorSlider(Sprite,x y z,0_1 0_1 0_1,,field)]_SpriteUVStart("_SpriteUVStart",vector) = (0,0,0,0)
 		// [GroupToggle(_)]_MainTexSheetPlayOnce("_MainTexSheetPlayOnce",int) = 0
 // ==================================================		Alpha
 		[Header(Alpha Range)]

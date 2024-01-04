@@ -150,7 +150,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     mainUV.xy = lerp(mainUV.xy,screenUV,saturate(_MainTexUseScreenColor + _MainTexUseScreenUV));
 
     // for sprite
-    mainUV.xy = UVRepeat(mainUV.xy,_MainTex_ST.xy,_SpriteUVStart);
+    mainUV.xy = _SpriteUVStart.z ? UVRepeat(mainUV.xy,_MainTex_ST.xy,_SpriteUVStart.xy) : mainUV.xy;
     
     float2 uvDistorted = mainUV.zw;
     #if defined(DISTORTION_ON)

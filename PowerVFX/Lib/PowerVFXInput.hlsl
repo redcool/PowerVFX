@@ -264,7 +264,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     
 //#endif
 // ================================================== sprite
-    UNITY_DEFINE_INSTANCED_PROP(float2, _SpriteUVStart)
+    UNITY_DEFINE_INSTANCED_PROP(float3, _SpriteUVStart)
 
 // ================================================== UI
     // UNITY_DEFINE_INSTANCED_PROP(half4, _ClipRect)
@@ -501,5 +501,5 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
 // ================================================== Global Varables
 half4 _ClipRect;
 half _UIMaskSoftnessX,_UIMaskSoftnessY;
-// float2 _SpriteUVStart;
+
 #endif //POWER_VFX_INPUT_CGINC
