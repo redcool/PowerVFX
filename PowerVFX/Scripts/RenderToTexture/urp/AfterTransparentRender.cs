@@ -1,49 +1,35 @@
-using System;
+namespace PowerUtilities
+{
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-namespace PowerUtilities
-{
+
+#if UNITY_EDITOR
+    using UnityEditor;
+    using System;
+
+    [CustomEditor(typeof(AfterTransparentRender))]
+    public class AfterTransparentRenderEditor : SettingSOEditor
+    {
+        public override string SettingSOFieldName => "settings";
+        public override Type SettingSOType => typeof(AfterTransparentRenderSettingSO);
+    }
+#endif
+
     public class AfterTransparentRender : ScriptableRendererFeature
     {
 
-
-        [Serializable]
-        public class Settings
-        {
-            [Header("Options")]
-            public string gameCameraTag = "MainCamera";
-
-            [Header("Grab Pass")]
-            [Tooltip("Blit CameraColorTarget to _CameraOpaqueTexture,can holding transparent objects")]
-            public bool enableGrabPass = true;
-            public RenderPassEvent grabPassEvent = RenderPassEvent.AfterRenderingTransparents;
-            public int grabPassEventOffset = 0;
-
-            [Header("Grab Pass Blur")]
-            public bool applyBlur;
-            [Range(0, 4)] public int opaqueTextureDownSample = 3;
-            [Range(0.01f, 1f)] public float blurScale = 0.5f;
-
-            [Header("Render Pass")]
-            [Tooltip("render objects after grabpass, then can use new _CameraOpaqueTexture")]
-            public bool enableRenderPass = true;
-            public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
-            public int renderPassEventOffset = 1;
-            public bool isClearDepth;
-            public string[] additionalLightModes;
-
-            public LayerMask layer = 0;
-        }
-
-        [SerializeField] Settings settings = new Settings();
+        [SerializeField] AfterTransparentRenderSettingSO settings;
         AfterTransparentRenderPass renderAfterTransparentPass;
         GrabTransparentPass grabTransparentPass;
 
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
+            if (!settings)
+                return;
+
             ref var cameraData = ref renderingData.cameraData;
 
             if(!string.IsNullOrEmpty(settings.gameCameraTag) && !cameraData.camera.CompareTag(settings.gameCameraTag))
@@ -60,6 +46,9 @@ namespace PowerUtilities
 
         public override void Create()
         {
+            if (!settings)
+                return;
+
             renderAfterTransparentPass = new AfterTransparentRenderPass(settings);
             grabTransparentPass = new GrabTransparentPass(settings);
         }
@@ -74,9 +63,9 @@ namespace PowerUtilities
                 new ShaderTagId("UniversalForwardOnly"),
             };
 
-            Settings settings;
+            AfterTransparentRenderSettingSO settings;
 
-            public AfterTransparentRenderPass(Settings settings)
+            public AfterTransparentRenderPass(AfterTransparentRenderSettingSO settings)
             {
                 this.settings = settings;
                 //renderPassEvent = RenderPassEvent.AfterRenderingTransparents + 1;
@@ -114,7 +103,7 @@ namespace PowerUtilities
                     cmd.Execute(ref context);
                 }
 
-                // create draw settings.
+                // create draw settingSO.
                 var sortingSettings = new SortingSettings { criteria = SortingCriteria.CommonTransparent };
                 var drawingSettings = new DrawingSettings();
                 drawingSettings.sortingSettings = sortingSettings;
@@ -139,10 +128,10 @@ namespace PowerUtilities
             int _BlurTex = Shader.PropertyToID(nameof(_BlurTex));
             RenderTargetIdentifier currentActiveId,opaqueTextureId;
 
-            Settings settings;
+            AfterTransparentRenderSettingSO settings;
             Material blurMat;
 
-            public GrabTransparentPass(Settings settings)
+            public GrabTransparentPass(AfterTransparentRenderSettingSO settings)
             {
                 this.settings = settings;
                 //renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
@@ -192,7 +181,7 @@ namespace PowerUtilities
                     blurMat.SetFloat("_Scale", settings.blurScale);
                     cmd.Blit(currentActiveId, _BlurTex, blurMat, 1);
 
-                    //blurMat.SetFloat("_Scale", settings.blurRadius*1.2f);
+                    //blurMat.SetFloat("_Scale", settingSO.blurRadius*1.2f);
                     cmd.Blit(_BlurTex, opaqueTextureId, blurMat, 2);
                 }
                 else
