@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-
+#if UNITY_2020
+    using UniversalRenderer = UnityEngine.Rendering.Universal.ForwardRenderer;
+#endif
 #if UNITY_EDITOR
     using UnityEditor;
     using System;
