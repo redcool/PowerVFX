@@ -463,8 +463,10 @@
 			
 
 			HLSLPROGRAM
-            #pragma multi_compile_instancing
-            #pragma instancing_options forcemaxcount:40
+			// --------- Enable UnityInstancing, uncomments two lines below
+            // #pragma multi_compile_instancing
+            // #pragma instancing_options forcemaxcount:40
+
             // -------------------------------------
             // Material Keywords
 			#pragma shader_feature_local  PBR_LIGHTING

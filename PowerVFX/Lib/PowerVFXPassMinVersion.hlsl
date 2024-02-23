@@ -21,6 +21,9 @@
 v2f vert(appdata v){
 
     v2f o = (v2f)0;
+    UNITY_SETUP_INSTANCE_ID(v);
+    UNITY_TRANSFER_INSTANCE_ID(v,o);
+
     o.color = v.color;
 
     // --------------  composite custom datas
@@ -33,7 +36,7 @@ v2f vert(appdata v){
     float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
     o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));    
 
-    o.vertex = mul(UNITY_MATRIX_MVP,v.vertex);
+    o.vertex = TransformObjectToHClip(v.vertex.xyz);
     o.worldPos.xyz = TransformObjectToWorld(v.vertex.xyz);
     #if FOG_LINEAR
         o.animBlendUV_fogCoord.zw = CalcFogFactor(o.worldPos.xyz);
@@ -43,6 +46,9 @@ v2f vert(appdata v){
 
 half4 frag(v2f i) : SV_Target
 {
+    UNITY_SETUP_INSTANCE_ID(i);
+    UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
+
     float2 fogCoord = i.animBlendUV_fogCoord.zw;
     float3 worldPos= i.worldPos.xyz;
     float4 mainUV = i.uv;

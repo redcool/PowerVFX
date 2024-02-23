@@ -66,13 +66,13 @@ struct v2f
     // float3 reflectDir:TEXCOORD10;
     // float3 refractDir:TEXCOORD11;
     half3 viewDirTS:TEXCOORD12;
-    UNITY_VERTEX_INPUT_INSTANCE_ID
     #endif
 
     #if defined(MIN_VERSION)
     float4 worldPos:TEXCOORD3;
     #endif
 
+    UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
 /*
