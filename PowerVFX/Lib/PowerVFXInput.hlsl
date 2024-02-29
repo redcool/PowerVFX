@@ -468,7 +468,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _GIColorColor UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_GIColorColor) 
     #define _NormalMapOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_NormalMapOn) 
     #define _NormalMapScale UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_NormalMapScale)
-    // #define _NormalMap_ST UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_NormalMap_ST)
+    #define _NormalMap_ST UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_NormalMap_ST)
     #define _AdditionalLightSoftShadowScale UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_AdditionalLightSoftShadowScale)
 // ==================================================   Glitch
     #define _SnowFlakeIntensity UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_SnowFlakeIntensity)
