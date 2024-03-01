@@ -538,8 +538,9 @@
             HLSLPROGRAM
 
             //--------------------------------------
-            // GPU Instancing
-            #pragma multi_compile_instancing
+			// --------- Enable UnityInstancing, uncomments two lines below
+            // #pragma multi_compile_instancing
+            // #pragma instancing_options forcemaxcount:40
 
             #pragma vertex vert
             #pragma fragment frag
@@ -566,8 +567,9 @@
 
             HLSLPROGRAM
             //--------------------------------------
-            // GPU Instancing
-            #pragma multi_compile_instancing
+			// --------- Enable UnityInstancing, uncomments two lines below
+            // #pragma multi_compile_instancing
+            // #pragma instancing_options forcemaxcount:40
 
             #pragma vertex vert
             #pragma fragment frag
