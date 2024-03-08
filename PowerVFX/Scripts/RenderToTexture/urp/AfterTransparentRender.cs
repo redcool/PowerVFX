@@ -10,20 +10,20 @@ using UnityEngine.Rendering.Universal;
 #endif
 #if UNITY_EDITOR
     using UnityEditor;
-    using System;
 
     [CustomEditor(typeof(AfterTransparentRender))]
-    public class AfterTransparentRenderEditor : SettingSOEditor
+    public class AfterTransparentRenderEditor : Editor
     {
-        public override string SettingSOFieldName => "settings";
-        public override Type SettingSOType => typeof(AfterTransparentRenderSettingSO);
     }
 #endif
 
     public class AfterTransparentRender : ScriptableRendererFeature
     {
+        [EditorSettingSO]
+        [SerializeField]
+        AfterTransparentRenderSettingSO settings;
 
-        [SerializeField] AfterTransparentRenderSettingSO settings;
+
         AfterTransparentRenderPass renderAfterTransparentPass;
         GrabTransparentPass grabTransparentPass;
 
