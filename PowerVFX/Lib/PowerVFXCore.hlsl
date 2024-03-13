@@ -40,9 +40,10 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
 
     //1 vertex color atten
     //2 uniform dir atten
-    float dirAtten = _VertexWaveDirAttenCustomDataOn ? waveDirAttenCData : _VertexWaveDirAtten.w;
+    float dirAtten = _VertexWaveDirAttenCustomDataOn ? waveDirAttenCData : _VertexWaveDirAtten.w * unity_ObjectToWorld._m00*unity_ObjectToWorld._m00;
     float3 dir = normalize(_VertexWaveDirAtten.xyz+0.0001) * dirAtten;
-    dir *= lerp(1,normal,_VertexWaveDirAlongNormalOn);
+    // dir *= lerp(1,normal,_VertexWaveDirAlongNormalOn);
+    dir *= _VertexWaveDirAlongNormalOn? normal : 1;
     
     branch_if(_VertexWaveDirAtten_LocalSpaceOn)
         dir = mul(unity_ObjectToWorld,float4(dir,1)).xyz;
@@ -50,7 +51,8 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
     float3 vcAtten = _VertexWaveAtten_VertexColor? vertexColor : 1;
     float3 atten = dir * vcAtten;
     //3 normal direction atten
-    atten *= lerp(1 , saturate(dot(dir,normal)) , _VertexWaveAtten_NormalAttenOn);
+    // atten *= lerp(1 , saturate(dot(dir,normal)) , _VertexWaveAtten_NormalAttenOn);
+    atten *= _VertexWaveAtten_NormalAttenOn? saturate(dot(dir,normal)) : 1;
 
     //4 atten map
     branch_if(_VertexWaveAtten_MaskMapOn){
