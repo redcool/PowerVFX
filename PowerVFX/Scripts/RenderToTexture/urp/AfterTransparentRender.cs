@@ -19,7 +19,7 @@ using UnityEngine.Rendering.Universal;
 
     public class AfterTransparentRender : ScriptableRendererFeature
     {
-        [EditorSettingSO]
+        [EditorSettingSO(typeof(AfterTransparentRenderSettingSO))]
         [SerializeField]
         AfterTransparentRenderSettingSO settings;
 
