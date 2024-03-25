@@ -31,10 +31,9 @@ v2f vert(appdata v)
         ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv,attenMaskCData,waveIntensityCData,waveDirAttenCData);
     }
     #endif
-    o.vertex = TransformWorldToHClip(worldPos);
+
     // project to fullscreen [-0.5 ,0.5]
-    if(_FullScreenMode)
-        o.vertex = float4(v.vertex.xy*2,UNITY_NEAR_CLIP_VALUE,1);
+    o.vertex = _FullScreenMode>0 ? float4(v.vertex.xy*2,UNITY_NEAR_CLIP_VALUE,UNITY_RAW_FAR_CLIP_VALUE) : TransformWorldToHClip(worldPos);
 
     // --------------  uv.xy : main uv, zw : custom data1.xy
     float mainTexOffsetCdataX = customDatas[_MainTexOffset_CustomData_X];
