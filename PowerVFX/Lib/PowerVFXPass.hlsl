@@ -33,7 +33,8 @@ v2f vert(appdata v)
     #endif
 
     // project to fullscreen [-0.5 ,0.5]
-    o.vertex = _FullScreenMode>0 ? float4(v.vertex.xy*2,UNITY_NEAR_CLIP_VALUE,UNITY_RAW_FAR_CLIP_VALUE) : TransformWorldToHClip(worldPos);
+    // o.vertex = _FullScreenMode>0 ? float4(v.vertex.xy*2,UNITY_NEAR_CLIP_VALUE,UNITY_RAW_FAR_CLIP_VALUE) : TransformWorldToHClip(worldPos); // some pc driver has bug (gl)
+    o.vertex = lerp(TransformWorldToHClip(worldPos) , float4(v.vertex.xy*2,UNITY_NEAR_CLIP_VALUE,UNITY_RAW_FAR_CLIP_VALUE) ,_FullScreenMode);
 
     // --------------  uv.xy : main uv, zw : custom data1.xy
     float mainTexOffsetCdataX = customDatas[_MainTexOffset_CustomData_X];
