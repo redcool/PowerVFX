@@ -24,14 +24,15 @@ public class PowerVFXMinVersionChecker
         //"DISTORTION_ON",
         //"DISSOLVE_ON",
         "OFFSET_ON",
-        // "ENV_REFLECT_ON",
-        // "ENV_REFRACTION_ON",
+         "ENV_REFLECT_ON",
+         "ENV_REFRACTION_ON",
         "MATCAP_ON",
         // "MATCAP_ROTATE_ON",
         "DEPTH_FADING_ON",
         // "DOUBLE_EFFECT_ON",
         // "_OFFSET_BLEND_REPLACE_MODE",
         // "SHEET_ANIM_BLEND_ON"
+        "_GLITCH_ON"
     };
 
     /// <summary>
