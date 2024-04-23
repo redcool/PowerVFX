@@ -409,39 +409,40 @@
 		[GroupHeader(Parallax,Offset)]
 		[GroupSlider(Parallax)]_ParallaxWeightOffset("_ParallaxWeightOffset",range(0,1)) = 0
 //================================================= future function variables,dont use these when dont know
-        [HideInInpector]_Reserve0("_Reserve0",vector)=(0,0,0,0)
-        [HideInInpector]_Reserve1("_Reserve1",vector)=(0,0,0,0)
-        [HideInInpector]_Reserve2("_Reserve2",vector)=(0,0,0,0)
-        [HideInInpector]_Reserve3("_Reserve3",vector)=(0,0,0,0)
-        [HideInInpector]_Reserve4("_Reserve4",vector)=(0,0,0,0)
-        [HideInInpector]_Reserve5("_Reserve5",vector)=(0,0,0,0)
-        [HideInInpector]_Reserve6("_Reserve6",vector)=(0,0,0,0)
-        [HideInInpector]_Reserve7("_Reserve7",vector)=(0,0,0,0)
-        [HideInInpector]_Reserve8("_Reserve8",vector)=(0,0,0,0)
-        [HideInInpector]_Reserve9("_Reserve9",vector)=(0,0,0,0)
-        [HideInInpector]_ReserveTex0("_ReserveTex0",2d)="white"{}
-        [HideInInpector]_ReserveTex1("_ReserveTex1",2d)="white"{}
-        [HideInInpector]_ReserveTex2("_ReserveTex2",2d)="white"{}
-        [HideInInpector]_ReserveTex4("_ReserveTex3",2d)="white"{}
-		[HideInInpector]_ReserveTexArr0("_ReserveTexArr0",2darray)="white"{}
-		[HideInInpector]_ReserveTexArr1("_ReserveTexArr1",2darray)="white"{}
-		[HideInInpector]_ReserveTexArr2("_ReserveTexArr2",2darray)="white"{}
-		[HideInInpector]_ReserveTexArr3("_ReserveTexArr3",2darray)="white"{}
-		[HideInInpector]_ReserveTex3D0("_ReserveTex3D0",3d)="white"{}
-		[HideInInpector]_ReserveTex3D1("_ReserveTex3D1",3d)="white"{}
-		[HideInInpector]_ReserveTex3D2("_ReserveTex3D2",3d)="white"{}
-		[HideInInpector]_ReserveTex3D3("_ReserveTex3D3",3d)="white"{}
-		[HideInInpector]_ReserveTexCube0("_ReserveTexCube0",cube)="white"{}
-		[HideInInpector]_ReserveTexCube1("_ReserveTexCube1",cube)="white"{}
-		[HideInInpector]_ReserveTexCube2("_ReserveTexCube2",cube)="white"{}
-		[HideInInpector]_ReserveTexCube3("_ReserveTexCube3",cube)="white"{}
-		[HideInInpector]_ReserveTexCubeArr0("_ReserveTexCubeArr0",cubearray)="white"{}
-		[HideInInpector]_ReserveTexCubeArr1("_ReserveTexCubeArr1",cubearray)="white"{}
-		[HideInInpector]_ReserveTexCubeArr2("_ReserveTexCubeArr2",cubearray)="white"{}
-		[HideInInpector]_ReserveTexCubeArr3("_ReserveTexCubeArr3",cubearray)="white"{}
+        // [HideInInpector]_Reserve0("_Reserve0",vector)=(0,0,0,0)
+        // [HideInInpector]_Reserve1("_Reserve1",vector)=(0,0,0,0)
+        // [HideInInpector]_Reserve2("_Reserve2",vector)=(0,0,0,0)
+        // [HideInInpector]_Reserve3("_Reserve3",vector)=(0,0,0,0)
+        // [HideInInpector]_Reserve4("_Reserve4",vector)=(0,0,0,0)
+        // [HideInInpector]_Reserve5("_Reserve5",vector)=(0,0,0,0)
+        // [HideInInpector]_Reserve6("_Reserve6",vector)=(0,0,0,0)
+        // [HideInInpector]_Reserve7("_Reserve7",vector)=(0,0,0,0)
+        // [HideInInpector]_Reserve8("_Reserve8",vector)=(0,0,0,0)
+        // [HideInInpector]_Reserve9("_Reserve9",vector)=(0,0,0,0)
+        // [HideInInpector]_ReserveTex0("_ReserveTex0",2d)="white"{}
+        // [HideInInpector]_ReserveTex1("_ReserveTex1",2d)="white"{}
+        // [HideInInpector]_ReserveTex2("_ReserveTex2",2d)="white"{}
+        // [HideInInpector]_ReserveTex4("_ReserveTex3",2d)="white"{}
+		// [HideInInpector]_ReserveTexArr0("_ReserveTexArr0",2darray)="white"{}
+		// [HideInInpector]_ReserveTexArr1("_ReserveTexArr1",2darray)="white"{}
+		// [HideInInpector]_ReserveTexArr2("_ReserveTexArr2",2darray)="white"{}
+		// [HideInInpector]_ReserveTexArr3("_ReserveTexArr3",2darray)="white"{}
+		// [HideInInpector]_ReserveTex3D0("_ReserveTex3D0",3d)="white"{}
+		// [HideInInpector]_ReserveTex3D1("_ReserveTex3D1",3d)="white"{}
+		// [HideInInpector]_ReserveTex3D2("_ReserveTex3D2",3d)="white"{}
+		// [HideInInpector]_ReserveTex3D3("_ReserveTex3D3",3d)="white"{}
+		// [HideInInpector]_ReserveTexCube0("_ReserveTexCube0",cube)="white"{}
+		// [HideInInpector]_ReserveTexCube1("_ReserveTexCube1",cube)="white"{}
+		// [HideInInpector]_ReserveTexCube2("_ReserveTexCube2",cube)="white"{}
+		// [HideInInpector]_ReserveTexCube3("_ReserveTexCube3",cube)="white"{}
+		// [HideInInpector]_ReserveTexCubeArr0("_ReserveTexCubeArr0",cubearray)="white"{}
+		// [HideInInpector]_ReserveTexCubeArr1("_ReserveTexCubeArr1",cubearray)="white"{}
+		// [HideInInpector]_ReserveTexCubeArr2("_ReserveTexCubeArr2",cubearray)="white"{}
+		// [HideInInpector]_ReserveTexCubeArr3("_ReserveTexCubeArr3",cubearray)="white"{}
 	}
 	SubShader
 	{
+		LOD 300
 		Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" }
 		Stencil
 		{
@@ -594,5 +595,162 @@
         }
 	}
 
+	SubShader
+	{
+		LOD 100
+		Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" }
+		Stencil
+		{
+			Ref [_Stencil]
+			Comp [_StencilComp]
+			Pass [_StencilOp]
+			ReadMask [_StencilReadMask]
+			WriteMask [_StencilWriteMask]
+		}
+		Pass
+		{
+			name "PowerVFX"
+			ZWrite[_ZWriteMode]
+			Blend [_SrcMode][_DstMode]
+			// BlendOp[_BlendOp]
+			Cull[_CullMode]
+			ztest[_ZTestMode]
+			ColorMask [_ColorMask]
+			
+
+			HLSLPROGRAM
+			// --------- Enable UnityInstancing, uncomments two lines below
+            // #pragma multi_compile_instancing
+            // #pragma instancing_options forcemaxcount:40
+
+            // -------------------------------------
+            // Material Keywords
+			#pragma shader_feature_local  PBR_LIGHTING
+			// #pragma shader_feature_local _RECEIVE_SHADOWS_ON
+
+			#pragma shader_feature_local_vertex  VERTEX_WAVE_ON
+			#pragma shader_feature_local_fragment  FRESNEL_ON
+			#pragma shader_feature_local_fragment  ALPHA_TEST
+			#pragma shader_feature_local_fragment  DISTORTION_ON
+			#pragma shader_feature_local_fragment  DISSOLVE_ON
+			#pragma shader_feature_local_fragment  OFFSET_ON
+			#pragma shader_feature_local_fragment  _PARALLAX
+			
+
+			#pragma shader_feature_local  ENV_REFLECT_ON
+			#pragma shader_feature_local  ENV_REFRACTION_ON
+			#pragma shader_feature_local_fragment  MATCAP_ON
+			#pragma shader_feature_local_fragment  DEPTH_FADING_ON
+			// #pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON // low frequency
+
+			// lod <=100, enable MIN_VERSION
+			#define MIN_VERSION 
+			// #pragma shader_feature_local MIN_VERSION
+			#pragma shader_feature_local _GLITCH_ON
+
+			// -------------------------------------
+            // Universal Pipeline keywords
+            #pragma shader_feature_local MAIN_LIGHT_CALCULATE_SHADOWS // _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
+
+			/**
+			 	if object not show, 
+					can comment  _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
+					change shader_feature to multi_compile
+			*/
+
+            #pragma shader_feature_local _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
+            // #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS  //low frequency
+			// #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT // low frequency
+
+            // #pragma multi_compile _ _REFLECTION_PROBE_BLENDING
+            // #pragma multi_compile _ _REFLECTION_PROBE_BOX_PROJECTION
+            // #pragma shader_feature_local_fragment _ _SHADOWS_SOFT
+
+            // -------------------------------------
+            // Unity defined keywords
+            // #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
+            // #pragma multi_compile _ SHADOWS_SHADOWMASK
+            // #pragma multi_compile _ DIRLIGHTMAP_COMBINED
+            // #pragma multi_compile _ LIGHTMAP_ON
+            // #pragma multi_compile _ DYNAMICLIGHTMAP_ON
+            // #pragma multi_compile_fog
+			#pragma multi_compile_local FOG_LINEAR
+            // #pragma multi_compile _ DEBUG_DISPLAY
+			
+			#pragma target 3.0
+			#pragma vertex vert
+			#pragma fragment frag
+			#include "Lib/PowerVFXPassVersion.hlsl"
+
+			ENDHLSL
+		}
+		
+		Pass
+        {
+            Name "DepthOnly"
+            Tags{"LightMode" = "DepthOnly"}
+
+            ZWrite [_ZWriteMode]
+            ColorMask 0
+            Cull[_Cull]
+
+            HLSLPROGRAM
+
+            //--------------------------------------
+			// --------- Enable UnityInstancing, uncomments two lines below
+            // #pragma multi_compile_instancing
+            // #pragma instancing_options forcemaxcount:40
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature_local_fragment ALPHA_TEST
+
+			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
+			#include "Lib/PowerVFXInput.hlsl"
+			#define USE_SAMPLER2D
+			#include "../../PowerShaderLib/UrpLib/ShadowCasterPass.hlsl"
+
+            ENDHLSL
+        }
+		Pass
+        {
+            Name "ShadowCaster"
+            Tags{"LightMode" = "ShadowCaster"}
+
+            ZWrite [_ZWriteMode]
+            ColorMask 0
+            Cull[_Cull]
+
+            HLSLPROGRAM
+            //--------------------------------------
+			// --------- Enable UnityInstancing, uncomments two lines below
+            // #pragma multi_compile_instancing
+            // #pragma instancing_options forcemaxcount:40
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+            // -------------------------------------
+            // This is used during shadow map generation to differentiate between directional and punctual light shadows, as they use different formulas to apply Normal Bias
+            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW			
+            // Material Keywords
+            #pragma shader_feature_local_fragment ALPHA_TEST
+
+			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
+			#include "Lib/PowerVFXInput.hlsl"
+			#define SHADOW_PASS
+			#define USE_SAMPLER2D
+			#define _MainTex _DissolveTex
+
+			#undef _MainTexChannel
+			#define _MainTexChannel _DissolveTexChannel
+			#include "../../PowerShaderLib/UrpLib/ShadowCasterPass.hlsl"
+
+            ENDHLSL
+        }
+	}
 	CustomEditor "PowerUtilities.PowerShaderInspector"
 }
