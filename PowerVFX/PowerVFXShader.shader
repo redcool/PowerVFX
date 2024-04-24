@@ -442,7 +442,7 @@
 	}
 	SubShader
 	{
-		LOD 300
+		LOD 100
 		Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" }
 		Stencil
 		{
