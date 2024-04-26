@@ -98,6 +98,7 @@ _DistortionRadialCenter_Scale=(xy)径向位置_(zw)缩放
 _DistortionRadialRot=径向旋转角度
 _DistortionRadialUVOffset=径向平移
 
+_DistortionApplyToMainTex= 应用到主纹理
 _DistortionApplyToOffset= 应用到流光
 _DistortionApplyToMainTexMask=应用到主纹理遮罩
 _DistortionApplyToDissolve=应用到溶解

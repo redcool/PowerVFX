@@ -164,7 +164,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
         }
         float2 uvDistortion = GetDistortionUV(mainUV.zw,distortUV,distortionCustomData);
         uvDistorted += uvDistortion;
-        mainUV.xy += uvDistortion;
+        mainUV.xy += _DistortionApplyToMainTex>0 ? uvDistortion : 0;
     }
     #endif
     // sample main texture

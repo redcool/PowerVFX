@@ -116,6 +116,8 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionRadialUVOffset)
     
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionRadialRot)
+    
+    UNITY_DEFINE_INSTANCED_PROP(half,_DistortionApplyToMainTex)
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionApplyToOffset)
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionApplyToMainTexMask)
     UNITY_DEFINE_INSTANCED_PROP(half,_DistortionApplyToDissolve)
@@ -351,6 +353,8 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _DistortionRadialUVOffset UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DistortionRadialUVOffset)
     
     #define _DistortionRadialRot UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DistortionRadialRot)
+    
+    #define _DistortionApplyToMainTex UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DistortionApplyToMainTex)
     #define _DistortionApplyToOffset UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DistortionApplyToOffset)
     #define _DistortionApplyToMainTexMask UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DistortionApplyToMainTexMask)
     #define _DistortionApplyToDissolve UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DistortionApplyToDissolve)

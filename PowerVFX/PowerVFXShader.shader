@@ -170,6 +170,7 @@
 		[GroupItem(RadialUV)]_DistortionRadialUVOffset("_DistortionRadialUVOffset",float) = 0
 
 		[Group(DistortionWhere)]
+		[GroupToggle(DistortionWhere)]_DistortionApplyToMainTex("_DistortionApplyToMainTex",int) = 1
 		[GroupToggle(DistortionWhere)]_DistortionApplyToOffset("_DistortionApplyToOffset",int) = 0
 		[GroupToggle(DistortionWhere)]_DistortionApplyToMainTexMask("_DistortionApplyToMainTexMask",int) = 0
 		[GroupToggle(DistortionWhere)]_DistortionApplyToDissolve("_DistortionApplyToDissolve",int) = 0
