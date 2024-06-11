@@ -112,12 +112,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     float3 reflectDir = ConstructVector(i.reflectRefractDir.xy);
     float3 refractDir = ConstructVector(i.reflectRefractDir.zw);
 
-    float parallaxWeight = 1;
-    #if defined(_PARALLAX)
-        float heightValue = ApplyParallax(i.uv.xy/**/,i.viewDirTS.xyz); // move to vs
-        
-        parallaxWeight = 1- heightValue > _ParallaxWeightOffset;
-    #endif
+
     /* 
         setup mainUV, move to vs
         float4 mainUV = MainTexOffset(i.uv);
@@ -148,10 +143,23 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     float2 mainTexOffset = UVOffset(_MainTex_ST.zw,_MainTexOffsetStop);
     screenUV = lerp(screenUV,screenUV.xy * _MainTex_ST.xy + mainTexOffset,_MainTexUseScreenUV);
     mainUV.xy = lerp(mainUV.xy,screenUV,saturate(_MainTexUseScreenColor + _MainTexUseScreenUV));
+    
+/**
+    parallax
+*/    
+    float parallaxWeight = 1;
+    #if defined(_PARALLAX)
+        float heightValue = ApplyParallax(mainUV.xy/**/,i.viewDirTS.xyz); // move to vs
+        
+        parallaxWeight = 1- heightValue > _ParallaxWeightOffset;
+    #endif  
 
     // for sprite
     mainUV.xy = _SpriteUVStart.z ? UVRepeat(mainUV.xy,_MainTex_ST.xy,_SpriteUVStart.xy) : mainUV.xy;
-    
+
+/**
+    Distortion
+*/    
     float2 uvDistorted = mainUV.zw;
     #if defined(DISTORTION_ON)
     // branch_if(_DistortionOn)
