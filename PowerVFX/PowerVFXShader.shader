@@ -2,14 +2,18 @@
 {
 	Properties
 	{
-		[GroupHeader(,MainTex)]
-		_MainTex("Main Texture", 2D) = "white" {}
 		[Group(MainTex Options)]
-		[GroupItem(MainTex Options)]_MainUVAngle("_MainUVAngle",float) = 0
+		[GroupHeader(MainTex Options,MainTex)]
+		[GroupItem(MainTex Options)] _MainTex("Main Texture", 2D) = "white" {}
+		[GroupItem(MainTex Options)] _MainUVAngle("_MainUVAngle",float) = 0
 		[GroupToggle(MainTex Options)]_MainTexOffsetStop("_MainTexOffsetStop",int)=0
+
 		[GroupHeader(MainTex Options,MainTex Custom Data)]
 		[GroupToggle(MainTex Options)]_MainTexOffset_CustomData_On("_MainTexOffset_CustomData_On",int)=0
+
+		[DisableGroup(_MainTexOffset_CustomData_On)]
 		[GroupEnum(MainTex Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexOffset_CustomData_X("_MainTexOffset_CustomData_X",int) = 0
+		[DisableGroup(_MainTexOffset_CustomData_On)]
 		[GroupEnum(MainTex Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexOffset_CustomData_Y("_MainTexOffset_CustomData_Y",int) = 1
 
 		[GroupHeader(MainTex Options,Saturate)]
@@ -17,6 +21,8 @@
 		
 		[GroupHeader(MainTex Options,Single Channel MainTex)]
 		[GroupToggle(MainTex Options)]_MainTexSingleChannelOn("_MainTexSingleChannelOn?",int) = 0
+
+		[DisableGroup(_MainTexSingleChannelOn)]
 		[GroupEnum(MainTex Options,R 0 G 1 B 2 A 3)]_MainTexChannel("_MainTexChannel",int)=0
 
 		[GroupHeader(MainTex Options,Premulti Alpha)]
@@ -32,43 +38,55 @@
 		[GroupToggle(MainColorOptions)]_PremultiVertexColor("_PremultiVertexColor",int) = 1
 		[GroupHeader(MainColorOptions,Vertex Color Channel)]
 		[GroupToggle(MainColorOptions)]_VertexColorChannelOn("_VertexColorChannelOn",int) = 0
+
+		[DisableGroup(_VertexColorChannelOn)]
 		[GroupEnum(MainColorOptions,R 0 G 1 B 2 A 3)]_VertexColorChannel("_VertexColorChannel",int) = 0
 
 		// mainTex channel
 		[GroupHeader(MainColorOptions,Per Channel Color)]
 		[GroupToggle(MainColorOptions)]_PerChannelColorOn("_PerChannelColorOn",float) = 0
+		[DisableGroup(_PerChannelColorOn)]
 		[GroupItem(MainColorOptions)][HDR]_ColorX("Color_X",Color) = (1,1,1,1)
+		[DisableGroup(_PerChannelColorOn)]
 		[GroupItem(MainColorOptions)][HDR]_ColorY("Color_Y",Color) = (1,1,1,1)
+		[DisableGroup(_PerChannelColorOn)]
 		[GroupItem(MainColorOptions)][HDR]_ColorZ("Color_Z",Color) = (1,1,1,1)
 
 		// back face
 		[Group(Back Face)]
 		[GroupToggle(Back Face)]_BackFaceOn("_BackFaceOn",int) = 0
+		[DisableGroup(_BackFaceOn)]
 		[GroupItem(Back Face)][HDR]_BackFaceColor("BackFace Color",Color) = (0.5,0.5,.5,1)
 
-		[Space(10)]
-		[GroupHeader(MainTex Mask)]
-		_MainTexMask("Main Texture Mask(R)", 2D) = "white" {}
+		[Space(2)]
 		[Group(MainTex Mask Options)]
+		[GroupHeader(MainTex Mask Options,MainTex Mask)]
+		[GroupItem(MainTex Mask Options,Mask)] _MainTexMask("Main Texture Mask(R)", 2D) = "white" {}
 		[GroupToggle(MainTex Mask Options)]_MainTexMaskOffsetStop("_MainTexMaskOffsetStop",int)=0
 		[GroupEnum(MainTex Mask Options,R 0 G 1 B 2 A 3)]_MainTexMaskChannel("_MainTexMaskChannel",int) = 0
 
 		[GroupHeader(MainTex Mask Options,MainTexMask Custom Data)]
 		[GroupToggle(MainTex Mask Options)]_MainTexMaskOffsetCustomDataOn("_MainTexMaskOffsetCustomDataOn",int)=0
+		
+		[DisableGroup(_MainTexMaskOffsetCustomDataOn)]
 		[GroupEnum(MainTex Mask Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexMaskOffsetCustomDataX("_MainTexMaskOffsetCustomDataX",int) = 6
+		[DisableGroup(_MainTexMaskOffsetCustomDataOn)]
 		[GroupEnum(MainTex Mask Options,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_MainTexMaskOffsetCustomDataY("_MainTexMaskOffsetCustomDataY",int) = 7
 
+		[Space(2)]
 		[Group(ScreenTextures)]
 		[GroupHeader(ScreenTextures,ScreenTexture)]
 		[GroupToggle(ScreenTextures,)]_MainTexUseScreenColor("_MainTexUseScreenColor",int) = 0
 		[GroupToggle(ScreenTextures)]_MainTexUseScreenUV("_MainTexUseScreenUV",int) = 0
 		[GroupToggle(ScreenTextures)]_FullScreenMode("_FullScreenMode",int) = 0
 
+		[Space(2)]
 		[Group(SheetAnimation)]
 		[GroupVectorSlider(SheetAnimation,RowCount ColumnCount,1_16 1_16,,int)]_MainTexSheet("_MainTexSheet",vector)=(1,1,1,1)
 		[GroupItem(SheetAnimation)]_MainTexSheetAnimSpeed("_MainTexSheetAnimSpeed",float) = 1
 		[GroupToggle(SheetAnimation)]_MainTexSheetAnimBlendOn("_MainTexSheetAnimBlendOn",int) = 0 //SHEET_ANIM_BLEND_ON
 
+		[Space(2)]
 		[Group(Sprite)]
 		[GroupVectorSlider(Sprite,x y z,0_1 0_1 0_1,,field)]_SpriteUVStart("_SpriteUVStart",vector) = (0,0,0,0)
 		// [GroupToggle(_)]_MainTexSheetPlayOnce("_MainTexSheetPlayOnce",int) = 0
@@ -114,6 +132,7 @@
 		
 		[Header(VertexWaveIntensity CustomDataOn)]
 		[GroupToggle]_VertexWaveIntensityCustomDataOn("_VertexWaveIntensityCustomDataOn",int) = 0
+		[DisableGroup(_VertexWaveIntensityCustomDataOn)]
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_VertexWaveIntensityCustomData("_VertexWaveIntensityCustomData",int) = 7
 
 		[GroupHeader(VertexColor Atten)]
@@ -124,6 +143,7 @@
 
 		[Header(VertexWaveDir CustomData)]
 		[GroupToggle]_VertexWaveDirAttenCustomDataOn("_VertexWaveDirAttenCustomDataOn",int) = 0
+		[DisableGroup(_VertexWaveDirAttenCustomDataOn)]
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_VertexWaveDirAttenCustomData("_VertexWaveDirAttenCustomData",int) = 0
 
 		[GroupHeader(Atten Options)]
@@ -142,6 +162,7 @@
 
 		[Header(VertexWaveAttenMaskOffset Custom Data)]
 		[GroupToggle]_VertexWaveAttenMaskOffsetCustomDataOn("_VertexWaveAttenMaskOffsetCustomDataOn",int) = 0
+		[DisableGroup(_VertexWaveAttenMaskOffsetCustomDataOn)]
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_VertexWaveAttenMaskOffsetCustomData("_VertexWaveAttenMaskOffsetCustomData",int) = 4
 // ==================================================Distortion
 		[Header(Distortion)]
@@ -156,6 +177,7 @@
 		_DistortionIntensity("Distortion Intensity",Range(0,2)) = 0.5
 		[Header(Distortion Custom Data)]
 		[GroupToggle]_DistortionCustomDataOn("_DistortionCustomDataOn",int) = 0
+		[DisableGroup(_DistortionCustomDataOn)]
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_DistortionCustomData("_DistortionCustomData",int) = 5
 
 		[Header(DistortionParams)]
@@ -165,8 +187,14 @@
 		[Group(RadialUV)]
 		[GroupHeader(RadialUV,RadialUV)]
 		[GroupToggle(RadialUV)]_DistortionRadialUVOn("_DistortionRadialUVOn",int) = 0
+		
+		[DisableGroup(_DistortionRadialUVOn)]
 		[GroupVectorSlider(RadialUV,CenterX CenterY ScaleX ScaleY,0_1 0_1 0_1 0_1,,float float field field)]_DistortionRadialCenter_Scale("_DistortionRadialCenter_Scale",vector) = (.5,.5,1,1)
+		
+		[DisableGroup(_DistortionRadialUVOn)]
 		[GroupItem(RadialUV)]_DistortionRadialRot("_DistortionRadialRot",float) = 0
+
+		[DisableGroup(_DistortionRadialUVOn)]
 		[GroupItem(RadialUV)]_DistortionRadialUVOffset("_DistortionRadialUVOffset",float) = 0
 
 		[Group(DistortionWhere)]
@@ -183,8 +211,11 @@
 
 		[Header(DissolveMask)]
 		[GroupToggle]_DissolveMaskFromTexOn("_DissolveMaskFromTexOn",int) = 0
+		
+		[DisableGroup(_DissolveMaskFromTexOn)]
 		[GroupToggle]_DissolveMaskResampleOn("_DissolveMaskResampleOn",int) = 0
-		[Enum(R,0,G,1,B,2,A,3)]_DissolveMaskChannel("_DissolveMaskChannel",int)=3
+		[DisableGroup(_DissolveMaskFromTexOn)]
+		[GroupEnum(,R 0 G 1 B 2 A 3)]_DissolveMaskChannel("_DissolveMaskChannel",int)=3
 		
 		[Header(DissolveType)]
 		[GroupToggle]_DissolveByVertexColor("Dissolve By Vertex Color ?",int)=0
@@ -192,33 +223,44 @@
 		[Header(Dissolve Custom Data)]
 		[GroupToggle]_DissolveCustomDataOn("Dissolve By customData.z -> uv1.x ?",int)=0
 		//default custom1.z
+		[DisableGroup(_DissolveCustomDataOn)]
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_DissolveCustomData("_DissolveCustomData",int) = 2
 
 		[Header(DissolveFading)]
 		_DissolveFadingMin("_DissolveFadingMin",range(0,1)) = 0
 		_DissolveFadingMax("_DissolveFadingMax",range(0,1)) = .2
 
-		[Header(Dissolve Progress)]
-		_Cutoff ("_Cutoff", Range(0,1)) = 0.5
 		[Header(Dissolve Clip)]
+		[DisableGroup(_DissolveOn)]
 		[GroupToggle(,ALPHA_TEST)]_DissolveClipOn("_DissolveClipOn",int) = 0
+
+		[Header(Dissolve Progress)]
+		[DisableGroup(_DissolveClipOn)]
+		[GroupItem]_Cutoff ("_Cutoff", Range(0,1)) = 0.5
 
 		[Header(PixelDissolve)]
 		[GroupToggle]_PixelDissolveOn("_PixelDissolveOn",float) = 0
-		_PixelWidth("_PixelWidth",float) = 10
+		[DisableGroup(_PixelDissolveOn)]
+		[GroupItem]_PixelWidth("_PixelWidth",float) = 10
 
 // ================================================== dissolve edge
 		[Group(DissolveEdge)]
 		[GroupHeader(DissolveEdge,Dissolve Edge)]
 		[GroupToggle(DissolveEdge)]_DissolveEdgeOn("Dissolve Edge On?",int)=0
+		[DisableGroup(_DissolveEdgeOn)]
 		[GroupItem(DissolveEdge)]_EdgeWidth("EdgeWidth",range(0,1)) = 0.1
 
 		[GroupHeader(DissolveEdge, Custom Data)]
+		[DisableGroup(_DissolveEdgeOn)]
 		[GroupToggle(DissolveEdge)]_DissolveEdgeWidthCustomDataOn("_DissolveEdgeWidthCustomDataOn.w -> uv1.y",int) = 0
 		//default custom1.w
+		[DisableGroup(_DissolveEdgeWidthCustomDataOn)]
 		[GroupEnum(DissolveEdge,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_DissolveEdgeWidthCustomData("_DissolveEdgeWidthCustomData",int) = 3
 
+		[DisableGroup(_DissolveEdgeOn)]
 		[GroupItem(DissolveEdge)][HDR]_EdgeColor("EdgeColor",color) = (1,0,0,1)
+
+		[DisableGroup(_DissolveEdgeOn)]
 		[GroupItem(DissolveEdge)][HDR]_EdgeColor2("EdgeColor2",color) = (0,1,0,1)
 // ==================================================Offset
 		[Header(Offset)] 
@@ -230,7 +272,11 @@
 		
 		[Header(Offset CustomData)]
 		[GroupToggle]_OffsetCustomDataOn("_OffsetCustomDataOn",int) = 1
+
+		[DisableGroup(_OffsetCustomDataOn)]
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_OffsetLayer1_CustomData_X("_OffsetLayer1_CustomData_X",int) = 0
+
+		[DisableGroup(_OffsetCustomDataOn)]
 		[GroupEnum(_,c1_x 0 c1_y 1 c1_z 2 c1_w 3 c2_x 4 c2_y 5 c2_z 6 c2_w 7)]_OffsetLayer1_CustomData_Y("_OffsetLayer1_CustomData_Y",int) = 1
 
 
@@ -258,8 +304,14 @@
 		[Group(OffsetRadial)]
 		[GroupHeader(OffsetRadial,Radial UV)]
 		[GroupToggle(OffsetRadial)]_OffsetRadialUVOn("_OffsetRadialUVOn",int) = 0
+
+		[DisableGroup(_OffsetRadialUVOn)]
 		[GroupVectorSlider(OffsetRadial,CenterX CenterY ScaleX ScaleY,0_1 0_1 0_1 0_1,,float float field field)]_OffsetRadialCenter_Scale("_OffsetRadialCenter_Scale",vector) = (.5,.5,1,1)
+
+		[DisableGroup(_OffsetRadialUVOn)]
 		[GroupItem(OffsetRadial)]_OffsetRadialRot("_OffsetRadialRot",float) = 0
+
+		[DisableGroup(_OffsetRadialUVOn)]
 		[GroupItem(OffsetRadial)]_OffsetRadialUVOffset("_OffsetRadialUVOffset",float) = 0
 // ==================================================Fresnal
 		[Header(Fresnal)]
@@ -279,10 +331,14 @@
 		[GroupToggle(,ENV_REFLECT_ON)]_EnvReflectOn("EnvReflect On?",int)=0
 
 		[Group(EnvReflection)]
+		[DisableGroup(_EnvReflectOn)]
 		[GroupItem(EnvReflection)][hdr]_EnvReflectionColor("_EnvReflectionColor",color) = (.5,.5,.5,.5)
 
 		[GroupHeader(EnvReflection,Env Rotate)]
+		[DisableGroup(_EnvReflectOn)]
 		[GroupVectorSlider(EnvReflection,Axis Speed,m10_10,,float)]_EnvRotateInfo("_EnvRotateInfo",vector) = (0,1,0,0) // (axis, speed)
+
+		[DisableGroup(_EnvReflectOn)]
 		[GroupToggle(EnvReflection)]_EnvRotateAutoStop("_EnvRotateAutoStop",float) = 0
 		
 // ==================================================	EnvRefraction		
@@ -290,14 +346,21 @@
 		[GroupToggle(,ENV_REFRACTION_ON)]_EnvRefractionOn("_EnvRefractionOn",int) = 0
 
 		[Group(EnvRefraction)]
+		[DisableGroup(_EnvRefractionOn)]
 		[GroupItem(EnvRefraction)]_EnvRefractionIOR("_EnvRefractionIOR",range(1,5)) = 1.33
+
+		[DisableGroup(_EnvRefractionOn)]
 		[GroupItem(EnvRefraction)][hdr]_EnvRefractionColor("_EnvRefractionColor",color) = (.5,.5,.5,.5)
 
 		[GroupHeader(EnvRefraction,Env Refract Rotate)]
+		[DisableGroup(_EnvRefractionOn)]
 		[GroupVectorSlider(EnvRefraction,Axis Speed,m10_10,,float)]_EnvRefractRotateInfo("_EnvRefractRotateInfo",vector) = (0,1,0,0) // (axis, speed)
+
+		[DisableGroup(_EnvRefractionOn)]
 		[GroupToggle(EnvRefraction)]_EnvRefractRotateAutoStop("_EnvRefractRotateAutoStop",float) = 0
 
 		[GroupHeader(EnvRefraction,Mode)]
+		[DisableGroup(_EnvRefractionOn)]
 		[GroupEnum(EnvRefraction,Refract InteriorMap,0 1)]_RefractMode("_RefractMode",int) = 0
 // ==================================================	Env params
 		[GroupHeader(,EnvOptions)]
@@ -309,18 +372,29 @@
 
 		[GroupHeader(EnvOptions,Env Mask)]
 		[GroupToggle(EnvOptions)]_EnvMaskUseMainTexMask("_EnvMaskUseMainTexMask",int)=3
+
+		[DisableGroup(_EnvMaskUseMainTexMask)]
 		[GroupEnum(EnvOptions,R G B A,0 1 2 3)]_EnvMapMaskChannel("_EnvMapMaskChannel",int)=0
 
 // ==================================================MatCap
 		[Header(MatCap)]
 		[GroupToggle(_,MATCAP_ON)]_MatCapOn("_MatCapOn",int) = 0
-		[noscaleoffset]_MatCapTex("_MapCapTex",2d)=""{}
-		[hdr]_MatCapColor("_MatCapColor",color) = (1,1,1,1)
-		_MatCapIntensity("_MatCapIntensity",float) = 1
+
+		[DisableGroup(_MatCapOn)]
+		[GroupItem][noscaleoffset]_MatCapTex("_MapCapTex",2d)=""{}
+
+		[DisableGroup(_MatCapOn)]
+		[GroupItem][hdr]_MatCapColor("_MatCapColor",color) = (1,1,1,1)
+
+		[DisableGroup(_MatCapOn)]
+		[GroupItem]_MatCapIntensity("_MatCapIntensity",float) = 1
 
 		[Header(Matcap UV Rotate)]
-		[GroupToggle(_)]_MatCapRotateOn("_MatCapRotateOn",float) = 0
-		_MatCapAngle("_MapCatAngle",float) = 0
+		[DisableGroup(_MatCapOn)]
+		[GroupToggle()]_MatCapRotateOn("_MatCapRotateOn",float) = 0
+
+		[DisableGroup(_MatCapRotateOn)]
+		[GroupItem]_MatCapAngle("_MapCatAngle",float) = 0
 // ==================================================_DepthFading
 		[Header(_DepthFading)]
 		[GroupToggle(_,DEPTH_FADING_ON)]_DepthFadingOn("_DepthFadingOn",int) = 0
@@ -353,8 +427,12 @@
 
 		[Header(Shadow)]
 		[GroupToggle(_,MAIN_LIGHT_CALCULATE_SHADOWS)]_ReceiveShadowOn("_ReceiveShadowOn",int) = 0
+
+		[DisableGroup(_ReceiveShadowOn)]
 		[GroupToggle(_,_SHADOWS_SOFT)]_ShadowsSoft("_ShadowsSoft",int) = 0 
-		_MainLightSoftShadowScale("_MainLightSoftShadowScale",range(0,1))=0
+
+		[DisableGroup(_ReceiveShadowOn)]
+		[GroupItem]_MainLightSoftShadowScale("_MainLightSoftShadowScale",range(0,1))=0
 
 		// [GroupHeader(Shadow,custom bias)]
         // [GroupSlider(Shadow)]_CustomShadowNormalBias("_CustomShadowNormalBias",range(-1,1)) = 0.5
@@ -362,9 +440,15 @@
 
 		[Header(Additional Lights)]
 		[GroupToggle(_,_ADDITIONAL_LIGHTS)]_AdditionalLightOn("_AdditionalLightOn",int)=0
+
+		[DisableGroup(_AdditionalLightOn)]
 		[GroupToggle(_,_ADDITIONAL_LIGHT_SHADOWS)]_AdditionalLightShadowsOn("_AdditionalLightShadowsOn",int)=0
+
+		[DisableGroup(_AdditionalLightOn)]
 		[GroupToggle(_,_ADDITIONAL_LIGHT_SHADOWS_SOFT)]_AdditionalLightShadowsSoftOn("_AdditionalLightShadowsSoftOn",int)=0
-		_AdditionalLightSoftShadowScale("_AdditionalLightSoftShadowScale",range(1,10)) = 1
+
+		[DisableGroup(_AdditionalLightShadowsSoftOn)]
+		[GroupItem]_AdditionalLightSoftShadowScale("_AdditionalLightSoftShadowScale",range(1,10)) = 1
 // ================================================== Glitch
 		[GroupToggle(_,_GLITCH_ON)]_GlitchOn("_GlitchOn",int) = 0
         _HorizontalIntensity("_HorizontalIntensity",range(0,1)) = 0.2
