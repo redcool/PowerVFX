@@ -235,7 +235,7 @@
 		[GroupToggle(,ALPHA_TEST)]_DissolveClipOn("_DissolveClipOn",int) = 0
 
 		[Header(Dissolve Progress)]
-		[DisableGroup(_DissolveClipOn)]
+		// [DisableGroup(_DissolveClipOn)]
 		[GroupItem]_Cutoff ("_Cutoff", Range(0,1)) = 0.5
 
 		[Header(PixelDissolve)]
