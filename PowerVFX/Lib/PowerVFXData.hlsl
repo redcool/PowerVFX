@@ -63,9 +63,8 @@ struct v2f
     float4 shadowCoord:TEXCOORD8;
     float4  uiMask : TEXCOORD9;
     float4 reflectRefractDir:TEXCOORD10;
-    // float3 reflectDir:TEXCOORD10;
-    // float3 refractDir:TEXCOORD11;
-    half3 viewDirTS:TEXCOORD12;
+    float3 viewDirTS:TEXCOORD11;
+    float3 localPos:TEXCOORD12;// keep vertex
     #endif
 
     #if defined(MIN_VERSION)

@@ -205,9 +205,16 @@
 // ==================================================Dissolve
 		[Header(Dissolve)]
 		[GroupToggle(_,DISSOLVE_ON)]_DissolveOn("Dissolve On?",int)=0
+
+		[GroupHeader(,DissolveType)]
+		[GroupToggle(,)]_DissolveByVertexColor("Dissolve By Vertex Color ?",int)=0
+
+		[Header(DissolveTexture)]
 		_DissolveTex("Dissolve Tex",2d)=""{}
 		[GroupToggle]_DissolveTexOffsetStop("_DissolveTexOffsetStop ?",int) = 0
 		[Enum(R,0,G,1,B,2,A,3)]_DissolveTexChannel("_DissolveTexChannel",int) = 0
+		[GroupEnum(,UV 0 UV1 1)]_DissolveUVType("_DissolveUVType",int) = 0
+
 
 		[Header(DissolveMask)]
 		[GroupToggle]_DissolveMaskFromTexOn("_DissolveMaskFromTexOn",int) = 0
@@ -217,8 +224,6 @@
 		[DisableGroup(_DissolveMaskFromTexOn)]
 		[GroupEnum(,R 0 G 1 B 2 A 3)]_DissolveMaskChannel("_DissolveMaskChannel",int)=3
 		
-		[Header(DissolveType)]
-		[GroupToggle]_DissolveByVertexColor("Dissolve By Vertex Color ?",int)=0
 
 		[Header(Dissolve Custom Data)]
 		[GroupToggle]_DissolveCustomDataOn("Dissolve By customData.z -> uv1.x ?",int)=0

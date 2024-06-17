@@ -14,7 +14,7 @@ v2f vert(appdata v)
     float3 viewDir = normalize(_WorldSpaceCameraPos.xyz - worldPos.xyz);
     float3 worldNormal = TransformObjectToWorldNormal(v.normal);
 
-
+    o.localPos.xyz = v.vertex.xyz;
     o.color = v.color;
 
     // --------------  composite custom datas
@@ -125,6 +125,8 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
 
 */
     float customDatas[8] = {i.customData1,i.customData2};
+    float2 uv1 = float2(customDatas[2],customDatas[3]);
+    float2 uv2 = float2(customDatas[6],customDatas[7]);
 
     float dissolveCustomData = customDatas[_DissolveCustomData];
     float dissolveEdgeWidthCustomData = customDatas[_DissolveEdgeWidthCustomData];
@@ -223,7 +225,10 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     // branch_if(_DissolveOn)
     {
         float2 dissolveUVOffset = UVOffset(_DissolveTex_ST.zw,_DissolveTexOffsetStop);
-        float2 dissolveUV = (_DistortionApplyToDissolve ? uvDistorted : mainUV.zw) * _DissolveTex_ST.xy + dissolveUVOffset;
+        float2 dissolveUV = (_DistortionApplyToDissolve ? uvDistorted : mainUV.zw);
+        dissolveUV = _DissolveUVType ==1 ? uv1 : dissolveUV; /**vertex uv1 or mainUV*/
+        dissolveUV = dissolveUV * _DissolveTex_ST.xy + dissolveUVOffset;
+
         ApplyDissolve(mainColor,dissolveUV,i.color,dissolveCustomData,dissolveEdgeWidthCustomData,mainUV.zw);
     }
     #endif

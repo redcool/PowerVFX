@@ -233,6 +233,8 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
 
     float4 dissolveTex = tex2D(_DissolveTex,dissolveUV.xy);
     float refDissolve = dissolveTex[_DissolveTexChannel];
+    // use vertex color or dissolveTexture
+    refDissolve = _DissolveByVertexColor ? color.a : refDissolve;
 
     #if ! defined(MIN_VERSION)
     // dissolveTex.a as mask
@@ -247,10 +249,6 @@ void ApplyDissolve(inout float4 mainColor,float2 dissolveUV,float4 color,float d
 
     // remap cutoff
     float cutoff = _Cutoff;
-
-    // slider or vertex color
-    // cutoff = lerp(cutoff, 1 - color.a,_DissolveByVertexColor);
-    cutoff = _DissolveByVertexColor ? (1 - color.a) : cutoff;
 
      // slider or particle's custom data
     // cutoff = lerp(cutoff,1- dissolveCDATA,_DissolveCustomDataOn);

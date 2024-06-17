@@ -26,3 +26,7 @@ _MainTexSheetAnimSpeed=多少帧每秒
 
 _OffsetRadialRot=径向扭曲角度(受流光方向x控制)
 _OffsetRadialUVOffset=径向平移(受流光方向y控制)
+
+//-----------溶解
+_DissolveByVertexColor=溶解数据使用顶点色或溶解图
+_DissolveUVType=溶解图采用用uv,若uv被占用,可用uv1

@@ -127,6 +127,8 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_DissolveCustomDataOn)
     UNITY_DEFINE_INSTANCED_PROP(half,_DissolveCustomData) // default uv1.x(Custom1.z)
     UNITY_DEFINE_INSTANCED_PROP(half,_DissolveTexChannel)
+    UNITY_DEFINE_INSTANCED_PROP(half,_DissolveUVType)
+    
 
     UNITY_DEFINE_INSTANCED_PROP(half,_DissolveMaskFromTexOn)
     UNITY_DEFINE_INSTANCED_PROP(half,_DissolveMaskChannel)
@@ -364,6 +366,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _DissolveCustomDataOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DissolveCustomDataOn)
     #define _DissolveCustomData UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DissolveCustomData) // default uv1.x(Custom1.z)
     #define _DissolveTexChannel UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DissolveTexChannel)
+    #define _DissolveUVType UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DissolveUVType)
 
     #define _DissolveMaskFromTexOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DissolveMaskFromTexOn)
     #define _DissolveMaskChannel UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DissolveMaskChannel)
