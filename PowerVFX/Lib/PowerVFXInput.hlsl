@@ -214,6 +214,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     // UNITY_DEFINE_INSTANCED_PROP(half,_DepthFadingOn) //DEPTH_FADING_ON
     UNITY_DEFINE_INSTANCED_PROP(half,_DepthFadingWidth)
     UNITY_DEFINE_INSTANCED_PROP(half,_DepthFadingMax)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_DepthFadingColor)
 // ==================================================   _Alpha 
     UNITY_DEFINE_INSTANCED_PROP(half,_AlphaMax)
     UNITY_DEFINE_INSTANCED_PROP(half,_AlphaMin)
@@ -452,6 +453,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _DepthFadingOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DepthFadingOn)
     #define _DepthFadingWidth UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DepthFadingWidth)
     #define _DepthFadingMax UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DepthFadingMax)
+    #define _DepthFadingColor UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DepthFadingColor)
 // ==================================================   _Alpha 
     #define _AlphaMax UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_AlphaMax)
     #define _AlphaMin UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_AlphaMin)

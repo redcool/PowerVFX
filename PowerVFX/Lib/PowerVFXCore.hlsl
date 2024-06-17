@@ -375,7 +375,12 @@ void ApplySoftParticle(inout float4 mainColor,float2 screenUV,float curZ){
 
     float delta = (sceneZ-curZ);
     float fade = (delta - _DepthFadingWidth)/_DepthFadingMax;
-    mainColor.a *= saturate(fade);
+    fade = saturate(fade);
+    mainColor.a *= fade;
+
+    float fadingEdge = smoothstep(0.5,0., abs(0.5 - fade));
+    mainColor.xyz *= lerp(1,_DepthFadingColor,fadingEdge);
+    // mainColor.xyz += fadingEdge;
 }
 
 

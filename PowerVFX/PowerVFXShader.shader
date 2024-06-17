@@ -401,10 +401,18 @@
 		[DisableGroup(_MatCapRotateOn)]
 		[GroupItem]_MatCapAngle("_MapCatAngle",float) = 0
 // ==================================================_DepthFading
-		[Header(_DepthFading)]
-		[GroupToggle(_,DEPTH_FADING_ON)]_DepthFadingOn("_DepthFadingOn",int) = 0
-		_DepthFadingWidth("_DepthFadingWidth",range(0.01,3)) = 0.33
-		_DepthFadingMax("_DepthFadingMax",range(0.01,3)) = 1
+		[Group(DepthFading)]
+		[GroupHeader(DepthFading,_DepthFading)]
+		[GroupToggle(DepthFading,DEPTH_FADING_ON)]_DepthFadingOn("_DepthFadingOn",int) = 0
+
+		[DisableGroup(_DepthFadingOn)]
+		[GroupItem(DepthFading)] _DepthFadingWidth("_DepthFadingWidth",range(0.01,3)) = 0.33
+
+		[DisableGroup(_DepthFadingOn)]
+		[GroupItem(DepthFading)] _DepthFadingMax("_DepthFadingMax",range(0.01,3)) = 1
+
+		[DisableGroup(_DepthFadingOn)]
+		[GroupItem(DepthFading)][hdr] _DepthFadingColor("_DepthFadingColor",color) = (1,1,1,1)
 
 // ================================================== Light
 		[Header(Light)]
