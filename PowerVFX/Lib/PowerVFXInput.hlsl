@@ -134,6 +134,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_DissolveMaskChannel)
 
     UNITY_DEFINE_INSTANCED_PROP(half4,_DissolveTex_ST)
+    UNITY_DEFINE_INSTANCED_PROP(half4,_DissolveMask_ST)
     UNITY_DEFINE_INSTANCED_PROP(half,_DissolveTexOffsetStop)
     // UNITY_DEFINE_INSTANCED_PROP(half,_DissolveClipOn) //ALPHA_TEST
     UNITY_DEFINE_INSTANCED_PROP(half,_Cutoff)
@@ -373,6 +374,8 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _DissolveMaskChannel UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DissolveMaskChannel)
 
     #define _DissolveTex_ST UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DissolveTex_ST)
+    #define _DissolveMask_ST UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DissolveMask_ST)
+    
     #define _DissolveTexOffsetStop UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DissolveTexOffsetStop)
     #define _DissolveClipOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_DissolveClipOn)
     #define _Cutoff UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_Cutoff)

@@ -229,7 +229,10 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
         dissolveUV = _DissolveUVType ==1 ? uv1 : dissolveUV; /**vertex uv1 or mainUV*/
         dissolveUV = dissolveUV * _DissolveTex_ST.xy + dissolveUVOffset;
 
-        ApplyDissolve(mainColor,dissolveUV,i.color,dissolveCustomData,dissolveEdgeWidthCustomData,mainUV.zw);
+        float2 dissolveMaskUVOffset = UVOffset(_DissolveMask_ST.zw,0);
+        float2 dissolveMaskUV = mainUV.zw *_DissolveMask_ST.xy+dissolveMaskUVOffset;
+
+        ApplyDissolve(mainColor,dissolveUV,i.color,dissolveCustomData,dissolveEdgeWidthCustomData,dissolveMaskUV);
     }
     #endif
 

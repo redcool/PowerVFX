@@ -221,6 +221,9 @@
 		
 		[DisableGroup(_DissolveMaskFromTexOn)]
 		[GroupToggle]_DissolveMaskResampleOn("_DissolveMaskResampleOn",int) = 0
+
+		[DisableGroup(_DissolveMaskResampleOn)]
+		[GroupItem()]_DissolveMask_ST("_DissolveMask_ST",vector) = (1,1,0,0)
 		[DisableGroup(_DissolveMaskFromTexOn)]
 		[GroupEnum(,R 0 G 1 B 2 A 3)]_DissolveMaskChannel("_DissolveMaskChannel",int)=3
 		
