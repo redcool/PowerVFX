@@ -371,7 +371,8 @@ void ApplyMatcap(inout float4 mainColor,float2 mainUV,float2 viewNormal){
 
 void ApplySoftParticle(inout float4 mainColor,float2 screenUV,float curZ){
     float sceneZ = tex2Dlod(_CameraDepthTexture, float4(screenUV,0,0)).x;
-    sceneZ = IsOrthographicCamera() ? OrthographicDepthBufferToLinear(sceneZ) : LinearEyeDepth(sceneZ,_ZBufferParams);
+    // sceneZ = IsOrthographicCamera() ? OrthographicDepthBufferToLinear(sceneZ) : LinearEyeDepth(sceneZ,_ZBufferParams);
+    sceneZ = CalcLinearEyeDepth(sceneZ);
 
     float delta = (sceneZ-curZ);
     float fade = (delta - _DepthFadingWidth)/_DepthFadingMax;
