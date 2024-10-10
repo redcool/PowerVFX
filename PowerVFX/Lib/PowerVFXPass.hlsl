@@ -20,14 +20,13 @@ v2f vert(appdata v)
     // --------------  composite custom datas
     o.customData1 = float4(v.uv.zw,v.uv1.xy);// particle custom data (Custom1.zw)(Custom2.xy)
     o.customData2 = float4(v.uv1.zw,v.uv2.xy); // particle custom data (Custom2.xy)
-    float customDatas[8] = {o.customData1,o.customData2};
 
     #if defined(VERTEX_WAVE_ON)
     // branch_if(_VertexWaveOn)
     {
-        float attenMaskCData = customDatas[_VertexWaveAttenMaskOffsetCustomData];
-        float waveIntensityCData = customDatas[_VertexWaveIntensityCustomData];
-        float waveDirAttenCData = customDatas[_VertexWaveDirAttenCustomData];
+        float attenMaskCData = GET_CUSTOM_DATA(o,_VertexWaveAttenMaskOffsetCustomData);
+        float waveIntensityCData = GET_CUSTOM_DATA(o,_VertexWaveIntensityCustomData);
+        float waveDirAttenCData = GET_CUSTOM_DATA(o,_VertexWaveDirAttenCustomData);
         ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv,attenMaskCData,waveIntensityCData,waveDirAttenCData);
     }
     #endif
@@ -37,8 +36,8 @@ v2f vert(appdata v)
     o.vertex = lerp(TransformWorldToHClip(worldPos) , float4(v.vertex.xy*2,UNITY_NEAR_CLIP_VALUE,UNITY_RAW_FAR_CLIP_VALUE) ,_FullScreenMode);
 
     // --------------  uv.xy : main uv, zw : custom data1.xy
-    float mainTexOffsetCdataX = customDatas[_MainTexOffset_CustomData_X];
-    float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
+    float mainTexOffsetCdataX = GET_CUSTOM_DATA(o,_MainTexOffset_CustomData_X);
+    float mainTexOffsetCdataY = GET_CUSTOM_DATA(o,_MainTexOffset_CustomData_Y);
     o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));
 
     // float3 viewNormal = (mul((half3x3)UNITY_MATRIX_MV,v.normal));
@@ -124,15 +123,14 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     get particle system's custom data
 
 */
-    float customDatas[8] = {i.customData1,i.customData2};
-    float2 uv1 = float2(customDatas[2],customDatas[3]);
-    float2 uv2 = float2(customDatas[6],customDatas[7]);
+    float2 uv1 = i.customData1.zw;
+    float2 uv2 = i.customData2.zw;
 
-    float dissolveCustomData = customDatas[_DissolveCustomData];
-    float dissolveEdgeWidthCustomData = customDatas[_DissolveEdgeWidthCustomData];
-    float distortionCustomData = customDatas[_DistortionCustomData];
-    float2 mainTexMaskOffsetCustomData = float2(customDatas[_MainTexMaskOffsetCustomDataX] , customDatas[_MainTexMaskOffsetCustomDataY]);
-    float2 offsetLayer1CData = float2(customDatas[_OffsetLayer1_CustomData_X],customDatas[_OffsetLayer1_CustomData_Y]);
+    float dissolveCustomData = GET_CUSTOM_DATA(i,_DissolveCustomData);
+    float dissolveEdgeWidthCustomData = GET_CUSTOM_DATA(i,_DissolveEdgeWidthCustomData);
+    float distortionCustomData = GET_CUSTOM_DATA(i,_DistortionCustomData);
+    float2 mainTexMaskOffsetCustomData = float2(GET_CUSTOM_DATA(i,_MainTexMaskOffsetCustomDataX) , GET_CUSTOM_DATA(i,_MainTexMaskOffsetCustomDataY));
+    float2 offsetLayer1CData = float2(GET_CUSTOM_DATA(i,_OffsetLayer1_CustomData_X),GET_CUSTOM_DATA(i,_OffsetLayer1_CustomData_Y));
 /**
     particle system sheet animBlend
 */

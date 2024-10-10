@@ -29,11 +29,10 @@ v2f vert(appdata v){
     // --------------  composite custom datas
     o.customData1 = float4(v.uv.zw,v.uv1.xy);// particle custom data (Custom1.zw)(Custom2.xy)
     o.customData2 = float4(v.uv1.zw,v.uv2.xy); // particle custom data (Custom2.xy)
-    float customDatas[8] = {o.customData1,o.customData2};
 
     // --------------  uv.xy : main uv, zw : custom data1.xy
-    float mainTexOffsetCdataX = customDatas[_MainTexOffset_CustomData_X];
-    float mainTexOffsetCdataY = customDatas[_MainTexOffset_CustomData_Y];
+    float mainTexOffsetCdataX = GET_CUSTOM_DATA(o,_MainTexOffset_CustomData_X);
+    float mainTexOffsetCdataY = GET_CUSTOM_DATA(o,_MainTexOffset_CustomData_Y);
     o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));    
 
     o.vertex = TransformObjectToHClip(v.vertex.xyz);
@@ -59,12 +58,10 @@ half4 frag(v2f i) : SV_Target
     get particle system's custom data
 
 */
-    float customDatas[8] = {i.customData1,i.customData2};
-
-    float dissolveCustomData = customDatas[_DissolveCustomData];
-    float dissolveEdgeWidthCustomData = customDatas[_DissolveEdgeWidthCustomData];
-    float distortionCustomData = customDatas[_DistortionCustomData];
-    float2 mainTexMaskOffsetCustomData = float2(customDatas[_MainTexMaskOffsetCustomDataX] , customDatas[_MainTexMaskOffsetCustomDataY]);
+    float dissolveCustomData = GET_CUSTOM_DATA(i,_DissolveCustomData);
+    float dissolveEdgeWidthCustomData = GET_CUSTOM_DATA(i,_DissolveEdgeWidthCustomData);
+    float distortionCustomData = GET_CUSTOM_DATA(i,_DistortionCustomData);
+    float2 mainTexMaskOffsetCustomData = float2(GET_CUSTOM_DATA(i,_MainTexMaskOffsetCustomDataX) , GET_CUSTOM_DATA(i,_MainTexMaskOffsetCustomDataY));
 
     float2 uvDistorted = mainUV.zw;
     #if defined(DISTORTION_ON)

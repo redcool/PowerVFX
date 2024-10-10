@@ -13,6 +13,7 @@
 #include "../../PowerShaderLib/UrpLib/Lighting.hlsl"
 #include "../../PowerShaderLib/Lib/FogLib.hlsl"
 #include "../../PowerShaderLib/Lib/ParallaxMapping.hlsl"
+#include "../../PowerShaderLib/Lib/ParticleCustomDataLib.hlsl"
 
 float4 SampleAttenMap(float2 mainUV,float attenMaskCData){
     // auto offset
