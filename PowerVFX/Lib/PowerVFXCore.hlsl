@@ -381,7 +381,7 @@ void ApplySoftParticle(inout float4 mainColor,float2 screenUV,float curZ){
     mainColor.a *= fade;
 
     float fadingEdge = smoothstep(0.5,0., abs(0.5 - fade));
-    mainColor.xyz *= lerp(1,_DepthFadingColor,fadingEdge);
+    mainColor.xyz *= lerp(1,_DepthFadingColor,fadingEdge).xyz;
     // mainColor.xyz += fadingEdge;
 }
 
@@ -459,7 +459,7 @@ void ApplyPbrLighting(inout float3 mainColor,float3 worldPos,float4 shadowCoord,
     float reflectIntensity = 1;
     float3 giDiff = CalcGIDiff(n,diffColor);
 //======= apply backLightColor
-    giDiff = lerp(giDiff,_GIColorColor,_GIDiffuseOn * (1-nl));
+    giDiff = lerp(giDiff,_GIColorColor.xyz,_GIDiffuseOn * (1-nl));
 
     float3 giSpec = CalcGISpec(_EnvMap,sampler_EnvMap,_EnvMap_HDR,specColor,worldPos,n,v,reflectDirOffset,reflectIntensity,nv,a,a2,smoothness,metallic);
     half3 giColor = (giDiff + giSpec)*occlusion;

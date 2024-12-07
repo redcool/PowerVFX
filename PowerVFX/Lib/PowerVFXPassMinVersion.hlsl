@@ -83,7 +83,7 @@ half4 frag(v2f i) : SV_Target
     mainColor *= _Color * (_PremultiVertexColor ? i.color : 1);
 
     // per channel tint
-    mainColor.xyz = _PerChannelColorOn ? (mainColor.x * _ColorX + mainColor.y * _ColorY + mainColor.z * _ColorZ) : mainColor.xyz;
+    mainColor.xyz = _PerChannelColorOn ? (mainColor.x * _ColorX + mainColor.y * _ColorY + mainColor.z * _ColorZ).xyz : mainColor.xyz;
 
     // #if defined(ALPHA_TEST)
     //     clip(mainColor.a - _Cutoff - 0.0001);
