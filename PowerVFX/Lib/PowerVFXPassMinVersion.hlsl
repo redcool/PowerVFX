@@ -37,7 +37,7 @@ v2f vert(appdata v){
 
     o.vertex = TransformObjectToHClip(v.vertex.xyz);
     o.worldPos.xyz = TransformObjectToWorld(v.vertex.xyz);
-    #if FOG_LINEAR
+    #if defined(FOG_LINEAR)
         o.animBlendUV_fogCoord.zw = CalcFogFactor(o.worldPos.xyz);
     #endif
     return o;
