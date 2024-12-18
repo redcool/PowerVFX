@@ -121,7 +121,7 @@
 
 // ==================================================_VertexWaveOn
 		[Header(VertexWave)]
-		[GroupToggle(_,VERTEX_WAVE_ON)]_VertexWaveOn("_VertexWaveOn",int) = 0
+		[GroupToggle(_)]_VertexWaveOn("_VertexWaveOn",int) = 0
 		[GroupHeader(Noise From Map)]
 		[GroupToggle]_NoiseUseAttenMaskMap("_NoiseUseAttenMaskMap",float)=0
 		
@@ -573,8 +573,8 @@
             // Material Keywords
 			#pragma shader_feature_local  PBR_LIGHTING
 			// #pragma shader_feature_local _RECEIVE_SHADOWS_ON
-
-			#pragma shader_feature_local_vertex  VERTEX_WAVE_ON
+			#define VERTEX_WAVE_ON
+			// #pragma shader_feature_local_vertex  VERTEX_WAVE_ON
 			#pragma shader_feature_local_fragment  FRESNEL_ON
 			#pragma shader_feature_local_fragment  ALPHA_TEST
 			#pragma shader_feature_local_fragment  DISTORTION_ON
@@ -728,8 +728,8 @@
             // Material Keywords
 			#pragma shader_feature_local  PBR_LIGHTING
 			// #pragma shader_feature_local _RECEIVE_SHADOWS_ON
-
-			#pragma shader_feature_local_vertex  VERTEX_WAVE_ON
+			#define VERTEX_WAVE_ON
+			// #pragma shader_feature_local_vertex  VERTEX_WAVE_ON
 			#pragma shader_feature_local_fragment  FRESNEL_ON
 			#pragma shader_feature_local_fragment  ALPHA_TEST
 			#pragma shader_feature_local_fragment  DISTORTION_ON

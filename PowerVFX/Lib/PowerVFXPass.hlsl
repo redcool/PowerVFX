@@ -22,12 +22,12 @@ v2f vert(appdata v)
     o.customData2 = float4(v.uv1.zw,v.uv2.xy); // particle custom data (Custom2.xy)
 
     #if defined(VERTEX_WAVE_ON)
-    // branch_if(_VertexWaveOn)
+    branch_if(_VertexWaveOn)
     {
         float attenMaskCData = GET_CUSTOM_DATA(o,_VertexWaveAttenMaskOffsetCustomData);
         float waveIntensityCData = GET_CUSTOM_DATA(o,_VertexWaveIntensityCustomData);
         float waveDirAttenCData = GET_CUSTOM_DATA(o,_VertexWaveDirAttenCustomData);
-        ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color,v.uv,attenMaskCData,waveIntensityCData,waveDirAttenCData);
+        ApplyVertexWaveWorldSpace(worldPos.xyz/**/,worldNormal,v.color.xyz,v.uv.xy,attenMaskCData,waveIntensityCData,waveDirAttenCData);
     }
     #endif
 

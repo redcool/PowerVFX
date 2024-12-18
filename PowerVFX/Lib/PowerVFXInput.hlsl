@@ -317,7 +317,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _MainTexSheetAnimBlendOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainTexSheetAnimBlendOn)
     // #define _MainTexSheetPlayOnce UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_MainTexSheetPlayOnce)
 // ==================================================_VertexWaveOn
-    // #define _VertexWaveOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveOn) // use VERTEX_WAVE_ON
+    #define _VertexWaveOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveOn) 
     #define _NoiseUseAttenMaskMap UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_NoiseUseAttenMaskMap)
     #define _VertexWaveSpeed UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveSpeed)
     #define _VertexWaveSpeedManual UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_VertexWaveSpeedManual)
