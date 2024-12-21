@@ -30,3 +30,6 @@ _OffsetRadialUVOffset=径向平移(受流光方向y控制)
 //-----------溶解
 _DissolveByVertexColor=溶解数据使用顶点色或溶解图
 _DissolveUVType=溶解图采用用uv,若uv被占用,可用uv1
+
+//-----------Alpha
+_OverrideAlphaChannel=alpha使用rgb通道

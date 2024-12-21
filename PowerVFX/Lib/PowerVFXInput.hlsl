@@ -220,6 +220,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_AlphaMax)
     UNITY_DEFINE_INSTANCED_PROP(half,_AlphaMin)
     UNITY_DEFINE_INSTANCED_PROP(half,_AlphaScale)
+    UNITY_DEFINE_INSTANCED_PROP(half,_OverrideAlphaChannel)
 
 // ==================================================   Light
     // UNITY_DEFINE_INSTANCED_PROP(half,_PbrLightOn)
@@ -461,6 +462,7 @@ UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
     #define _AlphaMax UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_AlphaMax)
     #define _AlphaMin UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_AlphaMin)
     #define _AlphaScale UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_AlphaScale)
+    #define _OverrideAlphaChannel UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_OverrideAlphaChannel)
 
 // ==================================================   Light
     // #define _PbrLightOn UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial,_PbrLightOn)

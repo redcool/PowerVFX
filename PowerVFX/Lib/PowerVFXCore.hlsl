@@ -159,6 +159,7 @@ void SampleMainTex(inout float4 mainColor, inout float4 screenColor,float2 uv,fl
     // per channel tint
     mainColor.xyz = _PerChannelColorOn ? (mainColor.x * _ColorX + mainColor.y * _ColorY + mainColor.z * _ColorZ).xyz : mainColor.xyz;
     // for alpha
+    mainColor.w = (_OverrideAlphaChannel<3)? mainColor[_OverrideAlphaChannel] : mainColor.w;
     mainColor.w *= _AlphaScale;
     mainColor.w = smoothstep(_AlphaMin,_AlphaMax,mainColor.w);
 }

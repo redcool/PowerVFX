@@ -97,6 +97,9 @@
 
 		[Header(Alpha Scale)]
 		_AlphaScale("_AlphaScale",float) = 1
+		
+		[Header(Alpha Channel)]
+		[GroupEnum(,R 0 G 1 B 2 A 3)] _OverrideAlphaChannel("_OverrideAlphaChannel",float) = 3
 // ================================================== States Settings
 		[Header(BlendMode)]
 		[Enum(UnityEngine.Rendering.BlendMode)]_SrcMode("Src Mode",int) = 5
