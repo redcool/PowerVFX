@@ -178,7 +178,7 @@ UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(half,_OffsetRadialUVOffset)
     
 // ==================================================_FresnelOn
-    // UNITY_DEFINE_INSTANCED_PROP(half,_FresnelOn) //FRESNEL_ON
+    UNITY_DEFINE_INSTANCED_PROP(half,_FresnelOn) //FRESNEL_ON
     UNITY_DEFINE_INSTANCED_PROP(half,_FresnelColorMode)
     UNITY_DEFINE_INSTANCED_PROP(half4,_FresnelColor)
     UNITY_DEFINE_INSTANCED_PROP(half4,_FresnelColor2)

@@ -43,6 +43,7 @@ public class PowerVFXMinVersionChecker
         "_MainTexOffset_CustomData_On",
         "_MainTexMaskOffsetCustomDataOn",
         // dissvole
+        "_FresnelOn",
         "_PixelDissolveOn",
         "_DissolveEdgeOn",
         // distortion

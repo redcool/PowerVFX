@@ -482,8 +482,10 @@ float3 SampleNormalMap(float2 uv,float4 tSpace0,float4 tSpace1,float4 tSpace2){
 
 void ApplyFog(inout float3 mainColor/**/,float3 worldPos,float2 fogCoord){
     #if defined(FOG_LINEAR)
+    branch_if(_FogOn){
         float fogNoise = 0;
         BlendFogSphereKeyword(mainColor.xyz,worldPos,fogCoord,_HeightFogOn,fogNoise,_DepthFogOn);
+    }
     #endif
 }
 
