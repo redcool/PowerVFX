@@ -326,7 +326,7 @@
 		[GroupItem(OffsetRadial)]_OffsetRadialUVOffset("_OffsetRadialUVOffset",float) = 0
 // ==================================================Fresnal
 		[Header(Fresnal)]
-		[GroupToggle(_,)]_FresnelOn("_FresnelOn?",int)=0	//FRESNEL_ON
+		[GroupToggle(_,FRESNEL_ON)]_FresnelOn("_FresnelOn?",int)=0
 		[Enum(Replace,0,Multiply,1)]_FresnelColorMode("_FresnelColorMode",int) = 0
 		[HDR]_FresnelColor("_FresnelColor",color) = (1,1,1,1)
 		[HDR]_FresnelColor2("_FresnelColor2",color) = (1,1,1,1)
@@ -562,7 +562,7 @@
 			// #pragma shader_feature_local _RECEIVE_SHADOWS_ON
 			#define VERTEX_WAVE_ON
 			// #pragma shader_feature_local_vertex  VERTEX_WAVE_ON
-			#define FRESNEL_ON //#pragma shader_feature_local_fragment  FRESNEL_ON
+			#pragma shader_feature_local_fragment  FRESNEL_ON
 			#pragma shader_feature_local_fragment  ALPHA_TEST
 			#pragma shader_feature_local_fragment  DISTORTION_ON
 			#pragma shader_feature_local_fragment  DISSOLVE_ON
@@ -717,7 +717,7 @@
 			// #pragma shader_feature_local _RECEIVE_SHADOWS_ON
 			#define VERTEX_WAVE_ON
 			// #pragma shader_feature_local_vertex  VERTEX_WAVE_ON
-			#define FRESNEL_ON //#pragma shader_feature_local_fragment  FRESNEL_ON
+			#pragma shader_feature_local_fragment  FRESNEL_ON
 			#pragma shader_feature_local_fragment  ALPHA_TEST
 			#pragma shader_feature_local_fragment  DISTORTION_ON
 			#pragma shader_feature_local_fragment  DISSOLVE_ON

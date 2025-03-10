@@ -235,7 +235,7 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     #endif
 
     #if defined(FRESNEL_ON)
-    branch_if(_FresnelOn)
+    // branch_if(_FresnelOn)
     {
         
         float fresnel = 1 - dot(normal,viewDir);
