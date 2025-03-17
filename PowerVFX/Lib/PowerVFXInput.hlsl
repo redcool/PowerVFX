@@ -60,7 +60,7 @@ half _MainTexOffset_CustomData_On;
 half _MainTexOffset_CustomData_X;
 half _MainTexOffset_CustomData_Y; // default Custom1.xy
 
-half _DoubleEffectOn; //2层效果,
+// half _DoubleEffectOn; //2层效果,
 half4 _MainTexMask_ST;
 half _MainTexMaskOffsetStop;
 half _MainTexMaskChannel;
