@@ -713,32 +713,32 @@
 
             // -------------------------------------
             // Material Keywords
-			#pragma shader_feature_local  PBR_LIGHTING
+			// #pragma shader_feature_local  PBR_LIGHTING
 			// #pragma shader_feature_local _RECEIVE_SHADOWS_ON
-			#define VERTEX_WAVE_ON
+			// #define VERTEX_WAVE_ON
 			// #pragma shader_feature_local_vertex  VERTEX_WAVE_ON
-			#define FRESNEL_ON // #pragma shader_feature_local_fragment  FRESNEL_ON
+			// #define FRESNEL_ON // #pragma shader_feature_local_fragment  FRESNEL_ON
 			#pragma shader_feature_local_fragment  ALPHA_TEST
 			#pragma shader_feature_local_fragment  DISTORTION_ON
 			#pragma shader_feature_local_fragment  DISSOLVE_ON
-			#pragma shader_feature_local_fragment  OFFSET_ON
-			#pragma shader_feature_local_fragment  _PARALLAX
+			// #pragma shader_feature_local_fragment  OFFSET_ON
+			// #pragma shader_feature_local_fragment  _PARALLAX
 			
 
-			#pragma shader_feature_local  ENV_REFLECT_ON
-			#pragma shader_feature_local  ENV_REFRACTION_ON
-			#pragma shader_feature_local_fragment  MATCAP_ON
-			#pragma shader_feature_local_fragment  DEPTH_FADING_ON
+			// #pragma shader_feature_local  ENV_REFLECT_ON
+			// #pragma shader_feature_local  ENV_REFRACTION_ON
+			// #pragma shader_feature_local_fragment  MATCAP_ON
+			// #pragma shader_feature_local_fragment  DEPTH_FADING_ON
 			// #pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON // low frequency
 
 			// lod <=100, enable MIN_VERSION
 			#define MIN_VERSION 
 			// #pragma shader_feature_local MIN_VERSION
-			#pragma shader_feature_local _GLITCH_ON
+			// #pragma shader_feature_local _GLITCH_ON
 
 			// -------------------------------------
             // Universal Pipeline keywords
-            #pragma shader_feature_local MAIN_LIGHT_CALCULATE_SHADOWS // _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
+            // #pragma shader_feature_local MAIN_LIGHT_CALCULATE_SHADOWS // _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
 
 			/**
 			 	if object not show, 
@@ -746,7 +746,7 @@
 					change shader_feature to multi_compile
 			*/
 
-            #pragma shader_feature_local _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
+            // #pragma shader_feature_local _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
             // #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS  //low frequency
 			// #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT // low frequency
 

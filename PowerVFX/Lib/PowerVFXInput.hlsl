@@ -178,7 +178,8 @@ half _OffsetRadialRot;
 half _OffsetRadialUVOffset;
     
 // ==================================================_FresnelOn
-half _FresnelOn; //FRESNEL_ON
+half _FresnelOn;
+// #define _FresnelOn 1
 half _FresnelColorMode;
 half4 _FresnelColor;
 half4 _FresnelColor2;
@@ -188,7 +189,8 @@ half _BlendScreenColor;
 half _FresnelAlphaBase;
     
 // ==================================================_EnvReflectOn
-half _EnvReflectOn;
+//half _EnvReflectOn;
+#define _EnvReflectOn 1
 half4 _EnvReflectionColor;
 half4 _EnvMapMask_ST;
 half _EnvMaskUseMainTexMask;
@@ -200,7 +202,8 @@ half _EnvRotateAutoStop;
 half4 _EnvRefractRotateInfo;
 half _EnvRefractRotateAutoStop;    
 
-half _EnvRefractionOn;
+// half _EnvRefractionOn;
+#define _EnvRefractionOn 1
 half _EnvRefractionIOR;
 half4 _EnvRefractionColor;
 half4 _EnvMap_HDR;
