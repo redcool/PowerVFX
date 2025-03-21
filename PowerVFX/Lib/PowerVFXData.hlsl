@@ -32,7 +32,6 @@ struct appdata
     */        
     float4 uv2:TEXCOORD2;
 
-    #if !defined(MIN_VERSION)
     float3 normal:NORMAL;
     float4 tangent:TANGENT;
 
@@ -41,7 +40,7 @@ struct appdata
 
     */
     float4 uv3:TEXCOORD3;
-    #endif
+
     UNITY_VERTEX_INPUT_INSTANCE_ID    
 };
 
@@ -50,25 +49,20 @@ struct v2f
     float4 vertex : SV_POSITION;
     float4 color : COLOR;
     float4 uv : TEXCOORD0;
-    float4 animBlendUV_fogCoord:TEXCOORD6; //(xy : particle animBlend'uv),(zw: sphere for coord)
 
     float4 customData1:TEXCOORD1;
     float4 customData2:TEXCOORD2;
 
-    #if !defined(MIN_VERSION)
-
-    // x y:customData.x,z:_VertexWaveAttenMask_UseCustomeData2_X
     TANGENT_SPACE_DECLARE(3,4,5);
+    float4 animBlendUV_fogCoord:TEXCOORD6; //(xy : particle animBlend'uv),(zw: sphere for coord)
     float4 viewDir_AnimBlendFactor :TEXCOORD7; //(xyz:ViewDir)(w:particle AnimBlend's factor)
+    #if !defined(MIN_VERSION)
+    // x y:customData.x,z:_VertexWaveAttenMask_UseCustomeData2_X
     float4 shadowCoord:TEXCOORD8;
-    float4  uiMask : TEXCOORD9;
+    float4 uiMask : TEXCOORD9;
     float4 reflectRefractDir:TEXCOORD10;
     float3 viewDirTS:TEXCOORD11;
     float3 localPos:TEXCOORD12;// keep vertex
-    #endif
-
-    #if defined(MIN_VERSION)
-    float4 worldPos:TEXCOORD3;
     #endif
 
     UNITY_VERTEX_INPUT_INSTANCE_ID

@@ -25,19 +25,28 @@ float4 SampleAttenMap(float2 mainUV,float attenMaskCData){
     return tex2Dlod(_VertexWaveAtten_MaskMap,attenMapUV);
 }
 
-void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV,float attenMaskCData,float waveIntensityCData,float waveDirAttenCData){
-    float2 worldUV = worldPos.xz + _VertexWaveSpeed * lerp(_Time.xx,1,_VertexWaveSpeedManual);
-    float noise = 0;
-    float4 attenMap=0;
-    float waveIntensity = _VertexWaveIntensityCustomDataOn ? waveIntensityCData : _VertexWaveIntensity;
+/** 
+ calc noise 
+ */
+void CalcVertexWaveNoise(out float4 attenMap,out float noise,float2 worldUV,float2 mainUV,float attenMaskCData,float waveIntensity){
+    attenMap = 0;
+    noise = 0;
 
-    //calc noise 
     branch_if(_NoiseUseAttenMaskMap){
         attenMap = SampleAttenMap(mainUV,attenMaskCData);
         noise = attenMap.x;
     }else{
         noise = Unity_GradientNoise(worldUV,waveIntensity);
     }
+}
+
+void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertexColor,float2 mainUV,float attenMaskCData,float waveIntensityCData,float waveDirAttenCData){
+    float2 worldUV = worldPos.xz + _VertexWaveSpeed * lerp(_Time.xx,1,_VertexWaveSpeedManual);
+    float noise = 0;
+    float4 attenMap=0;
+    float waveIntensity = _VertexWaveIntensityCustomDataOn ? waveIntensityCData : _VertexWaveIntensity;
+    // calc noise
+    CalcVertexWaveNoise(attenMap/**/,noise/**/,worldUV,mainUV,attenMaskCData,waveIntensity);
 
     //1 vertex color atten
     //2 uniform dir atten
@@ -63,12 +72,15 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
 
         atten *= attenMap[_VertexWaveAtten_MaskMapChannel];
     }
+
+    #if ! defined(SIMPLE_VERSION)
     //5 uv circle distance atten
     branch_if(_UVCircleDist2){
         float2 uvDist = (mainUV - 0.5);
         float dist = dot(uvDist,uvDist);
         atten *= (dist < _UVCircleDist2);
     }
+    #endif
 
     worldPos.xyz +=  noise * atten;
 }

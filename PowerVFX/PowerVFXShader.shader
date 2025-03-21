@@ -1,4 +1,17 @@
-﻿Shader "FX/PowerVFX"
+﻿/**
+	Control PowerVFX's ShaderLod
+		shader.maxmiumLOD = ?
+	
+	LOD 100
+		standard version, full features
+	LOD 80
+		simple version, parts features
+	LOD 50
+		min version, little features
+
+*/
+
+Shader "FX/PowerVFX"
 {
 	Properties
 	{
@@ -682,6 +695,165 @@
             ENDHLSL
         }
 	}
+
+	// ============= simple version
+	SubShader
+	{
+		LOD 80
+		Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" }
+		Stencil
+		{
+			Ref [_Stencil]
+			Comp [_StencilComp]
+			Pass [_StencilOp]
+			ReadMask [_StencilReadMask]
+			WriteMask [_StencilWriteMask]
+		}
+		Pass
+		{
+			name "PowerVFX"
+			ZWrite[_ZWriteMode]
+			Blend [_SrcMode][_DstMode]
+			// BlendOp[_BlendOp]
+			Cull[_CullMode]
+			ztest[_ZTestMode]
+			ColorMask [_ColorMask]
+			
+
+			HLSLPROGRAM
+			// --------- Enable UnityInstancing, uncomments two lines below
+            // #pragma multi_compile_instancing
+            // #pragma instancing_options forcemaxcount:40
+
+            // -------------------------------------
+            // Material Keywords
+			#pragma shader_feature_local  PBR_LIGHTING
+			// #pragma shader_feature_local _RECEIVE_SHADOWS_ON
+			#define VERTEX_WAVE_ON
+			// #pragma shader_feature_local_vertex  VERTEX_WAVE_ON
+			#define FRESNEL_ON // #pragma shader_feature_local_fragment  FRESNEL_ON
+			#pragma shader_feature_local_fragment  ALPHA_TEST
+			#pragma shader_feature_local_fragment  DISTORTION_ON
+			#pragma shader_feature_local_fragment  DISSOLVE_ON
+			#pragma shader_feature_local_fragment  OFFSET_ON
+			#pragma shader_feature_local_fragment  _PARALLAX
+			
+
+			#pragma shader_feature_local  ENV_REFLECT_ON
+			#pragma shader_feature_local  ENV_REFRACTION_ON
+			#pragma shader_feature_local_fragment  MATCAP_ON
+			#pragma shader_feature_local_fragment  DEPTH_FADING_ON
+			// #pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON // low frequency
+			#pragma shader_feature_local MIN_VERSION
+			#pragma shader_feature_local _GLITCH_ON
+
+			// -------------------------------------
+            // Universal Pipeline keywords
+            #pragma shader_feature_local MAIN_LIGHT_CALCULATE_SHADOWS // _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
+
+			/**
+			 	if object not show, 
+					can comment  _ADDITIONAL_LIGHTS _ADDITIONAL_LIGHT_SHADOWS
+					change shader_feature to multi_compile
+			*/
+
+            #pragma shader_feature_local _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
+            // #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS  //low frequency
+			// #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT // low frequency
+
+            // #pragma multi_compile _ _REFLECTION_PROBE_BLENDING
+            // #pragma multi_compile _ _REFLECTION_PROBE_BOX_PROJECTION
+            // #pragma shader_feature_local_fragment _ _SHADOWS_SOFT
+
+            // -------------------------------------
+            // Unity defined keywords
+            // #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
+            // #pragma multi_compile _ SHADOWS_SHADOWMASK
+            // #pragma multi_compile _ DIRLIGHTMAP_COMBINED
+            // #pragma multi_compile _ LIGHTMAP_ON
+            // #pragma multi_compile _ DYNAMICLIGHTMAP_ON
+            // #pragma multi_compile_fog
+			#define FOG_LINEAR //#pragma multi_compile_local FOG_LINEAR
+            // #pragma multi_compile _ DEBUG_DISPLAY
+			
+			#pragma target 3.0
+			#pragma vertex vert
+			#pragma fragment frag
+
+			#define SIMPLE_VERSION
+			#include "Lib/PowerVFXPassVersion.hlsl"
+
+			ENDHLSL
+		}
+		
+		Pass
+        {
+            Name "DepthOnly"
+            Tags{"LightMode" = "DepthOnly"}
+
+            ZWrite [_ZWriteMode]
+            ColorMask 0
+            Cull[_Cull]
+
+            HLSLPROGRAM
+
+            //--------------------------------------
+			// --------- Enable UnityInstancing, uncomments two lines below
+            // #pragma multi_compile_instancing
+            // #pragma instancing_options forcemaxcount:40
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature_local_fragment ALPHA_TEST
+
+			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
+			#include "Lib/PowerVFXInput.hlsl"
+			#define USE_SAMPLER2D
+			#include "../../PowerShaderLib/UrpLib/ShadowCasterPass.hlsl"
+
+            ENDHLSL
+        }
+		Pass
+        {
+            Name "ShadowCaster"
+            Tags{"LightMode" = "ShadowCaster"}
+
+            ZWrite [_ZWriteMode]
+            ColorMask 0
+            Cull[_Cull]
+
+            HLSLPROGRAM
+            //--------------------------------------
+			// --------- Enable UnityInstancing, uncomments two lines below
+            // #pragma multi_compile_instancing
+            // #pragma instancing_options forcemaxcount:40
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+            // -------------------------------------
+            // This is used during shadow map generation to differentiate between directional and punctual light shadows, as they use different formulas to apply Normal Bias
+            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW			
+            // Material Keywords
+            #pragma shader_feature_local_fragment ALPHA_TEST
+
+			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
+			#include "Lib/PowerVFXInput.hlsl"
+			#define SHADOW_PASS
+			#define USE_SAMPLER2D
+			#define _MainTex _DissolveTex
+
+			#undef _MainTexChannel
+			#define _MainTexChannel _DissolveTexChannel
+			#include "../../PowerShaderLib/UrpLib/ShadowCasterPass.hlsl"
+
+            ENDHLSL
+        }
+	}
+
 
 	SubShader
 	{

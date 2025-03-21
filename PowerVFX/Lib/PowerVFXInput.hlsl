@@ -60,7 +60,7 @@ half _MainTexOffset_CustomData_On;
 half _MainTexOffset_CustomData_X;
 half _MainTexOffset_CustomData_Y; // default Custom1.xy
 
-// half _DoubleEffectOn; //2层效果,
+half _DoubleEffectOn; //2层效果,
 half4 _MainTexMask_ST;
 half _MainTexMaskOffsetStop;
 half _MainTexMaskChannel;
@@ -189,8 +189,8 @@ half _BlendScreenColor;
 half _FresnelAlphaBase;
     
 // ==================================================_EnvReflectOn
-//half _EnvReflectOn;
-#define _EnvReflectOn 1
+half _EnvReflectOn;
+// #define _EnvReflectOn 1
 half4 _EnvReflectionColor;
 half4 _EnvMapMask_ST;
 half _EnvMaskUseMainTexMask;
@@ -202,8 +202,8 @@ half _EnvRotateAutoStop;
 half4 _EnvRefractRotateInfo;
 half _EnvRefractRotateAutoStop;    
 
-// half _EnvRefractionOn;
-#define _EnvRefractionOn 1
+half _EnvRefractionOn;
+// #define _EnvRefractionOn 1
 half _EnvRefractionIOR;
 half4 _EnvRefractionColor;
 half4 _EnvMap_HDR;
