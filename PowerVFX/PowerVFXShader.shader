@@ -1,11 +1,17 @@
 ﻿/**
 	Control PowerVFX's ShaderLod
 		shader.maxmiumLOD = ?
-	
+
 	LOD 100
 		standard version, full features
 	LOD 80
 		simple version, parts features
+		define SIMPLE_VERSION
+		disabled features:
+
+		1 _UVCircleDist2
+		2 _PerChannelColorOn
+		3 GetDistortionMask
 	LOD 50
 		min version, little features
 

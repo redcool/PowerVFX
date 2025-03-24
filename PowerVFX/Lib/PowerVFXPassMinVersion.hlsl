@@ -12,6 +12,9 @@
     3 sphere fog
     4 vertex color
     5 alpha test
+    6 DISSOLVE_ON
+    7 FRESNEL
+    8 OFFSET_ON
 */
 
 #include "../../PowerShaderLib/Lib/UnityLib.hlsl"
