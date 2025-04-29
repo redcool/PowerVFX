@@ -119,6 +119,7 @@ Shader "FX/PowerVFX"
 		
 		[Header(Alpha Channel)]
 		[GroupEnum(,R 0 G 1 B 2 A 3)] _OverrideAlphaChannel("_OverrideAlphaChannel",float) = 3
+		[GroupItem(,fade out less than distance to camera)]_ViewFadingDist("_ViewFadingDist",range(0,1)) = 0
 // ================================================== States Settings
 		[Header(BlendMode)]
 		[Enum(UnityEngine.Rendering.BlendMode)]_SrcMode("Src Mode",int) = 5

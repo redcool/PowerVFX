@@ -272,10 +272,10 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
         // clip(mainColor.a -0.001);
     #endif
 
-    const float viewFadingDist = 1;
+    float viewFadingDist = _ViewFadingDist;
     // float viewDistFading = Dist2Fading(_WorldSpaceCameraPos.xyz ,worldPos.xyz,viewFadingDist);
     // w is -vertex.z(viewSpace)
-    float viewDistFading = saturate(NDCWFading(i.vertex.w , viewFadingDist));
+    float viewDistFading = viewFadingDist>0? saturate(NDCWFading(i.vertex.w , viewFadingDist)) : 1;
 
     mainColor.a = saturate(mainColor.a * viewDistFading);
     return mainColor;

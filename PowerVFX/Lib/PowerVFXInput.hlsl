@@ -224,6 +224,7 @@ half _AlphaMax;
 half _AlphaMin;
 half _AlphaScale;
 half _OverrideAlphaChannel;
+half _ViewFadingDist;
 // ==================================================   Light
 half _PbrLightOn;
 half _CustomLightOn;
