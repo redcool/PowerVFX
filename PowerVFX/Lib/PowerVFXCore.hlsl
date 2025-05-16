@@ -200,14 +200,9 @@ half GetDistortionMask(float2 mainUV){
 }
 
 float2 GetDistortionUV(float2 mainUV,float4 distortUV,float customDataIntensity){
-    float2 noise = (tex2D(_DistortionNoiseTex, distortUV.xy).xy -0.5) * 2;
-    #if defined(DOUBLE_EFFECT_ON)
-    // branch_if(_DoubleEffectOn)
-    {
-        noise += (tex2D(_DistortionNoiseTex, distortUV.zw).xy -0.5)*2;
-        noise *= 0.5;
-    }
-    #endif
+    float2 noise = tex2D(_DistortionNoiseTex, distortUV.xy).xy*2-1;
+    noise += tex2D(_DistortionNoiseTex, distortUV.zw).xy*2-1;
+    noise *= 0.5;
     
     half duvMask = 1;
     #if !defined(MIN_VERSION) && !defined(SIMPLE_VERSION)
