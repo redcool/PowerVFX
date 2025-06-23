@@ -142,6 +142,9 @@ Shader "FX/PowerVFX"
 		[GroupEnum(_,RGBA 16 RGB 15 RG 12 GB 6 RB 10 R 8 G 4 B 2 A 1 None 0)]
 		_ColorMask("_ColorMask",int) = 15
 
+		[Header(DepthOffset)]
+		_DepthOffsetFactor("_DepthOffsetFactor",range(-1,1)) = 0
+		_DepthOffsetUnit("_DepthOffsetUnit",range(-1,1)) = 0
 // ==================================================_VertexWaveOn
 		[Header(VertexWave)]
 		[GroupToggle(_)]_VertexWaveOn("_VertexWaveOn",int) = 0
@@ -569,7 +572,7 @@ Shader "FX/PowerVFX"
 			Cull[_CullMode]
 			ztest[_ZTestMode]
 			ColorMask [_ColorMask]
-			
+			Offset[_DepthOffsetFactor],[_DepthOffsetUnit]
 
 			HLSLPROGRAM
 			// --------- Enable UnityInstancing, uncomments two lines below
@@ -725,7 +728,7 @@ Shader "FX/PowerVFX"
 			Cull[_CullMode]
 			ztest[_ZTestMode]
 			ColorMask [_ColorMask]
-			
+			Offset[_DepthOffsetFactor],[_DepthOffsetUnit]
 
 			HLSLPROGRAM
 			// --------- Enable UnityInstancing, uncomments two lines below
@@ -883,7 +886,7 @@ Shader "FX/PowerVFX"
 			Cull[_CullMode]
 			ztest[_ZTestMode]
 			ColorMask [_ColorMask]
-			
+			Offset[_DepthOffsetFactor],[_DepthOffsetUnit]
 
 			HLSLPROGRAM
 			// --------- Enable UnityInstancing, uncomments two lines below
