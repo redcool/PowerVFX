@@ -51,7 +51,7 @@ void ApplyVertexWaveWorldSpace(inout float3 worldPos,float3 normal,float3 vertex
 
     //1 vertex color atten
     //2 uniform dir atten
-    float dirAtten = _VertexWaveDirAttenCustomDataOn ? waveDirAttenCData : _VertexWaveDirAtten.w * unity_ObjectToWorld._m00*unity_ObjectToWorld._m00;
+    float dirAtten = _VertexWaveDirAttenCustomDataOn ? waveDirAttenCData : _VertexWaveDirAtten.w;
     float3 dir = normalize(_VertexWaveDirAtten.xyz+0.0001) * dirAtten;
     // dir *= lerp(1,normal,_VertexWaveDirAlongNormalOn);
     dir *= _VertexWaveDirAlongNormalOn? normal : 1;
