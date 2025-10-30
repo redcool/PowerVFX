@@ -88,7 +88,8 @@ half4 frag(v2f i) : SV_Target
     #endif
     
     // Sample MainTex
-    float4 mainTex = tex2D(_MainTex,mainUV.xy);
+    // float4 mainTex = tex2D(_MainTex,mainUV.xy);
+    half4 mainTex = SampleMainTex(mainUV.xy);
     half4 mainColor = mainTex;
     
     //select a channel
