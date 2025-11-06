@@ -18,6 +18,7 @@
 */
 
 #include "../../PowerShaderLib/Lib/UnityLib.hlsl"
+#include "../../PowerShaderLib/Lib/CoordinateSystem.hlsl"
 #include "../../PowerShaderLib/UrpLib/URP_Fog.hlsl"
 #include "PowerVFXCore.hlsl"
 
@@ -36,9 +37,11 @@ v2f vert(appdata v){
     // --------------  uv.xy : main uv, zw : custom data1.xy
     float mainTexOffsetCdataX = GET_CUSTOM_DATA(o,_MainTexOffset_CustomData_X);
     float mainTexOffsetCdataY = GET_CUSTOM_DATA(o,_MainTexOffset_CustomData_Y);
-    o.uv = MainTexOffset(float4(v.uv.xy,mainTexOffsetCdataX,mainTexOffsetCdataY));    
 
     o.vertex = TransformObjectToHClip(v.vertex.xyz);
+    float2 suv = ComputeNormalizedScreenPos(o.vertex).xy;
+    o.uv = MainTexOffset(float4(_MainTexUseScreenColor ? suv : v.uv.xy , mainTexOffsetCdataX,mainTexOffsetCdataY));    
+
     float3 worldPos = TransformObjectToWorld(v.vertex.xyz);
     float3 worldNormal = TransformObjectToWorldNormal(v.normal);
     float3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
@@ -50,6 +53,7 @@ v2f vert(appdata v){
         o.animBlendUV_fogCoord.zw = CalcFogFactor(worldPos.xyz);
     #endif
     o.viewDir_AnimBlendFactor = float4(viewDir,0);// viewDir and particle anim blend factor
+
     return o;
 }
 
