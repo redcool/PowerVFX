@@ -136,7 +136,7 @@ half _DissolveMaskChannel;
 half4 _DissolveTex_ST;
 half4 _DissolveMask_ST;
 half _DissolveTexOffsetStop;
-half _DissolveClipOn; //ALPHA_TEST
+// half _DissolveClipOn; //ALPHA_TEST
 half _Cutoff;
 
 half _PixelDissolveOn;

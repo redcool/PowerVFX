@@ -3,7 +3,7 @@
 
 
 // Tabs
-tabNames =  Settings,Main,Distortion,Dissolve,Offset,Fresnel
+tabNames =  Settings,Main,Distortion,Dissolve,Offset,Fresnel,Alpha
 
 // Tab's contents
 Settings= _CullMode, _ZWriteMode,_ZTestMode,_PresetBlendMode,_RenderQueue,_FogOn,_StencilComp,_Stencil,_StencilOp,_Version
@@ -12,3 +12,4 @@ Distortion = _DistortionOn, _DistortionNoiseTex, _DistortionIntensity,_Distortio
 Dissolve = _DissolveOn,_DissolveRevert, _DissolveTex,_DissolveTexOffsetStop, _DissolveTexChannel,_DissolveMaskFromTexOn,_DissolveMaskChannel, _DissolveByVertexColor, _DissolveCustomDataOn,_DissolveCustomData,_DissolveFadingMin,_DissolveFadingMax, _DissolveClipOn,_Cutoff
 Offset = _OffsetOn, _OffsetTex, _OffsetTile, _OffsetDir,_StopAutoOffset,_OffsetCustomDataOn,_OffsetLayer1_CustomData_X,_OffsetLayer1_CustomData_Y, _OffsetTexColorTint, _OffsetTexColorTint2, _OffsetMaskTex,_OffsetMaskPanStop, _OffsetMaskChannel,_OffsetMaskApplyMainTexAlpha, _OffsetBlendIntensity,_OffsetBlendMode,_OffsetBlendReplaceMode,_OffsetBlendReplaceMode_Channel, _OffsetHeightMap, _OffsetHeight
 Fresnel = _FresnelOn,_FresnelColorMode, _FresnelColor,_FresnelColor2,_FresnelPowerMin, _FresnelPowerMax,_BlendScreenColor,_FresnelAlphaBase
+Alpha = _PresetBlendMode,_RenderQueue,_AlphaTestOn,_Cutoff

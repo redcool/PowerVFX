@@ -182,6 +182,11 @@ half4 frag(v2f i,half faceId:VFACE) : SV_Target
     float4 mainTexMask=0;
     ApplyMainTexMask(mainColor/**/,mainTexMask/**/,_DistortionApplyToMainTexMask ? uvDistorted : mainUV.zw,mainTexMaskOffsetCustomData);
 
+    //-------- alpha test
+    #if defined(ALPHA_TEST)
+        clip(mainColor.a - _Cutoff - 0.0001);
+    #endif
+
     #if defined(PBR_LIGHTING)
         branch_if(_NormalMapOn){
             float2 normalUV = i.uv.xy * _NormalMap_ST.xy+_NormalMap_ST.zw;
