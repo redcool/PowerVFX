@@ -584,29 +584,29 @@ Shader "FX/PowerVFX"
 
             // -------------------------------------
             // Material Keywords
-			#pragma shader_feature_local  PBR_LIGHTING
-			// #pragma shader_feature_local _RECEIVE_SHADOWS_ON
+			#pragma shader_feature  PBR_LIGHTING
+			// #pragma shader_feature _RECEIVE_SHADOWS_ON
 			#define VERTEX_WAVE_ON
-			// #pragma shader_feature_local_vertex  VERTEX_WAVE_ON
-			#define FRESNEL_ON // #pragma shader_feature_local_fragment  FRESNEL_ON
-			#pragma shader_feature_local_fragment  ALPHA_TEST
-			#pragma shader_feature_local_fragment  DISTORTION_ON
-			#pragma shader_feature_local_fragment  DISSOLVE_ON
-			#pragma shader_feature_local_fragment  OFFSET_ON
-			#pragma shader_feature_local_fragment  _PARALLAX
+			// #pragma shader_feature_vertex  VERTEX_WAVE_ON
+			#define FRESNEL_ON // #pragma shader_feature_fragment  FRESNEL_ON
+			#pragma shader_feature_fragment  ALPHA_TEST
+			#pragma shader_feature_fragment  DISTORTION_ON
+			#pragma shader_feature_fragment  DISSOLVE_ON
+			#pragma shader_feature_fragment  OFFSET_ON
+			#pragma shader_feature_fragment  _PARALLAX
 			
 
-			#pragma shader_feature_local  ENV_REFLECT_ON
-			#pragma shader_feature_local  ENV_REFRACTION_ON
-			#pragma shader_feature_local_fragment  MATCAP_ON
-			#pragma shader_feature_local_fragment  DEPTH_FADING_ON
-			// #pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON // low frequency
-			#pragma shader_feature_local MIN_VERSION
-			#pragma shader_feature_local _GLITCH_ON
+			#pragma shader_feature  ENV_REFLECT_ON
+			#pragma shader_feature  ENV_REFRACTION_ON
+			#pragma shader_feature_fragment  MATCAP_ON
+			#pragma shader_feature_fragment  DEPTH_FADING_ON
+			// #pragma shader_feature_fragment  DOUBLE_EFFECT_ON // low frequency
+			#pragma shader_feature MIN_VERSION
+			#pragma shader_feature _GLITCH_ON
 
 			// -------------------------------------
             // Universal Pipeline keywords
-            #pragma shader_feature_local MAIN_LIGHT_CALCULATE_SHADOWS // _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
+            #pragma shader_feature MAIN_LIGHT_CALCULATE_SHADOWS // _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
 
 			/**
 			 	if object not show, 
@@ -614,13 +614,13 @@ Shader "FX/PowerVFX"
 					change shader_feature to multi_compile
 			*/
 
-            #pragma shader_feature_local _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
-            // #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS  //low frequency
-			// #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT // low frequency
+            #pragma shader_feature _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
+            // #pragma shader_feature_fragment _ADDITIONAL_LIGHT_SHADOWS  //low frequency
+			// #pragma shader_feature_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT // low frequency
 
             // #pragma multi_compile _ _REFLECTION_PROBE_BLENDING
             // #pragma multi_compile _ _REFLECTION_PROBE_BOX_PROJECTION
-            // #pragma shader_feature_local_fragment _ _SHADOWS_SOFT
+            // #pragma shader_feature_fragment _ _SHADOWS_SOFT
 
             // -------------------------------------
             // Unity defined keywords
@@ -662,7 +662,7 @@ Shader "FX/PowerVFX"
 
             // -------------------------------------
             // Material Keywords
-            #pragma shader_feature_local_fragment ALPHA_TEST
+            #pragma shader_feature_fragment ALPHA_TEST
 
 			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
 			#include "Lib/PowerVFXInput.hlsl"
@@ -693,7 +693,7 @@ Shader "FX/PowerVFX"
             // This is used during shadow map generation to differentiate between directional and punctual light shadows, as they use different formulas to apply Normal Bias
             #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW			
             // Material Keywords
-            #pragma shader_feature_local_fragment ALPHA_TEST
+            #pragma shader_feature_fragment ALPHA_TEST
 
 			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
 			#include "Lib/PowerVFXInput.hlsl"
@@ -740,29 +740,29 @@ Shader "FX/PowerVFX"
 
             // -------------------------------------
             // Material Keywords
-			#pragma shader_feature_local  PBR_LIGHTING
-			// #pragma shader_feature_local _RECEIVE_SHADOWS_ON
+			#pragma shader_feature  PBR_LIGHTING
+			// #pragma shader_feature _RECEIVE_SHADOWS_ON
 			#define VERTEX_WAVE_ON
-			// #pragma shader_feature_local_vertex  VERTEX_WAVE_ON
-			#define FRESNEL_ON // #pragma shader_feature_local_fragment  FRESNEL_ON
-			#pragma shader_feature_local_fragment  ALPHA_TEST
-			#pragma shader_feature_local_fragment  DISTORTION_ON
-			#pragma shader_feature_local_fragment  DISSOLVE_ON
-			#pragma shader_feature_local_fragment  OFFSET_ON
-			#pragma shader_feature_local_fragment  _PARALLAX
+			// #pragma shader_feature_vertex  VERTEX_WAVE_ON
+			#define FRESNEL_ON // #pragma shader_feature_fragment  FRESNEL_ON
+			#pragma shader_feature_fragment  ALPHA_TEST
+			#pragma shader_feature_fragment  DISTORTION_ON
+			#pragma shader_feature_fragment  DISSOLVE_ON
+			#pragma shader_feature_fragment  OFFSET_ON
+			#pragma shader_feature_fragment  _PARALLAX
 			
 
-			#pragma shader_feature_local  ENV_REFLECT_ON
-			#pragma shader_feature_local  ENV_REFRACTION_ON
-			#pragma shader_feature_local_fragment  MATCAP_ON
-			#pragma shader_feature_local_fragment  DEPTH_FADING_ON
-			// #pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON // low frequency
-			#pragma shader_feature_local MIN_VERSION
-			#pragma shader_feature_local _GLITCH_ON
+			#pragma shader_feature  ENV_REFLECT_ON
+			#pragma shader_feature  ENV_REFRACTION_ON
+			#pragma shader_feature_fragment  MATCAP_ON
+			#pragma shader_feature_fragment  DEPTH_FADING_ON
+			// #pragma shader_feature_fragment  DOUBLE_EFFECT_ON // low frequency
+			#pragma shader_feature MIN_VERSION
+			#pragma shader_feature _GLITCH_ON
 
 			// -------------------------------------
             // Universal Pipeline keywords
-            #pragma shader_feature_local MAIN_LIGHT_CALCULATE_SHADOWS // _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
+            #pragma shader_feature MAIN_LIGHT_CALCULATE_SHADOWS // _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
 
 			/**
 			 	if object not show, 
@@ -770,13 +770,13 @@ Shader "FX/PowerVFX"
 					change shader_feature to multi_compile
 			*/
 
-            #pragma shader_feature_local _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
-            // #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS  //low frequency
-			// #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT // low frequency
+            #pragma shader_feature _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
+            // #pragma shader_feature_fragment _ADDITIONAL_LIGHT_SHADOWS  //low frequency
+			// #pragma shader_feature_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT // low frequency
 
             // #pragma multi_compile _ _REFLECTION_PROBE_BLENDING
             // #pragma multi_compile _ _REFLECTION_PROBE_BOX_PROJECTION
-            // #pragma shader_feature_local_fragment _ _SHADOWS_SOFT
+            // #pragma shader_feature_fragment _ _SHADOWS_SOFT
 
             // -------------------------------------
             // Unity defined keywords
@@ -820,7 +820,7 @@ Shader "FX/PowerVFX"
 
             // -------------------------------------
             // Material Keywords
-            #pragma shader_feature_local_fragment ALPHA_TEST
+            #pragma shader_feature_fragment ALPHA_TEST
 
 			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
 			#include "Lib/PowerVFXInput.hlsl"
@@ -851,7 +851,7 @@ Shader "FX/PowerVFX"
             // This is used during shadow map generation to differentiate between directional and punctual light shadows, as they use different formulas to apply Normal Bias
             #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW			
             // Material Keywords
-            #pragma shader_feature_local_fragment ALPHA_TEST
+            #pragma shader_feature_fragment ALPHA_TEST
 
 			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
 			#include "Lib/PowerVFXInput.hlsl"
@@ -898,32 +898,32 @@ Shader "FX/PowerVFX"
 
             // -------------------------------------
             // Material Keywords
-			// #pragma shader_feature_local  PBR_LIGHTING
-			// #pragma shader_feature_local _RECEIVE_SHADOWS_ON
+			// #pragma shader_feature  PBR_LIGHTING
+			// #pragma shader_feature _RECEIVE_SHADOWS_ON
 			// #define VERTEX_WAVE_ON
-			// #pragma shader_feature_local_vertex  VERTEX_WAVE_ON
-			// #define FRESNEL_ON // #pragma shader_feature_local_fragment  FRESNEL_ON
-			#pragma shader_feature_local_fragment  ALPHA_TEST
-			#pragma shader_feature_local_fragment  DISTORTION_ON
-			#pragma shader_feature_local_fragment  DISSOLVE_ON
-			// #pragma shader_feature_local_fragment  OFFSET_ON
-			// #pragma shader_feature_local_fragment  _PARALLAX
+			// #pragma shader_feature_vertex  VERTEX_WAVE_ON
+			// #define FRESNEL_ON // #pragma shader_feature_fragment  FRESNEL_ON
+			#pragma shader_feature_fragment  ALPHA_TEST
+			#pragma shader_feature_fragment  DISTORTION_ON
+			#pragma shader_feature_fragment  DISSOLVE_ON
+			// #pragma shader_feature_fragment  OFFSET_ON
+			// #pragma shader_feature_fragment  _PARALLAX
 			
 
-			// #pragma shader_feature_local  ENV_REFLECT_ON
-			// #pragma shader_feature_local  ENV_REFRACTION_ON
-			// #pragma shader_feature_local_fragment  MATCAP_ON
-			// #pragma shader_feature_local_fragment  DEPTH_FADING_ON
-			// #pragma shader_feature_local_fragment  DOUBLE_EFFECT_ON // low frequency
+			// #pragma shader_feature  ENV_REFLECT_ON
+			// #pragma shader_feature  ENV_REFRACTION_ON
+			// #pragma shader_feature_fragment  MATCAP_ON
+			// #pragma shader_feature_fragment  DEPTH_FADING_ON
+			// #pragma shader_feature_fragment  DOUBLE_EFFECT_ON // low frequency
 
 			// lod <=100, enable MIN_VERSION
 			#define MIN_VERSION 
-			// #pragma shader_feature_local MIN_VERSION
-			// #pragma shader_feature_local _GLITCH_ON
+			// #pragma shader_feature MIN_VERSION
+			// #pragma shader_feature _GLITCH_ON
 
 			// -------------------------------------
             // Universal Pipeline keywords
-            // #pragma shader_feature_local MAIN_LIGHT_CALCULATE_SHADOWS // _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
+            // #pragma shader_feature MAIN_LIGHT_CALCULATE_SHADOWS // _MAIN_LIGHT_SHADOWS //_MAIN_LIGHT_SHADOWS_CASCADE //_MAIN_LIGHT_SHADOWS_SCREEN
 
 			/**
 			 	if object not show, 
@@ -931,13 +931,13 @@ Shader "FX/PowerVFX"
 					change shader_feature to multi_compile
 			*/
 
-            // #pragma shader_feature_local _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
-            // #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS  //low frequency
-			// #pragma shader_feature_local_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT // low frequency
+            // #pragma shader_feature _ADDITIONAL_LIGHTS //_ADDITIONAL_LIGHTS_VERTEX
+            // #pragma shader_feature_fragment _ADDITIONAL_LIGHT_SHADOWS  //low frequency
+			// #pragma shader_feature_fragment _ADDITIONAL_LIGHT_SHADOWS_SOFT // low frequency
 
             // #pragma multi_compile _ _REFLECTION_PROBE_BLENDING
             // #pragma multi_compile _ _REFLECTION_PROBE_BOX_PROJECTION
-            // #pragma shader_feature_local_fragment _ _SHADOWS_SOFT
+            // #pragma shader_feature_fragment _ _SHADOWS_SOFT
 
             // -------------------------------------
             // Unity defined keywords
@@ -979,7 +979,7 @@ Shader "FX/PowerVFX"
 
             // -------------------------------------
             // Material Keywords
-            #pragma shader_feature_local_fragment ALPHA_TEST
+            #pragma shader_feature_fragment ALPHA_TEST
 
 			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
 			#include "Lib/PowerVFXInput.hlsl"
@@ -1010,7 +1010,7 @@ Shader "FX/PowerVFX"
             // This is used during shadow map generation to differentiate between directional and punctual light shadows, as they use different formulas to apply Normal Bias
             #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW			
             // Material Keywords
-            #pragma shader_feature_local_fragment ALPHA_TEST
+            #pragma shader_feature_fragment ALPHA_TEST
 
 			#include "../../PowerShaderLib/Lib/UnityLib.hlsl"
 			#include "Lib/PowerVFXInput.hlsl"
