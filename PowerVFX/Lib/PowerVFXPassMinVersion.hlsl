@@ -95,7 +95,7 @@ half4 frag(v2f i) : SV_Target
     // float4 mainTex = tex2D(_MainTex,mainUV.xy);
     half4 mainTex = SampleMainTex(mainUV.xy);
     half4 mainColor = mainTex;
-    
+    ApplySaturate(mainColor);
     //select a channel
     // mainColor = lerp(mainColor, mainColor[_MainTexChannel] ,_MainTexSingleChannelOn);
     mainColor = _MainTexSingleChannelOn ? mainColor[_MainTexChannel] : mainColor;
