@@ -1,4 +1,4 @@
-namespace PowerUtilities
+﻿namespace PowerUtilities
 {
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +10,7 @@ using UnityEngine.Rendering.Universal;
 #endif
 #if UNITY_EDITOR
     using UnityEditor;
+    using PowerUtilities.RenderFeatures;
 
     [CustomEditor(typeof(AfterTransparentRender))]
     public class AfterTransparentRenderEditor : Editor
@@ -56,7 +57,7 @@ using UnityEngine.Rendering.Universal;
         }
 
 
-        public class AfterTransparentRenderPass : ScriptableRenderPass
+        public class AfterTransparentRenderPass : SRPPass
         {
             FilteringSettings filterSettings;
             List<ShaderTagId> shaderTags = new List<ShaderTagId> {
@@ -93,7 +94,7 @@ using UnityEngine.Rendering.Universal;
                 //------
 #if UNITY_2022_1_OR_NEWER
                 //if (renderer.cameraColorTargetHandle == renderer.cameraDepthTargetHandle)
-                    cmd.SetRenderTarget(renderer.cameraColorTargetHandle, renderer.cameraDepthTargetHandle);
+                    cmd.SetRenderTarget(renderer.CameraColorTargetHandle(), renderer.CameraDepthTargetHandle());
 #else
                 //if (renderer.cameraColorTarget == renderer.cameraDepthTarget)
                 cmd.SetRenderTarget(renderer.cameraColorTarget, renderer.cameraDepthTarget);
@@ -125,7 +126,7 @@ using UnityEngine.Rendering.Universal;
 
         }
 
-        public class GrabTransparentPass : ScriptableRenderPass
+        public class GrabTransparentPass : SRPPass
         {
             int _BlurTex = Shader.PropertyToID(nameof(_BlurTex));
             RenderTargetIdentifier currentActiveId,opaqueTextureId;
